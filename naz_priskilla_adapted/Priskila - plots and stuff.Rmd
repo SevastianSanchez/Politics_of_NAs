@@ -1,0 +1,537 @@
+---
+title: "SDG Missingness, Democracy, and Transparency"
+author: "Priskila Nandita"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+
+library(tidyverse)
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(fixest)
+library(viridis)
+library(dplyr)
+library(Hmisc)
+```
+
+# Load Data
+
+```{r}
+df <- read_csv("cleaned_data.csv")
+
+sdg_cols <- df %>%
+  select(starts_with("sdg")) %>%
+  colnames()
+
+length(sdg_cols)
+```
+
+# Construct SDG Missingness Dataset
+
+```{r}
+df <- df %>%
+  mutate(
+    n_sdg_indicators = length(sdg_cols),
+    n_sdg_missing    = apply(select(., all_of(sdg_cols)), 1, function(x) sum(is.na(x))),
+    prop_sdg_missing = n_sdg_missing / n_sdg_indicators
+  )
+```
+
+## Overall distribution of missingness
+
+```{r}
+df %>%
+  summarise(
+    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
+    sd_missing   = sd(prop_sdg_missing, na.rm = TRUE),
+    min_missing  = min(prop_sdg_missing, na.rm = TRUE),
+    max_missing  = max(prop_sdg_missing, na.rm = TRUE)
+  )
+
+# Histogram
+ggplot(df, aes(x = prop_sdg_missing)) +
+  geom_histogram(bins = 30) +
+  labs(
+    x = "Proportion of SDG indicators missing",
+    y = "Number of country-years",
+    title = "Distribution of SDG data missingness"
+  )
+```
+
+## Missingness by SDG goal
+We compute proportion missing per goal (1–17) for each country-year.
+
+```{r}
+# Construct per-goal missingness for each country-year
+
+sdg_cols <- grep("^sdg", names(df2), value = TRUE)
+
+for (g in 1:17) {
+  # all indicator columns for this goal in df2
+  goal_cols <- grep(paste0("^sdg", g, "_"), names(df2), value = TRUE)
+  
+  # skip if this goal has no indicators in your data
+  if (length(goal_cols) == 0) next
+  
+  # count how many indicators under this goal are missing in each row
+  df2[[paste0("n_miss_SDG", g)]] <- apply(df2[goal_cols], 1, function(x) sum(is.na(x)))
+}
+
+for (g in 1:17) {
+  goal_cols <- grep(paste0("^sdg", g, "_"), names(df2), value = TRUE)
+  if (length(goal_cols) == 0) next
+  
+  # proportion of indicators missing for that goal
+  df2[[paste0("prop_miss_SDG", g)]] <-
+    df2[[paste0("n_miss_SDG", g)]] / length(goal_cols)
+}
+```
+
+```{r}
+
+goal_missing <- function(g) {
+  goal_cols <- grep(paste0("^sdg", g, "_"), names(df), value = TRUE)
+  df %>%
+    mutate(
+      goal = paste0("SDG", g),
+      n_goal_ind = length(goal_cols),
+      n_goal_missing = apply(select(., all_of(goal_cols)), 1, function(x) sum(is.na(x))),
+      prop_missing = n_goal_missing / n_goal_ind
+    ) %>%
+    select(country_code, country_name, year, income_level, goal, prop_missing)
+}
+
+goal_miss_df <- bind_rows(lapply(1:17, goal_missing))
+
+# Average missingness per goal across all country-years
+goal_summary <- goal_miss_df %>%
+  group_by(goal) %>%
+  summarise(
+    mean_prop_missing = mean(prop_missing, na.rm = TRUE),
+    sd_prop_missing   = sd(prop_missing, na.rm = TRUE)
+  ) %>%
+  arrange(desc(mean_prop_missing))
+
+goal_summary
+
+#Bar plot of missingness by SDG goal
+
+ggplot(goal_summary, aes(x = reorder(goal, mean_prop_missing), y = mean_prop_missing)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Average Proportion of Missing SDG Indicators, by Goal",
+    x = "SDG Goal",
+    y = "Mean Missingness"
+  )
+```
+
+```{r}
+#Pattern across country-income groups
+
+#Overall missingness
+income_missing_summary <- df %>%
+  group_by(income_level) %>%
+  summarise(
+    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
+    sd_missing   = sd(prop_sdg_missing, na.rm = TRUE),
+    median_missing = median(prop_sdg_missing, na.rm = TRUE),
+    n_obs = n()
+  ) %>%
+  arrange(desc(mean_missing))
+
+income_missing_summary
+
+
+#Bar Plot with 95% CI
+income_ci <- df %>%
+  group_by(income_level) %>%
+  summarise(
+    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
+    se_missing   = sd(prop_sdg_missing, na.rm = TRUE) / sqrt(n()),
+    lower_ci     = mean_missing - 1.96 * se_missing,
+    upper_ci     = mean_missing + 1.96 * se_missing
+  )
+
+ggplot(income_ci, aes(x = income_level, y = mean_missing)) +
+  geom_col(fill = "steelblue") +
+  geom_errorbar(
+    aes(ymin = lower_ci, ymax = upper_ci),
+    width = 0.2
+  ) +
+  labs(
+    title = "Average SDG Missingness by Income Group (95% CI)",
+    x = "Income Group",
+    y = "Mean proportion missing"
+  ) +
+  theme_minimal()
+
+```
+## Overall Average Missingness over time 
+```{r}
+overall_missing_over_time <- df %>%
+  group_by(year) %>%
+  summarise(
+    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
+    sd_missing = sd(prop_sdg_missing, na.rm = TRUE),
+    n = n()
+  )
+
+
+ggplot(overall_missing_over_time, aes(x = year, y = mean_missing)) +
+  geom_line(color = "steelblue", size = 1.2) +
+  geom_point(color = "steelblue") +
+  labs(
+    title = "Average SDG Missingness Over Time",
+    x = "Year",
+    y = "Mean Proportion Missing"
+  ) +
+  theme_minimal()
+
+overall_missing_over_time
+
+```
+
+#Goal-Level Average Missingness Over Time
+
+```{r}
+goal_missing_over_time <- goal_miss_df %>%
+  group_by(goal, year) %>%
+  summarise(
+    mean_missing = mean(prop_missing, na.rm = TRUE),
+    sd_missing = sd(prop_missing, na.rm = TRUE),
+    n = n()
+  ) %>%
+  ungroup()
+
+goal_missing_over_time
+
+ggplot(goal_missing_over_time,
+       aes(x = year, y = mean_missing)) +
+  geom_line(color = "darkred") +
+  geom_point(color = "darkred", size = 0.8) +
+  facet_wrap(~ goal, scales = "free_y") +
+  labs(
+    title = "Average SDG Missingness Over Time by Goal",
+    x = "Year",
+    y = "Mean Proportion Missing"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+#Patterns across per goal missingness by income group
+
+goal_missing <- function(g) {
+  goal_cols <- grep(paste0("^sdg", g, "_"), names(df), value = TRUE)
+  
+  df %>%
+    mutate(
+      goal = paste0("SDG", g),
+      n_ind = length(goal_cols),
+      n_miss = apply(select(., all_of(goal_cols)), 1, function(x) sum(is.na(x))),
+      prop_missing = n_miss / n_ind
+    ) %>%
+    select(
+      country_code,
+      country_name,
+      year,
+      income_level,   # <-- ADD THIS
+      goal,
+      prop_missing
+    )
+}
+
+goal_miss_df <- dplyr::bind_rows(lapply(1:17, goal_missing))
+
+goal_missing_over_time <- goal_miss_df %>%
+  dplyr::group_by(goal, year) %>%
+  dplyr::summarise(
+    mean_missing = mean(prop_missing, na.rm = TRUE),
+    sd_missing   = sd(prop_missing, na.rm = TRUE),
+    n = dplyr::n()
+  ) %>%
+  dplyr::ungroup()
+
+```
+
+```{r}
+goal_income_summary <- goal_miss_df %>%
+  group_by(goal, income_level) %>%
+  summarise(mean_missing = mean(prop_missing, na.rm = TRUE))
+
+goal_income_summary
+```
+
+```{r}
+ggplot(goal_income_summary,
+       aes(x = income_level, y = mean_missing, fill = income_level)) +
+  geom_col() +
+  facet_wrap(~ goal, ncol = 4) +
+  labs(
+    title = "Average SDG Missingness by Goal and Income Group",
+    x = "Income Group",
+    y = "Proportion Missing"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(size = 10, face = "bold")
+  )
+```
+# Demcoractic variables
+
+## World map of democracy levels
+
+```{r}
+#install.packages(c("sf", "rnaturalearth", "rnaturalearthdata", "ggplot2", "dplyr"))
+
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+
+df_latest <- df %>%
+  filter(year == max(year)) %>%
+  select(country_code, elect_dem)
+
+world_dem <- world %>%
+  left_join(df_latest, by = c("iso_a3" = "country_code"))
+
+ggplot(data = world_dem) +
+  geom_sf(aes(fill = elect_dem), color = "gray30", size = 0.1) +
+  scale_fill_viridis_c(option = "plasma", na.value = "lightgray") +
+  theme_minimal() +
+  labs(
+    title = "World Map of Electoral Democracy (Latest Year)",
+    fill  = "Electoral Democracy"
+  ) +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    legend.position = "right"
+  )
+
+```
+
+## Gobal democracy trend over time
+
+```{r}
+df %>%
+  group_by(year) %>%
+  summarise(global_mean = mean(elect_dem, na.rm = TRUE)) %>%
+  ggplot(aes(x = year, y = global_mean)) +
+  geom_line(size = 1, color = "darkred") +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    title = "Global Trend in Electoral Democracy Over Time",
+    x = "Year",
+    y = "Global mean elect_dem"
+  )
+```
+
+## How many countries experienced democratization / backsliding?
+
+```{r}
+dem_groups <- df %>%
+  group_by(country_code, country_name) %>%
+  summarise(
+    ever_dem = any(dem_ep == 1, na.rm = TRUE),
+    ever_aut = any(aut_ep == 1, na.rm = TRUE)
+  ) %>%
+  mutate(
+    trajectory = case_when(
+      ever_aut & !ever_dem ~ "Backsliding only",
+      ever_dem & !ever_aut ~ "Democratizing only",
+      ever_dem & ever_aut  ~ "Both episodes",
+      TRUE                 ~ "No major episode"
+    )
+  )
+
+
+table(dem_groups$trajectory)
+
+
+ggplot(dem_groups, aes(x = trajectory, fill = trajectory)) +
+  geom_bar() +
+  labs(
+    title = "Number of Countries by Democratic Trajectory (V-Dem Episodes)",
+    x = "",
+    y = "Number of Countries"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+only_backsliding <- dem_groups %>%
+  filter(trajectory == "Backsliding only") %>%
+  arrange(country_name)
+
+only_backsliding
+```
+
+## Map autocratization episodes
+
+```{r}
+df_auto <- df %>%
+  group_by(country_code) %>%
+  summarise(ever_aut = any(aut_ep == 1, na.rm = TRUE))
+
+world_auto <- world %>%
+  left_join(df_auto, by = c("iso_a3" = "country_code"))
+
+ggplot(world_auto) +
+  geom_sf(aes(fill = ever_aut)) +
+  scale_fill_manual(values = c("lightgray", "red")) +
+  theme_minimal() +
+  labs(title = "Countries That Experienced Autocratization Episodes")
+
+```
+
+# Missingness vs Democracy
+
+## Correlation and scatter plots: democracy vs missingness
+
+```{r}
+df %>%
+  select(prop_sdg_missing, elect_dem, lib_dem, part_dem, egal_dem, delib_dem) %>%
+  cor(use = "pairwise.complete.obs")
+
+ggplot(df, aes(x = elect_dem, y = prop_sdg_missing)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(
+    x = "Electoral democracy index (V-Dem)",
+    y = "Proportion of SDG indicators missing",
+    title = "Relationship between democracy and SDG data missingness"
+  )
+
+```
+
+## Other plots for democratic variables
+
+# 6. Two-Way Fixed Effects Models with staggered treatment
+
+Question: Does entering an autocratization episode increase SDG data missingness?
+
+## Define treatment timing (staggered adoption)
+We use aut_ep_start_yr as the group (treatment year). For countries that never backslide, this is NA.
+
+```{r}
+treat_df <- df %>%
+  group_by(country_code) %>%
+  summarise(
+    G_aut = suppressWarnings(min(aut_ep_start_yr[aut_ep == 1], na.rm = TRUE)),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    G_aut = ifelse(is.infinite(G_aut), NA, G_aut)   # if no episode, set to NA
+  )
+
+df2 <- df %>%
+  left_join(treat_df, by = "country_code") %>%
+  mutate(
+    # TWFE-like treatment indicator: treated once year >= G_aut
+    D_aut = ifelse(!is.na(G_aut) & year >= G_aut, 1, 0)
+  )
+```
+
+## TFWE Model 
+Outcome: prop_sdg_missing
+Treatment: D_aut
+Fixed effects: country and year
+Errors: clustered by country
+
+```{r}
+twfe_model <- feols(
+  prop_sdg_missing ~ D_aut | country_code + year,
+  cluster = ~ country_code,
+  data = df2
+)
+
+summary(twfe_model)
+
+twfe_model2 <- feols(
+  prop_sdg_missing ~ D_aut + log_gdppc | country_code + year,
+  cluster = ~ country_code,
+  data = df2
+)
+summary(twfe_model2)
+
+twfe_model3 <- feols(
+  prop_sdg_missing ~ D_aut + log_gdppc + electric_access + rural_pop_pct + rd_expenditure_pct | country_code + year,
+  cluster = ~ country_code,
+  data = df2
+)
+summary(twfe_model3)
+
+
+```
+PRF
+
+```{r}
+\[
+Y_{it} = \alpha_i + \lambda_t 
+       + \beta D_{it} 
+       + \gamma_1 \log(\text{GDPpc}_{it})
+       + \gamma_2 \text{electric\_access}_{it}
+       + \gamma_3 \text{rural\_pop\_pct}_{it}
+       + \gamma_4 \text{rd\_expenditure\_pct}_{it}
+       + \varepsilon_{it},
+\]
+```
+
+
+
+After a country enters an autocratization episode, the proportion of SDG indicators missing increases by about 0.94 percentage points, relative to:
+- its own pre-autocratization levels, and
+- other countries that never autocratized or have not yet autocratized.
+
+The effect is small, and the p-value (~0.057) means:
+- borderline significance at the 10% level,
+- not statistically significant at the 5% level.
+
+So: autocratization may increase SDG missingness slightly, but evidence is not strong.
+
+
+```{r}
+save(df2, file = "sdg_democracy_paneldata.RData")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

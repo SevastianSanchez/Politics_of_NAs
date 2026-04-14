@@ -1,0 +1,252 @@
+
+---
+title: "Democratic Backsliding and SDG Data Missingness"
+subtitle: "Preliminary descriptive & TWFE results"
+author: "Priskila Nandita, Naz Hussein, Sevastian Sanchez"
+institute: "Columbia University | SIPA"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: libs
+    nature:
+      mathjax: "default"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---   
+<style>
+.underline {
+  text-decoration: underline;
+}
+</style>
+
+<style>
+.remark-slide-content:not(.title-slide) {
+  background-color: #F0F2E2; /* Light lavender pastel */
+}
+</style>
+
+<style>
+.title-slide {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url("https://images.unsplash.com/photo-1584931423298-c576fda54bd2?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+}
+</style>
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  dev = "png",
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+
+library(tidyverse)
+library(fixest)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(knitr)
+library(broom)
+library(Cairo) 
+library(modelsummary)
+library(stargazer)
+library(kableExtra)
+library(lmtest)
+library(multiwayvcov)
+library(sandwich)
+
+# Load final combined panel data (must be in same folder as this Rmd)
+load("sdg_democracy_paneldata.RData")
+
+# Assume main panel is called df2
+stopifnot(exists("df2"))
+
+# Basic metadata
+n_countries <- dplyr::n_distinct(df2$country_code)
+years_min   <- min(df2$year, na.rm = TRUE)
+years_max   <- max(df2$year, na.rm = TRUE)
+
+# Helper: build goal-level missingness long-form from sdg* columns
+sdg_vars <- grep("^sdg", names(df2), value = TRUE)
+
+goal_missing <- function(g) {
+  goal_cols <- grep(paste0("^sdg", g, "_"), names(df2), value = TRUE)
+  if (length(goal_cols) == 0) return(NULL)
+  df2 %>%
+    mutate(
+      goal = paste0("SDG", g),
+      n_ind = length(goal_cols),
+      n_miss = apply(select(., all_of(goal_cols)), 1,
+                     function(x) sum(is.na(x))),
+      prop_missing = n_miss / n_ind
+    ) %>%
+    select(
+      country_code,
+      country_name,
+      year,
+      income_level,
+      goal,
+      n_ind,
+      n_miss,
+      prop_missing,
+      elect_dem
+    )
+}
+
+goal_miss_df <- dplyr::bind_rows(lapply(1:17, goal_missing))
+```
+
+#Country in Autocratization Episodes Over Time
+
+<div style="text-align:center;">
+
+
+```{r}
+#install.packages("plotly")
+library(plotly)
+```
+
+.pull-center[
+```{r aut_map, fig.align='center', fig.height=6}
+
+auto_map <- df2 %>%
+  group_by(country_code, year) %>%
+  summarise(
+    aut_status = max(aut_ep, na.rm = TRUE),  # 1 = autocratized, 0 = not
+    .groups = "drop"
+  )
+
+p <- plot_ly(
+  data = auto_map,
+  type = "choropleth",
+  locations = ~country_code,      # ISO3 codes
+  locationmode = "ISO-3",
+  z = ~aut_status,                # 0 or 1
+  frame = ~year,                  # <- this creates the year slider
+  colorscale = list(
+    c(0,  "#f0f0f0"),             # light grey = not autocratized
+    c(1,  "#e41a1c")              # red = in autocratization episode
+  ),
+  showscale = FALSE,
+  hovertemplate = paste(
+    "Country: %{location}<br>",
+    "Year: %{frame}<br>",
+    "Autocratization: %{z}<extra></extra>"
+  )
+) %>%
+  layout(
+    title = "Countries in Autocratization Episodes Over Time",
+    geo = list(
+      showframe = FALSE,
+      showcoastlines = FALSE,
+      projection = list(type = "robinson")
+    )
+  )
+
+p
+```
+]
+
+---
+#Average SDG missingness over time by democratic trajectory
+
+```{r processing}
+# 1. Classify each country by episode history
+dem_groups <- df2 %>%
+  group_by(country_code, country_name) %>%
+  summarise(
+    ever_dem = any(dem_ep == 1, na.rm = TRUE),
+    ever_aut = any(aut_ep == 1, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    trajectory = dplyr::case_when(
+      ever_aut & !ever_dem ~ "Backsliding only",
+      ever_dem & !ever_aut ~ "Democratizing only",
+      ever_dem & ever_aut  ~ "Backsliding & democratizing",
+      TRUE                 ~ "No major episode"
+    ),
+    trajectory = factor(
+      trajectory,
+      levels = c("Backsliding only",
+                 "Democratizing only",
+                 "Backsliding & democratizing",
+                 "No major episode")
+    )
+  )
+
+# 2. Attach trajectory to panel data
+df_traj <- df2 %>%
+  left_join(dem_groups, by = c("country_code", "country_name"))
+```
+
+.pull-center[
+```{r, fig.align='center', out.width="80%", fig.height=4}
+avg_missing_simple <- df_traj %>%
+  mutate(
+    treated_group = if_else(
+      trajectory %in% c("Backsliding only", "Backsliding & democratizing"),
+      "Ever autocratized",
+      "Never autocratized"
+    )
+  ) %>%
+  group_by(year, treated_group) %>%
+  summarise(
+    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+
+ggplot(avg_missing_simple,
+       aes(x = year, y = mean_missing, color = treated_group)) +
+  geom_line(size = 1) +
+  geom_point() +
+  labs(
+    title = "Average SDG Missingness: Ever vs Never Autocratized",
+    x = "Year",
+    y = "Mean proportion of SDG indicators missing",
+    color = "Group"
+  ) +
+  theme_minimal()
+```
+]
+
+---
+# Staggered DiD: PRF
+
+
+We estimate:
+
+$$Y_{it} = \alpha_i + \lambda_t + ATT_{g,t} \cdot D_{it} + X_{it}\gamma + \varepsilon_{it}$$
+
+Where:
+
+- $Y_{it}$: SDG missingness in country $i$, year $t$ 
+- $D_{it}$: indicator that country \(i\) is treated (autocratized) in year \(t\)
+- $ATT_{g,t}$: group-time average treatment effect for countries first treated at time \(g\)
+- $X_{it}$: socioeconomic controls (GDPpc, electricity access, rural pop share, R&D spending)
+- $\alpha_i$: country fixed effects
+- $\lambda_t$: year fixed effects
+- $\varepsilon_{it}$: error term
+
+This formulation allows treatment effects to differ depending on the year  
+each country autocratized.
+
+---
+#Future Modeling Strategy
+
+To further strengthen causal identification, we plan to:
+
+- Restrict sample to "sufficiently democratic" countries pre-episode to avoid bias from very low-capacity/borderline states.
+- Heterogeneous treatment effects
+Allow effect sizes to differ by: baseline democracy level, statistical capacity, region, income group  
+- Futher analysis.
+We will complement the quantitative results with a qualitative  event analysis of several illustrative country cases that  experienced autocratization (e.g., Hungary, Turkey, India).
+
+---
+
