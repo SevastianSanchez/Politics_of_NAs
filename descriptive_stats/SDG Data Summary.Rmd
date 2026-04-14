@@ -1,0 +1,250 @@
+---
+title: 'DSPC 7514 Deliverable 2: \break Project Proposal (SDG Analysis)'
+author: "Priskila Nandita (ptn2113) , Naz Hussein (nh2845), Sevastian Sanchez (ss7257)"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: no
+    toc_depth: '3'
+    number_sections: yes
+  html_document:
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    number_sections: yes
+    highlight: tango
+    theme: default
+    fig_caption: yes
+    df_print: tibble
+urlcolor: blue
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Load necessary libraries
+```{r}
+library(tidyverse)
+library(readxl)
+library(devtools)
+library(vdemdata) # call vdem package 
+library(ERT) # call ERT package
+library(WDI) # call WDI package for GINI coefficient
+library(janitor)
+library(knitr)
+```
+
+# set working directory 
+
+#sdg excel from directory (Raw indicators)
+```{r}
+setwd("~/Desktop/SIPA/Fall 25' - SIPA/Policy Data Analysis Using R/DataLoss_Proj")
+
+sdg_raw <- read_excel("data/SDR2025-data.xlsx", sheet = "All Raw Data") %>%
+  filter(year >= 2000)
+view(sdg_raw)
+```
+
+#sdg excel from directory (composite scores)
+```{r}
+sdg <- read_excel("data/SDR2025-data.xlsx", sheet = "Backdated SDG Index") %>% 
+  filter(year >= 2000)
+
+indicator_lookup_full <- indicator_lookup %>%
+  left_join(sdg_table %>% 
+              select(SDG, Title, Headline_Indicator_or_Proxy) %>%
+              mutate(SDG = paste0("sdg", SDG)),
+            by = c("goal" = "SDG")) %>%
+  relocate(code, goal, short_name, label_guess, Title, Headline_Indicator_or_Proxy)
+
+sdg_long <- sdg_raw %>%
+  pivot_longer(
+    cols = starts_with("sdg"),
+    names_to  = "code",
+    values_to = "value"
+  ) %>%
+  mutate(value = suppressWarnings(as.numeric(value)))  # in case of text like ".."
+```
+
+
+
+# 1) Country–year missingness 
+```{r}
+sdg_missing_cy <- sdg_long %>%
+  group_by(Country, year) %>%
+  summarise(
+    total_indicators   = n(),
+    missing_indicators = sum(is.na(value)),
+    missing_rate       = missing_indicators / total_indicators,
+    .groups = "drop"
+  )
+
+sdg_summary <- sdg_missing_cy %>%
+  summarise(
+    mean_missing = mean(missing_rate, na.rm = TRUE),
+    sd_missing   = sd(missing_rate, na.rm = TRUE),
+    min_missing  = min(missing_rate, na.rm = TRUE),
+    max_missing  = max(missing_rate, na.rm = TRUE),
+    n_countries  = n_distinct(Country),
+    n_obs        = n()
+  )
+sdg_summary
+
+kable(sdg_summary, caption = "Summary Statistics: SDG Data Missingness (2015–2024)")
+
+```
+
+
+**Interpretation** 
+On average, `r round(sdg_summary$mean_missing * 100, 1)`% of SDG indicators 
+are missing for a given country in a given year — meaning countries, on average,
+report only about `r round((1 - sdg_summary$mean_missing) * 100, 1)` of 
+SDG indicators.
+
+The best-reported country-year had only `r round(sdg_summary$min_missing * 100, 1)`
+% missing, while the worst had `r round(sdg_summary$max_missing * 100, 1)`%.
+
+There’s moderate variation across countries and years — some countries are 
+much more complete than others. The data has a standard deviation of 
+`r round(sdg_summary$sd_missing * 100, 1)` percentage points.
+
+The data includes `r round(n_countries = 208)` countries or territories, 
+consistent with global SDG coverage.
+
+#2: Variation across time 
+```{r}
+sdg_missing_cy %>%
+  group_by(year) %>%
+  summarise(
+    mean_missing = mean(missing_rate, na.rm = TRUE),
+    sd_missing = sd(missing_rate, na.rm = TRUE),
+    median_missing = median(missing_rate, na.rm = TRUE)
+  ) %>%
+  ggplot(aes(x = year, y = mean_missing)) +
+  geom_line() +
+  geom_point() +
+  theme_bw() +
+  labs(title = "Average SDG Data Missingness Over Time",
+       y = "Mean Missing Rate", x = "Year")
+```
+
+**Interpretation**
+The Average SGD Data Missingness Over Time graph shows the mean proportion of 
+missing Sustainable Development Goal (SDG) indicators per country-year.  
+Between 2000 and 2018, the global average missingness steadily declined from 
+roughly 60% to below 45%, reflecting improvements in data coverage and reporting
+consistency under the early SDG framework.
+
+However, after 2019, the trend reverses sharply.  
+By 2025, the global mean missingness reaches `r round(max(missing_trend$mean_missing, na.rm = TRUE) * 100, 1)`%, 
+indicating that only about `r round((1 - max(missing_trend$mean_missing, na.rm = TRUE)) * 100, 1)`
+% of SDG indicators are being reported on average.  
+This reversal coincides with post-pandemic disruptions, capacity shortfalls, 
+and increasing political restrictions on data transparency.
+
+Across the entire 2015–2024 period, countries report an average of 
+`r round((1 - sdg_summary$mean_missing) * 100, 1)`% of SDG indicators, 
+with a standard deviation of `r round(sdg_summary$sd_missing * 100, 1)` 
+percentage points based on `r scales::comma(sdg_summary$n_obs)` 
+country-year observations covering `r sdg_summary$n_countries` countries.  
+
+Overall, the figure suggests that initial progress toward comprehensive SDG 
+reporting  has been followed by a dramatic reversal, potentially linked to 
+governance and transparency declines in the wake of global crises and democratic
+backsliding.
+
+
+# 3. Cross-Sectional Distribution
+```{r}
+sdg_missing_cy %>%
+  filter(year == 2020) %>%
+  ggplot(aes(x = missing_rate)) +
+  geom_histogram(binwidth = 0.05, fill = "steelblue", color = "white") +
+  theme_bw() +
+  labs(title = "Distribution of SDG Data Missingness (2020)",
+       x = "Missing Rate", y = "Number of Countries")
+```
+       
+**Interpretation**
+The Distribution of SDG Data Missingness graph shows the distribution of SDG 
+data missingness across countries in 2020.  
+The average missingness rate that year was `r round(mean(sdg_missing_cy$missing_rate[sdg_missing_cy$year == 2020], na.rm = TRUE) * 100, 1)`
+%, with a standard deviation of `r round(sd(sdg_missing_cy$missing_rate[sdg_missing_cy$year == 2020], na.rm = TRUE) * 100, 1)` percentage points.  
+
+Most countries reported between `r round(min(sdg_missing_cy$missing_rate[sdg_missing_cy$year == 2020], na.rm = TRUE) * 100, 1)`% and 
+`r round(max(sdg_missing_cy$missing_rate[sdg_missing_cy$year == 2020], na.rm = TRUE) * 100, 1)`% of their SDG indicators, indicating moderate variation in reporting completeness 
+across countries.  
+
+The histogram shows a concentration around the mid-range (roughly 40–50%), 
+suggesting that while many countries achieved partial reporting, 
+full SDG data coverage remained uncommon in 2020.
+
+#4. Between- vs Within-Country Variation
+```{r}
+sdg_missing_cy %>%
+  group_by(Country) %>%
+  summarise(
+    mean_missing = mean(missing_rate, na.rm = TRUE),
+    sd_missing = sd(missing_rate, na.rm = TRUE),
+    n_years = n()
+  ) %>%
+  arrange(desc(mean_missing))
+```
+
+
+##Plotting a Few Cases
+```{r}
+top_countries <- c("Afghanistan", "Norway", "Kenya", "Brazil")
+
+sdg_missing_cy %>%
+  filter(Country %in% top_countries) %>%
+  ggplot(aes(x = year, y = missing_rate, color = Country)) +
+  geom_line(size = 1.2) +
+  theme_bw() +
+  labs(title = "Trends in SDG Missingness by Country",
+       y = "Missing Rate", x = "Year")
+```
+
+# 5. Visualization: trend over time
+## Average missingness over time
+```{r}
+missing_trend <- sdg_missing_cy %>%
+  group_by(year) %>%
+  summarise(
+    mean_missing = mean(missing_rate, na.rm = TRUE),
+    sd_missing = sd(missing_rate, na.rm = TRUE),
+    n_countries = n_distinct(Country)
+  )
+```
+
+## Line plot of the mean missing rate by year
+```{r}
+ggplot(missing_trend, aes(x = year, y = mean_missing)) +
+  geom_line(color = "#2C3E50", size = 1.2) +
+  geom_point(color = "#E74C3C", size = 2) +
+  geom_ribbon(aes(ymin = mean_missing - sd_missing, ymax = mean_missing + sd_missing),
+              fill = "skyblue", alpha = 0.2) +
+  theme_minimal(base_size = 13) +
+  labs(
+    title = "Average SDG Data Missingness Over Time (2000–2024)",
+    x = "Year",
+    y = "Mean Missing Rate",
+    caption = "Source: Sustainable Development Report (2025)"
+  )
+```
+
+**Interpretation** 
+The Average SDG Data Missingness Over Time graph shows the trend in the 
+global SDG data missingness rate from 2000 to 2025.  
+
+The average share of missing indicators across countries is `r round(mean(missing_trend$mean_missing, na.rm = TRUE) * 100, 1)`%, 
+with the lowest level around `r round(min(missing_trend$mean_missing, na.rm = TRUE) * 100, 1)`% in `r missing_trend$year[which.min(missing_trend$mean_missing)]` 
+and the highest reaching `r round(max(missing_trend$mean_missing, na.rm = TRUE) * 100, 1)`% in `r missing_trend$year[which.max(missing_trend$mean_missing)]`.  
+
+The steady decline in missingness through the mid-2010s suggests growing
+statistical capacity and SDG data coverage, followed by a sharp reversal after 
+2020—indicating a recent collapse in reporting consistency that may reflect 
+post-pandemic disruptions and weakening transparency in some countries.
