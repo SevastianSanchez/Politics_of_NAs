@@ -6,9 +6,11 @@ library(WDI) # Call WDI package for GINI coefficient
 
 # WDI Indicators 
 electr_access <- WDI(country = "all", indicator = "1.1_ACCESS.ELECTRICITY.TOT", start = 2015, end = 2025)
+rd_expenditure <- WDI(country = "all", indicator = "GB.XPD.RSDV.GD.ZS", start = 2015, end = 2025)
+
+# both have 2346 NAs 
 secondary_edu <- WDI(country = "all", indicator = "CC.SE.CAT3.ZS", start = 2015, end = 2025)
 post_secondary_edu <- WDI(country = "all", indicator = "CC.SE.CAT4.ZS", start = 2015, end = 2025)
-rd_expenditure <- WDI(country = "all", indicator = "GB.XPD.RSDV.GD.ZS", start = 2015, end = 2025)
 
 ### OTHER INTERESTING/RELATED WDI VARIABLES ###
 # Access to electricity

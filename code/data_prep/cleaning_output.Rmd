@@ -4,9 +4,6 @@ output: html_document
 ---
 
 ```{r}
-# set working directory
-setwd("~/Desktop/SIPA/Fall 25' - SIPA/Policy Data Analysis Using R/DataLoss_Proj")
-
 # load packages
 source("packages.R")
 ```

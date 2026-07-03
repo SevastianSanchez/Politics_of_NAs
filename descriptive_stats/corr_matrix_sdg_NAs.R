@@ -3,10 +3,10 @@ library(dplyr)
 library(tidyr)
 library(purrr)
 
-load("data/output/sdg_democracy_paneldata.RData") # updated 
+data2 <- readRDS("data/output/sdg_democracy_paneldata.rds")
 
 # Extract the data 
-corr_data <- df2 %>%
+corr_data <- data2 %>%
   dplyr::select(country_name, country_code, year, matches("^prop_miss_sdg\\d+"), 
                 elect_dem, log_gdppc, log_pop, income_level, rural_pop_pct, 
                 rd_expenditure_pct)
@@ -62,4 +62,6 @@ ggplot(correlation_data, aes(x = factor(year),
     plot.subtitle = element_text(hjust = 0.5),
     legend.position = "right"
   )
+
+
 

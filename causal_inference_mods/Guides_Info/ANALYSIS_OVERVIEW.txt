@@ -1,0 +1,309 @@
+
+================================================================================
+                         ANALYSIS OVERVIEW
+        Democratic Backsliding & Data Availability Analysis
+================================================================================
+
+YOUR RESEARCH QUESTION:
+How do changes in democracy scores affect countries' data availability?
+
+Specifically: Does democratic BACKSLIDING increase data missingness 
+differently than DEMOCRATIZATION decreases it?
+
+================================================================================
+                    THREE COMPLEMENTARY APPROACHES
+================================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ APPROACH 1: Two-Way Fixed Effects (TWFE) with Asymmetric Variables     │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ WHAT IT TESTS:                                                         │
+│   • Separate linear effects of backsliding vs democratization          │
+│   • Whether the magnitude of effect differs by direction               │
+│                                                                         │
+│ KEY OUTPUTS:                                                           │
+│   ✓ β₁ (backsliding): Effect of democracy DECREASING                  │
+│   ✓ β₂ (democratization): Effect of democracy INCREASING              │
+│   ✓ Wald test: Are β₁ and β₂ statistically different?                │
+│                                                                         │
+│ VISUALIZATION: approach1_twfe_coefficients.png                         │
+│   → Coefficient plot showing effects on all 17 SDG indicators          │
+│   → Red dots = backsliding, Blue dots = democratization                │
+│                                                                         │
+│ STRENGTHS:                                                             │
+│   ✓ Easy to interpret                                                  │
+│   ✓ Directly tests asymmetry hypothesis                               │
+│   ✓ Works with continuous treatment                                    │
+│                                                                         │
+│ LIMITATIONS:                                                           │
+│   ✗ May have bias with staggered treatment & heterogeneous effects    │
+│   ✗ Assumes linear effects                                            │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ APPROACH 2: Callaway-Sant'Anna Difference-in-Differences              │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ WHAT IT TESTS:                                                         │
+│   • Causal effect of autocratization episodes                         │
+│   • Pre-treatment parallel trends (validation)                         │
+│   • Evolution of effects over time (dynamics)                          │
+│   • Heterogeneity across treatment cohorts                            │
+│                                                                         │
+│ KEY OUTPUTS:                                                           │
+│   ✓ Overall ATT: Average effect across all treated countries          │
+│   ✓ Dynamic ATT: Effects before/after treatment (event study)         │
+│   ✓ Group ATT: Effects by cohort (year treatment started)             │
+│   ✓ Calendar ATT: Effects by calendar time                            │
+│                                                                         │
+│ VISUALIZATION: approach2_cs_event_study.png                            │
+│   → Event study plot with confidence intervals                         │
+│   → X-axis: Years relative to autocratization start                    │
+│   → Pre-period should be flat (parallel trends check)                  │
+│                                                                         │
+│ VISUALIZATION: approach2_cs_group_effects.png                          │
+│   → Effects by treatment cohort                                        │
+│   → Shows if recent vs older episodes have different effects           │
+│                                                                         │
+│ STRENGTHS:                                                             │
+│   ✓ Solves TWFE bias with staggered treatment                         │
+│   ✓ Allows heterogeneous effects                                      │
+│   ✓ Provides pre-treatment placebo test                               │
+│   ✓ Gold standard for causal inference                                │
+│                                                                         │
+│ LIMITATIONS:                                                           │
+│   ✗ Only examines autocratization (not democratization separately)    │
+│   ✗ Requires never/not-yet-treated control group                      │
+│   ✗ More complex interpretation                                       │
+│   ✗ Computationally intensive                                         │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ APPROACH 3: Categorical Bins                                           │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ WHAT IT TESTS:                                                         │
+│   • Non-linear effects: Does magnitude matter?                         │
+│   • Threshold effects: Only large changes matter?                      │
+│   • Full distribution: Small, moderate, large effects                  │
+│                                                                         │
+│ CATEGORIES:                                                            │
+│   5. Large democratization (increase ≥ 0.05)                          │
+│   4. Moderate democratization (increase 0.01-0.05)                     │
+│   3. Stable (change ±0.01) [REFERENCE CATEGORY]                       │
+│   2. Moderate backsliding (decrease 0.01-0.05)                        │
+│   1. Large backsliding (decrease ≥ 0.05)                              │
+│                                                                         │
+│ KEY OUTPUTS:                                                           │
+│   ✓ Coefficient for each category (vs Stable)                         │
+│   ✓ Allows direct comparison across categories                        │
+│                                                                         │
+│ VISUALIZATION: approach3_categorical_effects.png                       │
+│   → Coefficient plot with categories on y-axis                         │
+│   → Color coded: Red (backsliding) vs Blue (democratization)           │
+│                                                                         │
+│ VISUALIZATION: approach3_heatmap_all_sdgs.png                          │
+│   → Heatmap: Categories × SDG indicators                               │
+│   → Shows which SDGs affected by which types of change                 │
+│                                                                         │
+│ STRENGTHS:                                                             │
+│   ✓ No functional form assumptions                                    │
+│   ✓ Easy to visualize and interpret                                   │
+│   ✓ Reveals non-linearities                                           │
+│                                                                         │
+│ LIMITATIONS:                                                           │
+│   ✗ Cutoffs somewhat arbitrary                                        │
+│   ✗ Loses information from binning                                    │
+│   ✗ May have small sample sizes in extreme bins                       │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+================================================================================
+                         ROBUSTNESS CHECKS
+================================================================================
+
+The analysis includes 6 robustness checks to validate findings:
+
+1. Alternative Clustering (by year instead of country)
+   → Tests if correlation structure matters
+
+2. Two-Way Clustering (by country AND year)
+   → Most conservative standard errors
+
+3. Stable Treatment (exclude switchers)
+   → Tests if results driven by countries that flip-flop
+
+4. Placebo Test (lead effects)
+   → Future democracy changes shouldn't predict current data
+   → If significant: suggests reverse causality problem
+
+5. Lagged Dependent Variable
+   → Controls for persistence in data missingness
+   → Tests if effects are beyond autocorrelation
+
+6. Income-Level Heterogeneity
+   → Separate effects for Low, Lower-Middle, Upper-Middle, High income
+   → Tests if effects concentrated in poor vs rich countries
+
+================================================================================
+                    EXPECTED OUTPUT FILES
+================================================================================
+
+VISUALIZATIONS (PNG files):
+┌──────────────────────────────────────┬─────────────────────────────────┐
+│ File Name                            │ What It Shows                   │
+├──────────────────────────────────────┼─────────────────────────────────┤
+│ approach1_twfe_coefficients.png      │ TWFE effects on all SDGs        │
+│ approach2_cs_event_study.png         │ Dynamic treatment effects       │
+│ approach2_cs_group_effects.png       │ Effects by cohort               │
+│ approach3_categorical_effects.png    │ Non-linear category effects     │
+│ approach3_heatmap_all_sdgs.png       │ Category × SDG heatmap          │
+│ comparison_all_approaches.png        │ All methods side-by-side        │
+└──────────────────────────────────────┴─────────────────────────────────┘
+
+DATA EXPORTS (CSV files):
+┌──────────────────────────────────────┬─────────────────────────────────┐
+│ File Name                            │ Contents                        │
+├──────────────────────────────────────┼─────────────────────────────────┤
+│ twfe_coefficients.csv                │ TWFE results for all outcomes   │
+│ categorical_coefficients.csv         │ Categorical results all outcomes│
+│ comparison_table.csv                 │ Summary comparing all methods   │
+│ regression_table.tex                 │ LaTeX table for thesis          │
+└──────────────────────────────────────┴─────────────────────────────────┘
+
+================================================================================
+                   INTERPRETING YOUR RESULTS
+================================================================================
+
+STRONG SUPPORT FOR HYPOTHESIS (Backsliding harms data availability):
+
+✓ TWFE backsliding coefficient > 0 and significant (p < 0.05)
+✓ TWFE backsliding coefficient > democratization coefficient
+✓ Wald test rejects equality (p < 0.05)
+✓ C-S overall ATT > 0 and significant
+✓ C-S pre-treatment effects ≈ 0 (parallel trends hold)
+✓ C-S post-treatment effects increase over time
+✓ Categorical: Large backsliding > Moderate backsliding > Stable
+✓ Robust across all specifications
+
+MODERATE SUPPORT:
+
+~ Some approaches significant, others not
+~ Effects present but small magnitude
+~ Significant only for specific SDGs (e.g., governance indicators)
+~ Effects concentrated in low-income countries only
+
+WEAK/NO SUPPORT:
+
+✗ Coefficients near zero, not significant
+✗ C-S pre-treatment effects significant (parallel trends violated)
+✗ Large standard errors, wide confidence intervals
+✗ Signs flip across robustness checks
+✗ Placebo test significant (reverse causality concerns)
+
+================================================================================
+                      KEY QUESTIONS TO ANSWER
+================================================================================
+
+1. MAGNITUDE: How big is the effect?
+   → Compare coefficient to mean of outcome variable
+   → Calculate % change: (coef / mean) × 100
+   → Example: If coef = 0.05 and mean = 0.50, that's 10% increase
+
+2. SIGNIFICANCE: Is it statistically reliable?
+   → Check p-values < 0.05
+   → Check confidence intervals don't include zero
+   → Robust across specifications?
+
+3. ASYMMETRY: Is backsliding worse than democratization?
+   → Compare |β₁| vs |β₂| in TWFE
+   → Check Wald test p-value
+   → Visual inspection: Are red dots further from zero than blue?
+
+4. DYNAMICS: How do effects evolve?
+   → C-S event study: Do effects grow over time?
+   → Or immediate shock that persists?
+   → Or delayed effects?
+
+5. HETEROGENEITY: Who is affected most?
+   → Income-level models: Poor vs rich countries?
+   → Categorical: Only large changes matter?
+   → Specific SDGs: Governance vs health vs environment?
+
+6. CAUSALITY: Can we make causal claims?
+   → C-S parallel trends hold?
+   → Placebo test passes?
+   → Theoretical mechanism plausible?
+   → Alternative explanations ruled out?
+
+================================================================================
+                    FOR YOUR THESIS WRITE-UP
+================================================================================
+
+SUGGESTED STRUCTURE:
+
+1. MAIN TEXT
+   ├── Present Approach 1 as main result
+   │   └── Easy to interpret, tests your hypothesis directly
+   ├── Show Approach 2 for causal validation
+   │   └── Event study plot demonstrates pre-trends
+   └── Use Approach 3 for mechanism insight
+       └── Shows if magnitude matters
+
+2. MAIN TABLE
+   ├── Column 1: TWFE (backsliding)
+   ├── Column 2: TWFE (democratization)
+   ├── Column 3: TWFE with controls + lag
+   ├── Column 4: C-S overall ATT
+   └── Column 5: Categorical (large backsliding)
+
+3. MAIN FIGURES
+   ├── Figure 1: Comparison of all approaches
+   ├── Figure 2: Event study (C-S)
+   └── Figure 3: Effects across SDG goals
+
+4. APPENDIX
+   ├── Table A1: Summary statistics
+   ├── Table A2: Robustness checks
+   ├── Table A3: Income-level heterogeneity
+   ├── Figure A1: Categorical effects
+   └── Figure A2: SDG heatmap
+
+================================================================================
+                         FINAL CHECKLIST
+================================================================================
+
+Before presenting results, verify:
+
+□ Data loaded correctly (172 countries, 2015-2023)
+□ Democracy variable coded correctly (higher = more democratic)
+□ Outcome variable coded correctly (higher = more missingness)
+□ Missing values handled appropriately
+□ Control variables included and justified
+□ Standard errors clustered at country level
+□ Fixed effects included (country + year)
+□ Coefficients have expected signs
+□ Magnitudes are substantively meaningful
+□ Results robust across specifications
+□ Visualizations clearly labeled
+□ Tables formatted for publication
+□ Interpretation aligns with coefficients
+□ Limitations acknowledged
+□ Alternative explanations considered
+
+================================================================================
+
+READY TO RUN YOUR ANALYSIS!
+
+Follow the QUICK_START_GUIDE.txt for step-by-step instructions.
+Consult INTERPRETATION_GUIDE.txt for detailed methodology notes.
+
+Remember: Multiple approaches strengthen your conclusions. If all three
+methods point in the same direction, you have compelling evidence!
+
+Good luck! 🎓
+
+================================================================================
