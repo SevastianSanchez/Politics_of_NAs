@@ -1,0 +1,324 @@
+---
+title: "panel_model_analysis"
+output: html_document
+---
+
+## Loading & Merging Data 
+```{r}
+library(tidyverse)
+library(devtools)
+library(fixest)   # for TWFE
+library(did)      # for Callaway-Sant'Anna DiD
+library(car)
+library(readr)
+library(janitor)
+library(WDI) # call WDI package for Vars 
+
+# Load data (adjust path if needed)
+# df <- read_csv("sdg_democracy_paneldata.csv")
+df <- readRDS("data/output/sdg_democracy_paneldata.rds")
+
+# Quickly Adding merge of SPI data
+url <- 
+  "https://raw.githubusercontent.com/worldbank/SPI/refs/heads/master/03_output_data/SPI_index.csv"
+spi <- read_csv(url) %>% 
+  dplyr::select(country, date, SPI.INDEX, iso3c) %>% 
+  rename(country_name = country, country_code = iso3c, year = date, spi_overall = SPI.INDEX)
+
+# merging spi into main panel dataset
+panel <- df %>% left_join(spi, by = c("country_code", "year"))
+
+# Quickly Adding Luminosity Data (for potential future use) 
+luminosity <- read_csv("data/input/csvs_other_indicators/nightlight_1992_2023_complete.csv") %>% 
+  filter(year >= 2015) %>% 
+  rename(country_code = iso, luminosity = nlsum)
+
+# merging luminosity into main panel dataset
+panel <- panel %>% left_join(luminosity, by = c("country_code", "year"))
+
+# Quickly Adding episode id for autocratization and democratization
+ert <- read.csv("data/input/ert.csv") %>% 
+  filter(year >= 2000) %>% 
+  dplyr::select(country_text_id, year, dem_ep_id, aut_ep_id) %>% 
+  rename(country_code = country_text_id)
+
+# merging episode id into main panel dataset
+panel <- panel %>% left_join(ert, by = c("country_code", "year"))
+
+# Quickly Adding tax revenue data (for potential future use) [WDI]
+tax_rev_gdp <- WDI(country = "all", indicator = "GC.TAX.TOTL.GD.ZS", start = 2000, end = NULL)
+
+# merging tax revenue data into main panel dataset
+panel <- panel %>% left_join(tax_rev_gdp %>% 
+                               rename(country_code = iso3c, tax_rev_gdp = GC.TAX.TOTL.GD.ZS), 
+                             by = c("country_code", "year"))
+```
+
+**Source for Luminosity data**: Beyer, R.C., Hu, Y. and Yao, J., 2026. The Bright Side of Heteroskedasticity: Measuring Quarterly Economic Growth from Outer Space.
+(link)[https://sites.google.com/site/jiaxiongyao16/nighttime-lights-data?authuser=0] 
+
+## Assessing Distribution of Key Variables
+```{r}
+# Distribution of key variables
+key_vars <- panel %>%
+  select(spi_overall, log_gdppc, log_pop, electric_access, luminosity, rural_pop_pct) %>%
+  pivot_longer(everything(), names_to = "variable", values_to = "value")
+
+ggplot(key_vars, aes(x = value)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  facet_wrap(~ variable, scales = "free") +
+  theme_minimal() +
+  labs(title = "Distribution of Key Variables", x = "Value", y = "Frequency")
+```
+
+
+
+## Data Cleaning and Variable Setup
+```{r}
+# Basic cleaning / type setting -----------------------------------------------
+panel <- panel %>%
+  filter(year >= 2015) %>%
+  mutate(
+    # Treatment cohort: first year of autocratization (0 if never treated)
+    aut_cohort = if_else(aut_ep == 1, aut_ep_start_yr, 0L),
+    log_luminosity = log(luminosity + 1),
+    # Numeric ID required by did::att_gt()
+    country_id = as.numeric(as.factor(country_code)))
+
+panel <- panel %>% mutate(across(
+    c(country_code, year, regime_type_2, regime_type_4, regime_type_10, 
+      aut_ep, dem_ep, regch_event, regch_genuine, aut_cohort), as.factor))
+
+panel$regime_type_4 <- factor(panel$regime_type_4, levels = c("0", "1", "2", "3"))
+panel$income_level <- factor(panel$income_level, levels = c("L", "LM", "UM", "H"))
+```
+**log_pop** has the most missing values, specifically across all countries in 2023, which is likely due to the fact that the World Bank's population data for 2023 may not have been fully updated or released at the time of data collection. 
+
+Strategy: Population data for 2023 was unavailable from the World Bank at the time of data collection; 2022 values were carried forward for this variable. Given the low year-over-year volatility of log population, this is unlikely to meaningfully affect estimates.
+
+## Addressing NA values in key covariates
+```{r}
+# impute missing values for log_pop with previous year values (carry forward)
+panel <- panel %>% 
+  group_by(country_code) %>% 
+  mutate(
+    log_pop = if_else(year == 2023 & is.na(log_pop),
+    log_pop[year == 2022], log_pop)
+    ) %>% 
+  ungroup()
+
+# count of missing values in key variables
+missing_summary <- panel %>%
+  summarise(
+    prop_sdg_missing = sum(is.na(prop_sdg_missing)),
+    aut_ep = sum(is.na(aut_ep)),
+    lib_dem = sum(is.na(lib_dem)),
+    log_gdppc = sum(is.na(log_gdppc)),
+    log_pop = sum(is.na(log_pop)),
+    electric_access = sum(is.na(electric_access)),
+    log_luminosity = sum(is.na(log_luminosity)),
+    rural_pop_pct = sum(is.na(rural_pop_pct)),
+    spi_overall = sum(is.na(spi_overall)),
+    tax_rev_gdp = sum(is.na(tax_rev_gdp))
+  )
+print(missing_summary)
+
+# Table of countries with remaining NA values in key variables (after log_pop imputation)
+panel %>% 
+  group_by(country_code, country_name.x) %>% 
+  summarise(
+    across(c(log_gdppc, log_pop, log_luminosity, electric_access, tax_rev_gdp), ~ sum(is.na(.x))),
+    .groups = "drop") %>% 
+  filter(if_any(c(log_gdppc, log_pop, log_luminosity, electric_access, tax_rev_gdp), ~ .x > 0)) %>% 
+  janitor::adorn_totals("row") %>% 
+  knitr::kable(
+    col.names = c("Country code", "Country", "Log GDP p.c.", "Log Pop.",
+                  "log of Luminosity", "Electric Access", "Tax Revenue % GDP"),
+    caption = "Missing observations by country for key covariates")
+
+# Save as rds
+write_rds(panel, "data/output/MAIN_panel_data.rds") # Used for all subsequent analyses to avoid re-merging SPI data each time.
+# save as csv for AI 
+write_csv(panel, "data/output/MAIN_panel_data.csv")
+```
+
+## Checking distribution of key variables after log transformation & imputation
+```{r}
+# checking distribution of key variables after log transformation
+key_vars <- panel %>%
+  select(spi_overall, log_gdppc, log_pop, electric_access, log_luminosity, rural_pop_pct) %>%
+  pivot_longer(everything(), names_to = "variable", values_to = "value")
+
+ggplot(key_vars, aes(x = value)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  facet_wrap(~ variable, scales = "free") +
+  theme_minimal() +
+  labs(title = "Distribution of Key Variables", x = "Value", y = "Frequency")
+```
+
+
+## Quick check of multicollinearity and missingness in control variables
+```{r}
+# VIF 
+vif_data <- panel %>%
+  select(prop_sdg_missing, lib_dem, log_gdppc, log_pop, log_luminosity,
+         electric_access, rural_pop_pct, spi_overall) %>% na.omit() 
+
+# VIF 1 (with SPI)
+vif_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + log_pop + electric_access + log_luminosity + rural_pop_pct + spi_overall, data = vif_data)
+vif(vif_model)
+
+# VIF 2 (without SPI)
+vif2_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + log_pop + electric_access + log_luminosity + rural_pop_pct, data = vif_data)
+vif(vif2_model)
+
+# matrix of variables and correlations
+cor_data <- vif_data %>% select(-prop_sdg_missing)
+cor_matrix <- cor(cor_data)
+cor_matrix %>% round(2) %>% knitr::kable(
+  caption = "Correlation matrix for control variables (excluding SPI)")
+
+```
+NOTES ABOUT VARIABLES: 
+- Took out R&D expenditure because it has a lot of NAs and is highly correlated with GDP per capita.
+- SPI is missing all of 2015, but is kept in the dataset for now because it is a key control variable. Models are run with and without it to check robustness.
+
+## Robustness Check: Models with and without Log of GDP per capita 
+```{r}
+source("causal_inference_mods/RobChk_GDP_ElecAccess.R") 
+
+# All Three Models (Overall Missingness) in One Table
+etable(mA, mB, mC)
+
+# full coefficient table (per goal)
+coef_ABC
+```
+
+
+# APPROACH 1.1: Two‑way fixed effects (TWFE) [Baseline Models]
+```{r}
+# ---------------------- aut_ep -> overall SDG missingness ---------------------
+
+# M1: TWFE WITHOUT SPI OR CONTROLS (just to see raw relationship)
+m1_twfe <- feols(
+  prop_sdg_missing 
+  ~ aut_ep 
+  | country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m1_twfe)
+
+# M2: TWFE WITH SPI, WITHOUT CONTROLS
+m2_twfe <- feols(
+  prop_sdg_missing 
+  ~ aut_ep 
+  + spi_overall 
+  | country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m2_twfe)
+
+# M3: TWFE WITHOUT SPI, WITH CONTROLS
+m3_twfe <- feols(
+  prop_sdg_missing 
+  ~ aut_ep 
+  + log_pop 
+  + electric_access + I(electric_access^2)
+  + log_luminosity
+  + rural_pop_pct 
+  | country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+summary(m3_twfe)
+
+# M4: TWFE WITH SPI AND CONTROLS (main model)
+m4_twfe <- feols(
+  prop_sdg_missing 
+  ~ aut_ep 
+  + spi_overall 
+  + log_pop 
+  + log_luminosity
+  + electric_access + I(electric_access^2) 
+  + rural_pop_pct 
+  | country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+summary(m4_twfe)
+```
+
+# APPROACH 1.2: Two‑way fixed effects (TWFE) [+ Non-Linear Form Terms]
+```{r}
+# (A) Dynamic TWFE with lagged treatment [BEST MODEL]
+mA_twfe <- feols(
+  prop_sdg_missing 
+  ~ l(aut_ep, 0:1)
+  + log_pop 
+  + log_luminosity
+  + electric_access + I(electric_access^2) 
+  + rural_pop_pct 
+  | country_code + year,
+  data = panel,
+  panel.id = ~ country_code + year,
+  cluster = ~ country_code)
+
+summary(mA_twfe)
+
+# (B) Dynamic + Income heterogeneity: Ability vs willingness: aut_ep × income_level
+mB_twfe <- feols(
+  prop_sdg_missing 
+  ~ l(aut_ep, 0:1) * income_level 
+  + log_pop 
+  + log_luminosity
+  + electric_access + I(electric_access^2) 
+  + rural_pop_pct 
+  | country_code + year,
+  data = panel,
+  panel.id = ~ country_code + year,
+  cluster = ~ country_code)
+
+summary(mB_twfe)
+
+# (C) dynamic + SPI heterogeneity (appendix): Ability vs willingness: aut_ep × income_level
+mC_twfe <- feols(
+  prop_sdg_missing 
+  ~ l(aut_ep, 0:1) * spi_overall 
+  + log_pop 
+  + log_luminosity
+  + electric_access + I(electric_access^2) 
+  + rural_pop_pct 
+  | country_code + year,
+  data = panel,
+  panel.id = ~ country_code + year,
+  cluster = ~ country_code)
+
+summary(mC_twfe)
+
+# (D) dynamic + regime heterogeneity (appendix)
+mD_twfe <- feols(
+  prop_sdg_missing 
+  ~ l(aut_ep, 0:1) * regime_type_4 
+  + log_pop 
+  + log_luminosity
+  + electric_access + I(electric_access^2) 
+  + rural_pop_pct 
+  | country_code + year,
+  data = panel,
+  panel.id = ~ country_code + year,
+  cluster = ~ country_code)
+
+summary(mD_twfe)
+
+```
+
+A: Does being in an autocratization episode increase missingness, net of capacity and standard controls?
+B: ...
+C: Does the effect of backsliding on missingness depend on regime type (regime “willingness” to withhold), conditional on spi_overall?
+D: ...
+
+

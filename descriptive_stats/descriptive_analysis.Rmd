@@ -1,0 +1,906 @@
+---
+title: "base"
+output: html_document
+---
+
+```{r}
+#load libraries/packages
+source("code/packages.R")
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+# load data
+#source("code/data_prep/panel_wrangling.R")
+data <- readRDS("data/output/sdg_democracy_paneldata.rds")
+#data <- read_csv("data/output/ES_panel_data.csv")
+
+# save data as csv
+write_csv(data, "data/output/sdg_democracy_paneldata.csv")
+```
+
+## Sumary Statistics: DI Vars: elect_dem, lib_dem, di_score
+```{r}
+cat("\n=== SUMMARY STATISTICS ===\n")
+summary(data[, c("elect_dem", "lib_dem")])
+
+cat("\n=== CHECK FOR MISSING VALUES ===\n")
+missing_summary <- sapply(data[, c("elect_dem", "lib_dem")], function(x) sum(is.na(x)))
+print(missing_summary)
+
+cat("\n=== STRUCTURE OF THE DATA ===\n")
+str(data[, c("elect_dem", "lib_dem")])
+```
+
+## Descriptive Analysis: NA Counts and DI Distributions
+```{r}
+# (1) Histogram: NA Counts 
+hist_NA_counts <- ggplot(data, aes(x = as.numeric(prop_sdg_missing))) +
+  geom_histogram(
+    binwidth = 0.04,              # adjust as needed
+    color = "white",
+    fill = "#08519c"
+  ) +
+  labs(
+    title = "Distribution of Missing SDG data (country-years)",
+    subtitle = "NA counts, based on Sustainable Development Report (2024)",
+    x = "Proportion of NA values (0-1)",
+    y = "Country-year counts"
+  ) +
+  theme_minimal(base_size = 14)
+hist_NA_counts
+
+# (2) Histogram: EDI Score
+hist_EDI_counts <- ggplot(data, aes(x = as.numeric(elect_dem))) +
+  geom_histogram(
+    binwidth = 0.04,              # adjust to suit scale of lib_dem
+    color    = "white",
+    fill     = "#238443"
+  ) +
+  labs(
+    title = "Distribution of Democracy Levels (country-years)",
+    subtitle = "Based on V-Dem's Electoral Democracy Index (EDI)",
+    x     = "Electoral Democracy Levels (0-1)",
+    y     = "Country-year counts"
+  ) +
+  theme_minimal(base_size = 14)
+hist_EDI_counts
+
+# (3) Histogram: LDI Score
+hist_LDI_counts <- ggplot(data, aes(x = as.numeric(lib_dem))) +
+      geom_histogram(
+        binwidth = 0.04,              # adjust to suit scale of lib_dem
+        color    = "white",
+        fill     = "#6A51A3"
+      ) +
+      labs(
+        title = "Distribution of Democracy Levels (country-years)",
+        subtitle = "Based on V-Dem's Liberal Democracy Index (LDI)",
+        x     = "Liberal Democracy Levels (0-1)",
+        y     = "Country-year counts"
+      ) +
+      theme_minimal(base_size = 14)
+hist_LDI_counts
+
+# save all three histograms using ggsave 
+ggsave(filename = "descriptive_stats/figures/hist_NA_counts.png", 
+       plot = hist_NA_counts, width = 10, height = 8)
+ggsave(filename = "descriptive_stats/figures/hist_EDI_counts.png", 
+       plot = hist_EDI_counts, width = 10, height = 8)
+ggsave(filename = "descriptive_stats/figures/hist_LDI_counts.png", 
+       plot = hist_LDI_counts, width = 10, height = 8)
+
+# combine all three histograms into a single figure using patchwork
+combined_histograms <-
+  hist_NA_counts  + labs(title = NULL, subtitle = NULL) +
+  hist_EDI_counts + labs(title = NULL, subtitle = NULL, y = NULL) +
+  hist_LDI_counts + labs(title = NULL, subtitle = NULL, y = NULL) +
+  plot_annotation(
+    title = "Distributions of SDG Missingness and Democracy Levels",
+    caption = "Based on Sustainable Development Report (2024) and V-Dem EDI & LDI indices",
+    theme = theme(
+      plot.title = element_text(size = 18, face = "bold"),
+      plot.subtitle = element_text(size = 14)
+    )
+  )
+
+combined_histograms
+
+ggsave(filename = "descriptive_stats/figures/combined_histograms.png", 
+       plot = combined_histograms, width = 12, height = 4)
+```
+
+## Descriptive Analysis: Correlation Matrix of SDG Missingness and Democracy Levels
+```{r eval=FALSE, include=FALSE}
+# SDG missingness x democracy levels (elect_dem, lib_dem, di_score) 
+source("descriptive_stats/corr_matrix_sdg_NAs.R")
+
+# SDG missingness x democracy levels (elect_dem, lib_dem, di_score) [partial]
+source("descriptive_stats/partial_corr_matrix_sdg_NAs.R")
+
+# All covariates used in models
+source("descriptive_stats/corr_matrix_key_vars.R")
+```
+
+
+
+## RQ1: How does SDG data missingness differ by regime type over time?
+```{r}
+# Ensuring regime_type_4 is labeled & ordered
+data_plot <- data %>% 
+  mutate(regime_type_4 = case_when(
+      regime_type_4 == 0 ~ "Closed autocracy",
+      regime_type_4 == 1 ~ "Electoral autocracy",
+      regime_type_4 == 2 ~ "Electoral democracy",
+      regime_type_4 == 3 ~ "Liberal democracy",
+      TRUE ~ NA_character_),
+      regime_type_4 = factor(regime_type_4,
+      levels = c("Closed autocracy",
+                 "Electoral autocracy",
+                 "Electoral democracy",
+                 "Liberal democracy")),
+    
+    # income_level: setting order and labels ONCE
+    income_level = factor(income_level,
+      levels = c("L", "LM", "UM", "H"),
+      labels = c("Low income", "Lower middle", "Upper middle", "High income")),
+    # Defining time periods
+    period = case_when(
+      year <= 2014 ~ "2000–2014",
+      year <= 2018 ~ "2015–2018",
+      year <= 2022 ~ "2019–2022",
+      TRUE ~ "2023+"),
+    
+    # Venezuela-specific income variable [ONLY BECAUSE ALL NAs ARE VENEZUELA!]
+    income_level_ven = case_when(
+      is.na(income_level) ~ "Venezuela 2020–2023",
+      TRUE ~ as.character(income_level)),
+    income_level_ven = factor(
+      income_level_ven,
+      levels = c("Low income",
+                 "Lower middle",
+                 "Upper middle",
+                 "High income",
+                 "Venezuela 2020–2023")))
+
+# =============================================================================
+# (1) Density Plot: NA Counts by RoW Groups (Regime Types)
+dens_plt_regimetype <- ggplot(data_plot, 
+             aes(x = prop_sdg_missing, 
+                 fill = regime_type_4, 
+                 color = regime_type_4)) +
+        geom_density(alpha = 0.30, adjust = 1) +
+        labs(title = "Distribution of Missing SDG data, by Regime Type",
+          caption = "Based on Sustainable Development Report (2024) and V-Dem's RoW classifications",
+          x = "Proportion of SDG indicator values that are NA (per country-year)",
+          y = "Density",
+          fill = "Regime type",
+          color = "Regime type") +
+        theme_minimal(base_size = 20) +
+  theme(legend.position = "top", legend.box = "horizontal")
+dens_plt_regimetype
+
+# saving density plot 1 
+ggsave(filename = "descriptive_stats/figures/dens_plt_regimetype.png", 
+       plot = dens_plt_regimetype, width = 15, height = 8)
+
+# sanity check 
+table(data_plot$income_level, useNA = "ifany")
+table(data_plot$income_level_ven, useNA = "ifany")
+
+# =============================================================================
+# (2) Lineplot: NA Counts by RoW Groups over Time (Regime Types)
+year_regime_means <- data_plot %>% 
+  group_by(year, regime_type_4) %>% 
+  summarise(mean_missing = mean(prop_sdg_missing),
+    .groups = "drop")
+
+line_plt_regxtime <- ggplot(year_regime_means,
+             aes(x = year,
+                 y = mean_missing,
+                 color = regime_type_4)) +
+        geom_line(size = 1) +
+        geom_point(size = 1.5) +
+        labs(
+          title = "SDG missingness by regime type over time",
+          subtitle = "Measured in mean proportion of NA values by regime type, per year",
+          x = NULL,
+          y = "Mean proportion of NA values",
+          color = "Regime type",
+          caption = "Based on Sustainable Development Report (2024) and V-Dem's RoW classifications"
+        ) +
+        theme_minimal(base_size = 20) +
+  theme(legend.position = "top", legend.box = "horizontal")
+line_plt_regxtime
+
+# =============================================================================
+# (3) Boxplot: NA Counts by RoW Groups
+box_plt_regxtime <- ggplot(data_plot,
+             aes(x = factor(year),
+                 y = prop_sdg_missing)) +
+        geom_boxplot(outlier.alpha = 0.2) +
+        facet_wrap(~ regime_type_4, nrow = 2) +
+        labs(
+          title = "Distribution of SDG missingness by year and regime type",
+          x = NULL,
+          y = "Proportion of SDG indicator values that are NA") +
+        theme_minimal(base_size = 11) +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1))
+box_plt_regxtime
+
+# saving line and box plots 2 & 3
+ggsave(filename = "descriptive_stats/figures/line_plt_regxtime.png", 
+       plot = line_plt_regxtime, width = 15, height = 8)
+ggsave(filename = "descriptive_stats/figures/box_plt_regxtime.png", 
+       plot = box_plt_regxtime, width = 15, height = 8)
+
+# combine dens_plt_regimetype and line_plt_regxtime into a single figure using patchwork
+
+library(patchwork)
+
+combined_regime_plots <- (dens_plt_regimetype /
+      labs(title = NULL, subtitle = NULL, caption = NULL, x = NULL) +
+      theme(legend.position = "top", legend.justification = c(0.1, 1)) + 
+    line_plt_regxtime +
+      labs(title = NULL, subtitle = NULL) +
+      theme(legend.position = "none")) + 
+  plot_annotation(
+    title = "SDG Missingness by Regime Type",
+    subtitle = "Comparing distributions and trends over time",
+    theme = theme(
+      plot.title    = element_text(size = 40, face = "bold"),
+      plot.subtitle = element_text(size = 33)))
+
+combined_regime_plots
+
+ggsave(
+  filename = "descriptive_stats/figures/combined_regime_plots.png",
+  plot     = combined_regime_plots,
+  width    = 15,
+  height   = 12
+)
+```
+
+## Regime Change Status: Comparing Backsliding Years to All Other Country-Year Types
+
+## RQ2: How does SDG data missingness differ between country–years experiencing democratic backsliding and all other country–years?
+- Group 1: all country–years where aut_ep = 1
+- Group 2: all country–years where aut_ep = 0 (including always-stable democracies, always-autocracies, and pre/post years of backsliders).
+```{r}
+# BACKSLIDING VS ALL ELSE 
+means_by_backsliding <- data %>% 
+  group_by(aut_ep) %>% 
+  summarise(
+    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
+    se_missing = sd(prop_sdg_missing, na.rm = TRUE) / sqrt(n()),
+    n = n())
+
+# BAR PLOT: BACKSLIDING VS ALL ELSE 
+bar_plt_back_nonback <-ggplot(means_by_backsliding, 
+                              aes(x = factor(aut_ep, levels = c(0, 1),
+                            labels = c("All else", "Backsliding")),
+                 y = mean_missing,
+                 fill = factor(aut_ep))) +
+        geom_col(width = 0.70) +
+        geom_errorbar(aes(ymin = mean_missing - se_missing,
+                          ymax = mean_missing + se_missing),
+                      width = 0.15) + 
+  labs(title = "Average SDG data missingness",
+       subtitle = "Backsliding vs non-backsliding years (all country-years)",
+       x = NULL, 
+       y = "Missingness rate", 
+       caption = "Based on V-Dem's Episodes of Regime Transition (ERT) Data") +
+  theme_minimal() +
+  theme(legend.position = "none")
+bar_plt_back_nonback
+
+# save bar plot
+ggsave(filename = "descriptive_stats/figures/bar_plt_back_nonback.png", 
+       plot = bar_plt_back_nonback, width = 12, height = 8)
+```
+
+## BACKSLIDING VS DEMOCRATIZING VS STABLE
+```{r}
+# BACKSLIDING VS DEMOCRATIZING VS STABLE
+regime_data <- data %>%
+  mutate(regime_status = case_when(
+      aut_ep == 1 ~ "Backsliding",
+      dem_ep == 1 ~ "Democratizing",
+      TRUE ~ "Stable"))
+
+means_by_status <- regime_data %>%
+  group_by(regime_status) %>%
+  summarise(mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
+    se_missing = sd(prop_sdg_missing, na.rm = TRUE) / sqrt(n()),
+    n = n())
+
+# BAR PLOT: BACKSLIDING VS DEMOCRATIZING VS STABLE
+bar_plt_back_dem_stab <- ggplot(means_by_status, aes(x = regime_status,
+                            y = mean_missing,
+                            fill = regime_status)) +
+  geom_col(width = 0.65) +
+  geom_errorbar(aes(ymin = mean_missing - 1.96 * se_missing,
+                    ymax = mean_missing + 1.96 * se_missing),
+                width = 0.15) +
+  labs(title = "Average SDG data missingness by transition type",
+       subtitle = "Backsliding vs democratizing vs stable periods (all country-years)",
+       x = NULL,
+       y = "Missingness rate",
+       caption = "Based on V-Dem's Episodes of Regime Transition (ERT) Data") +
+  theme_minimal() +
+  theme(legend.position = "none")
+bar_plt_back_dem_stab
+
+# save bar plot
+ggsave(filename = "descriptive_stats/figures/bar_plt_back_dem_stab.png", 
+       plot = bar_plt_back_dem_stab, width = 12, height = 8)
+
+
+# COMBINED BAR PLOTS: BACKSLIDING VS DEMOCRATIZING VS STABLE + BACKSLIDING VS ALL ELSE
+combined_bars <-
+  bar_plt_back_nonback + labs(title = NULL, caption = NULL) +
+  bar_plt_back_dem_stab + labs(title = NULL) +
+  plot_layout(
+    ncol = 1,          # 2 rows, 1 column (stacked vertically)
+    heights = c(1, 1), # equal height; adjust if you want
+    guides = "collect" # pulls the legend into a shared guide area
+  ) +
+  plot_annotation(
+    title = "Average SDG data missingness by regime status",
+    subtitle = "Comparing backsliding/non-backsliding years and transition types",
+    theme = theme(
+      plot.title  = element_text(size = 18, face = "bold"),
+      plot.subtitle = element_text(size = 14))) &
+  theme(
+    axis.text.x = element_text(size = 14),
+    axis.title.x = element_text(size = 14))
+
+combined_bars
+
+ggsave(filename = "descriptive_stats/figures/combined_bars.png", 
+       plot = combined_bars, width = 12, height = 10)
+
+# SUMMARY TABLE 
+reg_status_sum_table <- regime_data %>%
+  group_by(regime_status) %>%
+  summarise(
+    n_obs = n(),
+    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
+    sd_missing = sd(prop_sdg_missing,   na.rm = TRUE),
+    se_missing = sd_missing / sqrt(n_obs),
+    ci_lower = mean_missing - 1.96 * se_missing,
+    ci_upper = mean_missing + 1.96 * se_missing,
+    .groups = "drop")
+
+# formatting table
+reg_status_sum_table <- reg_status_sum_table %>%
+  kable(digits = 3, caption = "Summary statistics of SDG missingness by regime status") %>%
+  kable_classic_2(full_width = FALSE, position = "center")
+
+# save table
+save_kable(reg_status_sum_table, "descriptive_stats/tables/reg_status_sum_table.png")
+```
+
+## BACKSLIDING VS ALL ELSE: LAGGED AND LEAD MISSINGNESS
+```{r}
+# BACKSLIDING VS ALL ELSE: LAGGED AND LEAD MISSINGNESS
+regime_data <- data %>%
+  mutate(regime_status = case_when(
+      aut_ep == 1 ~ "Backsliding",
+      dem_ep == 1 ~ "Democratizing",
+      TRUE ~ "Stable"))
+
+regime_data <- regime_data %>%
+  arrange(country_code, year) %>%
+  group_by(country_code) %>%
+  mutate(
+    missing_lag1 = dplyr::lag(prop_sdg_missing, 1),  # year t-1
+    missing_lead1 = dplyr::lead(prop_sdg_missing, 1)  # year t+1
+  ) %>%
+  ungroup()
+
+# Summary: keep only backsliding years at t-1, t, t+1
+back_lag_lead_means <- regime_data %>%
+  filter(aut_ep == 1) %>%
+  summarise(
+    n_obs = n(),
+    group = "Backsliding years",
+    mean_tminus1 = mean(missing_lag1,  na.rm = TRUE),
+    mean_t = mean(prop_sdg_missing,  na.rm = TRUE),
+    mean_tplus1 = mean(missing_lead1, na.rm = TRUE)
+  )
+back_lag_lead_means
+
+# Summary: Non-backsliding years at t-1, t, t+1
+non_back_lag_lead_means <- regime_data %>%
+  filter(aut_ep == 0) %>%
+  summarise(
+    n_obs = n(),
+    group = "Non-backsliding years",
+    mean_tminus1 = mean(missing_lag1,  na.rm = TRUE),
+    mean_t = mean(prop_sdg_missing,  na.rm = TRUE),
+    mean_tplus1  = mean(missing_lead1, na.rm = TRUE)
+  )
+non_back_lag_lead_means
+
+# combines back_lag_lead_means & non_back_lag_lead_means
+lag_lead_compare <- bind_rows(back_lag_lead_means, non_back_lag_lead_means)
+lag_lead_compare
+```
+**INTERPRETATION:** Across 348 backsliding country–years, average SDG missingness is about 0.461 in the year before, 0.483 in the backsliding year, and 0.487 in the year after.
+
+
+## RQ3: Among countries that experience democratic backsliding, how does SDG data missingness in backsliding years compare to their own non‑backsliding years? [BACKSLIDING COUNTRIES ONLY]
+
+```{r}
+# BACKSLIDING YEARS VS NON-BACKSLIDING YEARS (BACKSLIDING COUNTRIES ONLY)
+# Flagging backsliding countries
+backsliders <- regime_data %>%
+  group_by(country_code) %>%
+  summarise(ever_backslid = any(aut_ep == 1, na.rm = TRUE),
+            .groups = "drop") %>%
+  filter(ever_backslid) %>%
+  pull(country_code)
+
+# Filtering out all other countries 
+regime_back_countries <- regime_data %>%
+  filter(country_code %in% backsliders) %>%
+  arrange(country_code, year) %>%
+  group_by(country_code) %>%
+  mutate(backslide_status = ifelse(aut_ep == 1,
+                              "Backsliding years",
+                              "Non-backsliding years"),
+    missing_lag1  = dplyr::lag(prop_sdg_missing, 1),  # t-1
+    missing_lead1 = dplyr::lead(prop_sdg_missing, 1)  # t+1
+  ) %>%
+  ungroup()
+# =============================================================================
+combined_summary <- regime_back_countries %>%
+  mutate(group = if_else(aut_ep == 1,
+                         "Backsliding years",
+                         "Non-backsliding years")) %>%
+  group_by(group) %>%
+  summarise(
+    n_obs = n(),
+    
+    # t-level
+    mean_t   = mean(prop_sdg_missing, na.rm = TRUE),
+    median_t = median(prop_sdg_missing, na.rm = TRUE),
+    sd_t     = sd(prop_sdg_missing,   na.rm = TRUE),
+    se_t     = sd_t / sqrt(n_obs),
+    ci_t_lo  = mean_t - 1.96 * se_t,
+    ci_t_hi  = mean_t + 1.96 * se_t,
+
+    # t-1
+    mean_tminus1   = mean(missing_lag1, na.rm = TRUE),
+    median_tminus1 = median(missing_lag1, na.rm = TRUE),
+    sd_tminus1     = sd(missing_lag1,   na.rm = TRUE),
+    se_tminus1     = sd_tminus1 / sqrt(n_obs),
+
+    # t+1
+    mean_tplus1   = mean(missing_lead1, na.rm = TRUE),
+    median_tplus1 = median(missing_lead1, na.rm = TRUE),
+    sd_tplus1     = sd(missing_lead1,   na.rm = TRUE),
+    se_tplus1     = sd_tplus1 / sqrt(n_obs),
+
+    .groups = "drop"
+  )
+
+# COMPACTING TABLE FOR PRESENTATION
+combined_long <- combined_summary %>%
+  select(group, n_obs,
+         mean_tminus1,  median_tminus1,  se_tminus1,
+         mean_t,        median_t,        se_t,
+         mean_tplus1,   median_tplus1,   se_tplus1) %>%
+  pivot_longer(
+    cols = starts_with("mean_") | starts_with("median_"),
+    names_to  = c("stat", "time"),
+    names_pattern = "(mean|median)_t?(minus1|plus1)?",
+    values_to = "value"
+  ) %>%
+  mutate(
+    time = case_when(
+      time == "minus1" ~ "t-1",
+      time == ""       ~ "t",
+      time == "plus1"  ~ "t+1"
+    )
+  ) %>%
+  pivot_wider(
+    names_from  = stat,
+    values_from = value
+  ) %>%
+  mutate(
+    se = case_when(
+      time == "t-1" ~ se_tminus1,
+      time == "t"   ~ se_t,
+      time == "t+1" ~ se_tplus1
+    )
+  ) %>%
+  select(group, time, n_obs, mean, median, se)
+
+# FORMATTING TABLE 
+combined_long_tab <- combined_long %>%
+  kable(
+    digits = 3,
+    col.names = c("Group", "Time", "N",
+                  "Mean missingness", "Median missingness", "SE"),
+    caption = "Average and median SDG missingness in t−1, t, and t+1 for backsliding vs non-backsliding years (backsliding countries only)"
+  ) %>%
+  kable_classic_2(full_width = FALSE, position = "center")
+
+combined_long_tab
+
+# SAVE 
+save_kable(combined_long_tab, "descriptive_stats/tables/rq2_summary_tab.png")
+
+# =============================================================================
+# BAR PLOT: BACKSLIDING YEARS VS NON-BACKSLIDING YEARS (BACKSLIDING COUNTRIES ONLY)
+bar_plt_back_nonback_back_only <- ggplot(combined_summary, 
+                                         aes(x = group, 
+                                             y = mean_t,
+                                             fill = group)) +
+  geom_col(width = 0.70) +
+  geom_errorbar(aes(ymin = ci_t_lo, ymax = ci_t_hi), width = 0.15) +
+  labs(
+    title = "Average SDG data missingness",
+    subtitle = "Backsliding vs non-backsliding years (backsliding countries only)",
+    x = NULL,
+    y = "Average SDG missing rate",
+    caption = "Based on V-Dem's ERT Autocratization Episodes"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+bar_plt_back_nonback_back_only
+
+#save 
+ggsave(filename = "descriptive_stats/figures/bar_plt_back_nonback_back_only.png", 
+       plot = bar_plt_back_nonback_back_only, width = 12, height = 8)
+```
+
+## RQ4: Across all country-years, what is the distribution of missingness by income group?
+Income Groups & Liberal Democracy Analysis (ld_data): NA Counts x Year x Income Level
+```{r}
+# (4) Density Plot: NA Counts by Income Groups
+dens_plt_income <- ggplot(data_plot, 
+             aes(x = prop_sdg_missing, 
+                 fill = income_level_ven, 
+                 color = income_level_ven)) +
+        geom_density(alpha = 0.30, adjust = 1) +
+        labs(title = "Distribution of Missing SDG data, by Income Level",
+          caption = "Based on Sustainable Development Report (2024) and World Bank Gross National Income (GNI) groupings",
+          x = "Proportion of SDG indicator values that are NA (per country-year)",
+          y = "Density",
+          fill = "Income level",
+          color = "Income level") +
+        theme_minimal(base_size = 12)
+dens_plt_income
+
+# saving plot X
+ggsave(filename = "descriptive_stats/figures/dens_plt_income.png", 
+       plot = dens_plt_income, width = 12, height = 8)
+
+# =============================================================================
+# Focusing on RoW Liberal Democracy
+ld_data <- data_plot %>%
+  filter(regime_type_4 == "Liberal democracy")
+
+# (5) Boxplot of full distribution by year (within liberal democracies)
+box_plt_libdemxtime <- ggplot(ld_data, aes(x = factor(year), y = prop_sdg_missing)) +
+        geom_boxplot(outlier.alpha = 0.2) +
+        labs(
+          title = "Distribution of SDG missingness by year",
+          subtitle = "(Liberal democracies only)",
+          x = NULL,
+          y = "Missigness rate") +
+        theme_minimal(base_size = 12) +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1))
+box_plt_libdemxtime
+
+# saving plot 5
+ggsave(filename = "descriptive_stats/figures/box_plt_libdemxtime.png", 
+       plot = box_plt_libdemxtime, width = 12, height = 8)
+
+# =============================================================================
+# (6) Density by income (liberal democracies only)
+dens_plt_income_libdem <- ggplot(ld_data,
+             aes(x = prop_sdg_missing,
+                 fill  = income_level,
+                 color = income_level)) +
+        geom_density(alpha = 0.30, adjust = 1) +
+        labs(title = "Distribution of Missing SDG data, by Income Group",
+             subtitle = "(Liberal democracies only)",
+          x = "Missigness rate",
+          y = "Density",
+          fill = "Income level",
+          color = "Income level", 
+          caption = "Based on Sustainable Development Report (2024) and RoW Regime type") +
+        theme_minimal(base_size = 12)
+dens_plt_income_libdem
+
+# saving plot 6
+ggsave(filename = "descriptive_stats/figures/dens_plt_income_libdem.png", 
+       plot = dens_plt_income_libdem, width = 12, height = 8)
+
+# Quick sanity check
+table(ld_data$period, useNA = "ifany")
+
+# =============================================================================
+# (7) Boxplot of full distribution by year, faceted by income level (within liberal democracies)
+box_plt_libdemxtimexincome <- ggplot(ld_data, aes(x = factor(year), y = prop_sdg_missing)) +
+  geom_boxplot(outlier.alpha = 0.2) +
+  facet_wrap(~ income_level, nrow = 1) +
+  labs(title = "Distribution of SDG missingness by income level over time",
+  subtitle = "(Liberal democracies only)",
+    x = NULL,
+    y = "Missingness rate", 
+  caption = "Subset based on V-Dem's RoW classifications") +
+  theme_minimal(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+box_plt_libdemxtimexincome
+
+ggsave(filename = "descriptive_stats/figures/box_plt_libdemxtimexincome.png", 
+       plot = box_plt_libdemxtimexincome, width = 12, height = 8)
+
+# =============================================================================
+# (8) Lineplot of mean missingness by year, faceted by income level (within liberal democracies)
+year_income_means <- ld_data %>% 
+  group_by(year, income_level) %>% 
+  summarise(mean_missing = mean(prop_sdg_missing), .groups = "drop")
+
+line_plt_income_libdem <- ggplot(year_income_means, 
+       aes(x = year, 
+           y = mean_missing,
+           color = income_level)) + 
+  geom_line(size = 1) + 
+  geom_point(size = 1.5) +
+  labs(title = "Average SDG missingness over time by income level", 
+  subtitle = "(Liberal democracies only)",
+    x = NULL,
+    y = "Missigness rate",
+    color = "Income level") + 
+  theme_minimal(base_size = 13)
+line_plt_income_libdem
+
+ggsave(filename = "descriptive_stats/figures/line_plt_income_libdem.png", 
+       plot = line_plt_income_libdem, width = 12, height = 8)
+```
+
+
+## RQ5: Which SDG goals show higher average data missingness in autocratizing years than in non‑autocratizing years, and how large are these goal‑specific gaps?
+```{r}
+regime_long <- regime_data %>%
+  pivot_longer(
+    cols = starts_with("prop_miss_SDG"),
+    names_to = "sdg_goal",
+    values_to = "prop_sdg_missing_goal"
+  ) %>%
+  mutate(sdg_goal = gsub("prop_miss_", "", sdg_goal)  # "SDG1", "SDG2", ...
+  )
+
+goal_means <- regime_long %>%
+  group_by(sdg_goal, aut_ep) %>%        # aut_ep: 1 = autocratizing year, 0 = other
+  summarise(
+    n_obs        = n(),
+    mean_missing = mean(prop_sdg_missing_goal, na.rm = TRUE),
+    sd_missing   = sd(prop_sdg_missing_goal,   na.rm = TRUE),
+    se_missing   = sd_missing / sqrt(n_obs),
+    .groups      = "drop_last"
+  )
+
+goal_diff_table <- goal_means %>%
+  mutate(aut_label = ifelse(aut_ep == 1, "aut", "nonaut")) %>%
+  select(-aut_ep) %>%
+  pivot_wider(
+    names_from  = aut_label,
+    values_from = c(n_obs, mean_missing, sd_missing, se_missing),
+    names_sep   = "_"
+  ) %>%
+  mutate(
+    diff_mean = mean_missing_aut - mean_missing_nonaut,
+    se_diff   = sqrt(se_missing_aut^2 + se_missing_nonaut^2),
+    ci_lower  = diff_mean - 1.96 * se_diff,
+    ci_upper  = diff_mean + 1.96 * se_diff
+  ) %>%
+  arrange(desc(diff_mean))   # goals with largest gaps at top
+
+goal_diff_table
+
+# =============================================================================
+# TABLE PREP 
+
+# SDG labels lookup
+sdg_labels <- tibble::tibble(
+  sdg_goal = paste0("SDG", 1:17),
+  sdg_label = c(
+    "No poverty",
+    "Zero hunger",
+    "Good health & well-being",
+    "Quality education",
+    "Gender equality",
+    "Clean water & sanitation",
+    "Affordable & clean energy",
+    "Decent work & economic growth",
+    "Industry, innovation & infrastructure",
+    "Reduced inequalities",
+    "Sustainable cities & communities",
+    "Responsible consumption & production",
+    "Climate action",
+    "Life below water",
+    "Life on land",
+    "Peace, justice & strong institutions",
+    "Partnerships for the goals"
+  )
+)
+
+goal_diff_clean <- goal_diff_table %>%
+  # join labels
+  left_join(sdg_labels, by = "sdg_goal") %>%
+  # extract numeric SDG number for proper ordering
+  mutate(sdg_num = as.integer(gsub("SDG", "", sdg_goal))) %>%
+  select(
+    sdg_num,
+    sdg_goal,
+    sdg_label,
+    n_obs_nonaut,
+    n_obs_aut,
+    mean_missing_nonaut,
+    mean_missing_aut,
+    diff_mean,
+    ci_lower,
+    ci_upper
+  ) %>%
+  arrange(desc(diff_mean)) %>%  # or arrange(sdg_num) for 1–17 order
+  mutate(
+    across(
+      c(mean_missing_nonaut, mean_missing_aut, diff_mean, ci_lower, ci_upper),
+      ~ round(.x, 3)
+    )
+  )
+
+goal_diff_kable <- goal_diff_clean %>%
+  select(
+    sdg_goal,
+    sdg_label,
+    n_obs_nonaut,
+    n_obs_aut,
+    mean_missing_nonaut,
+    mean_missing_aut,
+    diff_mean,
+    ci_lower,
+    ci_upper
+  ) %>%
+  kable(
+    format = "html",
+    caption = "Table X. Average SDG missingness in autocratizing vs non-autocratizing years by goal",
+    col.names = c(
+      "SDG",
+      "Goal label",
+      "N (non-aut.)",
+      "N (aut.)",
+      "Mean non-aut.",
+      "Mean aut.",
+      "Diff (aut − non-aut)",
+      "95% CI lower",
+      "95% CI upper"
+    ),
+    align = "llrrrrrrr"
+  ) %>%
+  kable_classic_2(full_width = FALSE)
+goal_diff_kable
+
+save_kable(goal_diff_kable, "descriptive_stats/tables/goal_diff_table.png")
+
+# =============================================================================
+# ERROR-BAR PLOTTING!
+# Settup for plotting
+goal_diff_plot_data <- goal_diff_clean %>%
+  mutate(
+    sdg_full = paste0(sdg_goal, " ", sdg_label),
+    # reverse so largest diff at top .. [NOT WORKING]
+    sdg_full = factor(sdg_full, levels = rev(sdg_full))) 
+
+erbar_plt_goals <- ggplot(goal_diff_plot_data,
+                          aes(x = diff_mean, y = sdg_full)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "grey60") +
+  geom_pointrange(aes(xmin = ci_lower, xmax = ci_upper)) +
+  labs(
+    x = "Difference in mean missingness (aut − non-aut)",
+    y = NULL,
+    title = "Goal-specific gaps in SDG missingness,\nautocratizing vs non-autocratizing years"
+  ) +
+  theme_minimal()
+
+erbar_plt_goals
+
+# saving 
+ggsave(filename = "descriptive_stats/figures/erbar_plt_goals.png", 
+       plot = erbar_plt_goals, width = 12, height = 8)
+```
+
+## RQX: OTHER ANALYSES
+```{r}
+# Within-country variation in missingness
+sdg_within <- data %>%
+  group_by(country_code) %>%
+  summarise(
+    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
+    sd_missing = sd(prop_sdg_missing, na.rm = TRUE),
+    mean_log_gdppc = mean(log_gdppc, na.rm = TRUE),
+    sd_log_gdppc = sd(log_gdppc, na.rm = TRUE),
+    mean_lib_dem = mean(lib_dem, na.rm = TRUE),
+    sd_lib_dem = sd(lib_dem, na.rm = TRUE),
+    # income level that appears most frequently for that country (mode)
+    income_level_mode = names(sort(table(income_level), decreasing = TRUE))[1],
+    # mode of regime type for that country
+    regime_type_mode = names(sort(table(regime_type_4), decreasing = TRUE))[1],
+    n_years = n()
+  ) %>%
+  arrange(desc(mean_missing))
+
+# scatterplot of mean missingness vs. gdp per capita, colored by regime type
+ggplot(sdg_within, aes(x = mean_log_gdppc, y = mean_missing)) +
+  geom_point(aes(color = regime_type_mode), size = 1) +
+  theme_minimal(base_size = 13) +
+  labs(
+    title = "Within-Country Variation in SDG Data Missingness",
+    x = "Average log GDP per capita (2015–2023)", 
+    y = "Mean Missingness Rate (2015–2023)",
+    caption = "Source: Sustainable Development Report (2025)"
+  )
+```
+
+## RQX: The number of countries experiencing backsliding episodes over time by income group
+```{r}
+# Number of backsliding episodes by year and income group
+backsliding_trends <- data %>%
+  filter(aut_ep == 1) %>%
+  group_by(year, income_level) %>%
+  summarise(n_backsliding = n(), .groups = "drop")
+# Line plot of backsliding episodes over time by income group
+ggplot(backsliding_trends, aes(x = year, y = n_backsliding, color = income_level)) +
+  geom_line(size = 1) +
+  geom_point(size = 1.5) +
+  labs(
+    title = "Trends in Democratic Backsliding Episodes by Income Group",
+    x = NULL,
+    y = "Number of backsliding episodes",
+    color = "Income group",
+    caption = "Based on V-Dem's Episodes of Regime Transition (ERT) Data"
+  ) +
+  theme_minimal(base_size = 13)
+
+```
+
+## how many countries have experienced pre-backsliding years (aut_ep_pre_yr == 1) 
+```{r}
+pre_backsliding_counts <- data %>%
+  filter(aut_ep_pre_yr == 1) %>%
+  group_by(year, income_level) %>%
+  summarise(n_pre_backsliding = n(), .groups = "drop")
+pre_backsliding_counts
+
+# bargraph of pre-backsliding years by income group
+ggplot(pre_backsliding_counts, aes(x = year, y = n_pre_backsliding, fill = income_level)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Number of Pre-Backsliding Years by Income Group",
+    x = NULL,
+    y = "Number of pre-backsliding years",
+    fill = "Income group",
+    caption = "Based on V-Dem's Episodes of Regime Transition (ERT) Data"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+
+## Trend Analysis 
+```{r}
+# load function 
+source("code/SDGCountryTrends_Function.R")
+
+create_sdg_trends_plot() # (country_name, sdg_numbers, data, sdg_colors)
+```
+
+
+
+

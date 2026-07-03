@@ -1,0 +1,188 @@
+---
+title: "event_study_stag_twfe"
+output: html_document
+---
+
+## Setup 
+```{r}
+source("code/packages.R")
+
+# load data 
+panel <- readRDS("data/output/MAIN_panel_data.rds")
+
+# # convert year to integer for event time calculations
+# panel <- panel %>% 
+#   mutate(year = as.integer(year))
+# 
+# table(panel$year)
+# n_distinct(panel$year)
+
+
+```
+
+
+
+# APPROACH 1C: STAGGARD EVENT STUDY MODELS 
+```{r}
+# Step 1. Create event_time variable for all treated countries (NA for never-treated)
+panel_es <- panel %>%
+  mutate(year = as.numeric(as.character(year))) %>%
+  group_by(country_code) %>%
+  mutate(
+    # Fill the episode start year for ALL rows of treated countries
+    aut_start_filled = min(aut_ep_start_yr[aut_ep == 1], na.rm = TRUE),
+    aut_start_filled = ifelse(is.infinite(aut_start_filled), NA_real_, aut_start_filled),
+    
+    # Event time for all years of treated countries, NA for never-treated
+    event_time = year - aut_start_filled) %>%
+  ungroup()
+
+# Step 2. Capped event_time indicators 
+panel_es <- panel_es %>%
+  mutate(
+    treated = ifelse(!is.na(event_time), 1, 0),
+    event_time_cap = case_when(
+      treated == 1 & event_time < -4 ~ -4,
+      treated == 1 & event_time > 5 ~ 5,
+      treated == 1 ~ event_time,
+      TRUE ~ 0)) # never-treated
+
+# Step 3: TWFE with binned event time indicators (overall SDG missingness)
+es_twfe <- feols(
+  prop_sdg_missing 
+  ~ i(event_time_cap, treated, ref = -1)
+  + log_pop
+  + electric_access + I(electric_access^2)
+  + log_luminosity
+  + rural_pop_pct
+  | country_code + year,
+  cluster = ~country_code,
+  data = panel_es)
+
+summary(es_twfe)
+
+# Step 4: Event-study plot (overall SDG missingness)
+iplot(
+  es_twfe,
+  main = "Event-study: SDG missingness around autocratization",
+  xlab = "Years since start of autocratization (event_time)",
+  ylab = "Change in prop_sdg_missing vs t = -1"
+)
+```
+
+```{r}
+# Step 5. Event-study plot with SPI interaction (overall SDG missingness)
+es_twfe_x_income <- feols(
+  prop_sdg_missing 
+  ~ i(event_time_cap, treated, ref = -1) * factor(income_level)
+  + log_pop
+  + electric_access + I(electric_access^2)
+  + log_luminosity
+  + rural_pop_pct
+  | country_code + year,
+  cluster = ~country_code,
+  data = panel_es)
+
+summary(es_twfe_x_income)
+
+# Step 6: Event-study plot with SPI interaction (overall SDG missingness)
+iplot(
+  es_twfe_x_income,
+  main = "Event-study: SDG missingness around autocratization, by SPI",
+  xlab = "Years since start of autocratization (event_time)",
+  ylab = "Change in prop_sdg_missing vs t = -1, by SPI"
+)
+
+# Subsets by Income Group 
+es_twfe_income_group <- feols(
+  prop_sdg_missing ~ 
+    i(event_time_cap, treated, ref = -1) +
+    log_pop + electric_access + I(electric_access^2) +
+    log_luminosity + rural_pop_pct |
+    country_code + year,
+  cluster = ~country_code,
+  data = panel_es[panel_es$income_level == "H", ]
+)
+summary(es_twfe_income_group)
+
+# plot for High Income group
+iplot(
+  es_twfe_income_group,
+  main = "Event-study: SDG missingness around autocratization (High Income group)",
+  xlab = "Years since start of autocratization (event_time)",
+  ylab = "Change in prop_sdg_missing vs t = -1"
+)
+```
+
+
+## Goal-level TWFE models (with lags)
+```{r}
+# Step 7: Goal-level TWFE with binned event time indicators (example for SDG1 missingness)
+
+# A. Pick the SDG goal
+sdg_goal <- "prop_miss_SDG3"   # e.g. SDG1; change this string for other goals
+
+# B. Create a generic outcome column
+panel_es$Y_goal <- panel_es[[sdg_goal]]
+
+# C. Run the model using Y_goal in a normal formula
+es_twfe_x_income_g <- feols(
+  Y_goal 
+  ~ i(event_time_cap, treated, ref = -1) * factor(income_level)
+    + log_pop
+    + electric_access + I(electric_access^2)
+    + log_luminosity
+    + rural_pop_pct
+  | country_code + year,
+  cluster = ~country_code,
+  data = panel_es
+)
+
+summary(es_twfe_x_income_g)
+
+# plot
+iplot(
+  es_twfe_x_income_g,
+  main = paste0("Event-study: ", sdg_goal, " missingness around autocratization, by Income Level"),
+  xlab = "Years since start of autocratization (event_time)",
+  ylab = paste0("Change in ", sdg_goal, " vs t = -1, by Income Level")
+)
+
+# =============================================================================
+# D. Run the model using Y_goal in a normal formula
+es_twfe_income_group_g <- feols(
+  Y_goal 
+  ~ i(event_time_cap, treated, ref = -1)
+    + log_pop
+    + electric_access + I(electric_access^2)
+    + log_luminosity
+    + rural_pop_pct
+  | country_code + year,
+  cluster = ~country_code,
+  data = panel_es[panel_es$income_level == "H", ]
+)
+
+summary(es_twfe_income_group_g)
+
+# plot
+iplot(
+  es_twfe_income_group_g,
+  main = paste0("Event-study: ", sdg_goal, " missingness around autocratization (High Income group)"),
+  xlab = "Years since start of autocratization (event_time)",
+  ylab = paste0("Change in ", sdg_goal, " vs t = -1")
+)
+```
+
+
+```{r}
+# saving panel_es as csv
+write_csv(panel_es, "data/output/panel_es_data.csv")
+```
+
+
+# APPROACH 1D: Multi-episode Stacked TWFE (overall SDG missingness)
+```{r}
+# FUTURE ANALYSIS [NEED TO FIGURE OUT FIRST]
+
+
+```

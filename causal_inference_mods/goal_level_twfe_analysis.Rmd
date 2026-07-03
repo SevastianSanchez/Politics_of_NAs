@@ -1,0 +1,260 @@
+---
+title: "goal_level_twfe"
+output: html_document
+---
+## Data Prep 
+```{r}
+library(tidyverse)
+library(devtools)
+library(fixest)   # for TWFE
+library(did)      # for Callaway-Sant'Anna DiD
+library(car)
+library(purrr)
+library(tibble)
+library(knitr)
+
+# Load data (adjust path if needed)
+panel <- readRDS("data/output/MAIN_panel_data.rds")
+
+# Basic cleaning / type setting -----------------------------------------------
+
+panel <- panel %>% mutate(across(
+    c(country_id, country_code, year, regime_type_2, regime_type_4, regime_type_10, 
+      aut_ep, dem_ep, regch_event, regch_genuine, aut_cohort), as.factor))
+
+panel$regime_type_4 <- factor(panel$regime_type_4, levels = c("0", "1", "2", "3"))
+
+# number of NAs for each control variable using colSums and is.na
+colSums(is.na(panel %>% 
+                select(elect_dem, lib_dem, spi_overall, log_gdppc, log_pop, 
+                       luminosity, electric_access, rural_pop_pct)))
+```
+
+
+# APPROACH 1.1: Two‑way fixed effects (TWFE) for goal-level missingness outcomes
+```{r}
+# Goal-Level TWFE models: EDI -> missingness by SDG goal ---------------------
+
+# Vector of your SDG goal-level missingness variables
+sdg_vars <- paste0("prop_miss_SDG", 1:17)
+
+# Quick check that they really exist
+sdg_vars[!sdg_vars %in% names(panel)] # If character(0), all 17 are present.
+
+# Function to run one TWFE model for each SDG goal 
+run_goal_twfe <- function(var_name) {
+  feols(as.formula(paste0(var_name, 
+       " ~ l(aut_ep, 0:2) + log_pop + electric_access + I(electric_access^2) + log_luminosity + rural_pop_pct",
+       " | country_code + year")), 
+       data = panel, 
+       panel.id = ~ country_code + year, 
+       cluster = ~ country_code)
+}
+
+# Run TWFE for each SDG goal-level missingness variable
+twfe_goal_models <- map(sdg_vars, run_goal_twfe)
+
+# assign names to each model
+names(twfe_goal_models) <- sdg_vars
+
+# Extracting the coefficients and standard errors for the aut_ep lags from each model
+
+goal_effects <- map_dfr(
+  sdg_vars,
+  ~ {
+    m  <- twfe_goal_models[[.x]]
+    ct <- summary(m)$coeftable
+    rn <- rownames(ct)
+
+    idx_t   <- grep("^l\\(aut_ep, 0\\)", rn)
+    idx_t1  <- grep("^l\\(aut_ep, 1\\)", rn)
+    idx_t2  <- grep("^l\\(aut_ep, 2\\)", rn)
+
+    beta_t   <- ct[idx_t,  "Estimate"];  se_t   <- ct[idx_t,  "Std. Error"];  p_t   <- ct[idx_t,  "Pr(>|t|)"]
+    beta_t1  <- ct[idx_t1, "Estimate"];  se_t1  <- ct[idx_t1, "Std. Error"]; p_t1  <- ct[idx_t1, "Pr(>|t|)"]
+    beta_t2  <- ct[idx_t2, "Estimate"];  se_t2  <- ct[idx_t2, "Std. Error"]; p_t2  <- ct[idx_t2, "Pr(>|t|)"]
+
+    tibble(
+      sdg     = .x,
+      beta_t,  se_t,  p_t,
+      star_t  = case_when(
+        p_t < 0.001 ~ "***",
+        p_t < 0.01  ~ "**",
+        p_t < 0.05  ~ "*",
+        p_t < 0.1   ~ ".",
+        TRUE        ~ ""
+      ),
+      beta_t1, se_t1, p_t1,
+      star_t1 = case_when(
+        p_t1 < 0.001 ~ "***",
+        p_t1 < 0.01  ~ "**",
+        p_t1 < 0.05  ~ "*",
+        p_t1 < 0.1   ~ ".",
+        TRUE         ~ ""
+      ),
+      beta_t2, se_t2, p_t2,
+      star_t2 = case_when(
+        p_t2 < 0.001 ~ "***",
+        p_t2 < 0.01  ~ "**",
+        p_t2 < 0.05  ~ "*",
+        p_t2 < 0.1   ~ ".",
+        TRUE         ~ ""
+      )
+    )
+  }
+)
+goal_effects
+
+## Neat table of TWFE effects by goal 
+goal_effects %>%
+  mutate(across(starts_with("beta"), ~ round(.x, 3)),
+         across(starts_with("se"),   ~ round(.x, 3))) %>%
+  knitr::kable(
+    col.names = c("SDG outcome",
+                  "β_t", "SE_t", "p_t", "sig_t",
+                  "β_{t-1}", "SE_{t-1}", "p_{t-1}", "sig_{t-1}",
+                  "β_{t-2}", "SE_{t-2}", "p_{t-2}", "sig_{t-2}"),
+    caption = "TWFE effects of autocratization (t, t−1, t−2) on SDG goal-level missingness"
+  )
+```
+
+
+# TWFE models with only t−1 lag
+```{r}
+sdg_vars <- paste0("prop_miss_SDG", 1:17)
+
+run_goal_twfe_l1 <- function(var_name) {
+  feols(
+    as.formula(paste0(
+      var_name,
+      " ~ l(aut_ep, 1) + log_pop + electric_access + I(electric_access^2) + log_luminosity + rural_pop_pct",
+       " | country_code + year")),
+    data = panel,
+    panel.id = ~ country_code + year,
+    cluster  = ~ country_code
+  )
+}
+
+twfe_goal_models_l1 <- map(sdg_vars, run_goal_twfe_l1)
+names(twfe_goal_models_l1) <- sdg_vars
+
+# Extract coefficients, SEs, and p-values for the l(aut_ep, 1) term from each model
+goal_effects_l1 <- map_dfr(
+  sdg_vars,
+  ~ {
+    m  <- twfe_goal_models_l1[[.x]]
+    ct <- summary(m)$coeftable
+    rn <- rownames(ct)
+
+    idx_l1 <- grep("^l\\(aut_ep, 1\\)", rn)
+
+    beta_l1 <- ct[idx_l1, "Estimate"]
+    se_l1   <- ct[idx_l1, "Std. Error"]
+    p_l1    <- ct[idx_l1, "Pr(>|t|)"]
+
+    tibble(
+      sdg     = .x,
+      beta_l1 = beta_l1,
+      se_l1   = se_l1,
+      p_l1    = p_l1,
+      star_l1 = case_when(
+        p_l1 < 0.001 ~ "***",
+        p_l1 < 0.01  ~ "**",
+        p_l1 < 0.05  ~ "*",
+        p_l1 < 0.1   ~ ".",
+        TRUE         ~ ""
+      )
+    )
+  }
+)
+
+goal_effects_l1
+
+# table for t−1 effects only
+goal_effects_l1 %>%
+  mutate(
+    beta_l1 = round(beta_l1, 3),
+    se_l1   = round(se_l1, 3),
+    p_l1    = round(p_l1, 3)
+  ) %>%
+  knitr::kable(
+    col.names = c("SDG outcome",
+                  "β (aut_ep, t−1)", "SE", "p‑value", "sig."),
+    caption = "TWFE effect of lagged autocratization episode (t−1) on SDG goal-level missingness"
+  )
+```
+
+
+# TWFE models with only t−2 lag
+```{r}
+library(fixest)
+library(purrr)
+library(dplyr)
+library(tibble)
+
+# SDG outcomes (same as before)
+sdg_vars <- paste0("prop_miss_SDG", 1:17)
+
+# Function: TWFE with only l(aut_ep, 2)
+run_goal_twfe_l2 <- function(var_name) {
+  feols(
+    as.formula(paste0(
+      var_name,
+      " ~ l(aut_ep, 2) + log_pop + electric_access + I(electric_access^2) + log_luminosity + rural_pop_pct",
+      " | country_code + year")), 
+    data     = panel,
+    panel.id = ~ country_code + year,
+    cluster  = ~ country_code
+  )
+}
+
+# Run models for all 17 SDG goals
+twfe_goal_models_l2 <- map(sdg_vars, run_goal_twfe_l2)
+names(twfe_goal_models_l2) <- sdg_vars
+
+# Extract coefficients, SEs, and p-values for the l(aut_ep, 2) term from each model
+goal_effects_l2 <- map_dfr(
+  sdg_vars,
+  ~ {
+    m  <- twfe_goal_models_l2[[.x]]
+    ct <- summary(m)$coeftable
+    rn <- rownames(ct)
+
+    idx_t2 <- grep("^l\\(aut_ep, 2\\)", rn)
+
+    beta_t2 <- ct[idx_t2, "Estimate"]
+    se_t2   <- ct[idx_t2, "Std. Error"]
+    p_t2    <- ct[idx_t2, "Pr(>|t|)"]
+
+    tibble(
+      sdg     = .x,
+      beta_t2 = beta_t2,
+      se_t2   = se_t2,
+      p_t2    = p_t2,
+      star_t2 = case_when(
+        p_t2 < 0.001 ~ "***",
+        p_t2 < 0.01  ~ "**",
+        p_t2 < 0.05  ~ "*",
+        p_t2 < 0.1   ~ ".",
+        TRUE         ~ ""
+      )
+    )
+  }
+)
+
+goal_effects_l2
+
+# table for t−2 effects only
+goal_effects_l2 %>%
+  mutate(
+    beta_t2 = round(beta_t2, 3),
+    se_t2   = round(se_t2, 3),
+    p_t2    = round(p_t2, 3)
+  ) %>%
+  knitr::kable(
+    col.names = c("SDG outcome",
+                  "β (aut_ep, t−2)", "SE (t−2)", "p (t−2)", "sig"),
+    caption = "TWFE effects of second-lag autocratization episodes (t−2) on SDG goal-level missingness"
+  )
+```
+

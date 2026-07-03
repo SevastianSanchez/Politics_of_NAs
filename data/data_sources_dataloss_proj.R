@@ -17,7 +17,7 @@ vdem <- vdemdata::vdem %>%
   filter(year >= 2000)
 
 # ERT package
-ert <- read.csv("data/input_data/ert.csv") %>% 
+ert <- read.csv("data/input/ert.csv") %>% 
   filter(year >= 2000)
 
 # SPI csv from github [API]

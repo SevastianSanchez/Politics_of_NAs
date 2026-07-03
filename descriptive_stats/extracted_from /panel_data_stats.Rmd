@@ -1,0 +1,105 @@
+---
+title: "panel_data_stats"
+output: html_document
+---
+
+```{r}
+# set working directory 
+setwd("~/Documents/GitHub/QMSS_Thesis_Sanchez")
+
+# Load all packages from the packages.R file
+source("packages.R")
+
+# Load the panel data script
+source("Comp2_panel_wrangling.R")
+```
+
+## 1.1 Frequency Table of Country Regime Change Status [DONE!!]
+```{r}
+# Table of all countries and select regime change variables: has_aut_ep, has_dem_ep, has_neither, autocratized, democratized, and stable, and total counts of autocratization and democratization episodes [DONE!!]
+regime_change_status <- panel_data %>%
+  select(country_name, country_code, has_aut_ep, total_aut_ep, has_dem_ep, total_dem_ep, has_neither, autocratized, democratized, stable) %>%
+  distinct() %>% # Ensure unique rows for each country (these are unique because they're 0/1 for all rows of a given country) [rows = 167]
+  arrange(country_code)
+
+# Display the table
+print(regime_change_status)
+```
+
+# Create stargazer table for the regime change status
+```{r}
+# Convert the regime change status table to a stargazer table for better visualization
+stargazer(regime_change_status, 
+          type = "html", 
+          summary = FALSE, 
+          title = "Regime Change Status of Countries",
+          digits = 0,
+          out = "compiled_materials/results/stats/regime_change_status_by_country.html")
+```
+
+## 1.2 Create a frequency table summarizing the regime change status of countries
+```{r}
+# Frequency table of countries based on has_aut_ep, has_dem_ep, has_neither, autocratized, democratized, and stable variables [DONE!!]
+freq_regime_change_status <- regime_change_status %>%
+  summarise(
+    Total_Countries = n(),
+    Countries_with_Autocratization_Episodes = sum(as.numeric(as.character(has_aut_ep)), na.rm = TRUE),
+    Countries_with_Democratization_Episodes = sum(as.numeric(as.character(has_dem_ep)), na.rm = TRUE),
+    Countries_with_Neither = sum(as.numeric(as.character(has_neither)), na.rm = TRUE),
+    Countries_that_Autocratized = sum(as.numeric(as.character(autocratized)), na.rm = TRUE),
+    Countries_that_Democratized = sum(as.numeric(as.character(democratized)), na.rm = TRUE),
+    Stable_Countries = sum(as.numeric(as.character(stable)), na.rm = TRUE)
+  ) %>% 
+
+# pivot the freq_table to long format for better visualization
+  pivot_longer(cols = everything(), names_to = "Category", values_to = "Count")
+```
+
+## convert table to stargazer table 
+```{r}
+# Convert the frequency table to a stargazer table for better visualization
+stargazer(freq_regime_change_status, 
+          type = "html", 
+          summary = FALSE, 
+          title = "Frequency Table of Regime Change Status",
+          digits = 0,
+          out = "compiled_materials/results/stats/regime_change_status_counts.html")
+```
+
+# 1.3 Summary Statistics of Panel Data Variables 
+```{r}
+# Create a table showing the number of years with data for each key variable by country
+country_variable_coverage <- panel_data %>%
+  group_by(country_code) %>%
+  summarize(
+    country_name = first(country_name),  # Keep the country name for reference
+    total_years = n(),  # Total years in dataset for this country
+    spi_comp_years = sum(!is.na(spi_comp)),
+    sci_overall_years = sum(!is.na(sci_overall)),
+    sdg_overall_years = sum(!is.na(sdg_overall)),
+    di_score_years = sum(!is.na(di_score)),
+    log_gdppc_years = sum(!is.na(log_gdppc))
+  ) %>%
+  ungroup() %>%
+  # Calculate coverage percentages
+  mutate(across(
+    c(spi_comp_years, sci_overall_years, sdg_overall_years, di_score_years, log_gdppc_years),
+    list(pct = ~round(. / total_years * 100, 1)),
+    .names = "{.col}_pct"
+  )) %>%
+  # Arrange by country name for easier reading
+  arrange(country_name)
+
+print(country_variable_coverage)
+```
+
+# create a stargazer table of the country_variable_coverage
+```{r}
+# Convert the country_variable_coverage table to a stargazer table for better visualization
+stargazer(country_variable_coverage, 
+          type = "html", 
+          summary = FALSE, 
+          title = "Country Variable Coverage",
+          digits = 1,
+          out = "compiled_materials/results/stats/country_variable_coverage.html")
+```

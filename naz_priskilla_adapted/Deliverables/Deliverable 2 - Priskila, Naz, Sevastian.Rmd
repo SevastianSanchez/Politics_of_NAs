@@ -1,0 +1,360 @@
+---
+title: 'DSPC 7514 Deliverable 2: \break Project Proposal'
+author: "Priskila Nandita (ptn2113) , Naz Hussein (nh2845), Sevastian Sanchez (ss7257)"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: no
+    toc_depth: '3'
+    number_sections: yes
+  html_document:
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    number_sections: yes
+    highlight: tango
+    theme: default
+    fig_caption: yes
+    df_print: tibble
+urlcolor: blue
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(lubridate)
+library(foreign)
+library(readstata13)
+library(ggplot2)
+library(weights)  
+library(knitr)
+```
+
+# Research Question and Motivation
+
+This study asks: **How does data availability change as countries experience democratic backsliding?**
+
+In this context, data availability refers to the extent to which countries consistently report Sustainable Development Goal (SDG) indicators to international databases. We operationalize this as the proportion of missing SDG indicator values in the Sustainable Development Report (SDR). Missing SDG values indicate gaps in measurement, reporting delays, or deliberate non-disclosure. Hence, higher missingness reflects lower data availability and weaker transparency in official statistics.
+
+Following the V-Dem Institute’s 2023 Autocratization Report, democratic backsliding  is defined as a gradual and statistically significant decline in core democratic indicators, such as electoral integrity, judicial independence, and freedom of expression within countries that were previously democratic. These episodes of autocratization often emerge before full regime change and are typically accompanied by declines in transparency, press freedom, and institutional accountability.
+
+This research explores whether political regime change corresponds with measurable declines in SDG data availability. Transparent data systems are the foundation of accountability and effective policy design. Yet as regimes autocratize, public information often deteriorates, whether it is through censorship, weakened institutions, or limited international oversight (Hollyer, Rosendorff, and Vreeland, 2010).
+
+By identifying empirical links between governance quality and data loss, we aim to quantify how institutional decline affects evidence-based policymaking. If statistical evidence shows that backsliding regimes exhibit higher SDG data gaps, it would strengthen the policy case for investing in independent statistical agencies, open-data partnerships, and global monitoring safeguards that protect information even when democratic norms erode.
+
+# Policy Context
+
+The ability to measure and monitor progress toward the SDGs depends fundamentally on the consistent availability of reliable data. Missing SDG values reflect incomplete national reporting or insufficient data infrastructure, and their prevalence signals potential weaknesses in transparency, administrative capacity, or political willingness to disclose information.
+
+Historically, the importance of data completeness for development policy has been highlighted in earlier research. Analyzing Millennium Development Goal (MDG) indicators, *Jacob (2017)* found that larger data gaps were strongly correlated with weaker progress toward targets, even after controlling for income and statistical capacity. At the same time, *Hollyer, Rosendorff, and Vreeland (2010)* demonstrated that the degree of democracy is a major determinant of government transparency. Using missingness in the World Bank’s World Development Indicators as a proxy for information disclosure, they found that democracies publish significantly more economic data than autocracies, where leaders have incentives to withhold unfavorable information. Transparency becomes a political choice shaped by accountable institutions.
+
+Building on these findings, we plan to explore whether similar dynamics hold in the context of the SDGs. Our treatment variable is the degree of **democratic governance** measured through composite democracy indices such as the **V-Dem Electoral Democracy Index** and related indicators in our panel dataset. The outcome variable is the **proportion of missing SDG indicators per country-year** that is interpreted as a proxy for data transparency and statistical openness.
+
+In the absence of random assignment, variation in our treatment arises from both cross-country and temporal differences in governance quality. Some countries maintain stable democratic institutions with consistent reporting practices, while others experience episodes of democratic backsliding. These events constitute differential exposure to the treatment over time and across countries. Several factors may contribute to this variation. Political transitions, economic crises, leadership changes, or external pressures may influence whether a government strengthens or weakens its democratic institutions. These same forces often affect the autonomy and funding of national statistical offices (NSOs), therefore influencing their ability or willingness to provide complete SDG data.
+
+The mechanisms linking democracy to data availability are both institutional and informational. Democratic regimes, driven by electoral accountability and public scrutiny,  have stronger incentives to publish accurate and timely statistics. However, autocratic or backsliding regimes may manipulate, delay, or restrict data dissemination to avoid revealing policy failures or social disparities (Freedom House, 2023).
+
+From a policy standpoint, identifying how political deterioration correlates with data loss is essential for protecting the credibility of the SDG framework. If autocratization systematically reduces SDG data availability, it implies that international organizations and donors must treat data transparency as a governance issue. They must strive for more independent statistical systems, protect open-data mandates, and reinforce the role of civil society in monitoring global development progress.
+
+
+# Data Description and Sources 
+
+The dataset is a country-year panel (2015–2024) combining....
+
+### The Sustainable Development Goal Report: 
+
+The UN Sustainable Development Goals 
+are complemented by the SDG Index, which captures overall performance on 17 
+global policy benchmarks across 193 UN member states. As both global goals and
+measurable indices, the Sustainable Development Report’s SDG index includes both
+overall scores and individual scores for each of the 17 goals.
+In total, the 17 goals comprise 169 targets and 244 indicators to achieve the 
+2030 Agenda. This study specifically focuses the Development Report’s overall 
+composite index score, comprising 98 global indicators, while building a 
+replicable procedure for future research on disaggregated SDG statistics. 
+Although the SDGs were officially adopted in 2015, the SDG Index is backdated to
+the year 2000; these estimates lay the groundwork to compare statistical 
+capacity measures that would otherwise vary significantly in sample size due to
+differences in time-length and number.  Although every UN member state has a 
+country profile, only those with less than 20 percent missing data receive an 
+SDG Index score and rank. This is to ensure the comparability of the results 
+and to minimize missing data bias. 
+
+Here is the breakdown of each SDG measure: 
+```{r}
+sdg_table <- tribble(
+  ~SDG, ~Title, ~Headline_Indicator_or_Proxy, ~Target, ~Time_Coverage, ~Source,
+   1, "No Poverty", "Proportion of population living below the international $2.15 a day poverty line", "1.1",  "2015-2025", "World Data Lab",
+   2, "Zero Hunger", "Prevalence of undernourishment",                                                        "2.1",  "2015-2022", "FAO",
+   3, "Good Health and Well-being", "Under-5 mortality rate (comprehensive measure of health outcomes)",      "",     "2015-2023", "UNDESA",
+   4, "Quality Education", "Percentage of youth (15–24) not in education, employment or training (NEET)",     "4.1",  "2015-2023", "UNESCO",
+   5, "Gender Equality", "Proportion of women in national parliament",                                         "5.5",  "2015-2025", "IPU",
+   6, "Clean Water and Sanitation", "Proportion of population using safely managed drinking-water services",   "6.2",  "2015-2022", "JMP",
+   7, "Affordable and Clean Energy", "Proportion of population with access to electricity",                    "7.1",  "2015-2022", "IEA; IRENA; UNSD; World Bank; WHO",
+   8, "Decent Work and Economic Growth", "Proportion of adults with a bank account",                           "8.10", "2014-2021", "Global Findex Database",
+   9, "Industry, Innovation and Infrastructure", "Proportion of individuals using the internet",               "9.c",  "2015-2023", "ITU",
+  10, "Reduced Inequalities", "Income share of the bottom 40% of the population",                              "10.4", "2015-2022", "World Bank",
+  11, "Sustainable Cities and Communities", "Proportion of urban population in slums/informal/inadequate housing","11.6.2","2015-2023","Washington University in St. Louis",
+  12, "Responsible Consumption and Production", "Domestic material consumption per unit of GDP",               "12.2", "2015-2024", "UNEP",
+  13, "Climate Action", "CO2 emissions from fuel combustion & cement per USD of GDP",                          "13.2", "2015-2023", "Global Carbon Project",
+  14, "Life Below Water", "Proportion of marine fish stocks within biologically sustainable levels",           "14.5", "2015-2023", "BirdLife International et al.",
+  15, "Life on Land", "Red List Index (species extinction risk)",                                              "15.5", "2015-2023", "IUCN; BirdLife International",
+  16, "Peace, Justice and Strong Institutions", "Corruption Perceptions Index (normalized)",                   "16.4", "2015-2024", "Transparency International",
+  17, "Partnerships for the Goals", "Statistical Performance Index (national data capacity)",                  "17.18","2016-2023", "World Bank"
+) %>%
+  mutate(
+    SDG = as.integer(SDG),
+    Target = na_if(Target, ""),                         # set blank target to NA (SDG 3 row above)
+    Title = as.character(Title)
+  )
+
+sdg_table
+```
+
+
+### The V-Dem Institute’s Dataset:
+
+V-Dem Core Dataset:
+Country-Year panel containing the five indices plus their subcomponents.
+
+V-Dem Indicators Dataset:
+Thousands of underlying raw and modeled indicators (e.g., judicial 
+independence, civil liberties, corruption).
+
+The V-Dem Institute produces the largest global dataset on democracy 
+with over 31 million data points for 202 countries from 1789 to 2024. It 
+measures hundreds of different attributes of democracy. V-Dem enables new ways
+to study the nature, causes, and consequences of democracy embracing its 
+multiple meanings.
+
+The dataset, produced by the Varieties of Democracy Institute, defines democracy
+through five key principles: electoral, liberal, participatory, deliberative, 
+and egalitarian. Each principle is operationalized through a series of 
+indicators that capture both formal institutions and political practices. These 
+indicators are combined to produce five corresponding high-level indices: the 
+Electoral Democracy Index, Liberal Democracy Index, Participatory Democracy 
+Index, Deliberative Democracy Index, and Egalitarian Democracy Index. 
+
+Each index ranges from 0 to 1, where higher scores represent stronger 
+democratic performance.
+
+```{r}
+vdem_indices <- tibble(
+  Index = c(
+    "Electoral Democracy (Polyarchy)",
+    "Liberal Democracy",
+    "Participatory Democracy",
+    "Deliberative Democracy",
+    "Egalitarian Democracy"
+  ),
+  Concept_Captured = c(
+    "Free and fair elections; suffrage; freedom of expression & association",
+    "Rule of law; checks & balances; civil liberties",
+    "Citizen participation via civil society & local governance",
+    "Quality of public reasoning and consultation in decision-making",
+    "Equal access to power and resources; social inclusion"
+  )
+)
+
+vdem_indices
+```
+
+V-Dem is unique because it treats democracy as a multi-dimensional concept, 
+disaggregating it into institutional and behavioral components rather than a 
+single composite score.
+
+We will be examining the Country-Year: V-Dem Core that measures the five 
+high-level V-Dem democracy indices. We are choosing the electrical democracy 
+index as a base but will include all five of them to test and cross-validate 
+our results. 
+
+### Statistical Performance Indicators (SPI): 
+
+The Statistical Performance Indicators (SPI) is a comprehensive framework for 
+measuring countries' statistical capacity. We are including the index because it 
+strong statistical capacity helps a country monitors its governance and economic
+performance. The full World Bank Group’s SPI dataset comprises composite scores
+of 187 countries from 2016 to 2023, with a negligible difference based on the 
+selection criteria.
+
+This dataset comprises six indices: one overall composite score, referred to as
+the Statistical Performance Index (SPI), and five separate index scores designed
+to measure performance on five pillars: (1) Data Use; (2) Data Services; 
+(3) Data Products; (4) Data Sources; and (5) Data Infrastructure. Together, 
+these pillars are constituted by a total of 21 dimensions (14 of which are 
+measured) and 51 available indicators; pillar scores are sequentially
+calculated by 1) taking the unweighted average of all indicators within each 
+dimension, and then 2) aggregating these dimension scores to produce an 
+unweighted average score. Pillar three (Data Products) is the sole exception, 
+with weights applied according to the number of SDG goals comprised of each 
+dimension to ensure equal importance. 
+
+## Data Structuring and Variables 
+
+The **unit of observation** is one country examined over time. 
+The **population** represented by our sample is all UN member states that
+experience democratic backsliding from 2015 to 2024. 
+
+The **sample** will constitute (tentatively) 34 UN member states that experienced 
+democratic backsliding with available data between the years 2015 and 2024. 
+We are actively working on developing an appropriate methodology that identifies
+countries who underwent democratic backsliding since the year 2015. 
+
+### Data Restriction and Aggregation Plan
+
+To ensure comparability and consistency across datasets, we plan to restrict 
+our sample to UN member states with available observations for both the SDG 
+indicators and the V-Dem democracy indices between 2015 and 2024. Countries with
+excessive missingness (for example, those lacking SDG index scores due to more 
+than 20% missing data) will be excluded to maintain data quality and reduce bias.
+
+We will also aggregate certain variables to align the unit of analysis across 
+sources. The V-Dem dataset reports annual democracy scores at the country-year
+level, while the SDG indicators are published as multi-year or goal-level
+aggregates. To harmonize the structure, we will collapse and average SDG 
+indicators to the country-year level, producing a single composite measure of 
+SDG data availability (the proportion of missing indicators per year). 
+Similarly, we will aggregate the five V-Dem indices into a summarized democracy
+score or use them jointly in robustness checks to capture multidimensional 
+aspects of democratic quality.
+
+This restructuring allows us to analyze the relationship between average annual 
+democracy levels and contemporaneous SDG data availability while maintaining a 
+consistent temporal and spatial frame. By working at the country-year level, we
+preserve both within-country temporal variation (to study changes over time) and
+cross-country variation (to compare democratic versus backsliding regimes).
+
+### Variable Measurement 
+
+Our analysis is structured around one main explanatory (treatment) 
+variable—democracy level, one primary outcome variable—SDG data availability, 
+and a set of control variables capturing economic, demographic, institutional,
+and infrastructural factors that may jointly influence data transparency.
+
+All variables are measured at the country–year level for the period 2015–2024 
+to align the temporal scope of the V-Dem, SDG, and SPI datasets.
+
+```{r}
+variables_table <- tibble(
+  Category = c(
+    "Outcome Variable",
+    "Explanatory (Treatment) Variables",
+    "Explanatory (Treatment) Variables",
+    "Control Variables",
+    "Control Variables",
+    "Control Variables",
+    "Control Variables",
+    "Control Variables",
+    "Control Variables",
+    "Control Variables",
+    "Control Variables"
+  ),
+  Variable = c(
+    "Data Availability (Missingness)",
+    "Democracy Level (Main Treatment)",
+    "Alternative Democracy Dimensions",
+    "Statistical Capacity",
+    "Economic Development",
+    "Population Size",
+    "Income Group",
+    "Access to Electricity",
+    "Rural Population Share",
+    "R&D Expenditure (% of GDP)",
+    "Statistical Infrastructure Sub-Pillars"
+  ),
+  Definition = c(
+    "Extent to which countries report SDG indicators to international databases.",
+    "Degree of democratic governance measured through electoral integrity, suffrage, and freedom of expression and association.",
+    "Alternative conceptions of democracy—liberal, participatory, deliberative, and egalitarian—used for robustness checks.",
+    "Institutional and technical ability to produce and disseminate reliable data.",
+    "Income level and resource capacity to fund and maintain statistical systems.",
+    "Scale and administrative complexity of national data systems.",
+    "Categorical classification of development stage (low, lower-middle, upper-middle, or high income).",
+    "Infrastructure coverage affecting data capacity and SDG reporting.",
+    "Share of population living in rural areas, reflecting challenges in nationwide data collection.",
+    "Investment in innovation and knowledge systems, capturing national commitment to research and evidence-based policy.",
+    "Five sub-pillars of the Statistical Performance Index: use, services, products, sources, and infrastructure."
+  ),
+  Measurement = c(
+    "Proportion of missing SDG indicator values per country-year.",
+    "Scaled democracy index (0–1) capturing electoral processes and political freedoms.",
+    "Separate indices capturing distinct democratic principles, all scaled 0–1.",
+    "Composite Statistical Performance Index (SPI) score ranging from 0–100.",
+    "Log GDP per capita (PPP, constant $).",
+    "Log of total population size.",
+    "World Bank income classification categories.",
+    "Percentage of population with access to electricity.",
+    "Percentage of total population residing in rural areas.",
+    "R&D expenditure as a share of GDP (percent).",
+    "Five subcomponents of SPI, each measured on a 0–100 scale."
+  ),
+  Source = c(
+    "Sustainable Development Report (SDR 2025)",
+    "Varieties of Democracy (V-Dem, 2024)",
+    "Varieties of Democracy (V-Dem, 2024)",
+    "World Bank Statistical Performance Indicators (SPI)",
+    "World Bank World Development Indicators (WDI)",
+    "World Bank World Development Indicators (WDI)",
+    "World Bank classification",
+    "World Bank World Development Indicators (WDI)",
+    "World Bank World Development Indicators (WDI)",
+    "World Bank World Development Indicators (WDI)",
+    "World Bank Statistical Performance Indicators (SPI)"
+  )
+)
+
+kable(variables_table, caption = "Summary of Key Variables and Measurement Strategy")
+```
+
+# Preliminary Exploratory Analysis
+
+Preliminary analysis will explore correlations between SDG data availability, 
+democracy, and SPI. Scatterplots and summary tables will illustrate trends over
+time and across regime types. 
+
+
+# Empirical Strategy
+
+Building on *Hollyer, Rosendorff, and Vreeland (2010)* and *Jacob (2017)*, this study examines whether declines in democratic governance reduce the availability of Sustainable Development Goal (SDG) data over time. Using a country-year panel constructed from the Sustainable Development Report 2024 (SDR 2024 Backdated Index), V-Dem democracy indices, and World Bank Statistical Performance Indicators (SPI), we model both the political and institutional determinants of data transparency. 
+
+The analysis employs a two-way fixed effects model to capture within-country variation over time while controlling for unobserved heterogeneity across countries and global shocks that may affect reporting behavior. The dependent variable is the proportion of missing SDG indicators per country-year, representing the degree of data unavailability, while the main explanatory variable is the democracy index from V-Dem. 
+
+Our baseline specification is expressed as follows:
+We estimate the following two-way fixed effects model:
+$$ Missingness_{it} = \alpha + \beta_1 Democracy_{it} + \gamma X_{it} + \mu_i + \lambda_t $$
+where: 
+\begin{itemize}\setlength\itemindent{2em}
+  \item \( Missingness_{it} \) is the \textbf{proportion of missing SDG indicators} for country $i$ in year $t$, indicating lower data availability.
+  \item \( Democracy_{it} \) is the \textbf{V-Dem Electoral Democracy Index}, our primary treatment variable.
+  \item \( X_{it} \) includes controls for \textbf{Statistical Performance Index}, \textbf{log GDP per capita}, \textbf{income group}, and \textbf{regional-year dummies}.
+  \item \( \mu_i \) and \( \lambda_t \) are \textbf{country and year fixed effects}, respectively.
+\end{itemize}
+
+We include the Statistical Performance Indicator (SPI) as a substantive explanatory variable to capture a distinct institutional dimension of a country’s capacity to collect and disseminate data. Following the logic of Hollyer et al. (2010), transparency is conceived as the joint outcome of political incentives and institutional ability where democratic governments are more willing to release data, but the extent to which they can do so depends on the strength of their statistical systems. Including SPI therefore allows us to disentangle the political and institutional pathways that jointly determine SDG data availability, while other controls such as GDP per capita, income group, and regional-year effects account for general economic and structural factors.
+
+However, this specification may be subject to endogeneity. More democratic countries might also have stronger governance, higher institutional quality, and better data systems, meaning that democracy could be correlated with unobserved factors driving SDG transparency. To address this concern, we follow the methodological logic of Jacob (2017), who faced similar simultaneity between data completeness and development performance in his study of MDG data gaps. First, we will use lagged democracy indices (for example, the previous year’s democracy score) to establish causal ordering and reduce reverse causality. Institutional and political changes typically take time to influence data production and reporting, making lagged democracy a theoretically and empirically appropriate predictor of current SDG data completeness. Second, we plan to implement an instrumental-variable (IV) extension using two-stage least squares (2SLS) estimation. Exogenous instruments such as regional average democracy scores will be used to predict democracy under the assumption that they shape political regimes through diffusion or legacy effects but do not directly affect data reporting except through democracy itself. This approach parallels Jacob (2017)’s use of instrumental variables for data completeness, allowing us to isolate the component of democracy that is exogenous to contemporary reporting practices.*
+
+As a complementary robustness check, we will also test whether data availability systematically worsens after autocratization episodes using a difference-in-differences design. This specification compares changes in SDG data missingness between countries entering backsliding episodes and those that remain democratic, examining whether transparency declines disproportionately following autocratization. 
+
+Together, these empirical strategies allow us to assess both the correlational and causal dimensions of how political regimes shape global data transparency. A negative and statistically significant relationship between democracy and missingness, even after controlling for institutional capacity and economic development, would indicate that democratic erosion independently reduces the openness and reliability of SDG data systems.
+
+**Reference:**
+
+Freedom House. (2023). *Freedom in the world 2023: The global expansion of authoritarian rule.* Freedom House. https://freedomhouse.org/report/freedom-world/2023/global-expansion-authoritarian-rule
+
+Hollyer, J. R., Rosendorff, B. P., & Vreeland, J. R. (2010). *Democracy and transparency. The Journal of Politics*, 73(1), 119–134. https://doi.org/10.1017/S0022381610000904
+
+Jacob, M. (2017). *Mind the gap: Analyzing the impact of data gaps in Millennium Development Goals’ (MDGs) indicators on the progress toward MDGs.* Munich Personal RePEc Archive (MPRA Paper No. 79083). https://mpra.ub.uni-muenchen.de/79083/
+
+University of Gothenburg, Varieties of Democracy (V-Dem) Institute. (2023). *Democracy report 2023: Defiance in the face of autocratization*. V-Dem Institute. https://v-dem.net/documents/29/v-dem_democracyreport2023.pdf
+
+# Appendix
+
+```{r}
+
+# Code for merging, cleaning, and lag construction
+
+
+```

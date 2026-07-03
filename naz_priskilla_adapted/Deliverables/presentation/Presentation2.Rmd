@@ -1,0 +1,495 @@
+---
+title: "Data Loss and Democratic Backsliding"
+author: "Naz Hussein, Sevastian Sanchez, and Priskila Nandita"
+institute: "Columbia University SIPA \n Data Analysis for Policy Research Using R"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+<style>
+.small-text {
+  font-size: 80%;
+}
+</style>
+
+<style>
+.center-plot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+
+<style>
+.underline {
+  text-decoration: underline;
+}
+</style>
+
+<style>
+.remark-slide-content:not(.title-slide) {
+  background-color: #F0F2E2; /* Light lavender pastel */
+}
+</style>
+
+<style>
+.title-slide {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url("https://images.unsplash.com/photo-1584931423298-c576fda54bd2?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+}
+</style>
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(tidyverse)
+library(stringr)
+library(fixest)
+library(modelsummary)
+library(kableExtra)
+library(lmtest)
+library(multiwayvcov)
+library(sandwich)
+library(sf)
+library(stargazer)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(plotly)
+library(dplyr)
+library(forcats)
+
+setwd("~/Documents/R/Project")
+load("sdg_democracy_paneldata.RData") 
+```
+
+# Introduction and Research Motivation
+
+Without accurate, independent, and accessible data, policymakers cannot craft effective responses to economic challenges, public health crises, or social issues that affect their constituents. Even so, there are political incentives to disclose or hide information.
+
+At a time when countries increasingly experiencing <span class="underline">democratic backsliding</span>, we ask:
+
+
+<span class="center"> **Is this missingness a function of democratic backsliding? In other words, How does data availability react to democratic regression?**
+
+---
+
+# Policy Background 
+
+**Democratic backsliding** refers to the gradual decline in the quality of democracy within a country, often characterized by:
+- Erosion of civil liberties
+
+- Weakening of different forms of institutional checks and balances 
+- Manipulation, weponization and suppression of information ()
+
+- Existing literature supporting the association between lack of transparency and regime type (e.g., Steven Levitsky & Daniel Ziblatt, 2018; Hollyer et al. 2010; Jeskanen-Sundström, 2007) 
+
+**Hypothesis 1: autocratization is associated with weaker SDG reporting.** We speculate that SDG data is deprioritized and/or intentionally purged relative to the survival of autocratic regimes. 
+
+---
+<div style="font-size: 80%;">
+# Data Description
+
+```{r, echo=FALSE}
+panel_summary <- tibble(
+  Countries = n_distinct(df2$country_name),
+  Year_Min  = min(df2$year, na.rm=TRUE),
+  Year_Max  = max(df2$year, na.rm=TRUE)
+)
+
+kable(panel_summary)
+```
+**Outcome variable**
+
+- Proportion of SDG indicators that are missing for country $i$ in year $t$.
+- <span class="underline"> UN Sustainable Development Goals</span>: Comprised of 17 goals, 169 targets, and 244 indicators.
+  - The UN SDGs require governments to collect, harmonise, and publish indicators regularly, often with disaggregated breakdowns.
+
+
+**Key explanatory variables**
+
+- V-Dem **Electoral Democracy Index** (elect_dem) 
+- Autocratization episodes (V-Dem):
+  - Regime change variables (i.e. regime type, regime backslide period, etc.)
+  - Indicator for autocratization episode
+  - Episode start year (first onset).
+
+---
+
+## Data Description 
+**Time-Varying Controls**: National SDG reporting of countries can be shaped by statistical capacity and political willingness to report
+
+**Statistical Capacity**: The ability of a national statistical system to produce and disseminate high-quality statistical information that meets the needs of users (i.e., tech and infrastructure, national surveys/frequency, etc.)
+
+**Proxies of Statistical capacity:** 
+- $log(\text{GDP per capita})$, 
+- $log(\text{population})$ 
+- Electricity access
+- Research & Development Expenditure (%), 
+- Rural population (%), 
+
+
+---
+
+# Descriptive Statistics 
+
+.pull-left[
+
+```{r missing trend, echo = FALSE, warning = FALSE, error = FALSE, message = FALSE}
+sdg_long <- df2 %>%
+  pivot_longer(
+    cols = starts_with("sdg"),
+    names_to = "code",
+    values_to = "value"
+  ) %>%
+  mutate(
+    value = suppressWarnings(as.numeric(value)),
+    goal  = stringr::str_extract(code, "^sdg[0-9]+")  # e.g. "sdg1", "sdg10"
+  )
+
+sdg_missing_cy <- sdg_long %>%
+  group_by(country_name, year) %>%
+  summarise(
+    total_indicators   = n(),
+    missing_indicators = sum(is.na(value)),
+    missing_rate       = missing_indicators / total_indicators,
+    .groups = "drop"
+  )
+
+missing_trend <- sdg_missing_cy %>%
+  group_by(year) %>%
+  summarise(
+    mean_missing = mean(missing_rate, na.rm = TRUE),
+    sd_missing   = sd(missing_rate, na.rm = TRUE),
+    n_countries  = n_distinct(country_name)
+  )
+
+ggplot(missing_trend, aes(x = year, y = mean_missing)) +
+geom_line(size = 1.2) +
+geom_point(size = 2) +
+geom_ribbon(
+aes(ymin = mean_missing - sd_missing,
+ymax = mean_missing + sd_missing),
+alpha = 0.2
+) +
+theme_minimal(base_size = 13) +
+labs(
+title = "Average SDG Data Missingness Over Time (2015–2024)",
+x = "Year",
+y = "Mean Missing Rate",
+caption = "Source: Sustainable Development Report (2025)"
+)
+
+```
+]
+
+
+.pull-right[
+```{r trend slope, echo = FALSE, warning = FALSE, error = FALSE, message = FALSE}
+trend_slopes <- sdg_missing_cy %>%
+  group_by(country_name) %>%
+  summarise(
+    slope = coef(lm(missing_rate ~ year))[2],
+    .groups = "drop"
+  )
+
+worst_trends <- trend_slopes %>%
+  arrange(desc(slope)) %>%
+  slice(1:5) %>%
+  mutate(Trend = "Worst Deteriorations")   # positive slope
+
+best_trends <- trend_slopes %>%
+  arrange(slope) %>%           # most negative slope
+  slice(1:5) %>%
+  mutate(Trend = "Least Deteriorations")   # negative slope
+
+combined <- bind_rows(worst_trends, best_trends)
+
+ggplot(combined, aes(x = reorder(country_name, slope), y = slope,
+                     fill = Trend)) +
+  geom_col() +
+  scale_fill_manual(values = c(
+    "Worst Deteriorations" = "pink",
+    "Least Deteriorations" = "lavender"
+  )) +
+  coord_flip() +
+  labs(
+    title = "Countries with Largest Changes in SDG Reporting Quality",
+    subtitle = "Pink = Worst Deteriorations; Lavender = Least Deteriorations",
+    x = "Country",
+    y = "Slope of Missingness Trend"
+  ) +
+  theme_bw() 
+```
+]
+---
+  
+# Descriptive Statistics
+<div style="text-align: center;">
+
+```{r missingness by goal, echo = FALSE, warning = FALSE, error = FALSE, message = FALSE}
+sdg_names <- tibble(
+  goal = paste0("sdg", 1:17),
+  goal_label = c(
+    "SDG 1 – No Poverty",
+    "SDG 2 – Zero Hunger",
+    "SDG 3 – Good Health & Well-Being",
+    "SDG 4 – Quality Education",
+    "SDG 5 – Gender Equality",
+    "SDG 6 – Clean Water & Sanitation",
+    "SDG 7 – Affordable & Clean Energy",
+    "SDG 8 – Decent Work & Economic Growth",
+    "SDG 9 – Industry, Innovation & Infrastructure",
+    "SDG 10 – Reduced Inequalities",
+    "SDG 11 – Sustainable Cities & Communities",
+    "SDG 12 – Responsible Consumption & Production",
+    "SDG 13 – Climate Action",
+    "SDG 14 – Life Below Water",
+    "SDG 15 – Life On Land",
+    "SDG 16 – Peace, Justice & Strong Institutions",
+    "SDG 17 – Partnerships for the Goals"
+  )
+)
+
+missing_by_goal <- sdg_long %>%
+  mutate(goal = stringr::str_extract(code, "^sdg[0-9]+")) %>%
+  group_by(goal) %>%
+  summarise(
+    mean_missing = mean(is.na(value), na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  left_join(sdg_names, by = "goal") %>%
+  arrange(mean_missing)
+
+ggplot(missing_by_goal, aes(
+  x = mean_missing,
+  y = forcats::fct_reorder(goal_label, mean_missing)
+)) +
+  geom_col(fill = "#C7D3A8") +  
+  geom_text(
+    aes(label = scales::percent(mean_missing, accuracy = 0.1)),
+    hjust = -0.1,
+    size = 3.5
+  ) +
+  theme_minimal(base_size = 13) +
+  scale_x_continuous(
+    labels = scales::percent,
+    limits = c(0, max(missing_by_goal$mean_missing) + 0.05)
+  ) +
+  labs(
+    title = "Average SDG Data Missingness \n by Goal (2015–2024)",
+    x = "Proportion Missing",
+    y = NULL, 
+  ) +
+theme(
+  plot.margin = margin(t = 35),
+  plot.title = element_text(size = 12, face = "bold")
+)
+```
+
+---
+# Descriptive Statistics
+
+<div style="text-align: center;">
+```{r democracy-map, echo=FALSE, dev.args=list(bg="transparent")}
+dem_groups <- df2 %>%
+  group_by(country_code, country_name) %>%
+  summarise(
+    ever_dem = any(dem_ep == 1, na.rm = TRUE),
+    ever_aut = any(aut_ep == 1, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    trajectory = dplyr::case_when(
+      ever_aut & !ever_dem ~ "Backsliding only",
+      ever_dem & !ever_aut ~ "Democratizing only",
+      ever_dem & ever_aut  ~ "Both episodes",
+      TRUE                 ~ "No major episode"
+    )
+  )
+
+trajectory_counts <- dem_groups %>%
+  count(trajectory)
+
+kable(
+  trajectory_counts,
+  caption = "Democratic Trajectory Classification",
+  col.names = c("Democratic Trajectory", "Number of Countries")
+) %>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+---
+class: center, middle
+## Country Autocratization Episodes Over Time
+<div class="center-plot">
+```{r aut_map, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6}
+
+auto_map <- df2 %>%
+  group_by(country_code, year) %>%
+  summarise(
+    aut_status = max(aut_ep, na.rm = TRUE),  # 1 = autocratized at some point, 0 otherwise
+    .groups    = "drop"
+  )
+
+p <- plot_ly(
+  data        = auto_map,
+  type        = "choropleth",
+  locations   = ~country_code,   # ISO3 codes
+  locationmode = "ISO-3",
+  z           = ~aut_status,
+  frame       = ~year,
+  colorscale  = list(
+    c(0, "#f0f0f0"),            # not autocratizing
+    c(1, "#e41a1c")             # in autocratization episode
+  ),
+  showscale   = FALSE,
+  hovertemplate = paste(
+    "Country: %{location}<br>",
+    "Year: %{frame}<br>",
+    "Autocratization: %{z}<extra></extra>"
+  )
+)
+
+p <- plotly::layout(
+  p,
+  title = list(text = "Countries in Autocratization Episodes Over Time"),
+  geo = list(
+    showframe     = FALSE,
+    showcoastlines = FALSE,
+    projection    = list(type = "robinson")
+  )
+)
+
+p
+```
+---
+# Correlation Matrix
+<div class="center-plot">
+```{r corr_heatmap, echo=FALSE, warning=FALSE, message=FALSE}
+# Correlation matrix 
+corr_data <- df2 %>%
+  dplyr::select(country_name, country_code, year, matches("^prop_miss_sdg\\d+"), 
+                elect_dem, log_gdppc, log_pop, income_level, rural_pop_pct, 
+                rd_expenditure_pct)
+
+# Matrix: (R) correlations for each SDG against elect_dem by year
+correlation_data <- corr_data %>%
+  select(year, matches("^prop_miss_sdg\\d+"), elect_dem) %>%
+  group_by(year) %>%
+  summarise(
+    across(
+      matches("^prop_miss_sdg\\d+"),
+      ~cor(.x, elect_dem, use = "pairwise.complete.obs"),
+      .names = "{.col}"
+    )
+  ) %>%
+  pivot_longer(
+    cols = matches("^prop_miss_sdg\\d+"),
+    names_to = "SDG",
+    values_to = "correlation"
+  ) %>%
+  mutate(
+    # Extract SDG number for better labeling
+    SDG_number = as.numeric(str_extract(SDG, "\\d+")),
+    SDG_label = paste("SDG", SDG_number)
+  )
+
+# Create the heatmap
+ggplot(correlation_data, aes(x = factor(year), 
+                             y = fct_reorder(SDG_label, SDG_number, .desc = TRUE), 
+                             fill = correlation)) +
+  geom_tile(color = "white", linewidth = 0.5) +
+  geom_text(aes(label = round(correlation, 2)), size = 3, color = "black") +
+  scale_fill_gradient2(
+    low = "#2166ac",
+    mid = "white",
+    high = "#b2182b",
+    midpoint = 0,
+    limits = c(-1, 1),
+    name = "Pearson R"
+  ) +
+  labs(
+    title = "Correlation between SDG Missingness and Democracy Levels",
+    subtitle = "Years 2015 - 2023",
+    y = "SDG Goal",
+    x = NULL
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    axis.text.y = element_text(size = 10),
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    legend.position = "right"
+  )
+```
+---
+
+# Empirical Strategy: Staggered DiD
+
+We estimate: 
+
+$$Y_{it} = \alpha_i + \lambda_t + ATT_{g,t} \cdot D_{it} + X_{it}\gamma + \varepsilon_{it}$$
+
+Where:
+
+- $Y_{it}$: SDG missingness in country $i$, year $t$ 
+- $D_{it}$: indicator that country \(i\) is treated (autocratized) in year \(t\)
+- $ATT_{g,t}$: group-time average treatment effect for countries first treated at time \(g\)
+- $X_{it}$: socioeconomic controls (GDPpc, electricity access, rural pop share, R&D spending)
+- $\alpha_i$: country fixed effects
+- $\lambda_t$: year fixed effects
+- $\varepsilon_{it}$: error term
+
+This formulation allows treatment effects to differ depending on the year  
+each country autocratized.
+
+---
+
+# Challenges
+
+- **Few treated units** within the SDG time window (post-2015).
+- **Limited pre-treatment years** restricts parallel trends assessment.
+- **Measurement issues** in SDG indicators (different goals = different reporting burdens).
+- **Political event coding uncertainty** in V-Dem.
+
+- **Confounders**:
+  - administrative reforms,
+  - public sector capacity,
+  - budget shocks,
+  - crises that affect data generation.
+
+These constraints impact statistical power and interpretation.
+
+---
+
+# Future Strategy
+
+To further **strengthen causal identification**, we plan to:
+
+- Restrict sample to "sufficiently democratic" countries pre-episode to avoid bias from very low-capacity/borderline states.
+
+- Heterogeneous treatment effects
+Allow effect sizes to differ by: baseline democracy level, statistical capacity, region, income group  
+
+- **Futher analysis**:
+We will complement the quantitative results with a qualitative  event analysis of several illustrative country cases that  experienced autocratization (e.g., Hungary, Turkey, India).
+
+---
+
+background-image: url(`r xaringan:::karl`)
+background-position: 50% 50%
+class: center, bottom, inverse
+# You only live once!
+
+
+

@@ -72,7 +72,6 @@ ggplot(df, aes(x = prop_sdg_missing)) +
 
 ## Missingness by SDG goal
 We compute proportion missing per goal (1–17) for each country-year.
-
 ```{r}
 # Construct per-goal missingness for each country-year
 
@@ -99,8 +98,8 @@ for (g in 1:17) {
 }
 ```
 
-```{r}
 
+```{r}
 goal_missing <- function(g) {
   goal_cols <- grep(paste0("^sdg", g, "_"), names(df), value = TRUE)
   df %>%

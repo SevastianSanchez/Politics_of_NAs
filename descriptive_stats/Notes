@@ -1,0 +1,14 @@
+NOT IN THE sdg_raw DATASET 
+"EAP", "ECA", "IBD", "IBT", "IBA", "MNA", "SAS", "SSA", "AFE", "AFW", "ARB", 
+"CEB", "CSS", "EAR", "EAS", "ECS", "EMU", "EUU", "FCS", "HPC", "IDX", "INX", 
+"LCN", "LDC", "NAC", "MEA", "OED", "OSS", "PRE", "PSS", "PST", "TSA", "TSS", 
+"UMC",  "WLD", "TEA", "TEC", "TLA", "TMN", "SST", "SSF", "OWID_WRL", "ANT", 
+"CSK", "SUN", "YUG", "YUGF", "LMC", "LMY", "LTE"
+
+SEVERAL SEMI-AUTONOMOUS NATIONS 
+"West Bank and Gaza" = "PSE"
+"Kosovo" = "XKX",
+"Zanzibar" = "ZNZ",
+"Channel Islands" = "CHI",
+"Saint Martin (French part)" = "MAF",
+"Curaçao" = "CUW",

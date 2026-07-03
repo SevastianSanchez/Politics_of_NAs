@@ -1,0 +1,11 @@
+
+UNDERSTANDING COUNTRYCODE PACKAGE 
+library(countrycode)
+
+# the way it works: 
+1) specify column you're trying to match, 
+2) what kind of data it is (i.e., country.name, iso3c code, etc.. )
+3) specify what you want it to be matched with / what you want from the package ("iso3c")
+
+Example: 
+df$new_code_column <- countrycode(df$country_name, "country.name", "iso3c") 

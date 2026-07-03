@@ -1,0 +1,379 @@
+
+################################################################################
+# INTERPRETATION GUIDE & METHODOLOGICAL NOTES
+# Democratic Backsliding & Data Availability Analysis
+################################################################################
+
+=============================================================================
+KEY CONCEPTS & VARIABLE DEFINITIONS
+=============================================================================
+
+DEMOCRACY VARIABLE (elect_dem):
+- Higher values = MORE democratic
+- Range: 0 (least democratic) to 1 (most democratic)
+- Source: V-Dem Electoral Democracy Index
+
+DIRECTION OF CHANGE:
+- NEGATIVE change (elect_dem decreases) = BACKSLIDING (getting less democratic)
+- POSITIVE change (elect_dem increases) = DEMOCRATIZATION (getting more democratic)
+
+OUTCOME VARIABLES:
+- prop_sdg_missing: Overall proportion of SDG indicators with missing data
+- prop_miss_SDG1-17: Proportion missing for each specific SDG
+- Higher values = MORE data missing (worse data availability)
+
+=============================================================================
+APPROACH 1: TWO-WAY FIXED EFFECTS (TWFE)
+=============================================================================
+
+WHAT IT DOES:
+- Estimates separate effects for backsliding vs democratization
+- Controls for country-specific factors (country fixed effects)
+- Controls for year-specific shocks (year fixed effects)
+- Assumes LINEAR effects within each direction
+
+MODEL SPECIFICATION:
+  Y_it = β1*Backsliding_it + β2*Democratization_it + X_it + α_i + γ_t + ε_it
+
+WHERE:
+- Y_it = Data missingness for country i in year t
+- Backsliding_it = Absolute value of negative democracy changes
+- Democratization_it = Positive democracy changes
+- X_it = Control variables (GDP, population, etc.)
+- α_i = Country fixed effects
+- γ_t = Year fixed effects
+
+INTERPRETATION:
+- β1 (backsliding coefficient): For every 1-unit DECREASE in democracy score,
+  data missingness changes by β1 percentage points
+
+- β2 (democratization coefficient): For every 1-unit INCREASE in democracy score,
+  data missingness changes by β2 percentage points
+
+EXPECTED SIGNS:
+- β1 > 0: Backsliding increases data missingness (hypothesis)
+- β2 < 0: Democratization decreases data missingness (hypothesis)
+
+TESTING ASYMMETRY:
+- If β1 ≠ β2 (Wald test significant): Asymmetric effects confirmed
+- This means backsliding and democratization have different magnitudes
+
+LIMITATIONS:
+- May suffer from heterogeneous treatment effect bias if:
+  * Effects vary across countries
+  * Treatment timing is staggered (which it is in your data)
+- Cannot identify pre-treatment trends
+- Assumes parallel trends
+
+=============================================================================
+APPROACH 2: CALLAWAY-SANT'ANNA (2020) DiD
+=============================================================================
+
+WHAT IT DOES:
+- Solves TWFE bias problems with staggered adoption
+- Estimates group-time specific ATTs (Average Treatment on Treated)
+- Compares treated units to "not-yet-treated" controls
+- Allows for heterogeneous treatment effects across cohorts
+
+KEY ESTIMATES:
+
+1. OVERALL ATT:
+   - Average effect across all treated countries/years
+   - Simple summary: "On average, autocratization increases data 
+     missingness by X percentage points"
+
+2. DYNAMIC ATT (Event Study):
+   - Shows effects before/after treatment starts
+   - Pre-treatment effects should be ~0 (parallel trends check)
+   - Post-treatment effects show evolution over time
+
+   INTERPRETATION:
+   - ATT(e=-2): Effect 2 years BEFORE autocratization
+   - ATT(e=0): Effect in first year of autocratization
+   - ATT(e=3): Effect 3 years AFTER autocratization starts
+
+3. GROUP-SPECIFIC ATT:
+   - Separate effects for each treatment cohort
+   - E.g., Countries that started backsliding in 2017 vs 2020
+   - Reveals heterogeneity: Do recent vs older episodes differ?
+
+4. CALENDAR TIME ATT:
+   - Effects by calendar year
+   - Shows if treatment effects vary over global time
+
+ADVANTAGES OVER TWFE:
+✓ No negative weighting problem
+✓ Allows heterogeneous treatment effects
+✓ Better for staggered adoption
+✓ Provides pre-treatment placebo tests
+
+LIMITATIONS:
+- Focuses only on autocratization episodes (aut_ep=1)
+- Doesn't separately estimate democratization effects
+- Requires "not-yet-treated" control group
+- More complex to interpret
+
+=============================================================================
+APPROACH 3: CATEGORICAL BINS
+=============================================================================
+
+WHAT IT DOES:
+- Groups democracy changes into discrete categories
+- Captures NON-LINEAR effects
+- Reference category: "Stable" (±0.01 change)
+
+CATEGORIES DEFINED:
+1. Large backsliding: Decrease > 0.05
+2. Moderate backsliding: Decrease 0.01 to 0.05
+3. Stable: Change between -0.01 and +0.01
+4. Moderate democratization: Increase 0.01 to 0.05
+5. Large democratization: Increase > 0.05
+
+MODEL SPECIFICATION:
+  Y_it = β1*LargeBackslide + β2*ModBackslide + 
+         β3*ModDem + β4*LargeDem + X_it + α_i + γ_t + ε_it
+
+INTERPRETATION:
+- Each coefficient compares that category to "Stable" countries
+- Example: β1 = 0.08 means large backsliding countries have 8 percentage
+  points MORE data missingness than stable countries
+
+KEY INSIGHTS:
+✓ Shows if MAGNITUDE matters (small vs large changes)
+✓ Reveals asymmetries: Is large backsliding worse than large democratization?
+✓ Tests for threshold effects: Maybe only big shifts matter?
+
+ADVANTAGES:
+✓ Easy to interpret and visualize
+✓ No functional form assumptions
+✓ Shows full distribution of effects
+
+LIMITATIONS:
+- Category cutoffs are somewhat arbitrary
+- Loses information by binning continuous variable
+- May have small sample sizes in extreme categories
+
+=============================================================================
+ROBUSTNESS CHECKS INCLUDED
+=============================================================================
+
+1. ALTERNATIVE CLUSTERING:
+   - Cluster by year instead of country
+   - Tests if results sensitive to correlation structure
+
+2. TWO-WAY CLUSTERING:
+   - Accounts for correlation within countries AND years
+   - Most conservative standard errors
+
+3. STABLE TREATMENT:
+   - Excludes countries that switch back and forth
+   - Tests if results driven by "switchers"
+
+4. PLACEBO TEST (LEAD EFFECTS):
+   - Includes FUTURE democracy changes
+   - Future changes should NOT predict current data missingness
+   - If significant: suggests reverse causality or confounding
+
+5. LAGGED DEPENDENT VARIABLE:
+   - Controls for data missingness persistence
+   - Tests if effects are above/beyond persistence
+
+6. INCOME-LEVEL HETEROGENEITY:
+   - Separate models for Low, Lower-Middle, Upper-Middle, High income
+   - Tests if effects differ by development level
+
+=============================================================================
+EXPECTED PATTERNS & INTERPRETATION
+=============================================================================
+
+SUPPORTING YOUR HYPOTHESIS (Backsliding → Data Loss):
+
+Strong evidence if:
+✓ TWFE: β1 (backsliding) > 0 and significant
+✓ TWFE: |β1| > |β2| (backsliding worse than democratization)
+✓ C-S: Overall ATT > 0 and significant
+✓ C-S: Dynamic ATT shows increasing effects post-treatment
+✓ C-S: Pre-treatment ATTs near zero (parallel trends)
+✓ Categorical: Large backsliding > Moderate backsliding > Stable
+✓ Robustness: Consistent across specifications
+
+Nuanced findings:
+- If C-S ATT > TWFE: Suggests heterogeneous effects (recent episodes worse)
+- If categorical shows threshold: Small changes don't matter, big ones do
+- If income heterogeneity: Effects may be concentrated in poor countries
+
+ALTERNATIVE PATTERNS:
+
+Null result:
+- All coefficients near zero, not significant
+- Interpretation: Democracy changes don't affect data availability
+
+Reverse effect:
+- Backsliding DECREASES missingness (negative coefficient)
+- Would challenge hypothesis - maybe autocrats improve data systems?
+
+Symmetric effects:
+- β1 ≈ β2 in TWFE
+- Interpretation: Direction doesn't matter, just magnitude of change
+
+=============================================================================
+COMMON PITFALLS & HOW TO AVOID THEM
+=============================================================================
+
+1. MISINTERPRETING SIGNS:
+   ✗ Wrong: "Positive coefficient means backsliding improves data"
+   ✓ Right: "Positive coefficient means backsliding INCREASES missingness
+            (i.e., WORSENS data availability)"
+
+2. CAUSAL LANGUAGE:
+   ✗ Wrong: "Democracy causes data availability"
+   ✓ Right: "Democratic backsliding is associated with increased data
+            missingness, conditional on country and time fixed effects"
+
+   Be careful: Even with FE, potential confounders:
+   - Wars/conflicts coinciding with backsliding
+   - Economic crises
+   - Statistical office budget cuts
+
+3. MAGNITUDE INTERPRETATION:
+   - Coefficients are in same units as outcome (proportions)
+   - 0.05 coefficient = 5 percentage point increase in missingness
+   - With mean missingness ~0.48, this is a 10% relative increase
+
+4. C-S TREATMENT DEFINITION:
+   - aut_ep=1 defines treatment
+   - Make sure this matches your concept of "backsliding"
+   - Some countries may have backsliding without formal episode
+
+=============================================================================
+PRESENTATION TIPS
+=============================================================================
+
+MAIN RESULTS TABLE:
+Include columns for:
+1. TWFE (backsliding)
+2. TWFE (democratization)  
+3. TWFE with lag
+4. C-S Overall ATT
+5. Categorical (Large backsliding)
+
+FOR EACH MODEL SHOW:
+- Coefficient estimate
+- Standard error (clustered)
+- 95% CI or p-value
+- N observations, N countries
+- R-squared (for TWFE)
+
+VISUALIZATIONS:
+1. Coefficient plot comparing all approaches
+2. C-S event study (dynamic effects)
+3. Categorical effects plot (show all categories)
+4. Heatmap across SDG goals (which goals most affected?)
+
+NARRATIVE:
+1. Start with main result (Approach 1 or 2)
+2. Show robustness (other approaches agree?)
+3. Explore heterogeneity (income levels, specific SDGs)
+4. Discuss mechanisms (why would this happen?)
+
+=============================================================================
+EXTENSIONS & FUTURE WORK
+=============================================================================
+
+POSSIBLE ADDITIONS:
+
+1. MECHANISMS:
+   - Test if budget cuts mediate the effect
+   - Examine specific data systems (censuses, surveys)
+   - Look at data QUALITY not just availability
+
+2. HETEROGENEITY:
+   - By regime type (electoral autocracy vs closed)
+   - By speed of backsliding (gradual vs sudden)
+   - By regional context
+
+3. LONG-RUN EFFECTS:
+   - Do effects persist after democratization?
+   - Recovery time analysis
+
+4. SPILLOVERS:
+   - Does backsliding in neighboring countries affect you?
+   - Regional diffusion effects
+
+=============================================================================
+STATA EQUIVALENT CODE NOTES
+=============================================================================
+
+If you need to run in Stata instead of R:
+
+TWFE:
+  reghdfe prop_sdg_missing backsliding democratization ///
+         log_gdppc log_pop rural_pop_pct rd_expenditure_pct, ///
+         absorb(country_code year) vce(cluster country_code)
+
+CATEGORICAL:
+  reghdfe prop_sdg_missing i.change_category ///
+         log_gdppc log_pop rural_pop_pct rd_expenditure_pct, ///
+         absorb(country_code year) vce(cluster country_code)
+
+CALLAWAY-SANT'ANNA:
+  csdid prop_sdg_missing log_gdppc log_pop rural_pop_pct, ///
+        ivar(country_id) time(year) gvar(aut_cohort) ///
+        notyet
+
+=============================================================================
+QUESTIONS TO ADDRESS IN YOUR WRITE-UP
+=============================================================================
+
+1. Why do you expect asymmetric effects?
+   - Theoretical mechanism: easier to destroy than build institutions
+
+2. Why focus on SDG data specifically?
+   - Policy relevance: affects development monitoring
+   - Observable outcome: compared to data "quality"
+
+3. What are alternative explanations?
+   - Conflict/instability rather than backsliding per se
+   - Economic decline correlates with both
+   - Statistical office independence threatened
+
+4. How big are the effects substantively?
+   - Compare to mean/SD of outcome
+   - Calculate implied missingness increase for typical episode
+   - Translate to # of indicators lost
+
+5. Which SDGs are most affected?
+   - Governance/institutions (SDG 16)?
+   - Inequality (SDG 10)?
+   - Or basic services less affected?
+
+=============================================================================
+CONTACT & CITATION
+=============================================================================
+
+Key papers to cite:
+
+Callaway & Sant'Anna (2021):
+  "Difference-in-Differences with multiple time periods"
+  Journal of Econometrics
+
+Goodman-Bacon (2021):
+  "Difference-in-differences with variation in treatment timing"
+  Journal of Econometrics
+
+Sun & Abraham (2021):
+  "Estimating dynamic treatment effects in event studies"
+  Journal of Econometrics
+
+For your context:
+Di Gennaro & Splendore (2024) - Statistical capacity & democracy
+
+=============================================================================
+
+GOOD LUCK WITH YOUR ANALYSIS!
+
+Remember: The goal is to rigorously test whether democratic backsliding
+actually harms data systems. Multiple approaches strengthen your story.
+If they all point the same direction, you have compelling evidence.
+If they diverge, investigate WHY - that's interesting too!
+

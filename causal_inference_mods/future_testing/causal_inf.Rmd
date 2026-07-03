@@ -1,0 +1,39 @@
+---
+title: "Causal Inference Techniques"
+output: html_document
+---
+
+```{r}
+#load libraries/packages
+source("code/packages.R") 
+
+# load data
+df <- readRDS("data/output/sdg_democracy_paneldata.rds") # load pre-saved panel data
+
+# select only the relevant columns for the analysis
+panel_data <- df %>%
+  dplyr::select(country_name, country_code, year, elect_dem, lib_dem, 
+                log_gdppc, log_pop, income_level, rural_pop_pct,
+                rd_expenditure_pct, electric_access, regime_type_4,
+                regch_event, dem_ep, dem_ep_pre_yr, dem_ep_start_yr, dem_ep_end_yr,
+                aut_ep, aut_ep_pre_yr, aut_ep_start_yr, aut_ep_end_yr,
+                n_sdg_indicators, n_sdg_missing, prop_sdg_missing,
+                matches("^prop_miss_sdg\\d+")) %>%
+  arrange(country_code, year)
+
+# save for future use
+write_csv(panel_data, "data/output/ES_panel_data.csv")
+```
+
+## R Scripts 
+```{r}
+# Step 1: Install packages (one-time, 5-10 min)
+source('code/install_packages.R')
+
+# Step 2: Run analysis (5-15 min)
+source('causal_inference_mods/approaches_n_analysis.R')
+```
+
+**TO DO:**
+- Restrict sample to "sufficiently democratic" countries pre-episode to avoid bias from very low-capacity/borderline states.
+- Heterogeneous treatment effects: Allow effect sizes to differ by: baseline democracy level, statistical capacity, region, income group  

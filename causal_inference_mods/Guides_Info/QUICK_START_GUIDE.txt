@@ -1,0 +1,230 @@
+
+================================================================================
+QUICK START GUIDE
+Democratic Backsliding & Data Availability Analysis
+================================================================================
+
+STEP-BY-STEP INSTRUCTIONS:
+
+1. PREPARE YOUR ENVIRONMENT
+   ---------------------------
+   a) Make sure you have R installed (version 4.0 or higher recommended)
+   b) Place the following files in the same directory:
+      - ES_panel_data.csv (your data file)
+      - install_packages.R
+      - approaches_n_analysis.R
+
+2. INSTALL PACKAGES
+   ---------------------------
+   Open R or RStudio and run:
+
+   > source('install_packages.R')
+
+   This will install all required packages. It may take 5-10 minutes.
+   You only need to do this once!
+
+3. RUN THE ANALYSIS
+   ---------------------------
+   After packages are installed, run:
+
+   > source('democracy_data_analysis.R')
+
+   The script will:
+   - Load and prepare your data
+   - Run all three approaches
+   - Generate visualizations
+   - Perform robustness checks
+   - Export results
+
+   Expected runtime: 5-15 minutes depending on your computer
+
+4. CHECK YOUR RESULTS
+   ---------------------------
+   After completion, you should see these files:
+
+   VISUALIZATIONS:
+   ✓ approach1_twfe_coefficients.png
+   ✓ approach2_cs_event_study.png
+   ✓ approach2_cs_group_effects.png
+   ✓ approach3_categorical_effects.png
+   ✓ approach3_heatmap_all_sdgs.png
+   ✓ comparison_all_approaches.png
+
+   DATA EXPORTS:
+   ✓ twfe_coefficients.csv
+   ✓ categorical_coefficients.csv
+   ✓ comparison_table.csv
+   ✓ regression_table.tex
+
+   WORKSPACE:
+   ✓ analysis_workspace.RData
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+PROBLEM: Package installation fails
+SOLUTION: 
+  - Update R to latest version
+  - Try installing packages individually:
+    install.packages("tidyverse")
+    install.packages("did")
+    etc.
+
+PROBLEM: "Object not found" error
+SOLUTION:
+  - Make sure ES_panel_data.csv is in the working directory
+  - Check: getwd() to see current directory
+  - Set: setwd("path/to/your/files")
+
+PROBLEM: Out of memory error
+SOLUTION:
+  - Close other programs
+  - Increase R memory: Run R with --max-mem-size=4G flag
+  - Run on more powerful computer
+
+PROBLEM: Callaway-Sant'Anna takes too long
+SOLUTION:
+  - Normal! This method is computationally intensive
+  - Can take 10-30 minutes with your data size
+  - Consider running overnight if needed
+
+PROBLEM: Some plots look strange
+SOLUTION:
+  - Increase plot window size in RStudio
+  - Plots are also saved as PNG files (better quality)
+  - Adjust dpi or dimensions in ggsave() if needed
+
+================================================================================
+UNDERSTANDING YOUR RESULTS
+================================================================================
+
+KEY FILES TO EXAMINE:
+
+1. comparison_all_approaches.png
+   → Shows all estimates side-by-side
+   → Start here to see if methods agree
+
+2. approach1_twfe_coefficients.png
+   → Effects on all SDG indicators
+   → Shows which goals are most affected
+
+3. approach2_cs_event_study.png
+   → Pre/post treatment effects
+   → Check for parallel trends (pre-period should be flat)
+
+4. approach3_categorical_effects.png
+   → Non-linear effects
+   → Shows if magnitude matters
+
+5. comparison_table.csv
+   → Numerical results for your thesis table
+   → Import into Excel/Word
+
+6. regression_table.tex
+   → LaTeX table for your thesis
+   → Can import directly into Overleaf
+
+================================================================================
+CUSTOMIZATION
+================================================================================
+
+TO MODIFY THE ANALYSIS:
+
+Change outcome variable:
+  Line 72-73: Edit outcome_vars list
+  Add/remove SDG indicators as needed
+
+Change control variables:
+  Lines with "log_gdppc + log_pop + ..."
+  Add/remove controls based on your theory
+
+Change categorical cutoffs:
+  Lines 31-38: Modify case_when() thresholds
+  E.g., change 0.05 to 0.10 for different bins
+
+Change clustering:
+  vcov = ~country_code
+  Change to: vcov = ~year or vcov = ~country_code + year
+
+================================================================================
+NEXT STEPS FOR YOUR THESIS
+================================================================================
+
+1. INTERPRET RESULTS
+   → Read INTERPRETATION_GUIDE.txt carefully
+   → Identify your main finding
+   → Check if hypothesis is supported
+
+2. CREATE TABLES
+   → Use regression_table.tex as starting point
+   → Add descriptive statistics table
+   → Create summary table comparing approaches
+
+3. WRITE NARRATIVE
+   → Start with descriptive stats
+   → Present main result (pick strongest approach)
+   → Show robustness (other approaches confirm?)
+   → Discuss heterogeneity (income levels, specific SDGs)
+   → Address limitations
+
+4. SUPPLEMENTARY ANALYSES
+   → Modify code for specific SDG goals
+   → Test additional mechanisms
+   → Explore country-specific case studies
+
+5. PRESENTATION
+   → Use comparison_all_approaches.png for overview
+   → Event study plot shows causal evidence
+   → Heatmap shows which SDGs affected
+   → Keep coefficient plots for appendix
+
+================================================================================
+ADDITIONAL RESOURCES
+================================================================================
+
+Callaway-Sant'Anna R package documentation:
+https://bcallaway11.github.io/did/
+
+fixest package (fast fixed effects):
+https://lrberge.github.io/fixest/
+
+Panel data in R tutorial:
+https://www.princeton.edu/~otorres/Panel101R.pdf
+
+Difference-in-Differences best practices:
+Roth et al. (2023) "What's Trending in Difference-in-Differences?"
+
+================================================================================
+GETTING HELP
+================================================================================
+
+If you encounter issues:
+
+1. Check R console for error messages
+2. Read INTERPRETATION_GUIDE.txt for methodology questions
+3. Review robustness checks to understand sensitivity
+4. Consult package documentation (? command in R)
+
+For methodology questions:
+- Review cited papers (Callaway & Sant'Anna 2021, etc.)
+- Consult your thesis advisor
+- Post on Cross Validated (stats.stackexchange.com)
+
+For R coding questions:
+- Check package documentation
+- Search Stack Overflow
+- Review R help files: ?function_name
+
+================================================================================
+
+REMEMBER: This is an exploratory analysis tool. Always:
+  ✓ Understand the methods before interpreting
+  ✓ Check robustness across specifications
+  ✓ Consider alternative explanations
+  ✓ Be transparent about limitations
+  ✓ Let the data tell the story
+
+Good luck with your thesis!
+
+================================================================================
