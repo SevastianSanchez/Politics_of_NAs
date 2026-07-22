@@ -92,3 +92,10 @@ coef_ABC <- map_dfr(
     )
   }
 )
+
+
+# # All Three Models (Overall Missingness) in One Table
+# etable(mA, mB, mC)
+
+# # full coefficient table (per goal)
+# coef_ABC

@@ -26,7 +26,13 @@ library(patchwork)
 # 1. Load Data
 
 ```{r load-data}
-panel <- read_csv("data/output/panel_es_data.csv")
+# panel <- read_csv("data/output/panel_es_data.csv")
+source("causal_inference_mods/causal_inf_data_prep.R")
+
+
+# number of NAs for each control variable using colSums and is.na
+colSums(is.na(panel %>% select(elect_dem, lib_dem, spi_overall, log_gdppc,
+                               log_pop, luminosity, electric_access, rural_pop_pct)))
 ```
 
 ---
@@ -47,61 +53,61 @@ Key decisions encoded here:
 - **`tname`** = `year` (integer).
 
 ```{r build-panel}
-# Step 1: Flag left-censored countries
-panel <- panel %>%
-  mutate(
-    left_censored = (!is.na(aut_start_filled) & aut_start_filled < 2015)
-  )
-
-cat("Left-censored countries (episode starts before 2015):",
-    n_distinct(panel$country_code[panel$left_censored]), "\n")
-
-# Step 2: Build CS panel
-panel_cs <- panel %>%
-  filter(!left_censored) %>%
-  mutate(year = as.integer(year)) %>%
-  rename(idname = country_id,
-         tname  = year)
-
-# Step 3: Assign constant gname per country (first episode start year; 0 = never-treated)
-g_by_country <- panel_cs %>%
-  group_by(idname) %>%
-  summarise(
-    gname = ifelse(
-      any(aut_cohort > 0, na.rm = TRUE),
-      min(aut_cohort[aut_cohort > 0], na.rm = TRUE),
-      0L
-    ),
-    .groups = "drop"
-  )
-
-panel_cs <- panel_cs %>%
-  select(-any_of("gname")) %>%
-  left_join(g_by_country, by = "idname")
-
-# Step 4: Restrict to identifiable cohorts only
-panel_cs <- panel_cs %>%
-  filter(
-    gname == 0 | gname %in% 2016:2020
-  )
+# # Step 1: Flag left-censored countries
+# panel <- panel %>%
+#   mutate(
+#     left_censored = (!is.na(aut_start_filled) & aut_start_filled < 2015)
+#   )
+# 
+# cat("Left-censored countries (episode starts before 2015):",
+#     n_distinct(panel$country_code[panel$left_censored]), "\n")
+# 
+# # Step 2: Build CS panel
+# panel_cs <- panel %>%
+#   filter(!left_censored) %>%
+#   mutate(year = as.integer(year)) %>%
+#   rename(idname = country_id,
+#          tname  = year)
+# 
+# # Step 3: Assign constant gname per country (first episode start year; 0 = never-treated)
+# g_by_country <- panel_cs %>%
+#   group_by(idname) %>%
+#   summarise(
+#     gname = ifelse(
+#       any(aut_cohort > 0, na.rm = TRUE),
+#       min(aut_cohort[aut_cohort > 0], na.rm = TRUE),
+#       0L
+#     ),
+#     .groups = "drop"
+#   )
+# 
+# panel_cs <- panel_cs %>%
+#   select(-any_of("gname")) %>%
+#   left_join(g_by_country, by = "idname")
+# 
+# # Step 4: Restrict to identifiable cohorts only
+# panel_cs <- panel_cs %>%
+#   filter(
+#     gname == 0 | gname %in% 2016:2020
+#   )
 ```
 
 ```{r cohort-check}
-# Verify gname is constant per country
-n_multi_g <- panel_cs %>%
-  distinct(idname, gname) %>%
-  count(idname) %>%
-  filter(n > 1) %>%
-  nrow()
-
-cat("Countries with inconsistent gname (should be 0):", n_multi_g, "\n")
-
-# Cohort distribution
-panel_cs %>%
-  distinct(idname, gname) %>%
-  count(gname, name = "n_countries") %>%
-  arrange(gname) %>%
-  print()
+# # Verify gname is constant per country
+# n_multi_g <- panel_cs %>%
+#   distinct(idname, gname) %>%
+#   count(idname) %>%
+#   filter(n > 1) %>%
+#   nrow()
+# 
+# cat("Countries with inconsistent gname (should be 0):", n_multi_g, "\n")
+# 
+# # Cohort distribution
+# panel_cs %>%
+#   distinct(idname, gname) %>%
+#   count(gname, name = "n_countries") %>%
+#   arrange(gname) %>%
+#   print()
 ```
 
 ---
@@ -109,26 +115,26 @@ panel_cs %>%
 # 3. SPI Moderator Variable
 
 ```{r spi-moderator}
-# Compute baseline SPI per country (first non-missing observation)
-spi_baseline <- panel_cs %>%
-  arrange(idname, tname) %>%
-  group_by(idname) %>%
-  summarise(spi_base = first(na.omit(spi_overall)), .groups = "drop")
-
-# Median-split into High/Low SPI
-spi_median <- median(spi_baseline$spi_base, na.rm = TRUE)
-
-panel_cs <- panel_cs %>%
-  left_join(spi_baseline, by = "idname") %>%
-  mutate(
-    spi_hilow = case_when(
-      spi_base >= spi_median ~ "High SPI",
-      spi_base <  spi_median ~ "Low SPI",
-      TRUE ~ NA_character_
-    )
-  )
-
-cat("SPI median (baseline):", round(spi_median, 2), "\n")
+# # Compute baseline SPI per country (first non-missing observation)
+# spi_baseline <- panel_cs %>%
+#   arrange(idname, tname) %>%
+#   group_by(idname) %>%
+#   summarise(spi_base = first(na.omit(spi_overall)), .groups = "drop")
+# 
+# # Median-split into High/Low SPI
+# spi_median <- median(spi_baseline$spi_base, na.rm = TRUE)
+# 
+# panel_cs <- panel_cs %>%
+#   left_join(spi_baseline, by = "idname") %>%
+#   mutate(
+#     spi_hilow = case_when(
+#       spi_base >= spi_median ~ "High SPI",
+#       spi_base <  spi_median ~ "Low SPI",
+#       TRUE ~ NA_character_
+#     )
+#   )
+# 
+# cat("SPI median (baseline):", round(spi_median, 2), "\n")
 ```
 
 ---
@@ -136,11 +142,11 @@ cat("SPI median (baseline):", round(spi_median, 2), "\n")
 # 4. Outcome Variables
 
 ```{r outcomes}
-# Overall outcome
-outcome_overall <- "prop_sdg_missing"
-
-# Goal-level outcomes
-sdg_goals <- paste0("prop_miss_SDG", 1:17)
+# # Overall outcome
+# outcome_overall <- "prop_sdg_missing"
+# 
+# # Goal-level outcomes
+# sdg_goals <- paste0("prop_miss_SDG", 1:17)
 ```
 
 ---
@@ -162,7 +168,7 @@ cs_overall <- att_gt(
   gname = "gname", # ID of first year it is treated (cohort)
   xformla = ~ log_pop + electric_access + log_luminosity + rural_pop_pct,
   control_group = "nevertreated", # control group = countries never having aut_ep
-  anticipation = 0,
+  anticipation = 0, # treatment effect = start-year onset (no anticipation)
   data = panel_cs %>% filter(!is.na(prop_sdg_missing)) %>% as.data.frame(),
   est_method = "dr",
   clustervars = "idname",

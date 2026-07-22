@@ -30,6 +30,10 @@ print(missing_summary)
 
 cat("\n=== STRUCTURE OF THE DATA ===\n")
 str(data[, c("elect_dem", "lib_dem")])
+
+# year range
+print(min(data$year))
+print(max(data$year))
 ```
 
 ## Descriptive Analysis: NA Counts and DI Distributions
@@ -117,9 +121,6 @@ source("descriptive_stats/corr_matrix_sdg_NAs.R")
 
 # SDG missingness x democracy levels (elect_dem, lib_dem, di_score) [partial]
 source("descriptive_stats/partial_corr_matrix_sdg_NAs.R")
-
-# All covariates used in models
-source("descriptive_stats/corr_matrix_key_vars.R")
 ```
 
 
