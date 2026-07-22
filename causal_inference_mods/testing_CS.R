@@ -75,6 +75,7 @@ cs_out_basic_dyn <- aggte(
 summary(cs_out_basic_dyn)
 ggdid(cs_out_basic_dyn)
 
+y_var <- "prop_miss_SDG5"
 # STRUCTURAL COVARIATES 
 cs_m2 <- att_gt(
   yname   = y_var,
@@ -95,6 +96,8 @@ cs_m2_dyn <- aggte(
 summary(cs_m2_dyn)
 ggdid(cs_m2_dyn)
 
+
+y_var <- "prop_miss_SDG17"
 # + ECONOMIC PERFORMANCE 
 cs_m3 <- att_gt(
   yname   = y_var,
@@ -118,32 +121,3 @@ cs_m3_dyn <- aggte(
 summary(cs_m3_dyn)
 ggdid(cs_m3_dyn)
 
-
-
-
-# Grab event times and ATT estimates
-# Keep only event times between -4 and +6 (change if you want)
-keep <- cs_m3_dyn$egt >= -4 & cs_m3_dyn$egt <= 6
-
-e_short   <- cs_m3_dyn$egt[keep]
-att_short <- cs_m3_dyn$att.egt[keep]
-lower_short <- cs_m3_dyn$band.egt[keep, 1]
-upper_short <- cs_m3_dyn$band.egt[keep, 2]
-
-# Very simple base R plot
-plot(
-  e_short, att_short,
-  type = "p",
-  xlab = "Event time (years relative to first backsliding)",
-  ylab = "ATT on prop_sdg_missing",
-  main = "Dynamic ATT (restricted to -4 to +6)",
-  ylim = range(c(lower_short, upper_short))
-)
-
-abline(h = 0, lty = 2)  # dashed zero line
-
-arrows(
-  x0 = e_short, y0 = lower_short,
-  x1 = e_short, y1 = upper_short,
-  angle = 90, code = 3, length = 0.05
-)
