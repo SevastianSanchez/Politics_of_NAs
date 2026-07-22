@@ -8,17 +8,17 @@ data2 <- readRDS("data/output/sdg_democracy_paneldata.rds")
 # Extract the data 
 corr_data <- data2 %>%
   dplyr::select(country_name, country_code, year, matches("^prop_miss_sdg\\d+"), 
-                elect_dem, log_gdppc, log_pop, income_level, rural_pop_pct, 
+                elect_dem, lib_dem, log_gdppc, log_pop, income_level, rural_pop_pct, 
                 rd_expenditure_pct)
 
-# Matrix: (R) correlations for each SDG against elect_dem by year
+# Matrix: (R) correlations for each SDG against lib_dem by year
 correlation_data <- corr_data %>%
-  select(year, matches("^prop_miss_sdg\\d+"), elect_dem) %>%
+  select(year, matches("^prop_miss_sdg\\d+"), lib_dem) %>%
   group_by(year) %>%
   summarise(
     across(
       matches("^prop_miss_sdg\\d+"),
-      ~cor(.x, elect_dem, use = "pairwise.complete.obs"),
+      ~cor(.x, lib_dem, use = "pairwise.complete.obs"),
       .names = "{.col}"
     )
   ) %>%

@@ -3,65 +3,26 @@ title: "panel_model_analysis"
 output: html_document
 ---
 
-## Loading & Merging Data 
+## Loading prepared panel data & packages
 ```{r}
-library(tidyverse)
-library(devtools)
-library(fixest)   # for TWFE
-library(did)      # for Callaway-Sant'Anna DiD
-library(car)
-library(readr)
-library(janitor)
-library(WDI) # call WDI package for Vars 
+source("code/packages.R")
+
+# Data prep 
+source("causal_inference_mods/causal_inf_data_prep.R")
 
 # Load data (adjust path if needed)
-# df <- read_csv("sdg_democracy_paneldata.csv")
-df <- readRDS("data/output/sdg_democracy_paneldata.rds")
-
-# Quickly Adding merge of SPI data
-url <- 
-  "https://raw.githubusercontent.com/worldbank/SPI/refs/heads/master/03_output_data/SPI_index.csv"
-spi <- read_csv(url) %>% 
-  dplyr::select(country, date, SPI.INDEX, iso3c) %>% 
-  rename(country_name = country, country_code = iso3c, year = date, spi_overall = SPI.INDEX)
-
-# merging spi into main panel dataset
-panel <- df %>% left_join(spi, by = c("country_code", "year"))
-
-# Quickly Adding Luminosity Data (for potential future use) 
-luminosity <- read_csv("data/input/csvs_other_indicators/nightlight_1992_2023_complete.csv") %>% 
-  filter(year >= 2015) %>% 
-  rename(country_code = iso, luminosity = nlsum)
-
-# merging luminosity into main panel dataset
-panel <- panel %>% left_join(luminosity, by = c("country_code", "year"))
-
-# Quickly Adding episode id for autocratization and democratization
-ert <- read.csv("data/input/ert.csv") %>% 
-  filter(year >= 2000) %>% 
-  dplyr::select(country_text_id, year, dem_ep_id, aut_ep_id) %>% 
-  rename(country_code = country_text_id)
-
-# merging episode id into main panel dataset
-panel <- panel %>% left_join(ert, by = c("country_code", "year"))
-
-# Quickly Adding tax revenue data (for potential future use) [WDI]
-tax_rev_gdp <- WDI(country = "all", indicator = "GC.TAX.TOTL.GD.ZS", start = 2000, end = NULL)
-
-# merging tax revenue data into main panel dataset
-panel <- panel %>% left_join(tax_rev_gdp %>% 
-                               rename(country_code = iso3c, tax_rev_gdp = GC.TAX.TOTL.GD.ZS), 
-                             by = c("country_code", "year"))
+panel <- readRDS("data/output/MAIN_panel_data.rds")
 ```
 
 **Source for Luminosity data**: Beyer, R.C., Hu, Y. and Yao, J., 2026. The Bright Side of Heteroskedasticity: Measuring Quarterly Economic Growth from Outer Space.
 (link)[https://sites.google.com/site/jiaxiongyao16/nighttime-lights-data?authuser=0] 
 
-## Assessing Distribution of Key Variables
+
+## Robustness Check: Assessing Distribution of Key Variables
 ```{r}
 # Distribution of key variables
 key_vars <- panel %>%
-  select(spi_overall, log_gdppc, log_pop, electric_access, luminosity, rural_pop_pct) %>%
+  select(spi_overall, gdp_pc, total_pop, electric_access, luminosity, rural_pop_pct) %>%
   pivot_longer(everything(), names_to = "variable", values_to = "value")
 
 ggplot(key_vars, aes(x = value)) +
@@ -71,80 +32,11 @@ ggplot(key_vars, aes(x = value)) +
   labs(title = "Distribution of Key Variables", x = "Value", y = "Frequency")
 ```
 
+Given the largely skewed distribution of population, the log of population is used in all models. We also use the log of luminosity and log of GDP per capita (variable applied as necessary) to reduce skewness in these variables.
 
-
-## Data Cleaning and Variable Setup
+## Robustness Check: [Corrected] distribution of vars post-log transformation & imputation
 ```{r}
-# Basic cleaning / type setting -----------------------------------------------
-panel <- panel %>%
-  filter(year >= 2015) %>%
-  mutate(
-    # Treatment cohort: first year of autocratization (0 if never treated)
-    aut_cohort = if_else(aut_ep == 1, aut_ep_start_yr, 0L),
-    log_luminosity = log(luminosity + 1),
-    # Numeric ID required by did::att_gt()
-    country_id = as.numeric(as.factor(country_code)))
-
-panel <- panel %>% mutate(across(
-    c(country_code, year, regime_type_2, regime_type_4, regime_type_10, 
-      aut_ep, dem_ep, regch_event, regch_genuine, aut_cohort), as.factor))
-
-panel$regime_type_4 <- factor(panel$regime_type_4, levels = c("0", "1", "2", "3"))
-panel$income_level <- factor(panel$income_level, levels = c("L", "LM", "UM", "H"))
-```
-**log_pop** has the most missing values, specifically across all countries in 2023, which is likely due to the fact that the World Bank's population data for 2023 may not have been fully updated or released at the time of data collection. 
-
-Strategy: Population data for 2023 was unavailable from the World Bank at the time of data collection; 2022 values were carried forward for this variable. Given the low year-over-year volatility of log population, this is unlikely to meaningfully affect estimates.
-
-## Addressing NA values in key covariates
-```{r}
-# impute missing values for log_pop with previous year values (carry forward)
-panel <- panel %>% 
-  group_by(country_code) %>% 
-  mutate(
-    log_pop = if_else(year == 2023 & is.na(log_pop),
-    log_pop[year == 2022], log_pop)
-    ) %>% 
-  ungroup()
-
-# count of missing values in key variables
-missing_summary <- panel %>%
-  summarise(
-    prop_sdg_missing = sum(is.na(prop_sdg_missing)),
-    aut_ep = sum(is.na(aut_ep)),
-    lib_dem = sum(is.na(lib_dem)),
-    log_gdppc = sum(is.na(log_gdppc)),
-    log_pop = sum(is.na(log_pop)),
-    electric_access = sum(is.na(electric_access)),
-    log_luminosity = sum(is.na(log_luminosity)),
-    rural_pop_pct = sum(is.na(rural_pop_pct)),
-    spi_overall = sum(is.na(spi_overall)),
-    tax_rev_gdp = sum(is.na(tax_rev_gdp))
-  )
-print(missing_summary)
-
-# Table of countries with remaining NA values in key variables (after log_pop imputation)
-panel %>% 
-  group_by(country_code, country_name.x) %>% 
-  summarise(
-    across(c(log_gdppc, log_pop, log_luminosity, electric_access, tax_rev_gdp), ~ sum(is.na(.x))),
-    .groups = "drop") %>% 
-  filter(if_any(c(log_gdppc, log_pop, log_luminosity, electric_access, tax_rev_gdp), ~ .x > 0)) %>% 
-  janitor::adorn_totals("row") %>% 
-  knitr::kable(
-    col.names = c("Country code", "Country", "Log GDP p.c.", "Log Pop.",
-                  "log of Luminosity", "Electric Access", "Tax Revenue % GDP"),
-    caption = "Missing observations by country for key covariates")
-
-# Save as rds
-write_rds(panel, "data/output/MAIN_panel_data.rds") # Used for all subsequent analyses to avoid re-merging SPI data each time.
-# save as csv for AI 
-write_csv(panel, "data/output/MAIN_panel_data.csv")
-```
-
-## Checking distribution of key variables after log transformation & imputation
-```{r}
-# checking distribution of key variables after log transformation
+# checking distribution of key variables using log-transformed and imputed values
 key_vars <- panel %>%
   select(spi_overall, log_gdppc, log_pop, electric_access, log_luminosity, rural_pop_pct) %>%
   pivot_longer(everything(), names_to = "variable", values_to = "value")
@@ -157,50 +49,784 @@ ggplot(key_vars, aes(x = value)) +
 ```
 
 
-## Quick check of multicollinearity and missingness in control variables
+## Addressing NA values in key covariates
 ```{r}
-# VIF 
-vif_data <- panel %>%
-  select(prop_sdg_missing, lib_dem, log_gdppc, log_pop, log_luminosity,
-         electric_access, rural_pop_pct, spi_overall) %>% na.omit() 
+# # imputed missing values for log_pop with previous year values (carry forward)
 
-# VIF 1 (with SPI)
-vif_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + log_pop + electric_access + log_luminosity + rural_pop_pct + spi_overall, data = vif_data)
-vif(vif_model)
+# count of missing values in key variables
+missing_summary <- panel %>%
+  summarise(
+    prop_sdg_missing = sum(is.na(prop_sdg_missing)),
+    aut_ep = sum(is.na(aut_ep)),
+    lib_dem = sum(is.na(lib_dem)),
+    elect_dem = sum(is.na(elect_dem)),
+    v2x_liberal = sum(is.na(v2x_liberal)),
+    log_gdppc = sum(is.na(log_gdppc)),
+    log_pop = sum(is.na(log_pop)),
+    electric_access = sum(is.na(electric_access)),
+    log_luminosity = sum(is.na(log_luminosity)),
+    rural_pop_pct = sum(is.na(rural_pop_pct)),
+    spi_overall = sum(is.na(spi_overall)),
+    tax_rev_gdp = sum(is.na(tax_rev_gdp))
+  )
+print(missing_summary)
 
-# VIF 2 (without SPI)
-vif2_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + log_pop + electric_access + log_luminosity + rural_pop_pct, data = vif_data)
-vif(vif2_model)
+# Table of countries with remaining NA values in key variables (after log_pop imputation)
+na_values_by_country <- panel %>%
+  group_by(country_code, country_name.x) %>%
+  summarise(across(c(log_gdppc, log_pop, log_luminosity, electric_access, spi_overall, tax_rev_gdp, rural_pop_pct),
+                    ~ sum(is.na(.x))), .groups = "drop") %>%
+  filter(if_any(c(log_gdppc, log_pop, log_luminosity, electric_access, spi_overall, tax_rev_gdp, rural_pop_pct),
+                ~ .x > 0)) %>%
+  janitor::adorn_totals("row")
 
-# matrix of variables and correlations
-cor_data <- vif_data %>% select(-prop_sdg_missing)
-cor_matrix <- cor(cor_data)
-cor_matrix %>% round(2) %>% knitr::kable(
-  caption = "Correlation matrix for control variables (excluding SPI)")
+# Export the actual data [TO APPENDIX]
+write_csv(na_values_by_country, "results_csv/na_values_by_country.csv")
+
+# Table of country NA values per variable 
+var_labels_na <- c(
+  "Log GDP per Capita" = "log_gdppc",
+  "Log Population" = "log_pop",
+  "Log Nighttime Luminosity" = "log_luminosity",
+  "Electricity Access (%)" = "electric_access",
+  "Statistical Performance Index" = "spi_overall",
+  "Tax Revenue (% of GDP)" = "tax_rev_gdp", 
+   "Rural Population (%)" = "rural_pop_pct"
+)
+
+na_table <- na_values_by_country %>%
+  mutate(`#` = if_else(country_code == "Total", NA_integer_, row_number())) %>%
+  relocate(`#`) %>%
+  rename(Country = country_name.x, `Iso3 Code` = country_code) %>%
+  rename(!!!var_labels_na)
+
+set_flextable_defaults(na_str = "NA")
+highlight_row <- which(na_table$Country %in% c("North Korea", "Eritrea", "Venezuela", "Cuba", "South Sudan"))
+na_ft <- na_table %>% flextable()
+
+na_ft <- na_ft %>%
+  theme_apa() %>%
+  padding(padding.top = 1, padding.bottom = 1, part = "body") %>%
+  bg(i = highlight_row, bg = "#FFF3CD", part = "body") %>%
+  add_header_lines(values = "Countries with remaining missing values by variable (2015-2023)") %>%
+  bold(part = "header", i = 1) %>%
+  bold(part = "body", i = nrow(na_table)) %>%
+  add_footer_lines(
+    "Note. Cell values indicate the number of country-year observations with missing data for each control variable considered in this study, within the 2015-2023 window. Values reflect counts after log population imputation. The final row reports totals across all countries. This table focuses on control variables, as all democracy predictors contain zero missing values across the full sample."
+  ) %>%
+  italic(part = "footer") %>%
+  fontsize(size = 10, part = "footer") %>%
+  font(fontname = "Times New Roman", part = "footer") %>%
+  autofit()
+
+save_as_image(na_ft, path = "figures/causal_inference/na_values_by_country_table.png")
 
 ```
-NOTES ABOUT VARIABLES: 
+
+**total_pop** has the most missing values, specifically across all countries in 2023, which is likely due to the fact that the World Bank's population data for 2023 may not have been fully updated or released at the time of data collection. 
+
+Strategy: Population data for 2023 was unavailable from the World Bank at the time of data collection; 2022 values were carried forward for this variable. Given the low year-over-year volatility of (log) population, this is unlikely to meaningfully affect estimates. 
+
+
+## Robustness check: VIF multicollinearity across model variables 
+```{r}
+# VIF 1 (All)
+vif_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + log_pop + spi_overall + electric_access + log_luminosity + rural_pop_pct,
+                 data = panel %>% select(prop_sdg_missing, lib_dem, log_gdppc, log_pop, spi_overall, electric_access, log_luminosity, rural_pop_pct))
+
+# VIF 2 (without log_gdppc)
+vif2_model <- lm(prop_sdg_missing ~ lib_dem + log_pop + spi_overall + electric_access + log_luminosity + rural_pop_pct,
+                  data = panel %>% select(prop_sdg_missing, lib_dem, log_pop, spi_overall, electric_access, log_luminosity, rural_pop_pct))
+
+# # VIF 3 (without log_pop)
+vif3_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + spi_overall + electric_access + log_luminosity + rural_pop_pct,
+                  data = panel %>% select(prop_sdg_missing, lib_dem, log_gdppc, spi_overall, electric_access, log_luminosity, rural_pop_pct))
+
+# # VIF 4 (without SPI)
+vif4_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + log_pop + electric_access + log_luminosity + rural_pop_pct,
+                  data = panel %>% select(prop_sdg_missing, lib_dem, log_gdppc, log_pop, electric_access, log_luminosity, rural_pop_pct)) 
+
+# Create a table of VIF results for all four models
+var_labels <- c(
+  lib_dem = "Liberal Democracy Index",
+  elect_dem = "Electoral Democracy Index",
+  spi_overall = "Statistical Performance Index",
+  log_pop = "Log Population",
+  log_gdppc = "Log GDP per Capita",
+  log_luminosity = "Log Nighttime Luminosity",
+  electric_access = "Electricity Access (%)",
+  rural_pop_pct = "Rural Population (%)"
+)
+
+vif_table <- reduce(
+  list(
+    vif(vif_model)  %>% enframe(name = "Variable", value = "VIF 1: All "),
+    vif(vif2_model) %>% enframe(name = "Variable", value = "VIF 2: No GDP "),
+    vif(vif3_model) %>% enframe(name = "Variable", value = "VIF 3: No Pop "),
+    vif(vif4_model) %>% enframe(name = "Variable", value = "VIF 4: No SPI ")
+  ),
+  full_join, by = "Variable"
+) %>%
+  mutate(Variable = dplyr::recode(Variable, !!!var_labels))
+
+n_row <- tibble(
+  Variable = "N (Observations)",
+  `VIF 1: All ` = nobs(vif_model),
+  `VIF 2: No GDP ` = nobs(vif2_model),
+  `VIF 3: No Pop ` = nobs(vif3_model),
+  `VIF 4: No SPI ` = nobs(vif4_model)
+)
+
+vif_table <- bind_rows(vif_table, n_row)
+
+set_flextable_defaults(na_str = "NA")
+
+vif_ft <- vif_table %>%
+  flextable()
+
+vif_ft <- vif_ft %>%
+  theme_apa() %>%
+  add_header_lines(values = "VIF & country-year count comparison across four model specifications") %>%
+  padding(padding.top = 1, padding.bottom = 1, part = "body") %>%
+  bold(part = "header", i = 1) %>%
+  bold(part = "body", i = nrow(vif_table)) %>%
+  colformat_double(j = c("VIF 1: All ", "VIF 2: No GDP ", "VIF 3: No Pop ", "VIF 4: No SPI "), digits = 2) %>%
+  colformat_double(i = ~ Variable == "N (Observations)",
+                    j = c("VIF 1: All ", "VIF 2: No GDP ", "VIF 3: No Pop ", "VIF 4: No SPI "),
+                    digits = 0, big.mark = ",") %>%
+  add_footer_lines("Note. Variance inflation factors (VIFs) were calculated from regressions of overall SDG missingness on all covariates included in each specification. Columns 2 through 4 sequentially remove one covariate at a time (population, GDP, and SPI, respectively) to assess whether any single covariate is driving inflated VIFs among the others. VIF scores < 5 signify low collinearity; scores \u2265 5 signify moderate collinearity; and scores \u2265 10 exhibit severe collinearity.") %>%
+  italic(part = "footer") %>%
+  fontsize(size = 10, part = "footer") %>%
+  font(fontname = "Times New Roman", part = "footer") %>%
+  autofit()
+
+save_as_image(vif_ft, path = "figures/causal_inference/vif1-4_table_twfe.png")
+```
+
+## Robustness Check: Correlation matrix of control variables
+```{r}
+# matrix of variables and correlations
+cor_data <- panel %>% select(prop_sdg_missing, lib_dem, elect_dem, v2x_liberal, 
+                             log_gdppc, log_pop, spi_overall, electric_access, 
+                             log_luminosity, rural_pop_pct, tax_rev_gdp) %>% na.omit()
+cor_matrix <- cor(cor_data)
+cor_matrix %>% round(2) %>% knitr::kable(
+  caption = "Correlation matrix for control variables")
+
+# # All covariates used in models
+# source("descriptive_stats/corr_matrix_key_vars.R")
+```
+
+*NOTES ABOUT VARIABLES:*
 - Took out R&D expenditure because it has a lot of NAs and is highly correlated with GDP per capita.
 - SPI is missing all of 2015, but is kept in the dataset for now because it is a key control variable. Models are run with and without it to check robustness.
 
-## Robustness Check: Models with and without Log of GDP per capita 
+## Directional Decomposition: LDI, EDI & LCI 
 ```{r}
-source("causal_inference_mods/RobChk_GDP_ElecAccess.R") 
+panel$year <- as.numeric(as.character(panel$year))
+panel$country_code <- as.character(panel$country_code)
 
-# All Three Models (Overall Missingness) in One Table
-etable(mA, mB, mC)
+panel <- panel %>%
+  arrange(country_code, year) %>%
+  group_by(country_code) %>%
+  mutate(
+    year_gap = year - dplyr::lag(year),
+    delta_ldi = ifelse(year_gap == 1, lib_dem - dplyr::lag(lib_dem), NA_real_),
+    decline_ldi = ifelse(delta_ldi < 0, abs(delta_ldi), 0),
+    decline_ldi.03 = ifelse(delta_ldi <= -0.03, abs(delta_ldi), 0),
+    improve_ldi = ifelse(delta_ldi > 0, delta_ldi, 0),
+    improve_ldi.03 = ifelse(delta_ldi >= 0.03, abs(delta_ldi), 0),
+    delta_edi = ifelse(year_gap == 1, elect_dem - dplyr::lag(elect_dem), NA_real_),
+    decline_edi = ifelse(delta_edi < 0, abs(delta_edi), 0),
+    decline_edi.03 = ifelse(delta_edi <= -0.03, abs(delta_edi), 0),
+    improve_edi = ifelse(delta_edi > 0, delta_edi,  0),
+    improve_edi.03 = ifelse(delta_edi >= 0.03, abs(delta_edi), 0),
+    delta_liberal = ifelse(year_gap == 1, v2x_liberal - dplyr::lag(v2x_liberal), NA_real_),
+    decline_liberal = ifelse(delta_liberal < 0, abs(delta_liberal), 0),
+    decline_liberal.03 = ifelse(delta_liberal <= -0.03, abs(delta_liberal), 0),
+    improve_liberal = ifelse(delta_liberal > 0, delta_liberal, 0),
+    improve_liberal.03 = ifelse(delta_liberal >= 0.03, abs(delta_liberal), 0),
+  ) %>%
+  ungroup()
+```
 
-# full coefficient table (per goal)
-coef_ABC
+## Some Visual Analysis of Backsliding and Democratizing Magnitudes
+```{r}
+## Histograms of backsliding and democratizing magnitudes (liberal democracy index)
+
+# Backsliding magnitudes (country-years with decline_ldi > 0)
+backsliding_ldi_vals <- panel$decline_ldi[panel$decline_ldi != 0]
+
+hist(
+  backsliding_ldi_vals,
+  main = "Histogram of Backsliding Magnitudes (lib_dem)",
+  xlab = "Year-to-year decline in lib_dem",
+  ylab = "Number of country-years",
+  col  = "lightgray",
+  border = "black"
+)
+
+# Democratizing magnitudes (country-years with improve_ldi > 0)
+democratizing_ldi_vals <- panel$improve_ldi[panel$improve_ldi != 0]
+
+hist(
+  democratizing_ldi_vals,
+  main = "Histogram of Democratizing Magnitudes (lib_dem)",
+  xlab = "Year-to-year improvement in lib_dem",
+  ylab = "Number of country-years",
+  col  = "lightgray",
+  border = "black"
+)
+
+## Three-by-two table of country-year counts by type and magnitude 
+# [Directional distribution and magnitude of LDI changes across 1,3XX country-years (2015–2023)]
+
+# Backsliding: any decline vs decline >= 0.3
+backsliding_any   <- sum(panel$decline_ldi   != 0, na.rm = TRUE)
+backsliding_0.03   <- sum(panel$decline_ldi.03 != 0, na.rm = TRUE)
+
+# Democratizing: any improvement vs improvement >= 0.3
+democratizing_any <- sum(panel$improve_ldi   != 0, na.rm = TRUE)
+democratizing_0.03 <- sum(panel$improve_ldi.03 != 0, na.rm = TRUE)
+
+# Stable: no decline and no improvement (any magnitude),
+# and no decline >= 0.3 and no improvement >= 0.3
+stable_any <- sum(
+  panel$decline_ldi   == 0 &
+  panel$improve_ldi   == 0,
+  na.rm = TRUE
+)
+
+stable_0.03 <- sum(
+  panel$decline_ldi.03 == 0 &
+  panel$improve_ldi.03 == 0,
+  na.rm = TRUE
+)
+
+# Compose 3x2 table
+ldi_mag_table <- rbind(
+  backsliding = c(any_change = backsliding_any, change_ge_0.03 = backsliding_0.03),
+  democratizing = c(any_change = democratizing_any, change_ge_0.03 = democratizing_0.03),
+  stable = c(any_change = stable_any, change_ge_0.03 = stable_0.03))
+
+ldi_mag_table
+```
+
+## PART 1: Two‑way fixed effects (TWFE) [Baseline Models] [LDI Decomposed]
+```{r}
+# ---------------------- lib_dem -> overall SDG missingness ---------------------
+
+# M1: Reduced Dynamic TWFE (just to see raw relationship)
+m1_twfe_a <- feols(
+  prop_sdg_missing 
+  ~ decline_ldi + improve_ldi 
+  | country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m1_twfe_a)
+
+# M2: Reduced Dynamic TWFE + Lags
+m2_twfe_a <- feols(
+  prop_sdg_missing 
+  ~ l(decline_ldi, 0:1) + l(improve_ldi, 0:1)
+  | country_code + year,
+  panel.id = ~ country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m2_twfe_a)
+
+# M3: Full Dynamic TWFE + Lags + Controls (SPI included as a control)
+m3_twfe_a <- feols(
+  prop_sdg_missing 
+  ~ l(decline_ldi, 0:1) + l(decline_ldi, 0:1)
+  #+ spi_overall
+  #+ log_luminosity
+  #+ log_pop
+  #+ log_gdppc
+  + electric_access 
+  + I(electric_access^2)
+  + rural_pop_pct 
+  | country_code + year,
+  panel.id = ~ country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m3_twfe_a)
+
+
+# M4: Dynamic TWFE + Lags + Confounders + economic preconditions/consequences (GDP robustness)
+m4_twfe_a <- feols(
+  prop_sdg_missing 
+  ~ l(decline_ldi, 0:1) + l(improve_ldi, 0:1)
+  + electric_access 
+  + I(electric_access^2)
+  + rural_pop_pct 
+  + log_gdppc # Adding economic conditions 
+  | country_code + year,
+  panel.id = ~ country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m4_twfe_a)
+
+# M5: Dynamic TWFE + Lags + Confounders + economic preconditions/consequences (GDP robustness)
+m5_twfe_a <- feols(
+  prop_sdg_missing 
+  ~ l(decline_ldi, 0:1) + l(improve_ldi, 0:1)
+  + electric_access 
+  + I(electric_access^2)
+  + rural_pop_pct 
+  + log_gdppc
+  + spi_overall # adding SPI mediation (ability variable)
+  + log_luminosity # luminosity mediation (ability variable)
+  | country_code + year,
+  panel.id = ~ country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m5_twfe_a)
+
+# ==============================================================================
+
+# M5a/b: Full Dynamic TWFE + Lags + Controls + Heterogeneity
+# (Ability vs willingness: aut_ep x income_level, aut_ep x regime_type)
+
+# Checking for heterogeneity in income_level and regime_type_4 over time (i.e., whether any countries change income_level or regime_type_4 over time)
+table(panel$country_code, panel$income_level)
+panel %>% distinct(country_code, income_level) %>% count(country_code) %>% filter(n > 1) %>% nrow()
+
+table(panel$country_code, panel$regime_type_4)
+panel %>% distinct(country_code, regime_type_4) %>% count(country_code) %>% filter(n > 1) %>% nrow()
+
+# M5a: Heterogeneity by income
+m5a_twfe_a <- feols(
+  prop_sdg_missing 
+  ~ l(decline_ldi, 0:1) + l(improve_ldi, 0:1)
+  + decline_ldi * income_level
+  + electric_access + I(electric_access^2)
+  + rural_pop_pct
+  + log_gdppc
+  + spi_overall
+  + log_luminosity
+  | country_code + year,
+  data = panel,
+  panel.id = ~ country_code + year,
+  cluster = ~ country_code
+)
+
+summary(m5a_twfe_a)
+
+# M5b: Heterogeneity by regime type
+m5b_twfe_a <- feols(
+  prop_sdg_missing 
+  ~ l(decline_ldi, 0:1) + l(improve_ldi, 0:1)
+  + decline_ldi * regime_type_4
+  + log_gdppc
+  + electric_access + I(electric_access^2)
+  + rural_pop_pct
+  + spi_overall
+  + log_luminosity
+  | country_code + year,
+  data = panel,
+  panel.id = ~ country_code + year,
+  cluster = ~ country_code
+)
+
+summary(m5b_twfe_a)
+# ==============================================================================
+
+models_ldi <- list(
+  "M1 Reduced" = m1_twfe_a,
+  "M2 + Lags" = m2_twfe_a,
+  "M3 + Structural Confounders" = m3_twfe_a,
+  "M4 + Economic Conditions" = m4_twfe_a,
+  "M5 + Ability Mediators" = m5_twfe_a,
+  "M5a \u00d7 Income" = m5a_twfe_a,
+  "M5b \u00d7 Regime" = m5b_twfe_a)
+
+extra_rows <- data.frame(
+  term = c("N (Years)", "N (Countries)"),
+
+  "M1 Reduced"                  = as.character(c(m1_twfe_a$fixef_sizes["year"],
+                                                  m1_twfe_a$fixef_sizes["country_code"])),
+  "M2 + Lags"                   = as.character(c(m2_twfe_a$fixef_sizes["year"],
+                                                  m2_twfe_a$fixef_sizes["country_code"])),
+  "M3 + Structural Confounders" = as.character(c(m3_twfe_a$fixef_sizes["year"],
+                                                  m3_twfe_a$fixef_sizes["country_code"])),
+  "M4 + Economic Conditions"    = as.character(c(m4_twfe_a$fixef_sizes["year"],
+                                                  m4_twfe_a$fixef_sizes["country_code"])),
+  "M5 + Ability Mediators"      = as.character(c(m5_twfe_a$fixef_sizes["year"],
+                                                  m5_twfe_a$fixef_sizes["country_code"])),
+  "M5a × Income"                = as.character(c(m5a_twfe_a$fixef_sizes["year"],
+                                                  m5a_twfe_a$fixef_sizes["country_code"])),
+  "M5b × Regime"                = as.character(c(m5b_twfe_a$fixef_sizes["year"],
+                                                  m5b_twfe_a$fixef_sizes["country_code"])),
+
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
+attr(extra_rows, "position") <- "gof_start"
+
+ldi_gt <- modelsummary(
+  models_ldi,
+  coef_map = c(
+    "decline_ldi"                       = "Decline in LDI",
+    "l(decline_ldi, 0)"                  = "Decline in LDI",
+    "l(decline_ldi, 1)"                  = "Decline in LDI (t-1)",
+    "improve_ldi"                        = "Improvement in LDI",
+    "l(improve_ldi, 0)"                  = "Improvement in LDI",
+    "l(improve_ldi, 1)"                  = "Improvement in LDI (t-1)",
+    "electric_access"                    = "Electricity Access (%)",
+    "I(I(electric_access^2))"            = "Electricity Access (%)\u00b2",
+    "rural_pop_pct"                      = "Rural Population (%)",
+    "log_gdppc"                          = "Log GDP per Capita",
+    "spi_overall"                        = "Statistical Performance Index",
+    "log_luminosity"                     = "Log Nighttime Luminosity",
+    "income_levelLM"                     = "Lower-Middle Income",
+    "income_levelUM"                     = "Upper-Middle Income",
+    "income_levelH"                      = "High Income",
+    "decline_ldi:income_levelLM"         = "Decline in LDI \u00d7 Lower-Middle Income",
+    "decline_ldi:income_levelUM"         = "Decline in LDI \u00d7 Upper-Middle Income",
+    "decline_ldi:income_levelH"          = "Decline in LDI \u00d7 High Income",
+    "regime_type_41"                     = "Regime Type 1",
+    "regime_type_42"                     = "Regime Type 2",
+    "regime_type_43"                     = "Regime Type 3",
+    "decline_ldi:regime_type_41"         = "Decline in LDI \u00d7 Regime Type 1",
+    "decline_ldi:regime_type_42"         = "Decline in LDI \u00d7 Regime Type 2",
+    "decline_ldi:regime_type_43"         = "Decline in LDI \u00d7 Regime Type 3"
+  ),
+  gof_map = list(
+    list(raw = "nobs", clean = "N (Observations)", fmt = 0),
+    list(raw = "ngroups", clean = "N (Groups)", fmt = 0),
+    list(raw = "r2.within", clean = "Within R\u00b2", fmt = 3),
+    list(raw = "r2.within.adjusted", clean = "Adjusted Within R\u00b2", fmt = 3),
+    list(raw = "rmse", clean = "RMSE", fmt = 3)
+  ),
+  stars = TRUE,
+  title = "TWFE Models: Liberal Democracy Index (Decomposed) and SDG Data Missingness",
+  output = "gt",
+  add_rows = extra_rows
+)
+
+ldi_gt <- ldi_gt %>%
+tab_options(
+  data_row.padding = px(2),
+  table.border.top.color = "black",
+  table.border.top.width = px(2),
+  table.border.bottom.color = "black",
+  table.border.bottom.width = px(0),
+  heading.border.bottom.color = "black",
+  heading.border.bottom.width = px(1),
+  column_labels.border.top.color = "black",
+  column_labels.border.top.width = px(1),
+  column_labels.border.bottom.color = "black",
+  column_labels.border.bottom.width = px(2),
+  table_body.border.bottom.color = "black",
+  table_body.border.bottom.width = px(2),
+  footnotes.border.bottom.color = "white",
+  footnotes.border.bottom.width = px(0),
+  table_body.hlines.color = "white",
+  table.font.names = "Times New Roman",
+  table.font.size = px(15)
+  ) %>%
+  tab_style(
+    style = cell_text(weight = "bold", align = "center"),
+    locations = cells_title()
+  ) %>%
+  tab_style(
+    style = cell_text(style = "italic", size = px(12)),
+    locations = cells_footnotes()
+  ) %>%
+  cols_width(
+    " " ~ px(210),
+    "M1 Reduced" ~ px(110),
+    "M2 + Lags" ~ px(110),
+    "M3 + Structural Confounders" ~ px(110),
+    "M4 + Economic Conditions" ~ px(110),
+    "M5 + Ability Mediators" ~ px(110),
+    "M5a \u00d7 Income" ~ px(110),
+    "M5b \u00d7 Regime" ~ px(110)
+  ) %>% 
+  cols_label(
+  "M1 Reduced" = md("**M1**<br>Reduced"),
+  "M2 + Lags" = md("**M2**<br>+ Lags"),
+  "M3 + Structural Confounders" = md("**M3**<br>+ Structural Confounders"),
+  "M4 + Economic Conditions" = md("**M4**<br>+ Economic Conditions"),
+  "M5 + Ability Mediators" = md("**M5**<br>+ Ability Mediators"),
+  "M5a \u00d7 Income" = md("**M5a**<br>\u00d7 Income"),
+  "M5b \u00d7 Regime" = md("**M5b**<br>\u00d7 Regime")
+  ) %>%
+  tab_style(
+  style = cell_text(align = "center"),
+  locations = cells_column_labels(columns = everything())
+  ) %>%
+  tab_source_note(source_note = "Note. Cell entries report coefficient estimates with standard errors clustered by country in parentheses below. All models include country and year fixed effects. The dependent variable is the proportion of SDG indicators missing overall.")
+
+gtsave(ldi_gt, "figures/causal_inference/twfe_lib_dem_table.png")
 ```
 
 
-# APPROACH 1.1: Two‑way fixed effects (TWFE) [Baseline Models]
+# PART 2: Two‑way fixed effects (TWFE) [Goal-Level Models]
+Selected Model Specification: M3: + Structural Confounders (electricity access, rural population share)
+```{r}
+## FITTING MODEL 3 SPECIFICATION
+
+#sub_panel <- subset(panel, income_level %in% c("UM", "H")) # CONSIDERING ONLY HIGH INCOME [HETEROGENEITY]
+dv_names <- paste0("prop_miss_SDG", 1:17)
+
+goal_models <- map(dv_names, function(dv) {
+  feols(
+    as.formula(paste0(
+      dv, " ~ l(decline_ldi, 0:1) + l(improve_ldi, 0:1)",
+      "+ electric_access + I(electric_access^2) + rural_pop_pct",
+      #"+ log_gdppc",
+      #"+ spi_overall + log_luminosity",
+      " | country_code + year"
+    )),
+    panel.id = ~ country_code + year,
+    data = panel, #sub_panel, 
+    cluster = ~ country_code
+  )
+})
+names(goal_models) <- dv_names
+
+## EXTRACTION
+goal_results <- map_dfr(names(goal_models), function(dv) {
+  m <- goal_models[[dv]]
+  co <- tidy(m)
+  
+  get_est <- function(term) co$estimate[co$term == term]
+  get_se  <- function(term) co$std.error[co$term == term]
+  get_p   <- function(term) co$p.value[co$term == term]
+  
+  tibble(
+    goal          = dv,
+    decline_t     = get_est("l(decline_ldi, 0)"),
+    decline_t_se  = get_se("l(decline_ldi, 0)"),
+    decline_t_p   = get_p("l(decline_ldi, 0)"),
+    decline_l1    = get_est("l(decline_ldi, 1)"),
+    decline_l1_se = get_se("l(decline_ldi, 1)"),
+    decline_l1_p  = get_p("l(decline_ldi, 1)"),
+    improve_t     = get_est("l(improve_ldi, 0)"),
+    improve_t_se  = get_se("l(improve_ldi, 0)"),
+    improve_t_p   = get_p("l(improve_ldi, 0)"),
+    improve_l1    = get_est("l(improve_ldi, 1)"),
+    improve_l1_se = get_se("l(improve_ldi, 1)"),
+    improve_l1_p  = get_p("l(improve_ldi, 1)"),
+    n             = nobs(m),
+    r2_within     = r2(m, "wr2")
+  )
+})
+
+# STARS AND FORMAT
+add_stars <- function(est, p) {
+  s <- case_when(p < .001 ~ "***", p < .01 ~ "**", p < .05 ~ "*", p < .1 ~ "+", TRUE ~ "")
+  paste0(sprintf("%.3f", est), s)
+  }
+
+goal_table <- goal_results %>%
+  mutate(
+    Decline_t = paste0(
+      add_stars(decline_t, decline_t_p), " ",
+      "(", sprintf("%.3f", decline_t_se), ")"
+    ),
+    Decline_l1 = paste0(
+      add_stars(decline_l1, decline_l1_p), " ",
+      "(", sprintf("%.3f", decline_l1_se), ")"
+    ),
+    Improve_t = paste0(
+      add_stars(improve_t, improve_t_p), " ",
+      "(", sprintf("%.3f", improve_t_se), ")"
+    ),
+    Improve_l1 = paste0(
+      add_stars(improve_l1, improve_l1_p), " ",
+      "(", sprintf("%.3f", improve_l1_se), ")"
+    )
+  ) %>%
+  transmute(
+    Goal          = goal,
+    `Decline (t)`   = Decline_t,
+    `Decline (t-1)` = Decline_l1,
+    `Improve (t)`   = Improve_t,
+    `Improve (t-1)` = Improve_l1,
+    N             = n,
+    `Within R²`   = sprintf("%.3f", r2_within)
+  )
+
+## APA STYLE TABLE
+set_flextable_defaults(na_str = "NA")
+
+goal_ft <- goal_table %>%
+  flextable() %>%
+  theme_apa() %>%
+  padding(padding.top = 1, padding.bottom = 1, part = "body") %>%
+  add_header_lines(values = "M3 Specification: Goal-Level Susceptibility to Democratic Decline (SDG1–SDG17)") %>%
+  bold(part = "header", i = 1) %>%
+  add_footer_lines(
+    "Note. All models estimate M3 (dynamic lags plus controls: SPI, log population, electricity access, log luminosity, rural population share). Country and year fixed effects included; SEs clustered by country. + p < .1, * p < .05, ** p < .01, *** p < .001."
+  ) %>%
+  italic(part = "footer") %>%
+  fontsize(size = 10, part = "footer") %>%
+  font(fontname = "Times New Roman", part = "footer") %>%
+  autofit()
+
+save_as_image(goal_ft, path = "figures/causal_inference/twfe_goal_level_m3_table.png")
+
+# save panel data with goal-level missingness for future use
+write_csv(panel, "data/output/MAIN_panel_data.csv")
+saveRDS(panel, "data/output/MAIN_panel_data.rds")
+```
+
+
+# [APPENDIX] PART 3: Two‑way fixed effects (TWFE) [Baseline Models] [EDI + LCI Decomposed]
+```{r}
+# Preliminary VIF Check [Includes: elect_dem and v2x_liberal]
+
+# # VIF 5 
+# vif5_model <- lm(prop_sdg_missing ~ 
+#                  elect_dem 
+#                  + v2x_liberal
+#                  + log_gdppc 
+#                  #+ log_pop 
+#                  + electric_access 
+#                  + log_luminosity 
+#                  + rural_pop_pct
+#                  + spi_overall, 
+#                  data = vif_data)
+# vif(vif5_model)
+
+# ---------------------- elect_dem -> overall SDG missingness ---------------------
+
+# M1: Reduced Dynamic TWFE (just to see raw relationship)
+m1_twfe_b <- feols(
+  prop_sdg_missing 
+  ~ decline_edi + improve_edi 
+  + decline_liberal + improve_liberal
+  | country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m1_twfe_b)
+
+# M2: Reduced Dynamic TWFE + Lags
+m2_twfe_b <- feols(
+  prop_sdg_missing 
+  ~ l(decline_edi, 0:1) + l(improve_edi, 0:1)
+  + l(decline_liberal, 0:1) + l(improve_liberal, 0:1)
+  | country_code + year,
+  panel.id = ~ country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m2_twfe_b)
+
+# M3: Full Dynamic TWFE + Lags + structural confounders (SPI included as a control)
+m3_twfe_b <- feols(
+  prop_sdg_missing 
+  ~ l(decline_edi, 0:1) + l(improve_edi, 0:1)
+  + l(decline_liberal, 0:1) + l(improve_liberal, 0:1)
+  + electric_access + I(electric_access^2)
+  + rural_pop_pct 
+  | country_code + year,
+  panel.id = ~ country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m3_twfe_b)
+
+# M4: Full Dynamic TWFE + Lags + Economic Conditions (GDP robustness)
+m4_twfe_b <- feols(
+  prop_sdg_missing 
+  ~ l(decline_edi, 0:1) + l(improve_edi, 0:1)
+  + l(decline_liberal, 0:1) + l(improve_liberal, 0:1)
+  + electric_access + I(electric_access^2)
+  + rural_pop_pct 
+  + log_gdppc
+  | country_code + year,
+  panel.id = ~ country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m4_twfe_b)
+
+# M5: Full Dynamic TWFE + Lags + GDP + Ability Mediators (SPI, Luminosity)
+m5_twfe_b <- feols(
+  prop_sdg_missing 
+  ~ l(decline_edi, 0:1) + l(improve_edi, 0:1)
+  + l(decline_liberal, 0:1) + l(improve_liberal, 0:1)
+  + electric_access + I(electric_access^2)
+  + rural_pop_pct 
+  + log_gdppc
+  + spi_overall
+  + log_luminosity
+  | country_code + year,
+  panel.id = ~ country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m5_twfe_b)
+
+# M5: Full Dynamic TWFE + Lags + Controls + Heterogeneity
+# (Ability vs willingness: aut_ep x income_level, aut_ep x regime_type)
+
+# M5a: Heterogeneity by income
+m4a_twfe_b <- feols(
+  prop_sdg_missing 
+  ~ l(decline_edi, 0:1) + l(improve_edi, 0:1)
+  + l(decline_liberal, 0:1) + l(improve_liberal, 0:1)
+  + decline_edi * income_level
+  + spi_overall
+  + log_gdppc
+  + log_luminosity
+  + electric_access + I(electric_access^2)
+  + rural_pop_pct
+  | country_code + year,
+  data = panel,
+  panel.id = ~ country_code + year,
+  cluster = ~ country_code
+)
+
+summary(m5a_twfe_b)
+
+# M5b: Heterogeneity by regime type
+m5b_twfe_b <- feols(
+  prop_sdg_missing 
+  ~ l(decline_edi, 0:1) + l(improve_edi, 0:1)
+  + l(decline_liberal, 0:1) + l(improve_liberal, 0:1)
+  + decline_edi * regime_type_4
+  + spi_overall
+  + log_gdppc
+  + log_luminosity
+  + electric_access + I(electric_access^2)
+  + rural_pop_pct
+  | country_code + year,
+  data = panel,
+  panel.id = ~ country_code + year,
+  cluster = ~ country_code
+)
+
+summary(m5b_twfe_b)
+
+```
+
+# [APPENDIX] PART 4: Two‑way fixed effects (TWFE) [Overall - Baseline Models] [aut_ep]
 ```{r}
 # ---------------------- aut_ep -> overall SDG missingness ---------------------
 
-# M1: TWFE WITHOUT SPI OR CONTROLS (just to see raw relationship)
-m1_twfe <- feols(
+# M1: Reduced Dynamic TWFE (just to see raw relationship)
+m1_twfe_c <- feols(
   prop_sdg_missing 
   ~ aut_ep 
   | country_code + year,
@@ -208,84 +834,119 @@ m1_twfe <- feols(
   cluster = ~ country_code
 )
 
-summary(m1_twfe)
+summary(m1_twfe_c)
 
-# M2: TWFE WITH SPI, WITHOUT CONTROLS
-m2_twfe <- feols(
+# M2: Reduced Dynamic TWFE + Lags
+m2_twfe_c <- feols(
   prop_sdg_missing 
-  ~ aut_ep 
-  + spi_overall 
+  ~ l(aut_ep, 0:2)
   | country_code + year,
+  panel.id = ~ country_code + year,
   data = panel,
   cluster = ~ country_code
 )
 
-summary(m2_twfe)
+summary(m2_twfe_c)
 
-# M3: TWFE WITHOUT SPI, WITH CONTROLS
-m3_twfe <- feols(
+# M3: Full Dynamic TWFE + Lags + Controls (SPI included as a control)
+m3_twfe_c <- feols(
   prop_sdg_missing 
-  ~ aut_ep 
-  + log_pop 
+  ~ l(aut_ep, 0:2)
   + electric_access + I(electric_access^2)
-  + log_luminosity
   + rural_pop_pct 
   | country_code + year,
+  panel.id = ~ country_code + year,
   data = panel,
   cluster = ~ country_code
 )
-summary(m3_twfe)
 
-# M4: TWFE WITH SPI AND CONTROLS (main model)
-m4_twfe <- feols(
+summary(m3_twfe_c)
+
+# M4
+m4_twfe_c <- feols(
   prop_sdg_missing 
-  ~ aut_ep 
-  + spi_overall 
-  + log_pop 
-  + log_luminosity
-  + electric_access + I(electric_access^2) 
+  ~ l(aut_ep, 0:2)
+  + electric_access + I(electric_access^2)
   + rural_pop_pct 
+  + log_gdppc  
   | country_code + year,
+  panel.id = ~ country_code + year,
   data = panel,
   cluster = ~ country_code
 )
-summary(m4_twfe)
-```
 
-# APPROACH 1.2: Two‑way fixed effects (TWFE) [+ Non-Linear Form Terms]
-```{r}
-# (A) Dynamic TWFE with lagged treatment [BEST MODEL]
-mA_twfe <- feols(
+summary(m4_twfe_c)
+
+# M5 
+m5_twfe_c <- feols(
+  prop_sdg_missing 
+  ~ l(aut_ep, 0:2)
+  + electric_access + I(electric_access^2)
+  + rural_pop_pct 
+  + log_gdppc  
+  + spi_overall
+  + log_luminosity
+  | country_code + year,
+  panel.id = ~ country_code + year,
+  data = panel,
+  cluster = ~ country_code
+)
+
+summary(m5_twfe_c)
+
+
+# M4: Full Dynamic TWFE + Lags + Controls + Heterogeneity
+# (Ability vs willingness: aut_ep x income_level, aut_ep x regime_type)
+
+# Checking for heterogeneity in income_level and regime_type_4 over time (i.e., whether any countries change income_level or regime_type_4 over time)
+table(panel$country_code, panel$income_level)
+panel %>% distinct(country_code, income_level) %>% count(country_code) %>% filter(n > 1) %>% nrow()
+
+table(panel$country_code, panel$regime_type_4)
+panel %>% distinct(country_code, regime_type_4) %>% count(country_code) %>% filter(n > 1) %>% nrow()
+
+# M4a: Heterogeneity by income
+m4a_twfe <- feols(
   prop_sdg_missing 
   ~ l(aut_ep, 0:1)
-  + log_pop 
-  + log_luminosity
-  + electric_access + I(electric_access^2) 
+  + aut_ep * income_level
+  + electric_access + I(electric_access^2)
   + rural_pop_pct 
+  + log_gdppc  
+  + spi_overall
+  + log_luminosity
   | country_code + year,
   data = panel,
   panel.id = ~ country_code + year,
-  cluster = ~ country_code)
+  cluster = ~ country_code
+)
 
-summary(mA_twfe)
+summary(m4a_twfe)
 
-# (B) Dynamic + Income heterogeneity: Ability vs willingness: aut_ep × income_level
-mB_twfe <- feols(
+# M4b: Heterogeneity by regime type
+m4b_twfe <- feols(
   prop_sdg_missing 
-  ~ l(aut_ep, 0:1) * income_level 
-  + log_pop 
-  + log_luminosity
-  + electric_access + I(electric_access^2) 
+  ~ l(aut_ep, 0:2)
+  + aut_ep * regime_type_4
+  + electric_access + I(electric_access^2)
   + rural_pop_pct 
+  + log_gdppc  
+  + spi_overall
+  + log_luminosity
   | country_code + year,
   data = panel,
   panel.id = ~ country_code + year,
-  cluster = ~ country_code)
+  cluster = ~ country_code
+)
 
-summary(mB_twfe)
+summary(m4b_twfe)
+```
 
-# (C) dynamic + SPI heterogeneity (appendix): Ability vs willingness: aut_ep × income_level
-mC_twfe <- feols(
+# ============== ============== ============== ============== ============== ==============
+# COMPLEMENTARY MODELS: Heterogeneity by SPI 
+```{r}
+# (X1) dynamic + SPI heterogeneity (appendix): Ability vs willingness: aut_ep × income_level
+mx1_twfe <- feols(
   prop_sdg_missing 
   ~ l(aut_ep, 0:1) * spi_overall 
   + log_pop 
@@ -297,28 +958,7 @@ mC_twfe <- feols(
   panel.id = ~ country_code + year,
   cluster = ~ country_code)
 
-summary(mC_twfe)
-
-# (D) dynamic + regime heterogeneity (appendix)
-mD_twfe <- feols(
-  prop_sdg_missing 
-  ~ l(aut_ep, 0:1) * regime_type_4 
-  + log_pop 
-  + log_luminosity
-  + electric_access + I(electric_access^2) 
-  + rural_pop_pct 
-  | country_code + year,
-  data = panel,
-  panel.id = ~ country_code + year,
-  cluster = ~ country_code)
-
-summary(mD_twfe)
+summary(mx1_twfe)
 
 ```
-
-A: Does being in an autocratization episode increase missingness, net of capacity and standard controls?
-B: ...
-C: Does the effect of backsliding on missingness depend on regime type (regime “willingness” to withhold), conditional on spi_overall?
-D: ...
-
 

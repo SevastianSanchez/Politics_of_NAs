@@ -5,11 +5,8 @@ library(vdemdata) # call vdem package
 library(ERT) # call ERT package
 library(WDI) # call WDI package for GINI coefficient
 
-# Set working directory 
-setwd("~/Desktop/SIPA/Fall 25' - SIPA/Policy Data Analysis Using R/DataLoss_Proj")
-
 # Calls all other packages 
-source("packages.R")
+source("code/packages.R")
 ##### SOURCES #####
 
 # V-dem package from github [API]
@@ -25,23 +22,23 @@ url <- "https://raw.githubusercontent.com/worldbank/SPI/refs/heads/master/03_out
 spi <- read_csv(url) 
 
 # SDG Excel from directory (Raw indicators)
-sdg_raw <- read_excel("data/input_data/SDR2025-data.xlsx", sheet = "All Raw Data") %>% 
+sdg_raw <- read_excel("data/input/SDR2025-data.xlsx", sheet = "All Raw Data") %>% 
   filter(year >= 2000)
 
 # SDG Excel from directory (composite scores)
-sdg <- read_excel("data/input_data/SDR2025-data.xlsx", sheet = "Backdated SDG Index") %>% 
+sdg <- read_excel("data/input/SDR2025-data.xlsx", sheet = "Backdated SDG Index") %>% 
   filter(year >= 2000)
 
 #GDP per capita
-gdppc_df <- read_csv("data/input_data/gdppc_df_long.csv") %>% 
+gdppc_df <- read_csv("data/input/gdppc_df_long.csv") %>% 
   filter(year >= 2000)
 
 #Information Capacity 
-info_cap <- read_csv("data/input_data/information_capacity.csv") %>% 
+info_cap <- read_csv("data/input/information_capacity.csv") %>% 
   filter(year >= 2000)
 
 # WB GNI Classifications 
-gni_class <- read_csv("data/input_data/world_bank_income_classifications.csv") %>% 
+gni_class <- read_csv("data/input/world_bank_income_classifications.csv") %>% 
   filter(year >= 2000)
 
 # WDI Access to electricity
