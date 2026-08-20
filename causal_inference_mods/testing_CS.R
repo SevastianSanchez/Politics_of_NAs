@@ -10,12 +10,13 @@ panel <- panel %>%
   mutate(
     country_code = as.character(country_code),
     country_id = as.numeric(factor(country_code)),
-    year         = as.integer(year),
     aut_ep       = as.integer(aut_ep),
     elect_access = as.numeric(electric_access),
     elect_access_sq = electric_access^2,
     rural_pop_pct   = as.numeric(rural_pop_pct),
-    prop_sdg_missing = as.numeric(prop_sdg_missing))
+    prop_sdg_missing = as.numeric(prop_sdg_missing),
+    prop_missing_pct = as.numeric(prop_missing_pct)
+  )
 
 # Creating the “first treatment year” variable
 panel <- panel %>%
@@ -23,12 +24,12 @@ panel <- panel %>%
   group_by(country_code) %>%
   
   # 1. First treatment year per country (your original logic)
-  mutate(first_treat = ifelse(any(aut_ep == 1), min(year[aut_ep == 1]), 0L)
-  ) %>%
+  mutate(first_treat = if_else(aut_ep == 1 & !is.na(aut_ep_start_yr) & 
+                     aut_ep_start_yr >= 2015 & aut_ep_start_yr <= 2023, 
+                   aut_ep_start_yr, NA_real_)) %>%
   
   # 2. Episode IDs: runs of consecutive aut_ep values (0s and 1s)
-  mutate(episode_group = consecutive_id(aut_ep) # increments when aut_ep changes
-  ) %>%
+  mutate(episode_group = consecutive_id(aut_ep)) %>%# increments when aut_ep changes
   
   # 3. Within each country, map 1-groups to episode numbers
   mutate(episode_number = case_when(
@@ -38,11 +39,15 @@ panel <- panel %>%
   mutate(n_episodes = max(episode_number, na.rm = TRUE)) %>% 
   ungroup()
 
-panel %>% select(country_code, year, aut_ep, first_treat, episode_group, episode_number) %>%
-  head(50)
-
 table(panel$first_treat)        # 0 = never treated; other values = first backsliding year
 summary(panel$prop_sdg_missing) # check for missing/outliers
+
+# saving csv & RDS files
+saveRDS(panel, "data/output/MAIN_panel_data.rds")
+write_csv(panel, "data/output/MAIN_panel_data.csv")
+
+
+
 
 ###### FILTERING FOR HETEROGENEITY ANALYSIS
 #sub_panel <- subset(panel, income_level %in% c("LM", "L"))
@@ -120,4 +125,3 @@ cs_m3_dyn <- aggte(
 )
 summary(cs_m3_dyn)
 ggdid(cs_m3_dyn)
-
