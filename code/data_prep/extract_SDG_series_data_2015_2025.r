@@ -22,19 +22,29 @@
 #       Carries `nature` as a column, so any provenance subset (state-reported
 #       only, modelled only, etc.) is a filter on this table before counting.
 #   series_list.csv
-#       Goal-target-indicator-series crosswalk from the downloaded files.
+#       Goal-target-indicator-series crosswalk from the downloaded files, with
+#       the stability labels from series_stability.csv joined on.
 #
 #   PRIMARY outcome panel (observation counts within goals)
 #   -------------------------------------------------------
 #   goal_lvl_dv_data.csv
-#       One row per country x year x goal, carrying three outcome columns
+#       One row per country x year x goal, carrying five outcome columns
 #       side by side —
 #         n_observations                — raw observation count
 #         n_observations_pct_baseline   — normalized to country-goal baseline
 #                                          mean (default: 2015-2017)
 #         n_observations_pct_frontier   — normalized to the max any country
 #                                          reported for that goal-year
+#         n_observations_stable         — same count, but only framework-stable
+#                                          series (robustness; see D0)
+#         n_observations_stable_pct_baseline
+#                                       — stable count over stable baseline
 #       so the analysis can switch measures without switching datasets.
+#
+#   series_stability.csv
+#       One row per series_code: empirical lifespan (first_year, last_year),
+#       is_stable_core / starts_late / ends_early flags, and supporting dates
+#       from the UN update log. Built by build_series_stability.R.
 #
 #   ROBUSTNESS-ONLY panels (series-code counts, not observation counts)
 #   ------------------------------------------------------------------
@@ -239,65 +249,26 @@ write_csv(
 )
 
 
-# ---- C3. Merge post-2017 series-update classification -----------------------
-# Source: data/raw/sdg_update_info.xlsx, sheet "Data Updates".
-# Classifies only structural updates relevant to the series universe: added,
-# revised/refined, and replacement. Ordinary "Data updated" records remain
-# unchanged_or_routine.
-updates_crosswalk <- read_excel("data/raw/sdg_update_info.xlsx",
-  sheet = "Data Updates") %>%
-  clean_names() %>%
-  mutate(
-    date         = as.Date(date),
-    series_code  = as.character(series_code),
-    action_notes = as.character(action_notes),
-    series_update_type_post17
-
-    # MODIFICATIONS NEEDED TO MATCHING RULES ==================================
-    = case_when(
-      str_detect(str_to_lower(action_notes), "replac|consolidat|restructur") ~ "replacement",
-      str_detect(str_to_lower(action_notes), "data series added|data added to the database|data series was added") ~ "added",
-      str_detect(str_to_lower(action_notes),
-        "series label updated|unit updated|unit was changed|base year was updated|\
-         indicator was revised|indicator was refined|indicator description was updated|\
-         data modelling was updated|methodology") ~ "revised_refined",
-      TRUE ~ "unchanged_or_routine")
-    # =========================================================================
-
-  # NOT SURE I NEED THIS
-  # ) %>%
-  # filter(
-  #   !is.na(series_code),
-  #   series_code != "",
-  #   date > as.Date("2017-12-31"),
-  #   series_update_type_post17 != "unchanged_or_routine"
-  ) %>%
-  mutate(
-    series_update_type_post17 = factor(
-      series_update_type_post17,
-      levels = c("unchanged_or_routine", "added", "revised_refined", "replacement"))
-  ) %>%
-  arrange(series_code, desc(series_update_type_post17), desc(date)) %>%
-  distinct(series_code, .keep_all = TRUE) %>%
-  transmute(
-    series_code,
-    series_update_type_post17 = as.character(series_update_type_post17),
-    action_notes,
-    update_date = date)
-
-# Attach the classification to the raw observations. Series missing from the
-# crosswalk (never updated post-2017) fall through to unchanged_or_routine.
-raw_data <- raw_data %>%
-  left_join(updates_crosswalk, by = "series_code") %>%
-  mutate(series_update_type_post17 = coalesce(
-    series_update_type_post17, "unchanged_or_routine"))
-
-
 # =============================================================================
 # D. DERIVED REFERENCE TABLES ==================================================
 # =============================================================================
 # All of the following are computed once from raw_data and reused by the
 # outcome panels in Sections E and F.
+
+# ---- D0. Series stability → series_stability --------------------------------
+# The SDG framework grew inside the study window (483 series with country data
+# in 2015 -> 565 in 2022), so a raw observation count drifts upward for reasons
+# that have nothing to do with country behaviour. The sourced script flags the
+# series present in every year of its core window; that stable core is used in
+# Section E to build a framework-invariant version of the outcome. See
+# build_series_stability.R for the full rationale.
+#
+# It uses the raw_data already in memory (no re-read) and creates two objects
+# used below — `series_stability` and `stable_codes` — and writes
+# data/clean/series_stability.csv. It guards its own inputs, so a missing or
+# malformed raw_data fails there with a specific message.
+source("code/data_prep/build_series_stability.R")
+
 
 # ---- D1. Country lookup → countries -----------------------------------------
 countries <- raw_data %>%
@@ -307,8 +278,16 @@ countries <- raw_data %>%
 # ---- D2. Series list (goal-target-indicator-series crosswalk) ---------------
 # A series may occur under more than one goal in the official framework. Since
 # these are goal-specific exports, preserve each unique goal-series link.
+# Stability labels are joined on so this reference table doubles as the
+# lookup for which series are framework-stable. See D0 / build_series_stability.R.
 series_list <- raw_data %>%
   distinct(goal, target, indicator, series_code, series_description) %>%
+  left_join(
+    series_stability %>%
+      select(series_code, first_year, last_year, n_years_live,
+             is_stable_core, starts_late, ends_early, status),
+    by = "series_code"
+  ) %>%
   arrange(goal, target, indicator, series_code)
 
 write_csv(
@@ -341,19 +320,24 @@ agg_series_total <- n_distinct(series_list$series_code)
 # country-goal-years in the baseline window are treated as real zeros (not
 # unobserved), so a country that reported nothing in a baseline year does not
 # inflate its own baseline by being averaged over observed years only.
-baseline <- expand_grid(
-    countries,
-    year = baseline_years,
-    goal = goals
-  ) %>%
-  left_join(
-    raw_data %>%
-      count(geo_area_code, year, goal, name = "n_observations"),
-    by = c("geo_area_code", "year", "goal")
-  ) %>%
-  mutate(n_observations = coalesce(n_observations, 0L)) %>%
-  group_by(geo_area_code, goal) %>%
-  summarise(baseline_mean = mean(n_observations), .groups = "drop")
+# Helper so the all-series and stable-core baselines are computed identically.
+make_baseline <- function(dat) {
+  expand_grid(
+      countries,
+      year = baseline_years,
+      goal = goals
+    ) %>%
+    left_join(
+      dat %>% count(geo_area_code, year, goal, name = "n_observations"),
+      by = c("geo_area_code", "year", "goal")
+    ) %>%
+    mutate(n_observations = coalesce(n_observations, 0L)) %>%
+    group_by(geo_area_code, goal) %>%
+    summarise(baseline_mean = mean(n_observations), .groups = "drop")
+}
+
+baseline        <- make_baseline(raw_data)
+baseline_stable <- make_baseline(raw_data %>% filter(series_code %in% stable_codes))
 
 
 # ---- D7. Goal-year frontier max → frontier ----------------------------------
@@ -402,28 +386,57 @@ frontier <- raw_data %>%
 #                                    for that goal-year. Descriptive companion
 #                                    only — denominator moves year to year, so
 #                                    weaker for causal identification.
+#
+# Plus two framework-invariant companions, counted the same way but restricted
+# to the stable-core series flagged in D0 (present in every year 2015-2023).
+# The SDG framework grew from 483 to 565 live series inside the window, so the
+# all-series columns above drift upward for reasons unrelated to country
+# behaviour. Re-running a model on these two is the robustness check:
+#
+#   n_observations_stable             — stable-core observation count.
+#   n_observations_stable_pct_baseline— normalized to the stable-core baseline
+#                                    (own country-goal, baseline_years mean).
+#
+# There is no stable frontier column: frontier is a descriptive companion only,
+# so a second version of it would add width without adding evidence.
 goal_lvl_dv_data <- expand_grid(
     countries,
     year = start_year:end_year,
     goal = goals
   ) %>%
+  # all-series counts
   left_join(
     raw_data %>%
       count(geo_area_code, geo_area_name, year, goal, name = "n_observations"),
     by = c("geo_area_code", "geo_area_name", "year", "goal")
   ) %>%
-  mutate(n_observations = coalesce(n_observations, 0L)) %>%
-  left_join(baseline, by = c("geo_area_code", "goal")) %>%
-  left_join(frontier, by = c("year", "goal")) %>%
+  # stable-core counts: same aggregation, restricted to framework-stable series
+  left_join(
+    raw_data %>%
+      filter(series_code %in% stable_codes) %>%
+      count(geo_area_code, geo_area_name, year, goal, name = "n_observations_stable"),
+    by = c("geo_area_code", "geo_area_name", "year", "goal")
+  ) %>%
+  mutate(
+    n_observations        = coalesce(n_observations, 0L),
+    n_observations_stable = coalesce(n_observations_stable, 0L)
+  ) %>%
+  left_join(baseline,        by = c("geo_area_code", "goal")) %>%
+  left_join(frontier,        by = c("year", "goal")) %>%
+  left_join(baseline_stable %>% rename(baseline_mean_stable = baseline_mean),
+            by = c("geo_area_code", "goal")) %>%
   mutate(
     n_observations_pct_baseline = if_else(baseline_mean > 0,
                                           n_observations / baseline_mean,
                                           NA_real_),
     n_observations_pct_frontier = if_else(frontier_max > 0,
                                           n_observations / frontier_max,
+                                          NA_real_),
+    n_observations_stable_pct_baseline = if_else(baseline_mean_stable > 0,
+                                          n_observations_stable / baseline_mean_stable,
                                           NA_real_)
   ) %>%
-  select(-baseline_mean, -frontier_max) %>%
+  select(-baseline_mean, -frontier_max, -baseline_mean_stable) %>%
   arrange(geo_area_name, year, goal)
 
 write_csv(
@@ -537,6 +550,12 @@ message("Unique series across all exports: ", agg_series_total)
 
 message("\nSeries per goal in downloaded files:")
 print(agg_series_per_goal)
+
+message("\nSeries stability (see D0):")
+message("  stable-core series: ", length(stable_codes), " of ", nrow(series_stability),
+        " (", round(100 * length(stable_codes) / nrow(series_stability)), "%)")
+message("  observation mass in stable core: ",
+        round(100 * sum(raw_data$series_code %in% stable_codes) / nrow(raw_data), 1), "%")
 
 message("\nPanel row counts:")
 message("  goal_lvl_dv_data (PRIMARY): ", nrow(goal_lvl_dv_data))
