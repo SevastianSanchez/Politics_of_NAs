@@ -31,12 +31,11 @@ library(broom)
 # ============================================================================
 
 # Load data (adjust path if needed)
-# df <- read_csv("sdg_democracy_paneldata.csv")
+# df <- read_csv("data/output/sdg_democracy_paneldata.csv")
 df <- readRDS("data/output/sdg_democracy_paneldata.rds")
 
 # Quickly Adding merge of SPI data
-url <-
-  "https://raw.githubusercontent.com/worldbank/SPI/refs/heads/master/03_output_data/SPI_index.csv"
+url <- "https://raw.githubusercontent.com/worldbank/SPI/refs/heads/master/03_output_data/SPI_index.csv"
 spi <- read_csv(url) %>%
   dplyr::select(country, date, SPI.INDEX, iso3c) %>%
   rename(country_name = country, country_code = iso3c, year = date, spi_overall = SPI.INDEX)
@@ -104,16 +103,18 @@ panel <- panel %>%
   mutate(
     # Treatment cohort: first year of autocratization (0 if never treated)
     aut_cohort = if_else(aut_ep == 1, aut_ep_start_yr, 0L),
+    #left_censored_aut_ep = (!is.na(aut_start_filled) & aut_start_filled < 2015),
+    country_id = as.numeric(as.factor(country_code)), # Numeric ID required by did::att_gt()
     log_luminosity = log(luminosity + 1),
-    # Numeric ID required by did::att_gt()
-    country_id = as.numeric(as.factor(country_code)))
+    prop_missing_pct = prop_sdg_missing * 100)
 
 panel <- panel %>% mutate(across(
-  c(country_code, year, regime_type_2, regime_type_4, regime_type_10,
-    aut_ep, dem_ep, regch_event, regch_genuine, aut_cohort), as.factor))
-
-panel$regime_type_4 <- factor(panel$regime_type_4, levels = c("0", "1", "2", "3"))
-panel$income_level <- factor(panel$income_level, levels = c("L", "LM", "UM", "H"))
+  c(country_code, year, regime_type_2, regime_type_4, regime_type_10, aut_ep, 
+    dem_ep, regch_event, regch_genuine, aut_cohort), as.factor))
+panel$regime_type_4 <- factor(panel$regime_type_4, 
+                              levels = c("0", "1", "2", "3"))
+panel$income_level <- factor(panel$income_level, 
+                             levels = c("L", "LM", "UM", "H"))
 
 # **total_pop** has the most missing values, specifically across all countries 
 # in 2023, which is likely due to the fact that the World Bank's population data 
@@ -133,16 +134,16 @@ panel$income_level <- factor(panel$income_level, levels = c("L", "LM", "UM", "H"
 # ----------------------------------------------------------------------------
 
 # IMPUTE missing values for log_pop with previous year values (carry forward)
-panel <- panel %>% group_by(country_code) %>%
-  mutate(log_pop = if_else(year == 2023 & is.na(log_pop), 
-                           log_pop[year == 2022], log_pop)) %>% 
+panel <- panel %>% 
+  group_by(country_code) %>%
+  mutate(log_pop = if_else(year == 2023 & is.na(log_pop), log_pop[year == 2022], log_pop)) %>% 
   ungroup()
 
 # NOTES ABOUT VARIABLES:
 # - Took out R&D expenditure because it has a lot of NAs and is highly correlated with GDP per capita.
 # - SPI is missing all of 2015, but is kept in the dataset for now because it is a key control variable.
 #   Models are run with and without it to check robustness.
-
+  
 # Save as rds
 write_rds(panel, "data/output/MAIN_panel_data.rds") 
 # save as csv for AI
@@ -151,17 +152,6 @@ write_csv(panel, "data/output/MAIN_panel_data.csv")
 # ============================================================================
 # SECTION 3: event_study_stag_twfe.Rmd — Setup & Event-Time Variable Creation
 # ============================================================================
-
-# load data
-panel <- readRDS("data/output/MAIN_panel_data.rds")
-
-# # convert year to integer for event time calculations
-# panel <- panel %>%
-# mutate(year = as.integer(year))
-
-# table(panel$year)
-# n_distinct(panel$year)
-
 # ----------------------------------------------------------------------------
 # SECTION 3a: event_study_stag_twfe.Rmd — APPROACH 1C: Event Time Variables
 # ----------------------------------------------------------------------------
@@ -221,15 +211,15 @@ panel <- read_csv("data/output/panel_es_data.csv")
 # - tname = year (integer).
 
 # Step 1: Flag left-censored countries
-panel <- panel %>%
+panel_es <- panel_es %>%
   mutate(
     left_censored = (!is.na(aut_start_filled) & aut_start_filled < 2015))
 
 cat("Left-censored countries (episode starts before 2015):",
-    n_distinct(panel$country_code[panel$left_censored]), "\n")
+    n_distinct(panel_es$country_code[panel_es$left_censored]), "\n")
 
 # Step 2: Build CS panel
-panel_cs <- panel %>%
+panel_cs <- panel_es %>%
   filter(!left_censored) %>%
   mutate(year = as.integer(year)) %>%
   rename(idname = country_id,

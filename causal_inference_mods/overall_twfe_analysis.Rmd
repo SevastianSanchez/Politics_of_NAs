@@ -246,6 +246,7 @@ panel <- panel %>%
     decline_liberal.03 = ifelse(delta_liberal <= -0.03, abs(delta_liberal), 0),
     improve_liberal = ifelse(delta_liberal > 0, delta_liberal, 0),
     improve_liberal.03 = ifelse(delta_liberal >= 0.03, abs(delta_liberal), 0),
+    # Creating varibles detecting high-magnitude changes (>= 0.3) in sdg missingness
   ) %>%
   ungroup()
 ```

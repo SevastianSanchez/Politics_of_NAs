@@ -1,0 +1,8 @@
+What is the nature of the data?
+
+For each value of the indicator, the responsible international agency has been requested to indicate whether the national data were adjusted, estimated, modelled or are the result of global monitoring. The “nature” of the data in the SDG database is determined as follows:
+- Country data (C): Produced and disseminated by the country (including data adjusted by the country to meet international standards);
+- Country data adjusted (CA): Produced and provided by the country, but adjusted by the international agency for international comparability to comply with internationally agreed standards, definitions and classifications;
+- Estimated (E): Estimated based on national data, such as surveys or administrative records, or other sources but on the same variable being estimated, produced by the international agency when country data for some year(s) is not available, when multiple sources exist, or when there are data quality issues;
+- Modelled (M): Modelled by the agency on the basis of other covariates when there is a complete lack of data on the variable being estimated;
+- Global monitoring data (G): Produced on a regular basis by the designated agency for global monitoring, based on country data. There is no corresponding figure at the country level.
