@@ -301,12 +301,22 @@ write_csv(
 goals <- sort(unique(series_list$goal))
 
 
-# ---- D4. Series-per-goal denominator → agg_series_per_goal ------------------
-# Distinct series codes per goal in the downloaded export. Denominator for the
-# series-count availability shares in Section F2.
-agg_series_per_goal <- series_list %>%
+# ---- D4. Per-goal totals → goal_totals ------------------------------
+# n_series_in_goal    : distinct series codes per goal (denominator for the
+#                       series-count availability shares in Section F2).
+# n_observations_in_goal : total disaggregated observations per goal (one row
+#                       of raw_data = one observation), i.e. the size of each
+#                       goal's data universe below the series-code level.
+# obs_per_series      : mean observations per series code — how deep the
+#                       disaggregation runs for a typical series in the goal.
+goal_totals <- series_list %>%
   distinct(goal, series_code) %>%
-  count(goal, name = "n_series_in_goal")
+  count(goal, name = "n_series_in_goal") %>%
+  left_join(
+    raw_data %>% count(goal, name = "n_observations_in_goal"),
+    by = "goal"
+  ) %>%
+  mutate(obs_per_series = n_observations_in_goal / n_series_in_goal)
 
 
 # ---- D5. Framework-wide series total → agg_series_total ---------------------
@@ -502,7 +512,7 @@ agg_series_counts_rc <- bind_rows(
         count(geo_area_code, year, goal, name = "n_available_series"),
       by = c("geo_area_code", "year", "goal")
     ) %>%
-    left_join(agg_series_per_goal, by = "goal") %>%
+    left_join(goal_totals, by = "goal") %>%
     transmute(
       geo_area_code, geo_area_name, year,
       scope = "goal",
@@ -549,7 +559,7 @@ message("Unique countries/territories retained: ", n_distinct(countries$geo_area
 message("Unique series across all exports: ", agg_series_total)
 
 message("\nSeries per goal in downloaded files:")
-print(agg_series_per_goal)
+print(goal_totals)
 
 message("\nSeries stability (see D0):")
 message("  stable-core series: ", length(stable_codes), " of ", nrow(series_stability),
