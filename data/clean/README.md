@@ -6,6 +6,8 @@ One source table, six derived. UN SDG Global Database, **2015–2023**, **197 ge
 
 **Merge to the treatment panel (`MAIN_panel_data`) on `iso3` + `year`.**
 
+📊 **[Interactive version](https://claude.ai/code/artifact/8f5bc8f9-1256-40a7-abb6-ff45e7608bcb)** — the same schema as a browsable, color-coded page.
+
 ## Lineage
 
 ```
@@ -223,4 +225,4 @@ into the panel.
 
 ---
 
-*Interactive version: the schema is also published as an Artifact.*
+*Interactive version: [the schema is also published as an Artifact](https://claude.ai/code/artifact/8f5bc8f9-1256-40a7-abb6-ff45e7608bcb).*
