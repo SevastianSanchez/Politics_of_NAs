@@ -4,7 +4,7 @@
 #
 # HOW THIS IS USED
 # ----------------
-#   (a) Sourced from extract_SDG_series_data_2015_2025.r (section D0), where
+#   (a) Sourced from extract_SDG_series_data_2015_2023.r (section D0), where
 #       raw_data is already in memory. It is used as-is — no re-read.
 #   (b) Run directly (Rscript code/data_prep/build_series_stability.R) to
 #       rebuild the table without re-running the extract. In that case
@@ -21,7 +21,7 @@
 #
 # WHY THIS EXISTS
 # ---------------
-# The SDG framework and the UN database both changed over 2015-2025: series
+# The SDG framework and the UN database both changed over 2015-2023: series
 # were added, replaced, and retired. Counting raw observations without
 # accounting for that means a country's data mass rises simply because the
 # framework grew — not because the country reported more. Measured directly:
@@ -65,7 +65,7 @@ if (exists("raw_data", inherits = TRUE) && is.data.frame(raw_data)) {
   .raw_path <- "data/clean/raw_data.csv.gz"
   if (!file.exists(.raw_path)) {
     stop("raw_data is not in the environment and ", .raw_path, " does not exist.\n",
-         "Run extract_SDG_series_data_2015_2025.r first.", call. = FALSE)
+         "Run extract_SDG_series_data_2015_2023.r first.", call. = FALSE)
   }
   message("build_series_stability: loading ", .raw_path)
   raw_data <- read_csv(.raw_path, col_types = cols(.default = col_character()),
@@ -75,7 +75,9 @@ if (exists("raw_data", inherits = TRUE) && is.data.frame(raw_data)) {
 
 # Contract checks on raw_data.
 local({
-  need <- c("series_code", "geo_area_code", "year")
+  # `value` is required: section 2 uses is.na(value) to separate published
+  # observations from declared-missing rows.
+  need <- c("series_code", "geo_area_code", "year", "value")
   miss <- setdiff(need, names(raw_data))
   if (length(miss) > 0)
     stop("raw_data is missing required column(s): ", paste(miss, collapse = ", "),
@@ -89,18 +91,50 @@ local({
 
 
 # ---- 1. Configuration --------------------------------------------------------
-# Years used to define the stable core. Ends at 2023 because later years are
-# still filling in — 2025 in particular is badly incomplete (232 live series
-# and ~29k observations, against ~150k in a typical year). That is reporting
-# lag, not data loss, and it must not be read as a collapse in the outcome.
+# Years used to define the stable core: a series is "stable" if it is live in
+# EVERY one of these years.
+#
+# This now matches the extract's analysis window (start_year:end_year =
+# 2015:2023), so "stable core" reads as "live in every year of the panel". The
+# 2024-2025 reporting lag that used to be excluded here is now excluded upstream
+# by end_year, so this window no longer has to compensate for it.
+#
+# Kept as its own object rather than derived from end_year, because the two
+# answer different questions: end_year is "which years are trustworthy enough to
+# analyse", core_window is "which years must a series span to count as stable".
+# They coincide today; the guard below catches it if they ever stop coinciding.
 core_window <- 2015:2023
 
 stability_updates_path <- "data/raw/sdg_update_info.xlsx"
 stability_output_path  <- "data/clean/series_stability.csv"
 
+# The stable-core test requires presence in every core_window year. If raw_data
+# does not actually span the window, NO series can qualify and stable_codes
+# silently comes back empty — so fail loudly instead.
+local({
+  data_years <- range(raw_data$year, na.rm = TRUE)
+  if (min(core_window) < data_years[1] || max(core_window) > data_years[2]) {
+    stop("core_window (", min(core_window), "-", max(core_window),
+         ") is not covered by raw_data (", data_years[1], "-", data_years[2], ").\n",
+         "No series can be present in every core year, so stable_codes would be ",
+         "empty.\nEither widen the extract's start_year/end_year, or narrow ",
+         "core_window in this script.", call. = FALSE)
+  }
+})
+
 
 # ---- 2. Empirical series lifespan -------------------------------------------
-series_year <- raw_data %>%
+# Only PUBLISHED values make a series "live" in a year. raw_data also carries
+# declared-missing rows (value was "NaN" in the export, converted to NA in C1);
+# counting those would mark a series as structurally available in a year when
+# the UN opened the slot and found nothing — inflating the stable core with
+# series that were never actually reported.
+.live <- raw_data %>% filter(!is.na(value))
+message("build_series_stability: excluding ",
+        format(sum(is.na(raw_data$value)), big.mark = ","),
+        " declared-missing rows (value is NA) from the lifespan calculation")
+
+series_year <- .live %>%
   group_by(series_code, year) %>%
   summarise(n_countries = n_distinct(geo_area_code), n_obs = n(), .groups = "drop")
 
@@ -187,7 +221,7 @@ print(as.data.frame(series_stability %>% count(status, name = "n_series") %>%
 cat("\nStable core: ", length(stable_codes), " of ", nrow(series_stability), " series ",
     sprintf("(%.0f%%)\n", 100 * length(stable_codes) / nrow(series_stability)), sep = "")
 cat("Observation mass in stable core: ",
-    sprintf("%.1f%%\n", 100 * sum(raw_data$series_code %in% stable_codes) / nrow(raw_data)))
+    sprintf("%.1f%%\n", 100 * sum(.live$series_code %in% stable_codes) / nrow(.live)))
 
 cat("\n=== Framework drift: series with ANY country data, by year ===\n")
 cat("(a rising count means the framework grew, not that countries reported more)\n")
@@ -202,4 +236,5 @@ cat(sum(series_stability$ends_early), " series stop before ", max(core_window),
 
 cat("\nWrote: ", stability_output_path, " (", nrow(series_stability), " rows)\n", sep = "")
 cat("Core window: ", min(core_window), "-", max(core_window),
-    ". Later years are still filling in; 2025 is badly incomplete.\n", sep = "")
+    " (matches the extract's analysis window; 2024-2025 are excluded upstream\n",
+    "as reporting lag, not data loss).\n", sep = "")

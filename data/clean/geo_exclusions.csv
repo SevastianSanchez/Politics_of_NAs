@@ -1,0 +1,64 @@
+geo_area_code,geo_area_name,disposition,reason,parent_code,n_observations,n_obs_retained,n_series,n_years,first_year,last_year
+530,Netherlands Antilles  [former],excluded,defunct entity,NA,127,0,2,9,2015,2023
+890,Yugoslavia [former],excluded,defunct entity,NA,126,0,1,9,2015,2023
+891,Serbia and Montenegro [former],excluded,defunct entity,NA,126,0,1,9,2015,2023
+16,American Samoa,excluded,dependent territory or non-member,NA,1275,0,90,9,2015,2023
+60,Bermuda,excluded,dependent territory or non-member,NA,2301,0,165,9,2015,2023
+92,British Virgin Islands,excluded,dependent territory or non-member,NA,2133,0,132,9,2015,2023
+136,Cayman Islands,excluded,dependent territory or non-member,NA,2206,0,147,9,2015,2023
+175,Mayotte,excluded,dependent territory or non-member,NA,1298,0,81,9,2015,2023
+184,Cook Islands,excluded,dependent territory or non-member,NA,3364,0,237,9,2015,2023
+234,Faroe Islands,excluded,dependent territory or non-member,NA,1583,0,101,9,2015,2023
+238,Falkland Islands (Malvinas),excluded,dependent territory or non-member,NA,1270,0,82,9,2015,2023
+248,Åland Islands,excluded,dependent territory or non-member,NA,630,0,41,9,2015,2023
+254,French Guiana,excluded,dependent territory or non-member,NA,1809,0,129,9,2015,2023
+258,French Polynesia,excluded,dependent territory or non-member,NA,2021,0,127,9,2015,2023
+292,Gibraltar,excluded,dependent territory or non-member,NA,1561,0,100,9,2015,2023
+304,Greenland,excluded,dependent territory or non-member,NA,1551,0,122,9,2015,2023
+312,Guadeloupe,excluded,dependent territory or non-member,NA,1791,0,118,9,2015,2023
+316,Guam,excluded,dependent territory or non-member,NA,1451,0,118,9,2015,2023
+336,Holy See,excluded,dependent territory or non-member,NA,1260,0,68,9,2015,2023
+474,Martinique,excluded,dependent territory or non-member,NA,1793,0,121,9,2015,2023
+500,Montserrat,excluded,dependent territory or non-member,NA,2288,0,146,9,2015,2023
+531,Curaçao,excluded,dependent territory or non-member,NA,1737,0,140,9,2015,2023
+533,Aruba,excluded,dependent territory or non-member,NA,2020,0,137,9,2015,2023
+534,Sint Maarten (Dutch part),excluded,dependent territory or non-member,NA,1313,0,105,9,2015,2023
+535,"Bonaire, Sint Eustatius and Saba",excluded,dependent territory or non-member,NA,992,0,57,9,2015,2023
+540,New Caledonia,excluded,dependent territory or non-member,NA,2135,0,150,9,2015,2023
+570,Niue,excluded,dependent territory or non-member,NA,2050,0,161,9,2015,2023
+580,Northern Mariana Islands,excluded,dependent territory or non-member,NA,1130,0,96,9,2015,2023
+630,Puerto Rico,excluded,dependent territory or non-member,NA,2653,0,187,9,2015,2023
+638,Réunion,excluded,dependent territory or non-member,NA,1782,0,110,9,2015,2023
+652,Saint Barthélemy,excluded,dependent territory or non-member,NA,1106,0,63,9,2015,2023
+654,Saint Helena,excluded,dependent territory or non-member,NA,1185,0,85,9,2015,2023
+660,Anguilla,excluded,dependent territory or non-member,NA,2017,0,143,9,2015,2023
+663,Saint Martin (French Part),excluded,dependent territory or non-member,NA,1113,0,84,9,2015,2023
+666,Saint Pierre and Miquelon,excluded,dependent territory or non-member,NA,1342,0,81,9,2015,2023
+732,Western Sahara,excluded,dependent territory or non-member,NA,1235,0,60,9,2015,2023
+772,Tokelau,excluded,dependent territory or non-member,NA,1497,0,97,9,2015,2023
+796,Turks and Caicos Islands,excluded,dependent territory or non-member,NA,2329,0,161,9,2015,2023
+831,Guernsey,excluded,dependent territory or non-member,NA,778,0,69,9,2015,2023
+832,Jersey,excluded,dependent territory or non-member,NA,833,0,77,9,2015,2023
+833,Isle of Man,excluded,dependent territory or non-member,NA,1154,0,86,9,2015,2023
+850,United States Virgin Islands,excluded,dependent territory or non-member,NA,1551,0,111,9,2015,2023
+876,Wallis and Futuna Islands,excluded,dependent territory or non-member,NA,1539,0,110,9,2015,2023
+369,Iraq (Central Iraq),excluded,sub-national reporting stratum,NA,53,0,5,4,2018,2021
+836,United Republic of Tanzania (Zanzibar),excluded,sub-national reporting stratum,NA,108,0,1,9,2015,2023
+10,Antarctica,excluded,uninhabited or residual bucket,NA,9,0,1,9,2015,2023
+74,Bouvet Island,excluded,uninhabited or residual bucket,NA,496,0,21,9,2015,2023
+86,British Indian Ocean Territory,excluded,uninhabited or residual bucket,NA,674,0,30,9,2015,2023
+158,Other non-specified areas in Eastern Asia,excluded,uninhabited or residual bucket,NA,838,0,59,9,2015,2023
+162,Christmas Island,excluded,uninhabited or residual bucket,NA,766,0,41,9,2015,2023
+166,Cocos (Keeling) Islands,excluded,uninhabited or residual bucket,NA,721,0,39,9,2015,2023
+239,South Georgia and the South Sandwich Islands,excluded,uninhabited or residual bucket,NA,611,0,37,9,2015,2023
+260,French Southern Territories,excluded,uninhabited or residual bucket,NA,404,0,38,9,2015,2023
+334,Heard Island and McDonald Islands,excluded,uninhabited or residual bucket,NA,369,0,35,9,2015,2023
+574,Norfolk Island,excluded,uninhabited or residual bucket,NA,810,0,53,9,2015,2023
+581,United States Minor Outlying Islands,excluded,uninhabited or residual bucket,NA,562,0,27,9,2015,2023
+612,Pitcairn,excluded,uninhabited or residual bucket,NA,792,0,48,9,2015,2023
+655,Ascension,excluded,uninhabited or residual bucket,NA,23,0,4,8,2015,2022
+680,Sark,excluded,uninhabited or residual bucket,NA,51,0,6,9,2015,2023
+744,Svalbard and Jan Mayen Islands,excluded,uninhabited or residual bucket,NA,517,0,49,9,2015,2023
+827,United Kingdom (England and Wales),rolled up,devolved jurisdiction -> parent 826,826,228,192,14,9,2015,2023
+828,United Kingdom (Northern Ireland),rolled up,devolved jurisdiction -> parent 826,826,113,77,9,9,2015,2023
+829,United Kingdom (Scotland),rolled up,devolved jurisdiction -> parent 826,826,183,147,10,9,2015,2023
