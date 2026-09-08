@@ -1,33 +1,29 @@
 # =============================================================================
 # DIAGNOSTIC: Series coverage check
-# Companion to code/data_prep/extract_SDG_series_data_2015_2025.r
+# Companion to code/data_prep/extract_SDG_series_data_2015_2023.r
 # =============================================================================
 #
 # WHY THIS EXISTS
 # ---------------
-# The cleaned data contains 667 unique SDG series codes, but the UN SDG series
-# registry lists 713. This script explains that 46-series gap so future-you
-# does not mistake it for a broken or truncated download.
+# The cleaned data has fewer unique series codes than the UN SDG series registry
+# (currently 665 in raw_data vs ~713 in the registry). This script confirms that
+# the gap is expected, not a broken or truncated download.
 #
-# THE ANSWER (verified 2026-08-20)
-# --------------------------------
-# All 46 "missing" series are published ONLY as global totals, regional
-# groupings, or non-country spatial units (e.g., Large Marine Ecosystems).
-# They have no country-level observations, so they cannot appear in a
-# country x series x year panel. Examples:
-#   - Goal 13 climate finance (DC_FIN_*) and Paris-transparency reporting
-#     (EN_ADAP_COM, EN_BITR_REP, NDCs)  -> reported as World totals
+# THE ANSWER (first verified 2026-08-20; re-run for current figures)
+# ------------------------------------------------------------------
+# The "missing" series are published ONLY as global totals, regional groupings,
+# or non-country spatial units (e.g. Large Marine Ecosystems). They have no
+# country-level observations, so they cannot appear in a country x series x year
+# panel. Examples:
+#   - Goal 13 climate finance (DC_FIN_*) and Paris reporting -> World totals
 #   - Goal 6 water governance (ER_H2O_*) -> "proportion of countries" globals
 #   - Goal 14 coastal eutrophication (EN_MAR_*) -> per marine ecosystem
 #   - Goal 12 material footprint / food loss -> regional aggregates
 #
-# So 667 is the correct count of country-reportable series. The download is
-# complete for a country-level analysis; nothing was accidentally dropped.
+# So the country-reportable count is correct; nothing was accidentally dropped.
 #
-# This script is READ-ONLY: it reads the cleaned output and the UN API, and
-# prints a report. It writes nothing.
-#
-# Requires internet access (queries the official UN SDG API).
+# READ-ONLY: reads the cleaned output and the UN API, prints a report, writes
+# nothing. Requires internet (queries the official UN SDG API).
 # =============================================================================
 
 suppressPackageStartupMessages({
@@ -35,12 +31,8 @@ suppressPackageStartupMessages({
 })
 
 # ---- Paths -------------------------------------------------------------------
-# Resolve the project's data/clean folder relative to this script's location.
+# Run from the project root. raw_data.csv.gz is written by the extract script.
 raw_data_path <- "data/clean/raw_data.csv.gz"
-if (!file.exists(raw_data_path)) {
-  # Fall back to the pre-rename filename if the script has not been re-run yet.
-  raw_data_path <- "data/clean/un_sdg_series_observations_2015_2025.csv.gz"
-}
 stopifnot(file.exists(raw_data_path))
 
 
