@@ -56,7 +56,7 @@
 #
 # agg_series_depth.csv.gz (+ .rds twin) — SUPPLEMENTARY. One row per country x
 #   series x year. n_disagg_rows is how many disaggregations the country reported;
-#   depth_pct_frontier / depth_pct_union express it as a share of a per-series
+#   dv_depth_pct_frontier / dv_depth_pct_union express it as a share of a per-series
 #   ceiling, so depth is comparable across countries.
 #
 # -----------------------------------------------------------------------------
@@ -911,7 +911,7 @@ attr(baseline$baseline_mean_stable, "label") <-
 #
 # WHY IT EXISTS: the country-own baseline in D6 is undefined (0) for ~90
 # country-goals that had not begun reporting a goal by 2017, forcing NA in
-# n_observations_pct_baseline. This goal-level denominator is never 0 (some
+# dv_n_observations_pct_baseline. This goal-level denominator is never 0 (some
 # country always reports), so it gives a cross-goal-comparable outcome defined
 # for every country-goal-year — see the *_pct_goalbase columns in E1.
 goal_baseline <- baseline %>%
@@ -924,7 +924,7 @@ goal_baseline <- baseline %>%
 # ---- D7. Goal-year frontier max → frontier ----------------------------------
 # Max country-goal-year observation count within each goal-year. Descriptive-
 # companion denominator ("share of the top reporter") for
-# n_observations_pct_frontier.
+# dv_n_observations_pct_frontier.
 frontier <- raw_data %>%
   filter(!is.na(value)) %>%
   count(geo_area_code, year, goal, name = "n_observations") %>%
@@ -995,24 +995,24 @@ goal_lvl_dv_data <- expand_grid(
   mutate(
     # Divided by THIS country's own 2015-17 mean for the goal. NA for the ~90
     # country-goals that reported nothing at baseline (denominator 0).
-    n_observations_pct_baseline = if_else(baseline_mean_all > 0,
+    dv_n_observations_pct_baseline = if_else(baseline_mean_all > 0,
                                           n_observations / baseline_mean_all,
                                           NA_real_),
-    n_observations_stable_pct_baseline = if_else(baseline_mean_stable > 0,
+    dv_n_observations_stable_pct_baseline = if_else(baseline_mean_stable > 0,
                                           n_observations_stable / baseline_mean_stable,
                                           NA_real_),
     # Divided by the mean across ALL countries for the goal in 2015-17 (D6b).
     # Denominator never 0, so defined for every country-goal-year — the companion
     # that keeps late-starting reporters in the analysis.
-    n_observations_pct_goalbase = if_else(goal_baseline_all > 0,
+    dv_n_observations_pct_goalbase = if_else(goal_baseline_all > 0,
                                           n_observations / goal_baseline_all,
                                           NA_real_),
-    n_observations_stable_pct_goalbase = if_else(goal_baseline_stable > 0,
+    dv_n_observations_stable_pct_goalbase = if_else(goal_baseline_stable > 0,
                                           n_observations_stable / goal_baseline_stable,
                                           NA_real_),
     # "vs the top reporter that year": descriptive companion; denominator moves
     # year to year, so weaker for causal identification.
-    n_observations_pct_frontier = if_else(frontier_max > 0,
+    dv_n_observations_pct_frontier = if_else(frontier_max > 0,
                                           n_observations / frontier_max,
                                           NA_real_)
   ) %>%
@@ -1041,15 +1041,15 @@ attr(goal_lvl_dv_data$n_missing_unknown, "label") <-
   "Declared-missing: reason not recoverable (Obs Status O, or neither field populated)"
 attr(goal_lvl_dv_data$n_observations_stable, "label") <-
   sprintf("Observation count — %d framework-stable series", length(stable_codes))
-attr(goal_lvl_dv_data$n_observations_pct_baseline, "label") <-
+attr(goal_lvl_dv_data$dv_n_observations_pct_baseline, "label") <-
   "n_observations / THIS country's own mean for this goal in 2015-17 (all series). NA if that baseline is 0"
-attr(goal_lvl_dv_data$n_observations_stable_pct_baseline, "label") <-
+attr(goal_lvl_dv_data$dv_n_observations_stable_pct_baseline, "label") <-
   "n_observations_stable / THIS country's own mean for this goal in 2015-17 (stable core). NA if that baseline is 0"
-attr(goal_lvl_dv_data$n_observations_pct_goalbase, "label") <-
+attr(goal_lvl_dv_data$dv_n_observations_pct_goalbase, "label") <-
   "n_observations / mean across ALL countries for this goal in 2015-17 (all series). Defined for every country-goal-year"
-attr(goal_lvl_dv_data$n_observations_stable_pct_goalbase, "label") <-
+attr(goal_lvl_dv_data$dv_n_observations_stable_pct_goalbase, "label") <-
   "n_observations_stable / mean across ALL countries for this goal in 2015-17 (stable core). Defined for every country-goal-year"
-attr(goal_lvl_dv_data$n_observations_pct_frontier, "label") <-
+attr(goal_lvl_dv_data$dv_n_observations_pct_frontier, "label") <-
   "vs TOP reporter: n_observations / goal-year max (all series). Denominator moves yearly"
 
 write_csv(
@@ -1108,7 +1108,7 @@ agg_series_depth <- raw_data %>%
 #
 #   depth_frontier — the most any single country-year reported for the series.
 #                    Demonstrably attainable (a real country hit it), so it is
-#                    the PRIMARY denominator. depth_pct_frontier is in [0, 1].
+#                    the PRIMARY denominator. dv_depth_pct_frontier is in [0, 1].
 #   depth_union    — every distinct disaggregation combo (age x sex x location x
 #                    units) ever seen for the series, pooled across all country-
 #                    years. Wider, because it pools mutually exclusive survey
@@ -1137,10 +1137,10 @@ agg_series_depth <- agg_series_depth %>%
   left_join(depth_union,    by = "series_code") %>%
   mutate(
     # Share of the series' demonstrated maximum depth this country reached here.
-    depth_pct_frontier = if_else(depth_frontier > 0,
+    dv_depth_pct_frontier = if_else(depth_frontier > 0,
                                  n_disagg_rows / depth_frontier, NA_real_),
     # Same, against the wider union ceiling (robustness).
-    depth_pct_union    = if_else(depth_union > 0,
+    dv_depth_pct_union    = if_else(depth_union > 0,
                                  n_disagg_rows / depth_union, NA_real_)
   )
 
@@ -1155,9 +1155,9 @@ attr(agg_series_depth$depth_frontier, "label") <-
   "Per-series ceiling: most any single country-year reported (attainable)"
 attr(agg_series_depth$depth_union, "label") <-
   "Per-series ceiling: all combos ever seen for the series, pooled (robustness)"
-attr(agg_series_depth$depth_pct_frontier, "label") <-
+attr(agg_series_depth$dv_depth_pct_frontier, "label") <-
   "n_disagg_rows / depth_frontier — share of attainable depth reached, in [0,1]"
-attr(agg_series_depth$depth_pct_union, "label") <-
+attr(agg_series_depth$dv_depth_pct_union, "label") <-
   "n_disagg_rows / depth_union — share of the union ceiling reached, in [0,1]"
 saveRDS(agg_series_depth, file.path(output_folder, "agg_series_depth.rds"))
 
@@ -1232,8 +1232,8 @@ agg_series_counts_rc <- bind_rows(
     )) %>%
   mutate(
     missing_series_count = n_series_in_framework - n_available_series,
-    availability_share   = n_available_series / n_series_in_framework,
-    missingness_share    = 1 - availability_share
+    dv_availability_share   = n_available_series / n_series_in_framework,
+    dv_missingness_share    = 1 - dv_availability_share
   ) %>%
   arrange(geo_area_name, year, scope, goal)
 
