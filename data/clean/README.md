@@ -74,11 +74,11 @@ cross-goal descriptive comparison.
 ### Normalized — comparable across goals (share of a denominator)
 | Column | Type | Description |
 |---|---|---|
-| `n_observations_pct_baseline` | dbl | ÷ this country's own 2015–17 mean. **NA (×810)** where that baseline is 0. |
-| `n_observations_pct_goalbase` | dbl | ÷ the mean across **all countries** for this goal in 2015–17. Defined for every row — keeps late starters in. |
-| `n_observations_pct_frontier` | dbl | ÷ the most any country reported that goal-year. Denominator moves yearly. |
-| `n_observations_stable_pct_baseline` | dbl | Stable-core version of `pct_baseline`. **NA (×855)**. |
-| `n_observations_stable_pct_goalbase` | dbl | Stable-core version of `pct_goalbase`. |
+| `dv_n_observations_pct_baseline` | dbl | ÷ this country's own 2015–17 mean. **NA (×810)** where that baseline is 0. |
+| `dv_n_observations_pct_goalbase` | dbl | ÷ the mean across **all countries** for this goal in 2015–17. Defined for every row — keeps late starters in. |
+| `dv_n_observations_pct_frontier` | dbl | ÷ the most any country reported that goal-year. Denominator moves yearly. |
+| `dv_n_observations_stable_pct_baseline` | dbl | Stable-core version of `pct_baseline`. **NA (×855)**. |
+| `dv_n_observations_stable_pct_goalbase` | dbl | Stable-core version of `pct_goalbase`. |
 
 ---
 
@@ -103,15 +103,15 @@ how you counted. Two scopes stacked.
 | `n_applicable_series` | int | Series that apply here (excludes structurally non-relevant). Country-specific denominator. |
 | `n_series_in_framework` | int | Universal denominator: series in the goal (or all 665, overall scope). |
 | `missing_series_count` | int | framework − available. |
-| `availability_share` | dbl | available ÷ framework, in [0,1]. |
-| `missingness_share` | dbl | 1 − availability_share. |
+| `dv_availability_share` | dbl | available ÷ framework, in [0,1]. |
+| `dv_missingness_share` | dbl | 1 − dv_availability_share. |
 
 ---
 
 ## `agg_series_depth` — supplementary
 
 Disaggregation depth — did a country keep a series but drop its breakdowns? A separate,
-optional outcome. `depth_pct_frontier` expresses depth as a share of a per-series
+optional outcome. `dv_depth_pct_frontier` expresses depth as a share of a per-series
 ceiling, so it is comparable across countries.
 
 **Grain:** country × series × year &nbsp;·&nbsp; **Key:** `geo_area_code` + `series_code` + `year` + `goal` &nbsp;·&nbsp; **Rows:** 508,432
@@ -129,8 +129,8 @@ ceiling, so it is comparable across countries.
 | `applicable` | lgl | Series applies here (not purely structural non-relevance). |
 | `depth_frontier` | int | Per-series ceiling: most any country-year reached (attainable). Primary. |
 | `depth_union` | int | Per-series ceiling: all combos ever seen, pooled. Robustness. |
-| `depth_pct_frontier` | dbl | `n_disagg_rows` ÷ `depth_frontier`, in [0,1]. |
-| `depth_pct_union` | dbl | `n_disagg_rows` ÷ `depth_union`, in [0,1]. |
+| `dv_depth_pct_frontier` | dbl | `n_disagg_rows` ÷ `depth_frontier`, in [0,1]. |
+| `dv_depth_pct_union` | dbl | `n_disagg_rows` ÷ `depth_union`, in [0,1]. |
 
 ---
 
