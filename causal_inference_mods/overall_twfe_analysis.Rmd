@@ -8,10 +8,11 @@ output: html_document
 source("code/packages.R")
 
 # Data prep 
-source("causal_inference_mods/causal_inf_data_prep.R")
+#source("causal_inference_mods/causal_inf_data_prep.R")
 
 # Load data (adjust path if needed)
-panel <- readRDS("data/output/MAIN_panel_data.rds")
+#panel <- readRDS("data/output/MAIN_panel_data.rds")
+panel <- analysis_data
 ```
 
 **Source for Luminosity data**: Beyer, R.C., Hu, Y. and Yao, J., 2026. The Bright Side of Heteroskedasticity: Measuring Quarterly Economic Growth from Outer Space.
@@ -74,14 +75,16 @@ print(missing_summary)
 # Table of countries with remaining NA values in key variables (after log_pop imputation)
 na_values_by_country <- panel %>%
   group_by(country_code, country_name.x) %>%
-  summarise(across(c(log_gdppc, log_pop, log_luminosity, electric_access, spi_overall, tax_rev_gdp, rural_pop_pct),
+  summarise(across(c(log_gdppc, log_pop, log_luminosity, electric_access, 
+                     spi_overall, tax_rev_gdp, rural_pop_pct),
                     ~ sum(is.na(.x))), .groups = "drop") %>%
-  filter(if_any(c(log_gdppc, log_pop, log_luminosity, electric_access, spi_overall, tax_rev_gdp, rural_pop_pct),
+  filter(if_any(c(log_gdppc, log_pop, log_luminosity, electric_access, 
+                  spi_overall, tax_rev_gdp, rural_pop_pct),
                 ~ .x > 0)) %>%
   janitor::adorn_totals("row")
 
 # Export the actual data [TO APPENDIX]
-write_csv(na_values_by_country, "results_csv/na_values_by_country.csv")
+#write_csv(na_values_by_country, "results_csv/na_values_by_country.csv")
 
 # Table of country NA values per variable 
 var_labels_na <- c(
@@ -205,8 +208,15 @@ save_as_image(vif_ft, path = "figures/causal_inference/vif1-4_table_twfe.png")
 
 ## Robustness Check: Correlation matrix of control variables
 ```{r}
+## PICK UP HERE!
+sub_panel <- panel %>% filter(goal == 2)
+
+# sub_panel$y_var <- panel$prop_sdg_missing
+# sub_panel$y_var <- panel$dv_n_observations_pct_baseline
+# sub_panel$y_var <- panel$dv_n_observations_stable_pct_baseline
+
 # matrix of variables and correlations
-cor_data <- panel %>% select(prop_sdg_missing, lib_dem, elect_dem, v2x_liberal, 
+cor_data <- sub_panel %>% select(paste('y_var'), lib_dem, elect_dem, v2x_liberal, 
                              log_gdppc, log_pop, spi_overall, electric_access, 
                              log_luminosity, rural_pop_pct, tax_rev_gdp) %>% na.omit()
 cor_matrix <- cor(cor_data)
@@ -319,7 +329,7 @@ ldi_mag_table
 
 # M1: Reduced Dynamic TWFE (just to see raw relationship)
 m1_twfe_a <- feols(
-  prop_sdg_missing 
+  y_var 
   ~ decline_ldi + improve_ldi 
   | country_code + year,
   data = panel,
@@ -681,8 +691,8 @@ goal_ft <- goal_table %>%
 save_as_image(goal_ft, path = "figures/causal_inference/twfe_goal_level_m3_table.png")
 
 # save panel data with goal-level missingness for future use
-write_csv(panel, "data/output/MAIN_panel_data.csv")
-saveRDS(panel, "data/output/MAIN_panel_data.rds")
+#write_csv(panel, "data/output/MAIN_panel_data.csv")
+#saveRDS(panel, "data/output/MAIN_panel_data.rds")
 ```
 
 

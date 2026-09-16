@@ -940,8 +940,12 @@ frontier <- raw_data %>%
 # coarser series-code views for robustness.
 
 # ---- E1. Goal-level DV panel: goal_lvl_dv_data ------------------------------
-# Grain: one row per country x year x goal. Built on a full scaffold, so a
-# country-goal-year that reported nothing shows a genuine 0, not a missing row.
+# Grain: one row per country x year x (goal or overall), set by `scope`:
+#   scope == "goal"    — per country-year-goal, goal 1-17 (the 17-goal panel)
+#   scope == "overall" — per country-year, all goals aggregated, goal is NA
+# Built on a full scaffold, so a cell that reported nothing shows a genuine 0,
+# not a missing row. The overall rows apply the SAME denominators one grain up
+# (see the overall-scope block below) — never summed from the goal ratios.
 #
 # All counts come from ONE pass over raw_data (.dv_counts): each column counts
 # the rows meeting its own condition, so they all come from the same rows and a
@@ -978,53 +982,90 @@ frontier <- raw_data %>%
     .groups = "drop"
   )
 
-goal_lvl_dv_data <- expand_grid(
-    countries,
-    year = start_year:end_year,
-    goal = goals
-  ) %>%
+# Shared helper: the five dv_ ratios, identical formula for both scopes.
+# (baseline_mean_all/_stable, goal_baseline_all/_stable, frontier_max must exist.)
+.add_dv_ratios <- function(df) {
+  df %>% mutate(
+    # Divided by THIS country's own 2015-17 mean. NA where that baseline is 0
+    # (e.g. a country-goal that reported nothing at baseline).
+    dv_n_observations_pct_baseline = if_else(baseline_mean_all > 0,
+                                          n_observations / baseline_mean_all, NA_real_),
+    dv_n_observations_stable_pct_baseline = if_else(baseline_mean_stable > 0,
+                                          n_observations_stable / baseline_mean_stable, NA_real_),
+    # Divided by the mean across ALL countries (D6b). Denominator never 0, so
+    # defined everywhere — keeps late-starting reporters in the analysis.
+    dv_n_observations_pct_goalbase = if_else(goal_baseline_all > 0,
+                                          n_observations / goal_baseline_all, NA_real_),
+    dv_n_observations_stable_pct_goalbase = if_else(goal_baseline_stable > 0,
+                                          n_observations_stable / goal_baseline_stable, NA_real_),
+    # "vs the top reporter that year": denominator moves yearly, weaker for causal.
+    dv_n_observations_pct_frontier = if_else(frontier_max > 0,
+                                          n_observations / frontier_max, NA_real_)
+  )
+}
+.count_cols <- c("n_observations", "n_observations_country", "n_observations_agency",
+                 "n_observations_stable", "n_declared_missing",
+                 "n_missing_structural", "n_missing_suppressed", "n_missing_unknown")
+
+# ---- Goal scope: one row per country x year x goal (scope == "goal") ---------
+.goal_panel <- expand_grid(countries, year = start_year:end_year, goal = goals) %>%
   left_join(.dv_counts, by = c("geo_area_code", "geo_area_name", "year", "goal")) %>%
   # A country-goal-year with no rows at all is a genuine zero, not unknown.
-  mutate(across(c(n_observations, n_observations_country, n_observations_agency,
-                  n_observations_stable, n_declared_missing,
-                  n_missing_structural, n_missing_suppressed, n_missing_unknown),
-                ~ coalesce(.x, 0L))) %>%
+  mutate(across(all_of(.count_cols), ~ coalesce(.x, 0L))) %>%
   left_join(baseline, by = c("geo_area_code", "geo_area_name", "goal")) %>%
   left_join(goal_baseline, by = "goal") %>%
   left_join(frontier, by = c("year", "goal")) %>%
-  mutate(
-    # Divided by THIS country's own 2015-17 mean for the goal. NA for the ~90
-    # country-goals that reported nothing at baseline (denominator 0).
-    dv_n_observations_pct_baseline = if_else(baseline_mean_all > 0,
-                                          n_observations / baseline_mean_all,
-                                          NA_real_),
-    dv_n_observations_stable_pct_baseline = if_else(baseline_mean_stable > 0,
-                                          n_observations_stable / baseline_mean_stable,
-                                          NA_real_),
-    # Divided by the mean across ALL countries for the goal in 2015-17 (D6b).
-    # Denominator never 0, so defined for every country-goal-year — the companion
-    # that keeps late-starting reporters in the analysis.
-    dv_n_observations_pct_goalbase = if_else(goal_baseline_all > 0,
-                                          n_observations / goal_baseline_all,
-                                          NA_real_),
-    dv_n_observations_stable_pct_goalbase = if_else(goal_baseline_stable > 0,
-                                          n_observations_stable / goal_baseline_stable,
-                                          NA_real_),
-    # "vs the top reporter that year": descriptive companion; denominator moves
-    # year to year, so weaker for causal identification.
-    dv_n_observations_pct_frontier = if_else(frontier_max > 0,
-                                          n_observations / frontier_max,
-                                          NA_real_)
-  ) %>%
+  .add_dv_ratios() %>%
+  mutate(scope = "goal")
+
+# ---- Overall scope: one row per country x year, aggregated across all goals --
+# NOT summed from the goal-scope ratios (that would be meaningless — each has a
+# different goal-specific denominator). Instead the SAME method is applied one
+# grain up: counts summed across goals, and each denominator re-derived without
+# the goal split. `goal` is NA on these rows; filter with scope == "overall".
+.dv_counts_overall <- .dv_counts %>%
+  group_by(geo_area_code, geo_area_name, year) %>%
+  summarise(across(all_of(.count_cols), sum), .groups = "drop")
+
+# Overall own-baseline = this country's total across all goals, 2015-17 mean.
+# Equals the sum of its per-goal baselines (mean and sum commute).
+.baseline_overall <- baseline %>%
+  group_by(geo_area_code, geo_area_name) %>%
+  summarise(baseline_mean_all    = sum(baseline_mean_all),
+            baseline_mean_stable = sum(baseline_mean_stable), .groups = "drop")
+# Overall goalbase = mean of that across ALL countries (one scalar, no goal dim).
+.gb_overall_all    <- mean(.baseline_overall$baseline_mean_all)
+.gb_overall_stable <- mean(.baseline_overall$baseline_mean_stable)
+# Overall frontier = max country total per year.
+.frontier_overall <- raw_data %>%
+  filter(!is.na(value)) %>%
+  count(geo_area_code, year, name = "n_observations") %>%
+  group_by(year) %>%
+  summarise(frontier_max = max(n_observations), .groups = "drop")
+
+.overall_panel <- expand_grid(countries, year = start_year:end_year) %>%
+  left_join(.dv_counts_overall, by = c("geo_area_code", "geo_area_name", "year")) %>%
+  mutate(across(all_of(.count_cols), ~ coalesce(.x, 0L))) %>%
+  left_join(.baseline_overall, by = c("geo_area_code", "geo_area_name")) %>%
+  mutate(goal_baseline_all = .gb_overall_all, goal_baseline_stable = .gb_overall_stable) %>%
+  left_join(.frontier_overall, by = "year") %>%
+  .add_dv_ratios() %>%
+  mutate(goal = NA_integer_, scope = "overall")
+
+# Stack. `scope` distinguishes the two; goal is 1-17 on goal rows, NA on overall.
+goal_lvl_dv_data <- bind_rows(.goal_panel, .overall_panel) %>%
   select(-baseline_mean_all, -baseline_mean_stable,
          -goal_baseline_all, -goal_baseline_stable, -frontier_max) %>%
-  arrange(geo_area_name, year, goal)
+  select(geo_area_code, geo_area_name, iso3, year, scope, goal, everything()) %>%
+  arrange(geo_area_name, year, scope, goal)
 
 # Variable labels (attr "label") documenting the series universe behind each
 # outcome column — in particular the series COUNT feeding the all-series vs
 # stable-core columns, computed live so they never go stale. readr::write_csv
 # drops attributes, so these survive only in the .rds twin written below (and
 # in-session, e.g. RStudio's viewer / Hmisc / labelled / gtsummary).
+attr(goal_lvl_dv_data$scope, "label") <-
+  "goal = one row per country-year-goal (goal 1-17); overall = per country-year (goal NA)"
 attr(goal_lvl_dv_data$n_observations, "label") <-
   sprintf("Observation count — all %d series", agg_series_total)
 attr(goal_lvl_dv_data$n_observations_country, "label") <-

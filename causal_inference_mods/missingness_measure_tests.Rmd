@@ -1,0 +1,292 @@
+---
+title: "missingness_measure_tests"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# `here` finds the project root (the folder with .git), so paths work whether
+# this Rmd is knit or run chunk-by-chunk.
+if (!requireNamespace("here", quietly = TRUE)) install.packages("here")
+library(here)
+library(readr)
+library(dplyr)
+```
+
+## 1. Load the two inputs
+
+`goal_lvl_dv_data` is the long outcome panel (one row per country x year
+x goal). `MAIN_panel_data` is the country x year treatment/control
+panel. We read MAIN only to extract from it; we never modify it.
+
+```{r load}
+# Outcome panel (long: country x year x goal).
+goal_lvl_dv_data <- read_rds(here("data/clean/goal_lvl_dv_data.rds"))
+
+# goal_lvl_dv_data <- read_csv(here("data/clean/goal_lvl_dv_data.csv"),
+#                              show_col_types = FALSE)
+
+# Treatment / control panel (country x year). Read-only.
+MAIN_panel_data <- read_csv(here("data/output/MAIN_panel_data.csv"),
+                            show_col_types = FALSE)
+
+cat("goal_lvl_dv_data:", nrow(goal_lvl_dv_data), "rows |",
+    n_distinct(goal_lvl_dv_data$iso3), "countries x",
+    n_distinct(goal_lvl_dv_data$year), "years x",
+    n_distinct(goal_lvl_dv_data$goal), "goals\n")
+
+cat("MAIN_panel_data:  ", nrow(MAIN_panel_data), "rows |",
+    n_distinct(MAIN_panel_data$country_code), "countries x",
+    n_distinct(MAIN_panel_data$year), "years\n")
+```
+
+## 2. Extract predictors -\> `predictor_data`
+
+Pull only the columns used as treatment, controls, and confounders — NOT
+the SDG achievement scores (`sdg1_* … sdg17_*`) or SDR's own per-goal
+missingness (`n_miss_SDG*`, `prop_miss_SDG*`); those are alternative
+outcomes, not predictors.
+
+Edit the vectors below to add or drop predictors — the extraction
+follows.
+
+```{r predictor-data}
+# --- merge keys (country_code is ISO-3166 alpha-3, = iso3 in the outcome panel) ---
+keys <- c("country_code", "year")
+
+# --- treatment: democracy / regime / autocratization episodes (V-Dem, ERT) ---
+treatment_vars <- c(
+  "elect_dem", "elect_dem_ert", "lib_dem", "part_dem", "egal_dem", "delib_dem",
+  "v2x_liberal",
+  "regime_type_2", "regime_type_4", "regime_type_10",
+  "regch_event", "regch_genuine",
+  "dem_ep", "dem_ep_pre_yr", "dem_ep_start_yr", "dem_ep_end_yr", "dem_ep_id",
+  "aut_ep", "aut_ep_pre_yr", "aut_ep_start_yr", "aut_ep_end_yr", "aut_ep_id",
+  "G_aut", "D_aut", "aut_cohort"
+)
+
+# --- controls / confounders (capacity, wealth, size, violence) ---
+control_vars <- c(
+  "income_level", "gdp_pc", "log_gdppc", "total_pop", "log_pop",
+  "electric_access", "rural_pop_pct", "rd_expenditure_pct",
+  "spi_overall",                  # statistical-capacity index — key confounder
+  "luminosity", "log_luminosity", # nighttime lights (economic proxy)
+  "tax_rev_gdp",
+  "poly_vio_events", "any_political_violence", 
+  
+  # ROBUSTNESS CHECK 
+  "prop_sdg_missing" 
+)
+
+predictor_cols <- c(keys, treatment_vars, control_vars)
+
+# Fail loudly if a named column is not in MAIN (e.g. a typo or a renamed field).
+missing_cols <- setdiff(predictor_cols, names(MAIN_panel_data))
+if (length(missing_cols) > 0)
+  stop("Not in MAIN_panel_data: ", paste(missing_cols, collapse = ", "))
+
+predictor_data <- MAIN_panel_data %>% select(all_of(predictor_cols))
+
+# Guard: country_code x year must be unique, or the merge would fan out rows.
+stopifnot(nrow(predictor_data) ==
+          nrow(distinct(predictor_data, country_code, year)))
+
+cat("predictor_data:", nrow(predictor_data), "rows (country x year) x",
+    ncol(predictor_data), "cols\n")
+```
+
+## 3. Merge onto the long outcome panel -\> `analysis_data`
+
+The predictors are country-year, so they have no goal dimension. Merging
+them onto the long outcome panel (`iso3` + `year`) **broadcasts** each
+predictor across that country-year's 17 goals — that broadcast IS the
+long analysis frame. No pivot of `predictor_data` is needed.
+
+`left_join` keeps every outcome row; countries absent from MAIN get NA
+predictors (they drop out of any model on their own). We report the
+match rather than silently dropping.
+
+```{r merge}
+analysis_data <- goal_lvl_dv_data %>%
+  left_join(predictor_data, by = c("iso3" = "country_code", "year" = "year"))
+
+# Match report: which outcome countries found treatment/control data?
+matched   <- analysis_data %>% filter(!is.na(elect_dem_ert)) %>% distinct(iso3, geo_area_name)
+unmatched <- analysis_data %>% filter(is.na(elect_dem_ert)) %>% distinct(iso3, geo_area_name)
+
+# for compatibility with the original MAIN_panel_data, which uses country_code and country_name.x
+analysis_data$country_code <- analysis_data$iso3  
+analysis_data$country_name.x <- analysis_data$geo_area_name  
+
+# reorder columns: outcome first, then predictors
+analysis_data <- analysis_data %>%
+  select(iso3, country_code, geo_area_name, country_name.x, year, scope, goal, starts_with("dv_"), everything())
+
+cat("analysis_data:", nrow(analysis_data), "rows |",
+    n_distinct(analysis_data$iso3), "countries\n")
+cat("  countries WITH predictors :", nrow(matched), "\n")
+cat("  countries WITHOUT (NA)    :", nrow(unmatched),
+    " -> rows:", sum(is.na(analysis_data$elect_dem_ert)), "\n")
+cat("  complete-case rows (modelable):", sum(!is.na(analysis_data$elect_dem_ert)), "\n")
+
+# Guard: the merge must not have duplicated any outcome rows.
+stopifnot(nrow(analysis_data) == nrow(goal_lvl_dv_data))
+```
+
+The unmatched countries (not in MAIN_panel_data — mostly micro-states
+without a V-Dem/ERT score, plus the four retained non-members):
+
+```{r unmatched}
+print(as.data.frame(unmatched[order(unmatched$geo_area_name), ]), row.names = FALSE)
+```
+
+## 4. Directional decomposition of democracy
+
+Split year-over-year change in each democracy index into its **decline** and
+**improve** components (magnitudes, so backsliding and gains enter as separate
+positive regressors). Three indices: `lib_dem` → `ldi`, `elect_dem` → `edi`,
+`v2x_liberal` → `liberal`. The `.03` variants keep only changes of at least
+0.03 (a meaningful-magnitude threshold).
+
+Computed once per country-year on the distinct set (democracy values are constant
+across a country-year's goals), then joined back so every goal row carries them.
+
+```{r dem-decomp}
+dem_decomp <- analysis_data %>%
+  distinct(iso3, year, lib_dem, elect_dem, v2x_liberal) %>%
+  arrange(iso3, year) %>%
+  group_by(iso3) %>%
+  mutate(
+    year_gap = year - lag(year),
+    # Liberal Democracy Index (lib_dem -> ldi)
+    delta_ldi          = if_else(year_gap == 1, lib_dem - lag(lib_dem), NA_real_),
+    decline_ldi        = if_else(delta_ldi < 0,     abs(delta_ldi), 0),
+    decline_ldi.03     = if_else(delta_ldi <= -0.03, abs(delta_ldi), 0),
+    improve_ldi        = if_else(delta_ldi > 0,      delta_ldi, 0),
+    improve_ldi.03     = if_else(delta_ldi >= 0.03,  abs(delta_ldi), 0),
+    # Electoral Democracy Index (elect_dem -> edi)
+    delta_edi          = if_else(year_gap == 1, elect_dem - lag(elect_dem), NA_real_),
+    decline_edi        = if_else(delta_edi < 0,     abs(delta_edi), 0),
+    decline_edi.03     = if_else(delta_edi <= -0.03, abs(delta_edi), 0),
+    improve_edi        = if_else(delta_edi > 0,      delta_edi, 0),
+    improve_edi.03     = if_else(delta_edi >= 0.03,  abs(delta_edi), 0),
+    # Liberal component index (v2x_liberal -> liberal)
+    delta_liberal      = if_else(year_gap == 1, v2x_liberal - lag(v2x_liberal), NA_real_),
+    decline_liberal    = if_else(delta_liberal < 0,     abs(delta_liberal), 0),
+    decline_liberal.03 = if_else(delta_liberal <= -0.03, abs(delta_liberal), 0),
+    improve_liberal    = if_else(delta_liberal > 0,      delta_liberal, 0),
+    improve_liberal.03 = if_else(delta_liberal >= 0.03,  abs(delta_liberal), 0)
+  ) %>%
+  ungroup()
+
+# Join the decomposition back onto every goal row (by country-year only).
+analysis_data <- analysis_data %>%
+  left_join(dem_decomp %>% select(iso3, year, year_gap,
+                                  starts_with("delta_"), starts_with("decline_"),
+                                  starts_with("improve_")),
+            by = c("iso3", "year"))
+```
+
+## 5. Save
+
+```{r save}
+write_csv(analysis_data,  here("data/clean/analysis_data.csv"))
+saveRDS(analysis_data,    here("data/clean/analysis_data.rds"))
+```
+
+`analysis_data` is the long modelling frame: goal-varying `dv_*`
+outcomes plus country-year treatment and controls, ready for `fixest`
+with country / goal / year fixed effects and a treatment × goal
+interaction.
+
+## 6. Example models
+
+A few core specifications. Primary treatment is the **directional decomposition**
+(Section 4): `decline_ldi` (backsliding magnitude) and `improve_ldi` (gains),
+each entered contemporaneously and lagged. All use country / goal / year fixed
+effects and SEs clustered by country.
+
+**Primary DV: `dv_n_observations_pct_goalbase`** — reporting relative to the
+cross-country norm for the goal. `asinh()` handles its right-skew and 0s (log-like,
+defined at 0). Modeled with `feols`. `goalbase` is preferred over `pct_baseline`
+because it is defined for every country-goal (no dropped late-starters).
+
+```{r models-primary}
+library(fixest)
+
+goal <- analysis_data %>% filter(scope == "goal")     # 17-goal panel
+ovr  <- analysis_data %>% filter(scope == "overall")  # country-year totals
+
+# 1. Primary: does reporting fall (vs the goal norm) as democracy declines?
+#    panel.id lets l() lag within each country-goal series over years.
+m_primary <- feols(asinh(dv_n_observations_pct_goalbase)
+  ~ l(decline_ldi, 0:1) + l(improve_ldi, 0:1)
+  + electric_access
+  + I(electric_access^2)
+  + rural_pop_pct
+  + log_gdppc
+  + spi_overall     # SPI mediation (statistical-capacity / ability variable)
+  + log_luminosity  # luminosity mediation (ability variable)
+  | iso3 + goal + year,
+  data = goal, panel.id = ~ iso3^goal + year, 
+  cluster = ~iso3)
+
+# 2. Which goals are most sensitive to backsliding? (decline x goal -> per-goal coef)
+m_bygoal  <- feols(asinh(dv_n_observations_pct_goalbase) 
+                   ~ i(goal, decline_ldi, ref = 1) 
+                   | iso3 + goal + year, 
+                   data = goal, 
+                   cluster = ~iso3)
+
+# 3. Overall country-year reporting (no goal dimension)
+m_overall <- feols(asinh(dv_n_observations_pct_goalbase)
+  ~ l(decline_ldi, 0:1) 
+  + l(improve_ldi, 0:1)
+  + electric_access
+  + I(electric_access^2)
+  + rural_pop_pct
+  + log_gdppc
+  + spi_overall
+  + log_luminosity
+  | iso3 + year, data = ovr, 
+  panel.id = ~ iso3 + year, 
+  cluster = ~iso3)
+
+etable(m_primary, m_overall)
+iplot(m_bygoal)  # per-goal sensitivity to democratic decline
+```
+
+Robustness: (a) the raw count via Poisson — confirms the result isn't an artifact
+of the ratio transform; (b) the country-produced sharp test — if agencies backfill
+a country's dropped reporting, the total holds but country-produced data falls.
+
+```{r models-robustness}
+# a. same question, native count family
+m_count   <- fepois(n_observations
+  ~ l(decline_ldi, 0:1) 
+  + l(improve_ldi, 0:1)
+  + log_gdppc 
+  + spi_overall |
+  iso3 + goal + year, data = goal, 
+  panel.id = ~ iso3^goal + year, 
+  cluster = ~iso3)
+
+# b. sharp provenance test (country-produced only; exists as a count)
+m_country <- fepois(n_observations_country
+  ~ l(decline_ldi, 0:1) 
+  + l(improve_ldi, 0:1)
+  + log_gdppc 
+  + spi_overall |
+  iso3 + goal + year, data = goal, 
+  panel.id = ~ iso3^goal + year, 
+  cluster = ~iso3)
+
+etable(m_count, m_country)
+```
+
+> `spi_overall` (statistical capacity) is the key confounder — check its NA
+> coverage, as it may shrink the sample.
