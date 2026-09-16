@@ -25,7 +25,7 @@ raw_data  (1 row = 1 observation)
 
 | Dataset | Role | Grain | Key | Rows | File |
 |---|---|---|---|---|---|
-| `goal_lvl_dv_data` | **primary** | country × year × goal | `iso3` + year + goal | 30,141 | `.csv` + `.rds` |
+| `goal_lvl_dv_data` | **primary** | country × year × scope | `iso3` + year + scope + goal | 31,914 | `.csv` + `.rds` |
 | `agg_series_counts_rc` | robustness | country × year × scope | `iso3` + year + scope + goal | 31,914 | `.csv` |
 | `agg_series_depth` | supplementary | country × series × year | geo_area_code + series_code + year + goal | 508,432 | `.csv.gz` + `.rds` |
 | `raw_data` | source | one observation | — | 1,307,990 | `.csv.gz` |
@@ -42,9 +42,10 @@ raw_data  (1 row = 1 observation)
 
 The dependent variable. One row per country-year-goal, every outcome measure side by
 side. Use **raw counts with fixed effects** for causal work; the `_pct_` columns for
-cross-goal descriptive comparison.
+cross-goal descriptive comparison. Two scopes stacked (see `scope`): the 17-goal panel
+plus an aggregated country-year total.
 
-**Grain:** country × year × goal &nbsp;·&nbsp; **Key:** `iso3` + `year` + `goal` &nbsp;·&nbsp; **Rows:** 30,141
+**Grain:** country × year × scope (goal 1–17 or overall) &nbsp;·&nbsp; **Key:** `iso3` + `year` + `scope` + `goal` &nbsp;·&nbsp; **Rows:** 31,914
 
 ### Identity & keys
 | Column | Type | Description |
@@ -53,7 +54,8 @@ cross-goal descriptive comparison.
 | `geo_area_name` | chr | Country / territory name |
 | `iso3` | chr | ISO-3166 alpha-3. Joins to `MAIN_panel_data`. **MERGE** |
 | `year` | int | 2015–2023. **KEY** |
-| `goal` | int | SDG 1–17. **KEY** |
+| `scope` | chr | `goal` = per country-year-goal · `overall` = per country-year (all goals aggregated). **KEY** |
+| `goal` | int | SDG 1–17; **NA** on `overall` rows. **KEY** |
 
 ### Counts — reported observations
 | Column | Type | Description |
