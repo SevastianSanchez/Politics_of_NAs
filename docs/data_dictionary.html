@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Politics of NAs: Data Dictionary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#eef1f3; --surface:#ffffff; --surface-2:#f4f6f8; --surface-3:#e9edf0;
+    --ink:#16202b; --ink-2:#4d5d6b; --ink-3:#7c8b98;
+    --line:#d8dee3; --line-2:#e6eaee;
+    --accent:#0d6e73; --accent-ink:#0a5559; --accent-soft:#d6e8e8;
+    /* role hues (semantic, not the accent) */
+    --r-primary:#0d6e73; --r-primary-bg:#d8e9e9;
+    --r-robust:#9a6714;  --r-robust-bg:#f0e6d0;
+    --r-supp:#5f4a86;    --r-supp-bg:#e4ddef;
+    --r-source:#334656;  --r-source-bg:#dde4ea;
+    --r-ref:#4f6b5e;     --r-ref-bg:#dde9e2;
+    --key:#b4472b; --key-bg:#f3ddd4;
+    --merge:#0d6e73; --merge-bg:#cfe6e6;
+    --shadow:0 1px 2px rgba(20,32,43,.04), 0 4px 16px rgba(20,32,43,.05);
+    color-scheme:light;
+  }
+  :root:not([data-theme="light"]){ @media (prefers-color-scheme:dark){
+    --bg:#0e141a; --surface:#151d24; --surface-2:#1b242c; --surface-3:#222d36;
+    --ink:#e7eef2; --ink-2:#a3b3bf; --ink-3:#6f8291;
+    --line:#28333c; --line-2:#212a32;
+    --accent:#54b6bb; --accent-ink:#7fcccf; --accent-soft:#153033;
+    --r-primary:#54b6bb; --r-primary-bg:#123033;
+    --r-robust:#d3a24e;  --r-robust-bg:#2e2716;
+    --r-supp:#a992d6;    --r-supp-bg:#241d33;
+    --r-source:#93a7b6;  --r-source-bg:#1c262e;
+    --r-ref:#8fbaa5;     --r-ref-bg:#182620;
+    --key:#e0876a; --key-bg:#2e1c15;
+    --merge:#54b6bb; --merge-bg:#12302f;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.28);
+    color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0e141a; --surface:#151d24; --surface-2:#1b242c; --surface-3:#222d36;
+    --ink:#e7eef2; --ink-2:#a3b3bf; --ink-3:#6f8291;
+    --line:#28333c; --line-2:#212a32;
+    --accent:#54b6bb; --accent-ink:#7fcccf; --accent-soft:#153033;
+    --r-primary:#54b6bb; --r-primary-bg:#123033;
+    --r-robust:#d3a24e;  --r-robust-bg:#2e2716;
+    --r-supp:#a992d6;    --r-supp-bg:#241d33;
+    --r-source:#93a7b6;  --r-source-bg:#1c262e;
+    --r-ref:#8fbaa5;     --r-ref-bg:#182620;
+    --key:#e0876a; --key-bg:#2e1c15;
+    --merge:#54b6bb; --merge-bg:#12302f;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.28);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans", system-ui, sans-serif;
+    line-height:1.5; margin:0;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px}
+
+  /* ---- masthead ---- */
+  header.top{padding:56px 0 30px; border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--accent-ink); font-weight:500; margin:0 0 14px}
+  h1{font-size:clamp(30px,4.4vw,46px); line-height:1.04; letter-spacing:-.02em;
+    font-weight:700; margin:0 0 14px; text-wrap:balance}
+  .lede{font-size:17px; color:var(--ink-2); max-width:64ch; margin:0}
+  .lede code{font-family:"IBM Plex Mono",monospace; font-size:.9em; color:var(--ink);
+    background:var(--surface-3); padding:1px 5px; border-radius:4px}
+
+  /* ---- legend strip ---- */
+  .legend{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center;
+    padding:18px 0; margin-top:22px; border-top:1px solid var(--line-2)}
+  .legend .grp{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+  .lk{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.03em;
+    color:var(--ink-3); margin-right:2px}
+
+  .role{font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+    letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border-radius:5px;
+    white-space:nowrap}
+  .role.primary{color:var(--r-primary); background:var(--r-primary-bg)}
+  .role.robust{color:var(--r-robust); background:var(--r-robust-bg)}
+  .role.supp{color:var(--r-supp); background:var(--r-supp-bg)}
+  .role.source{color:var(--r-source); background:var(--r-source-bg)}
+  .role.ref{color:var(--r-ref); background:var(--r-ref-bg)}
+
+  .badge{font-family:"IBM Plex Mono",monospace; font-size:10px; font-weight:600;
+    letter-spacing:.05em; padding:2px 6px; border-radius:4px; white-space:nowrap}
+  .badge.key{color:var(--key); background:var(--key-bg)}
+  .badge.merge{color:var(--merge); background:var(--merge-bg); border:1px solid var(--merge)}
+
+  /* ---- lineage ---- */
+  .lineage{margin:30px 0 4px; padding:22px; background:var(--surface);
+    border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow)}
+  .lineage h2{font-size:13px; font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-3); font-weight:500; margin:0 0 16px}
+  .flow{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+  .src-node{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:14px;
+    padding:12px 16px; border-radius:9px; background:var(--r-source-bg); color:var(--r-source);
+    border:1px solid color-mix(in srgb, var(--r-source) 30%, transparent); white-space:nowrap}
+  .arrow{color:var(--ink-3); font-size:20px; flex:none}
+  .derived{display:flex; flex-direction:column; gap:7px; flex:1; min-width:220px}
+  .dnode{display:flex; align-items:center; gap:9px; font-family:"IBM Plex Mono",monospace;
+    font-size:13px; color:var(--ink); background:var(--surface-2); padding:7px 11px;
+    border-radius:7px; border:1px solid var(--line-2)}
+  .dot{width:8px; height:8px; border-radius:50%; flex:none}
+
+  /* ---- dataset section ---- */
+  main{padding:40px 0 80px}
+  .ds{margin:0 0 30px; background:var(--surface); border:1px solid var(--line);
+    border-radius:14px; overflow:hidden; box-shadow:var(--shadow)}
+  .ds-rail{height:3px; width:100%}
+  .ds-head{padding:22px 26px 20px; border-bottom:1px solid var(--line-2)}
+  .ds-title{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:12px}
+  .ds-title .name{font-family:"IBM Plex Mono",monospace; font-size:21px; font-weight:600;
+    letter-spacing:-.01em; color:var(--ink)}
+  .ds-desc{color:var(--ink-2); font-size:15px; max-width:74ch; margin:0}
+  .meta{display:flex; gap:26px; flex-wrap:wrap; margin-top:16px}
+  .meta .m{display:flex; flex-direction:column; gap:3px}
+  .meta .ml{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-3)}
+  .meta .mv{font-family:"IBM Plex Mono",monospace; font-size:14px; font-weight:500;
+    color:var(--ink); font-variant-numeric:tabular-nums}
+  .meta .mv .k{color:var(--accent-ink)}
+
+  /* ---- column table ---- */
+  .tbl-scroll{overflow-x:auto}
+  table{width:100%; border-collapse:collapse; font-size:14px}
+  thead th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-3); font-weight:500; text-align:left;
+    padding:12px 26px; background:var(--surface-2); border-bottom:1px solid var(--line)}
+  tbody td{padding:10px 26px; border-bottom:1px solid var(--line-2); vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  .grp-row td{background:var(--surface-2); padding:7px 26px}
+  .grp-row .gl{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--accent-ink); font-weight:600}
+  td.col{white-space:nowrap}
+  td.col .cn{font-family:"IBM Plex Mono",monospace; font-size:13.5px; font-weight:500; color:var(--ink)}
+  td.type{white-space:nowrap}
+  td.type .ty{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-2);
+    background:var(--surface-3); padding:2px 7px; border-radius:5px}
+  td.desc{color:var(--ink-2); font-size:13.5px; line-height:1.45; min-width:280px}
+  td.desc code{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink);
+    background:var(--surface-3); padding:1px 4px; border-radius:4px}
+  .na{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--key);
+    white-space:nowrap}
+
+  footer{border-top:1px solid var(--line); padding:28px 0 60px; color:var(--ink-3);
+    font-size:13px}
+  footer .mono{font-size:12px}
+
+  .toggle{position:fixed; top:16px; right:16px; z-index:10;
+    font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.05em;
+    color:var(--ink-2); background:var(--surface); border:1px solid var(--line);
+    border-radius:20px; padding:7px 13px; cursor:pointer; box-shadow:var(--shadow)}
+  .toggle:hover{color:var(--ink); border-color:var(--ink-3)}
+  .toggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+  @media (max-width:640px){
+    .wrap{padding:0 16px}
+    thead th, tbody td, .grp-row td{padding-left:16px; padding-right:16px}
+    header.top{padding:40px 0 24px}
+  }
+</style>
+</head>
+<body>
+<button class="toggle" id="tg" aria-label="Toggle color theme">◐ theme</button>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">Politics of NAs · data dictionary</p>
+    <h1>SDG reporting data, mapped</h1>
+    <p class="lede">Every dataset the prep pipeline writes to <code>data/clean/</code>, its grain and keys, and what each column means. One source table, six derived. Merge to the treatment panel on <code>iso3&nbsp;+&nbsp;year</code>.</p>
+
+    <div class="legend">
+      <div class="grp">
+        <span class="lk">role</span>
+        <span class="role source">source</span>
+        <span class="role primary">primary</span>
+        <span class="role robust">robustness</span>
+        <span class="role supp">supplementary</span>
+        <span class="role ref">reference</span>
+      </div>
+      <div class="grp">
+        <span class="lk">markers</span>
+        <span class="badge key">KEY</span><span class="lk">grain</span>
+        <span class="badge merge">MERGE</span><span class="lk">to MAIN_panel_data</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="lineage">
+    <h2>Lineage — everything derives from one table</h2>
+    <div class="flow">
+      <div class="src-node">raw_data<br><span style="font-weight:400;font-size:11px;color:var(--ink-3)">1 row = 1 observation</span></div>
+      <div class="arrow">→</div>
+      <div class="derived">
+        <div class="dnode"><span class="dot" style="background:var(--r-primary)"></span>goal_lvl_dv_data <span style="color:var(--ink-3)">· primary outcome</span></div>
+        <div class="dnode"><span class="dot" style="background:var(--r-robust)"></span>agg_series_counts_rc <span style="color:var(--ink-3)">· robustness</span></div>
+        <div class="dnode"><span class="dot" style="background:var(--r-supp)"></span>agg_series_depth <span style="color:var(--ink-3)">· supplementary</span></div>
+        <div class="dnode"><span class="dot" style="background:var(--r-ref)"></span>series_list · series_stability · geo_exclusions <span style="color:var(--ink-3)">· reference</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <!-- ============ PRIMARY ============ -->
+    <section class="ds">
+      <div class="ds-rail" style="background:var(--r-primary)"></div>
+      <div class="ds-head">
+        <div class="ds-title">
+          <span class="name">goal_lvl_dv_data</span>
+          <span class="role primary">primary</span>
+        </div>
+        <p class="ds-desc">The dependent variable. One row per country-year-goal, carrying every outcome measure side by side so you switch measures without switching datasets. Use raw counts with fixed effects for causal work; the <span class="mono">_pct_</span> columns for cross-goal descriptive comparison. Two scopes stacked (see <span class="mono">scope</span>): the 17-goal panel plus a country-year total.</p>
+        <div class="meta">
+          <div class="m"><span class="ml">grain</span><span class="mv">country × year × scope</span></div>
+          <div class="m"><span class="ml">key</span><span class="mv"><span class="k">iso3</span> + year + scope + goal</span></div>
+          <div class="m"><span class="ml">rows</span><span class="mv">31,914</span></div>
+          <div class="m"><span class="ml">file</span><span class="mv">.csv + .rds</span></div>
+        </div>
+      </div>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr class="grp-row"><td colspan="3"><span class="gl">identity &amp; keys</span></td></tr>
+          <tr><td class="col"><span class="cn">geo_area_code</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">UN M49 numeric code <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">geo_area_name</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">Country / territory name</td></tr>
+          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to MAIN_panel_data <span class="badge merge">MERGE</span></td></tr>
+          <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015–2023 <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">scope</span></td><td class="type"><span class="ty">chr</span></td><td class="desc"><code>goal</code> = per country-year-goal · <code>overall</code> = per country-year, all goals aggregated <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">goal</span></td><td class="type"><span class="ty">int</span></td><td class="desc">SDG 1–17; <code>NA</code> on overall rows <span class="badge key">KEY</span></td></tr>
+
+          <tr class="grp-row"><td colspan="3"><span class="gl">counts — reported observations</span></td></tr>
+          <tr><td class="col"><span class="cn">n_observations</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Reported observations (all 665 series). Headline outcome.</td></tr>
+          <tr><td class="col"><span class="cn">n_observations_country</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Of those, the <strong>country</strong> produced it (nature <code>C</code>/<code>CA</code>). The sharper test.</td></tr>
+          <tr><td class="col"><span class="cn">n_observations_agency</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Of those, an <strong>agency</strong> produced it (nature <code>E</code>/<code>M</code>/<code>G</code>).</td></tr>
+          <tr><td class="col"><span class="cn">n_observations_stable</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Of those, in the 409 framework-stable series. Guards against framework drift.</td></tr>
+
+          <tr class="grp-row"><td colspan="3"><span class="gl">missingness — empty cells the UN opened here</span></td></tr>
+          <tr><td class="col"><span class="cn">n_declared_missing</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Cells present but empty (<code>value = NA</code>). Splits into the three below.</td></tr>
+          <tr><td class="col"><span class="cn">n_missing_structural</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Indicator does not apply here — <em>not</em> data loss.</td></tr>
+          <tr><td class="col"><span class="cn">n_missing_suppressed</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Withheld. The sharpest signal of deliberate non-reporting.</td></tr>
+          <tr><td class="col"><span class="cn">n_missing_unknown</span></td><td class="type"><span class="ty">int</span></td><td class="desc">No reason given.</td></tr>
+
+          <tr class="grp-row"><td colspan="3"><span class="gl">normalized — comparable across goals (share of a denominator)</span></td></tr>
+          <tr><td class="col"><span class="cn">dv_n_observations_pct_baseline</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">÷ this country's own 2015–17 mean. <span class="na">NA ×810</span> where that baseline is 0 (never reported).</td></tr>
+          <tr><td class="col"><span class="cn">dv_n_observations_pct_goalbase</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">÷ the mean across <strong>all countries</strong> for this goal in 2015–17. Defined for every row — keeps late starters in.</td></tr>
+          <tr><td class="col"><span class="cn">dv_n_observations_pct_frontier</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">÷ the most any country reported that goal-year. Denominator moves yearly.</td></tr>
+          <tr><td class="col"><span class="cn">dv_n_observations_stable_pct_baseline</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Stable-core version of pct_baseline. <span class="na">NA ×855</span>.</td></tr>
+          <tr><td class="col"><span class="cn">dv_n_observations_stable_pct_goalbase</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Stable-core version of pct_goalbase.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- ============ ROBUSTNESS ============ -->
+    <section class="ds">
+      <div class="ds-rail" style="background:var(--r-robust)"></div>
+      <div class="ds-head">
+        <div class="ds-title">
+          <span class="name">agg_series_counts_rc</span>
+          <span class="role robust">robustness</span>
+        </div>
+        <p class="ds-desc">Availability measured by counting <strong>series codes present</strong> — each counts once regardless of how many disaggregated observations sit under it. Rerun the main result here; if it holds, it is not an artifact of how you counted. Two scopes stacked.</p>
+        <div class="meta">
+          <div class="m"><span class="ml">grain</span><span class="mv">country × year × scope</span></div>
+          <div class="m"><span class="ml">key</span><span class="mv"><span class="k">iso3</span> + year + scope + goal</span></div>
+          <div class="m"><span class="ml">rows</span><span class="mv">31,914</span></div>
+          <div class="m"><span class="ml">file</span><span class="mv">.csv</span></div>
+        </div>
+      </div>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr class="grp-row"><td colspan="3"><span class="gl">identity &amp; keys</span></td></tr>
+          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">Merge key <span class="badge merge">MERGE</span> (with geo_area_code, geo_area_name)</td></tr>
+          <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015–2023 <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">scope</span></td><td class="type"><span class="ty">chr</span></td><td class="desc"><code>goal</code> = per country-year-goal · <code>overall</code> = per country-year <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">goal</span></td><td class="type"><span class="ty">int</span></td><td class="desc">SDG 1–17; <span class="na">NA ×1,773</span> on the overall-scope rows <span class="badge key">KEY</span></td></tr>
+
+          <tr class="grp-row"><td colspan="3"><span class="gl">series counts &amp; shares</span></td></tr>
+          <tr><td class="col"><span class="cn">n_available_series</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Series the country reported at all here.</td></tr>
+          <tr><td class="col"><span class="cn">n_available_series_country</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Of those, with country-produced data (nature C/CA).</td></tr>
+          <tr><td class="col"><span class="cn">n_applicable_series</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Series that apply here (excludes structurally non-relevant). Country-specific denominator.</td></tr>
+          <tr><td class="col"><span class="cn">n_series_in_framework</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Universal denominator: series in the goal (or all 665, overall scope).</td></tr>
+          <tr><td class="col"><span class="cn">missing_series_count</span></td><td class="type"><span class="ty">int</span></td><td class="desc">framework − available.</td></tr>
+          <tr><td class="col"><span class="cn">dv_availability_share</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">available ÷ framework, in [0,1].</td></tr>
+          <tr><td class="col"><span class="cn">dv_missingness_share</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">1 − dv_availability_share.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- ============ SUPPLEMENTARY ============ -->
+    <section class="ds">
+      <div class="ds-rail" style="background:var(--r-supp)"></div>
+      <div class="ds-head">
+        <div class="ds-title">
+          <span class="name">agg_series_depth</span>
+          <span class="role supp">supplementary</span>
+        </div>
+        <p class="ds-desc">Disaggregation depth — did a country keep a series but drop its breakdowns? A separate, optional outcome. <span class="mono">dv_depth_pct_frontier</span> expresses depth as a share of a per-series ceiling, so it is comparable across countries.</p>
+        <div class="meta">
+          <div class="m"><span class="ml">grain</span><span class="mv">country × series × year</span></div>
+          <div class="m"><span class="ml">key</span><span class="mv"><span class="k">geo_area_code</span> + series_code + year + goal</span></div>
+          <div class="m"><span class="ml">rows</span><span class="mv">508,432</span></div>
+          <div class="m"><span class="ml">file</span><span class="mv">.csv.gz + .rds</span></div>
+        </div>
+      </div>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr class="grp-row"><td colspan="3"><span class="gl">identity &amp; keys</span></td></tr>
+          <tr><td class="col"><span class="cn">goal · geo_area_code · geo_area_name · iso3 · year · series_code</span></td><td class="type"><span class="ty">mixed</span></td><td class="desc">Grain keys <span class="badge key">KEY</span>. <code>iso3</code> merges out <span class="badge merge">MERGE</span>.</td></tr>
+
+          <tr class="grp-row"><td colspan="3"><span class="gl">depth &amp; provenance of the cell</span></td></tr>
+          <tr><td class="col"><span class="cn">n_disagg_rows</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Disaggregation combos the country reported (published rows).</td></tr>
+          <tr><td class="col"><span class="cn">n_country_rows</span> / <span class="cn">n_agency_rows</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Of those, by producer (C/CA vs E/M/G).</td></tr>
+          <tr><td class="col"><span class="cn">nature_codes</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">"/"-joined natures present, e.g. <code>C/E</code>. <span class="na">NA</span> where the cell is all-missing.</td></tr>
+          <tr><td class="col"><span class="cn">n_declared_missing</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Empty cells here (+ <code>n_missing_structural</code>, <code>n_missing_suppressed</code>).</td></tr>
+
+          <tr class="grp-row"><td colspan="3"><span class="gl">flags</span></td></tr>
+          <tr><td class="col"><span class="cn">reported</span></td><td class="type"><span class="ty">lgl</span></td><td class="desc">Any published value here.</td></tr>
+          <tr><td class="col"><span class="cn">reported_country</span></td><td class="type"><span class="ty">lgl</span></td><td class="desc">Any country-produced value.</td></tr>
+          <tr><td class="col"><span class="cn">applicable</span></td><td class="type"><span class="ty">lgl</span></td><td class="desc">Series applies here (not purely structural non-relevance).</td></tr>
+
+          <tr class="grp-row"><td colspan="3"><span class="gl">depth denominators &amp; shares</span></td></tr>
+          <tr><td class="col"><span class="cn">depth_frontier</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Per-series ceiling: most any country-year reached (attainable). Primary.</td></tr>
+          <tr><td class="col"><span class="cn">depth_union</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Per-series ceiling: all combos ever seen, pooled. Robustness.</td></tr>
+          <tr><td class="col"><span class="cn">dv_depth_pct_frontier</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">n_disagg_rows ÷ depth_frontier, in [0,1].</td></tr>
+          <tr><td class="col"><span class="cn">dv_depth_pct_union</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">n_disagg_rows ÷ depth_union, in [0,1].</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- ============ SOURCE ============ -->
+    <section class="ds">
+      <div class="ds-rail" style="background:var(--r-source)"></div>
+      <div class="ds-head">
+        <div class="ds-title">
+          <span class="name">raw_data</span>
+          <span class="role source">source</span>
+        </div>
+        <p class="ds-desc">The source of truth — one row per observation (country × series × year × disaggregation). Every dataset above derives from it. You filter it to build custom cuts, but you don't model on it directly.</p>
+        <div class="meta">
+          <div class="m"><span class="ml">grain</span><span class="mv">one observation</span></div>
+          <div class="m"><span class="ml">rows</span><span class="mv">1,307,990</span></div>
+          <div class="m"><span class="ml">columns</span><span class="mv">19</span></div>
+          <div class="m"><span class="ml">file</span><span class="mv">.csv.gz</span></div>
+        </div>
+      </div>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr class="grp-row"><td colspan="3"><span class="gl">identity</span></td></tr>
+          <tr><td class="col"><span class="cn">goal · target · indicator</span></td><td class="type"><span class="ty">mixed</span></td><td class="desc">SDG hierarchy, e.g. <code>1</code> / <code>1.2</code> / <code>1.2.1</code>.</td></tr>
+          <tr><td class="col"><span class="cn">series_code · series_description</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">The indicator series (665 distinct).</td></tr>
+          <tr><td class="col"><span class="cn">geo_area_code · geo_area_name · iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">Geography; <code>iso3</code> is the merge key <span class="badge merge">MERGE</span>.</td></tr>
+          <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015–2023.</td></tr>
+
+          <tr class="grp-row"><td colspan="3"><span class="gl">the value, and why it may be absent</span></td></tr>
+          <tr><td class="col"><span class="cn">value</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">The reported number, as text. <code>NA</code> = declared missing. A few rows carry censored bounds like <code>&lt;0.1</code>.</td></tr>
+          <tr><td class="col"><span class="cn">missing_reason</span></td><td class="type"><span class="ty">chr</span></td><td class="desc"><code>structural</code> / <code>suppressed</code> / <code>unknown</code>. <code>NA</code> when value present. (Opposite of <code>is.na(value)</code> on every row.)</td></tr>
+
+          <tr class="grp-row"><td colspan="3"><span class="gl">disaggregation</span></td></tr>
+          <tr><td class="col"><span class="cn">age · sex · location · units</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">Breakdown dimensions; blank where the series has none.</td></tr>
+
+          <tr class="grp-row"><td colspan="3"><span class="gl">provenance</span></td></tr>
+          <tr><td class="col"><span class="cn">nature</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">Who produced the number: <code>C</code>/<code>CA</code> country · <code>E</code>/<code>M</code>/<code>G</code> agency · <code>N</code> non-relevant.</td></tr>
+          <tr><td class="col"><span class="cn">observation_status</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">SDMX status flag (<code>A</code> normal, <code>M</code>/<code>O</code>/<code>Q</code> missing kinds, …).</td></tr>
+          <tr><td class="col"><span class="cn">source · foot_note</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">Free-text provenance from the UN export.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- ============ REFERENCE ============ -->
+    <section class="ds">
+      <div class="ds-rail" style="background:var(--r-ref)"></div>
+      <div class="ds-head">
+        <div class="ds-title">
+          <span class="name">series_list</span>
+          <span class="role ref">reference</span>
+        </div>
+        <p class="ds-desc">What each series <em>is</em>. One row per goal-target-indicator-series path — 726 rows for 665 series, since a series can sit under more than one path. Join from here to label series or filter to the stable core.</p>
+        <div class="meta">
+          <div class="m"><span class="ml">grain</span><span class="mv">goal-target-indicator-series</span></div>
+          <div class="m"><span class="ml">key</span><span class="mv"><span class="k">series_code</span> (+ path)</span></div>
+          <div class="m"><span class="ml">rows</span><span class="mv">726</span></div>
+        </div>
+      </div>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="col"><span class="cn">goal · target · indicator · series_code · series_description</span></td><td class="type"><span class="ty">mixed</span></td><td class="desc">The SDG path and series identity <span class="badge key">KEY</span>.</td></tr>
+          <tr><td class="col"><span class="cn">is_stable_core</span></td><td class="type"><span class="ty">lgl</span></td><td class="desc">Live in every year 2015–2023 (409 series). The framework-drift filter.</td></tr>
+          <tr><td class="col"><span class="cn">first_year · last_year · n_years_live</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Empirical lifespan.</td></tr>
+          <tr><td class="col"><span class="cn">starts_late · ends_early · status</span></td><td class="type"><span class="ty">lgl/chr</span></td><td class="desc">Lifespan flags; <code>status</code> summarises them.</td></tr>
+          <tr><td class="col"><span class="cn">n_observations · _country · _agency</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Series total, split by producer.</td></tr>
+          <tr><td class="col"><span class="cn">pct_country_produced</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Share country-produced — 2% to 100% across series.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds">
+      <div class="ds-rail" style="background:var(--r-ref)"></div>
+      <div class="ds-head">
+        <div class="ds-title">
+          <span class="name">series_stability</span>
+          <span class="role ref">reference</span>
+        </div>
+        <p class="ds-desc">The evidence behind the stable core: each series' lifespan and the flags that define it. Built by <span class="mono">build_series_stability.R</span>. <span class="mono">series_list</span> joins its flags in.</p>
+        <div class="meta">
+          <div class="m"><span class="ml">grain</span><span class="mv">one series</span></div>
+          <div class="m"><span class="ml">key</span><span class="mv"><span class="k">series_code</span></span></div>
+          <div class="m"><span class="ml">rows</span><span class="mv">665</span></div>
+        </div>
+      </div>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="col"><span class="cn">series_code</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">One row each <span class="badge key">KEY</span>.</td></tr>
+          <tr><td class="col"><span class="cn">first_year · last_year · n_years_live</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Lifespan. <code>n_years_live</code> counts years present, so gaps show here.</td></tr>
+          <tr><td class="col"><span class="cn">total_obs · max_countries</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Reach: total observations and peak reporting countries.</td></tr>
+          <tr><td class="col"><span class="cn">is_stable_core · starts_late · ends_early · status</span></td><td class="type"><span class="ty">lgl/chr</span></td><td class="desc">Stability classification.</td></tr>
+          <tr><td class="col"><span class="cn">log_first_seen · log_added_date · log_removed_date · n_log_events</span></td><td class="type"><span class="ty">Date/int</span></td><td class="desc">Supporting dates from the UN update log.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds">
+      <div class="ds-rail" style="background:var(--r-ref)"></div>
+      <div class="ds-head">
+        <div class="ds-title">
+          <span class="name">geo_exclusions</span>
+          <span class="role ref">reference</span>
+        </div>
+        <p class="ds-desc">The audit trail: every geography that left its own code, and why. Generated from the same config that drives the filter, so it can't drift from what actually happened. 197 geographies survive into the panel.</p>
+        <div class="meta">
+          <div class="m"><span class="ml">grain</span><span class="mv">one geography</span></div>
+          <div class="m"><span class="ml">key</span><span class="mv"><span class="k">geo_area_code</span></span></div>
+          <div class="m"><span class="ml">rows</span><span class="mv">63</span></div>
+        </div>
+      </div>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="col"><span class="cn">geo_area_code · geo_area_name</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">The geography removed <span class="badge key">KEY</span>.</td></tr>
+          <tr><td class="col"><span class="cn">disposition</span></td><td class="type"><span class="ty">chr</span></td><td class="desc"><code>excluded</code> (dropped) or <code>rolled up</code> (merged into a parent).</td></tr>
+          <tr><td class="col"><span class="cn">reason</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">defunct entity · uninhabited · sub-national stratum · dependent territory · devolved jurisdiction.</td></tr>
+          <tr><td class="col"><span class="cn">parent_code</span></td><td class="type"><span class="ty">int</span></td><td class="desc">Roll-up target (e.g. UK = 826). <span class="na">NA</span> for excluded rows.</td></tr>
+          <tr><td class="col"><span class="cn">n_observations · n_obs_retained · n_series · n_years</span></td><td class="type"><span class="ty">int</span></td><td class="desc">What the geography contributed, and how much survived a roll-up.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><span class="mono">extract_SDG_series_data_2015_2023.r</span> → <span class="mono">data/clean/</span> · UN SDG Global Database, 2015–2023 · 197 geographies · 665 series · downloaded Aug 16 2026.</p>
+    <p style="margin-top:6px;color:var(--ink-3)">Repository: <a href="https://github.com/SevastianSanchez/Politics_of_NAs" style="color:var(--accent-ink)">github.com/SevastianSanchez/Politics_of_NAs</a></p>
+    <p style="margin-top:6px;color:var(--ink-3)">CSV re-reads guess column types; the <span class="mono">.rds</span> twins preserve exact types and the column labels quoted here.</p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var btn = document.getElementById('tg');
+    function cur(){
+      var s = document.documentElement.getAttribute('data-theme');
+      if(s) return s;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    btn.addEventListener('click', function(){
+      var next = cur() === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+    });
+  })();
+</script>
+
+</body></html>
