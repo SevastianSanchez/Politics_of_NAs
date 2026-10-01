@@ -35,7 +35,6 @@ The cleaned outcome tables, their grain, keys and every column are documented in
 | `descriptive_stats/` | Descriptive analysis and summary tables |
 | `figures/`, `results_csv/` | Exported figures and model results |
 | `gis_related/` | QGIS project and country geometries for mapping |
-| `misc/compIndexBuilder/` | R package with a Shiny app for building composite indices |
 | `docs/` | Source for the interactive data dictionary |
 
 ## Reproducing
