@@ -7,3 +7,11 @@
 # Excluding bulk raw SDG series files
 data/raw/**/*.xls*
 data/raw/**/*.csv
+
+# Local R session files
+.RData
+.Rhistory
+
+# Local tooling and private material (kept on disk, never pushed)
+.claude/
+_private_archive/
