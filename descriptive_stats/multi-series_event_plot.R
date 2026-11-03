@@ -35,7 +35,7 @@ ts_data <- panel %>%
 # 2) Keep needed variables and restrict sample ----
 ts_data <- ts_data %>%
   dplyr::select(
-    country_name.x,
+    country_name,
     country_code,
     year,
     aut_ep,

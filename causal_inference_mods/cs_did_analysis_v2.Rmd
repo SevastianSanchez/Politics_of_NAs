@@ -31,7 +31,7 @@ source("causal_inference_mods/causal_inf_data_prep.R")
 
 
 # number of NAs for each control variable using colSums and is.na
-colSums(is.na(panel %>% select(elect_dem, lib_dem, spi_overall, log_gdppc,
+colSums(is.na(panel %>% select(elect_dem, lib_dem, spi_overall_mod, log_gdppc,
                                log_pop, luminosity, electric_access, rural_pop_pct)))
 ```
 
@@ -119,7 +119,7 @@ Key decisions encoded here:
 # spi_baseline <- panel_cs %>%
 #   arrange(idname, tname) %>%
 #   group_by(idname) %>%
-#   summarise(spi_base = first(na.omit(spi_overall)), .groups = "drop")
+#   summarise(spi_base = first(na.omit(spi_overall_mod)), .groups = "drop")
 # 
 # # Median-split into High/Low SPI
 # spi_median <- median(spi_baseline$spi_base, na.rm = TRUE)

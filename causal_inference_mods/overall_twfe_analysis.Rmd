@@ -23,7 +23,7 @@ panel <- analysis_data
 ```{r}
 # Distribution of key variables
 key_vars <- panel %>%
-  select(spi_overall, gdp_pc, total_pop, electric_access, luminosity, rural_pop_pct) %>%
+  select(spi_overall_mod, gdp_pc, total_pop, electric_access, luminosity, rural_pop_pct) %>%
   pivot_longer(everything(), names_to = "variable", values_to = "value")
 
 ggplot(key_vars, aes(x = value)) +
@@ -39,7 +39,7 @@ Given the largely skewed distribution of population, the log of population is us
 ```{r}
 # checking distribution of key variables using log-transformed and imputed values
 key_vars <- panel %>%
-  select(spi_overall, log_gdppc, log_pop, electric_access, log_luminosity, rural_pop_pct) %>%
+  select(spi_overall_mod, log_gdppc, log_pop, electric_access, log_luminosity, rural_pop_pct) %>%
   pivot_longer(everything(), names_to = "variable", values_to = "value")
 
 ggplot(key_vars, aes(x = value)) +
@@ -67,19 +67,19 @@ missing_summary <- panel %>%
     electric_access = sum(is.na(electric_access)),
     log_luminosity = sum(is.na(log_luminosity)),
     rural_pop_pct = sum(is.na(rural_pop_pct)),
-    spi_overall = sum(is.na(spi_overall)),
+    spi_overall_mod = sum(is.na(spi_overall_mod)),
     tax_rev_gdp = sum(is.na(tax_rev_gdp))
   )
 print(missing_summary)
 
 # Table of countries with remaining NA values in key variables (after log_pop imputation)
 na_values_by_country <- panel %>%
-  group_by(country_code, country_name.x) %>%
+  group_by(country_code, country_name) %>%
   summarise(across(c(log_gdppc, log_pop, log_luminosity, electric_access, 
-                     spi_overall, tax_rev_gdp, rural_pop_pct),
+                     spi_overall_mod, tax_rev_gdp, rural_pop_pct),
                     ~ sum(is.na(.x))), .groups = "drop") %>%
   filter(if_any(c(log_gdppc, log_pop, log_luminosity, electric_access, 
-                  spi_overall, tax_rev_gdp, rural_pop_pct),
+                  spi_overall_mod, tax_rev_gdp, rural_pop_pct),
                 ~ .x > 0)) %>%
   janitor::adorn_totals("row")
 
@@ -92,7 +92,7 @@ var_labels_na <- c(
   "Log Population" = "log_pop",
   "Log Nighttime Luminosity" = "log_luminosity",
   "Electricity Access (%)" = "electric_access",
-  "Statistical Performance Index" = "spi_overall",
+  "Statistical Performance Index" = "spi_overall_mod",
   "Tax Revenue (% of GDP)" = "tax_rev_gdp", 
    "Rural Population (%)" = "rural_pop_pct"
 )
@@ -100,7 +100,7 @@ var_labels_na <- c(
 na_table <- na_values_by_country %>%
   mutate(`#` = if_else(country_code == "Total", NA_integer_, row_number())) %>%
   relocate(`#`) %>%
-  rename(Country = country_name.x, `Iso3 Code` = country_code) %>%
+  rename(Country = country_name, `Iso3 Code` = country_code) %>%
   rename(!!!var_labels_na)
 
 set_flextable_defaults(na_str = "NA")
@@ -134,16 +134,16 @@ Strategy: Population data for 2023 was unavailable from the World Bank at the ti
 ## Robustness check: VIF multicollinearity across model variables 
 ```{r}
 # VIF 1 (All)
-vif_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + log_pop + spi_overall + electric_access + log_luminosity + rural_pop_pct,
-                 data = panel %>% select(prop_sdg_missing, lib_dem, log_gdppc, log_pop, spi_overall, electric_access, log_luminosity, rural_pop_pct))
+vif_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + log_pop + spi_overall_mod + electric_access + log_luminosity + rural_pop_pct,
+                 data = panel %>% select(prop_sdg_missing, lib_dem, log_gdppc, log_pop, spi_overall_mod, electric_access, log_luminosity, rural_pop_pct))
 
 # VIF 2 (without log_gdppc)
-vif2_model <- lm(prop_sdg_missing ~ lib_dem + log_pop + spi_overall + electric_access + log_luminosity + rural_pop_pct,
-                  data = panel %>% select(prop_sdg_missing, lib_dem, log_pop, spi_overall, electric_access, log_luminosity, rural_pop_pct))
+vif2_model <- lm(prop_sdg_missing ~ lib_dem + log_pop + spi_overall_mod + electric_access + log_luminosity + rural_pop_pct,
+                  data = panel %>% select(prop_sdg_missing, lib_dem, log_pop, spi_overall_mod, electric_access, log_luminosity, rural_pop_pct))
 
 # # VIF 3 (without log_pop)
-vif3_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + spi_overall + electric_access + log_luminosity + rural_pop_pct,
-                  data = panel %>% select(prop_sdg_missing, lib_dem, log_gdppc, spi_overall, electric_access, log_luminosity, rural_pop_pct))
+vif3_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + spi_overall_mod + electric_access + log_luminosity + rural_pop_pct,
+                  data = panel %>% select(prop_sdg_missing, lib_dem, log_gdppc, spi_overall_mod, electric_access, log_luminosity, rural_pop_pct))
 
 # # VIF 4 (without SPI)
 vif4_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + log_pop + electric_access + log_luminosity + rural_pop_pct,
@@ -153,7 +153,7 @@ vif4_model <- lm(prop_sdg_missing ~ lib_dem + log_gdppc + log_pop + electric_acc
 var_labels <- c(
   lib_dem = "Liberal Democracy Index",
   elect_dem = "Electoral Democracy Index",
-  spi_overall = "Statistical Performance Index",
+  spi_overall_mod = "Statistical Performance Index",
   log_pop = "Log Population",
   log_gdppc = "Log GDP per Capita",
   log_luminosity = "Log Nighttime Luminosity",
@@ -217,7 +217,7 @@ sub_panel <- panel %>% filter(goal == 2)
 
 # matrix of variables and correlations
 cor_data <- sub_panel %>% select(paste('y_var'), lib_dem, elect_dem, v2x_liberal, 
-                             log_gdppc, log_pop, spi_overall, electric_access, 
+                             log_gdppc, log_pop, spi_overall_mod, electric_access, 
                              log_luminosity, rural_pop_pct, tax_rev_gdp) %>% na.omit()
 cor_matrix <- cor(cor_data)
 cor_matrix %>% round(2) %>% knitr::kable(
@@ -354,7 +354,7 @@ summary(m2_twfe_a)
 m3_twfe_a <- feols(
   prop_sdg_missing 
   ~ l(decline_ldi, 0:1) + l(decline_ldi, 0:1)
-  #+ spi_overall
+  #+ spi_overall_mod
   #+ log_luminosity
   #+ log_pop
   #+ log_gdppc
@@ -394,7 +394,7 @@ m5_twfe_a <- feols(
   + I(electric_access^2)
   + rural_pop_pct 
   + log_gdppc
-  + spi_overall # adding SPI mediation (ability variable)
+  + spi_overall_mod # adding SPI mediation (ability variable)
   + log_luminosity # luminosity mediation (ability variable)
   | country_code + year,
   panel.id = ~ country_code + year,
@@ -424,7 +424,7 @@ m5a_twfe_a <- feols(
   + electric_access + I(electric_access^2)
   + rural_pop_pct
   + log_gdppc
-  + spi_overall
+  + spi_overall_mod
   + log_luminosity
   | country_code + year,
   data = panel,
@@ -442,7 +442,7 @@ m5b_twfe_a <- feols(
   + log_gdppc
   + electric_access + I(electric_access^2)
   + rural_pop_pct
-  + spi_overall
+  + spi_overall_mod
   + log_luminosity
   | country_code + year,
   data = panel,
@@ -498,7 +498,7 @@ ldi_gt <- modelsummary(
     "I(I(electric_access^2))"            = "Electricity Access (%)\u00b2",
     "rural_pop_pct"                      = "Rural Population (%)",
     "log_gdppc"                          = "Log GDP per Capita",
-    "spi_overall"                        = "Statistical Performance Index",
+    "spi_overall_mod"                        = "Statistical Performance Index",
     "log_luminosity"                     = "Log Nighttime Luminosity",
     "income_levelLM"                     = "Lower-Middle Income",
     "income_levelUM"                     = "Upper-Middle Income",
@@ -598,7 +598,7 @@ goal_models <- map(dv_names, function(dv) {
       dv, " ~ l(decline_ldi, 0:1) + l(improve_ldi, 0:1)",
       "+ electric_access + I(electric_access^2) + rural_pop_pct",
       #"+ log_gdppc",
-      #"+ spi_overall + log_luminosity",
+      #"+ spi_overall_mod + log_luminosity",
       " | country_code + year"
     )),
     panel.id = ~ country_code + year,
@@ -709,7 +709,7 @@ save_as_image(goal_ft, path = "figures/causal_inference/twfe_goal_level_m3_table
 #                  + electric_access 
 #                  + log_luminosity 
 #                  + rural_pop_pct
-#                  + spi_overall, 
+#                  + spi_overall_mod, 
 #                  data = vif_data)
 # vif(vif5_model)
 
@@ -779,7 +779,7 @@ m5_twfe_b <- feols(
   + electric_access + I(electric_access^2)
   + rural_pop_pct 
   + log_gdppc
-  + spi_overall
+  + spi_overall_mod
   + log_luminosity
   | country_code + year,
   panel.id = ~ country_code + year,
@@ -798,7 +798,7 @@ m4a_twfe_b <- feols(
   ~ l(decline_edi, 0:1) + l(improve_edi, 0:1)
   + l(decline_liberal, 0:1) + l(improve_liberal, 0:1)
   + decline_edi * income_level
-  + spi_overall
+  + spi_overall_mod
   + log_gdppc
   + log_luminosity
   + electric_access + I(electric_access^2)
@@ -817,7 +817,7 @@ m5b_twfe_b <- feols(
   ~ l(decline_edi, 0:1) + l(improve_edi, 0:1)
   + l(decline_liberal, 0:1) + l(improve_liberal, 0:1)
   + decline_edi * regime_type_4
-  + spi_overall
+  + spi_overall_mod
   + log_gdppc
   + log_luminosity
   + electric_access + I(electric_access^2)
@@ -895,7 +895,7 @@ m5_twfe_c <- feols(
   + electric_access + I(electric_access^2)
   + rural_pop_pct 
   + log_gdppc  
-  + spi_overall
+  + spi_overall_mod
   + log_luminosity
   | country_code + year,
   panel.id = ~ country_code + year,
@@ -924,7 +924,7 @@ m4a_twfe <- feols(
   + electric_access + I(electric_access^2)
   + rural_pop_pct 
   + log_gdppc  
-  + spi_overall
+  + spi_overall_mod
   + log_luminosity
   | country_code + year,
   data = panel,
@@ -942,7 +942,7 @@ m4b_twfe <- feols(
   + electric_access + I(electric_access^2)
   + rural_pop_pct 
   + log_gdppc  
-  + spi_overall
+  + spi_overall_mod
   + log_luminosity
   | country_code + year,
   data = panel,
@@ -959,7 +959,7 @@ summary(m4b_twfe)
 # (X1) dynamic + SPI heterogeneity (appendix): Ability vs willingness: aut_ep × income_level
 mx1_twfe <- feols(
   prop_sdg_missing 
-  ~ l(aut_ep, 0:1) * spi_overall 
+  ~ l(aut_ep, 0:1) * spi_overall_mod 
   + log_pop 
   + log_luminosity
   + electric_access + I(electric_access^2) 

@@ -167,7 +167,7 @@ excluded_geographies <- list(
 
   # States that dissolved before the SDG era. M49 never retires a code — it
   # keeps them flagged "[former]" - Every row they carry in 2015-2023 is UNEP
-  # material-flows model output (nature "E"), and 420 of the 421 values are
+  # material-flows model output (nature "E"), and 378 of the 379 values are
   # structural zeros. Successor states are all separately in the panel.
   "defunct entity" = c(
     "Yugoslavia [former]"            = 890,  # country no longer exists — SFRY dissolved 1992
@@ -179,13 +179,13 @@ excluded_geographies <- list(
   # THE RULE: the unit of analysis is the sovereign state, because the treatment
   # (autocratization episodes from ERT / V-Dem) is coded only at that level.
   # These units have no V-Dem or ERT score, so they can carry an outcome but can
-  # never be treated. Their parents are fully present — Tanzania (834) with 496
-  # series, Iraq (368) with 442 — so nothing is lost from the panel.
+  # never be treated. Their parents are fully present — Tanzania (834) with 492
+  # series, Iraq (368) with 437 — so nothing is lost from the panel.
   #
   # Corroborating, but NOT the criterion: both would also manufacture false data
   # loss if kept. A unit with 1-5 series scores near-zero availability because it
   # was never a reporting unit for 16 of 17 goals, not because reporting fell.
-  # Zanzibar's 120 rows are 100% UNEP material-flows model zero-fill (nature E,
+  # Zanzibar's 108 rows are 100% UNEP material-flows model zero-fill (nature E,
   # no country-reported observation at all); Central Iraq is a 5-series criminal
   # justice collection stratum with no Kurdistan counterpart to complete it.
   "sub-national reporting stratum" = c(
@@ -973,7 +973,7 @@ frontier <- raw_data %>%
     n_observations_stable  = sum(!is.na(value) & series_code %in% stable_codes),
     n_declared_missing     = sum(is.na(value)),
     # The declared-missing total split by WHY (missing_reason, derived in C1).
-    # These four sum to n_declared_missing. `structural` is the one to watch:
+    # These three sum to n_declared_missing. `structural` is the one to watch:
     # it is non-applicability, not data loss, so it arguably belongs out of the
     # denominator. `suppressed` is the sharpest form of the outcome.
     n_missing_structural   = sum(is.na(value) & missing_reason == "structural"),

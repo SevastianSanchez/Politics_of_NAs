@@ -12,11 +12,11 @@ library(kableExtra)
 
 # load data
 #source("code/data_prep/panel_wrangling.R")
-data <- readRDS("data/output/sdg_democracy_paneldata.rds")
+data <- readRDS("data/output/predictor_panel.rds")
 #data <- read_csv("data/output/ES_panel_data.csv")
 
 # save data as csv
-write_csv(data, "data/output/sdg_democracy_paneldata.csv")
+write_csv(data, "data/output/predictor_panel.csv")
 ```
 
 ## Sumary Statistics: DI Vars: elect_dem, lib_dem, di_score
@@ -39,7 +39,7 @@ print(max(data$year))
 ## Descriptive Analysis: NA Counts and DI Distributions
 ```{r}
 # (1) Histogram: NA Counts 
-hist_NA_counts <- ggplot(data, aes(x = as.numeric(prop_sdg_missing))) +
+hist_NA_counts <- ggplot(data, aes(x = as.numeric(prop_sdg_missing_sdr))) +
   geom_histogram(
     binwidth = 0.04,              # adjust as needed
     color = "white",
@@ -167,7 +167,7 @@ data_plot <- data %>%
 # =============================================================================
 # (1) Density Plot: NA Counts by RoW Groups (Regime Types)
 dens_plt_regimetype <- ggplot(data_plot, 
-             aes(x = prop_sdg_missing, 
+             aes(x = prop_sdg_missing_sdr, 
                  fill = regime_type_4, 
                  color = regime_type_4)) +
         geom_density(alpha = 0.30, adjust = 1) +
@@ -193,7 +193,7 @@ table(data_plot$income_level_ven, useNA = "ifany")
 # (2) Lineplot: NA Counts by RoW Groups over Time (Regime Types)
 year_regime_means <- data_plot %>% 
   group_by(year, regime_type_4) %>% 
-  summarise(mean_missing = mean(prop_sdg_missing),
+  summarise(mean_missing = mean(prop_sdg_missing_sdr),
     .groups = "drop")
 
 line_plt_regxtime <- ggplot(year_regime_means,
@@ -218,7 +218,7 @@ line_plt_regxtime
 # (3) Boxplot: NA Counts by RoW Groups
 box_plt_regxtime <- ggplot(data_plot,
              aes(x = factor(year),
-                 y = prop_sdg_missing)) +
+                 y = prop_sdg_missing_sdr)) +
         geom_boxplot(outlier.alpha = 0.2) +
         facet_wrap(~ regime_type_4, nrow = 2) +
         labs(
@@ -272,8 +272,8 @@ ggsave(
 means_by_backsliding <- data %>% 
   group_by(aut_ep) %>% 
   summarise(
-    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
-    se_missing = sd(prop_sdg_missing, na.rm = TRUE) / sqrt(n()),
+    mean_missing = mean(prop_sdg_missing_sdr, na.rm = TRUE),
+    se_missing = sd(prop_sdg_missing_sdr, na.rm = TRUE) / sqrt(n()),
     n = n())
 
 # BAR PLOT: BACKSLIDING VS ALL ELSE 
@@ -311,8 +311,8 @@ regime_data <- data %>%
 
 means_by_status <- regime_data %>%
   group_by(regime_status) %>%
-  summarise(mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
-    se_missing = sd(prop_sdg_missing, na.rm = TRUE) / sqrt(n()),
+  summarise(mean_missing = mean(prop_sdg_missing_sdr, na.rm = TRUE),
+    se_missing = sd(prop_sdg_missing_sdr, na.rm = TRUE) / sqrt(n()),
     n = n())
 
 # BAR PLOT: BACKSLIDING VS DEMOCRATIZING VS STABLE
@@ -366,8 +366,8 @@ reg_status_sum_table <- regime_data %>%
   group_by(regime_status) %>%
   summarise(
     n_obs = n(),
-    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
-    sd_missing = sd(prop_sdg_missing,   na.rm = TRUE),
+    mean_missing = mean(prop_sdg_missing_sdr, na.rm = TRUE),
+    sd_missing = sd(prop_sdg_missing_sdr,   na.rm = TRUE),
     se_missing = sd_missing / sqrt(n_obs),
     ci_lower = mean_missing - 1.96 * se_missing,
     ci_upper = mean_missing + 1.96 * se_missing,
@@ -395,8 +395,8 @@ regime_data <- regime_data %>%
   arrange(country_code, year) %>%
   group_by(country_code) %>%
   mutate(
-    missing_lag1 = dplyr::lag(prop_sdg_missing, 1),  # year t-1
-    missing_lead1 = dplyr::lead(prop_sdg_missing, 1)  # year t+1
+    missing_lag1 = dplyr::lag(prop_sdg_missing_sdr, 1),  # year t-1
+    missing_lead1 = dplyr::lead(prop_sdg_missing_sdr, 1)  # year t+1
   ) %>%
   ungroup()
 
@@ -407,7 +407,7 @@ back_lag_lead_means <- regime_data %>%
     n_obs = n(),
     group = "Backsliding years",
     mean_tminus1 = mean(missing_lag1,  na.rm = TRUE),
-    mean_t = mean(prop_sdg_missing,  na.rm = TRUE),
+    mean_t = mean(prop_sdg_missing_sdr,  na.rm = TRUE),
     mean_tplus1 = mean(missing_lead1, na.rm = TRUE)
   )
 back_lag_lead_means
@@ -419,7 +419,7 @@ non_back_lag_lead_means <- regime_data %>%
     n_obs = n(),
     group = "Non-backsliding years",
     mean_tminus1 = mean(missing_lag1,  na.rm = TRUE),
-    mean_t = mean(prop_sdg_missing,  na.rm = TRUE),
+    mean_t = mean(prop_sdg_missing_sdr,  na.rm = TRUE),
     mean_tplus1  = mean(missing_lead1, na.rm = TRUE)
   )
 non_back_lag_lead_means
@@ -451,8 +451,8 @@ regime_back_countries <- regime_data %>%
   mutate(backslide_status = ifelse(aut_ep == 1,
                               "Backsliding years",
                               "Non-backsliding years"),
-    missing_lag1  = dplyr::lag(prop_sdg_missing, 1),  # t-1
-    missing_lead1 = dplyr::lead(prop_sdg_missing, 1)  # t+1
+    missing_lag1  = dplyr::lag(prop_sdg_missing_sdr, 1),  # t-1
+    missing_lead1 = dplyr::lead(prop_sdg_missing_sdr, 1)  # t+1
   ) %>%
   ungroup()
 # =============================================================================
@@ -465,9 +465,9 @@ combined_summary <- regime_back_countries %>%
     n_obs = n(),
     
     # t-level
-    mean_t   = mean(prop_sdg_missing, na.rm = TRUE),
-    median_t = median(prop_sdg_missing, na.rm = TRUE),
-    sd_t     = sd(prop_sdg_missing,   na.rm = TRUE),
+    mean_t   = mean(prop_sdg_missing_sdr, na.rm = TRUE),
+    median_t = median(prop_sdg_missing_sdr, na.rm = TRUE),
+    sd_t     = sd(prop_sdg_missing_sdr,   na.rm = TRUE),
     se_t     = sd_t / sqrt(n_obs),
     ci_t_lo  = mean_t - 1.96 * se_t,
     ci_t_hi  = mean_t + 1.96 * se_t,
@@ -563,7 +563,7 @@ Income Groups & Liberal Democracy Analysis (ld_data): NA Counts x Year x Income 
 ```{r}
 # (4) Density Plot: NA Counts by Income Groups
 dens_plt_income <- ggplot(data_plot, 
-             aes(x = prop_sdg_missing, 
+             aes(x = prop_sdg_missing_sdr, 
                  fill = income_level_ven, 
                  color = income_level_ven)) +
         geom_density(alpha = 0.30, adjust = 1) +
@@ -586,7 +586,7 @@ ld_data <- data_plot %>%
   filter(regime_type_4 == "Liberal democracy")
 
 # (5) Boxplot of full distribution by year (within liberal democracies)
-box_plt_libdemxtime <- ggplot(ld_data, aes(x = factor(year), y = prop_sdg_missing)) +
+box_plt_libdemxtime <- ggplot(ld_data, aes(x = factor(year), y = prop_sdg_missing_sdr)) +
         geom_boxplot(outlier.alpha = 0.2) +
         labs(
           title = "Distribution of SDG missingness by year",
@@ -604,7 +604,7 @@ ggsave(filename = "descriptive_stats/figures/box_plt_libdemxtime.png",
 # =============================================================================
 # (6) Density by income (liberal democracies only)
 dens_plt_income_libdem <- ggplot(ld_data,
-             aes(x = prop_sdg_missing,
+             aes(x = prop_sdg_missing_sdr,
                  fill  = income_level,
                  color = income_level)) +
         geom_density(alpha = 0.30, adjust = 1) +
@@ -627,7 +627,7 @@ table(ld_data$period, useNA = "ifany")
 
 # =============================================================================
 # (7) Boxplot of full distribution by year, faceted by income level (within liberal democracies)
-box_plt_libdemxtimexincome <- ggplot(ld_data, aes(x = factor(year), y = prop_sdg_missing)) +
+box_plt_libdemxtimexincome <- ggplot(ld_data, aes(x = factor(year), y = prop_sdg_missing_sdr)) +
   geom_boxplot(outlier.alpha = 0.2) +
   facet_wrap(~ income_level, nrow = 1) +
   labs(title = "Distribution of SDG missingness by income level over time",
@@ -646,7 +646,7 @@ ggsave(filename = "descriptive_stats/figures/box_plt_libdemxtimexincome.png",
 # (8) Lineplot of mean missingness by year, faceted by income level (within liberal democracies)
 year_income_means <- ld_data %>% 
   group_by(year, income_level) %>% 
-  summarise(mean_missing = mean(prop_sdg_missing), .groups = "drop")
+  summarise(mean_missing = mean(prop_sdg_missing_sdr), .groups = "drop")
 
 line_plt_income_libdem <- ggplot(year_income_means, 
        aes(x = year, 
@@ -824,8 +824,8 @@ ggsave(filename = "descriptive_stats/figures/erbar_plt_goals.png",
 sdg_within <- data %>%
   group_by(country_code) %>%
   summarise(
-    mean_missing = mean(prop_sdg_missing, na.rm = TRUE),
-    sd_missing = sd(prop_sdg_missing, na.rm = TRUE),
+    mean_missing = mean(prop_sdg_missing_sdr, na.rm = TRUE),
+    sd_missing = sd(prop_sdg_missing_sdr, na.rm = TRUE),
     mean_log_gdppc = mean(log_gdppc, na.rm = TRUE),
     sd_log_gdppc = sd(log_gdppc, na.rm = TRUE),
     mean_lib_dem = mean(lib_dem, na.rm = TRUE),

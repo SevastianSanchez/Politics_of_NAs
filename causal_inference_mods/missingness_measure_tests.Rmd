@@ -73,13 +73,17 @@ treatment_vars <- c(
 control_vars <- c(
   "income_level", "gdp_pc", "log_gdppc", "total_pop", "log_pop",
   "electric_access", "rural_pop_pct", "rd_expenditure_pct",
-  "spi_overall",                  # statistical-capacity index — key confounder
+  "spi_overall_mod",   # statistical capacity, pillar 3 excluded — USE THIS in models
+  "spi_overall",       # untouched published SPI — carried for the published-vs-modified
+                       # comparison only; modelling on it is circular (pillar 3 is SDG
+                       # reporting from the same UN database as the outcome)
   "luminosity", "log_luminosity", # nighttime lights (economic proxy)
   "tax_rev_gdp",
   "poly_vio_events", "any_political_violence", 
   
   # ROBUSTNESS CHECK 
-  "prop_sdg_missing" 
+  "prop_sdg_missing_sdr"   # SUPERSEDED SDR outcome, comparison only
+
 )
 
 predictor_cols <- c(keys, treatment_vars, control_vars)
@@ -118,13 +122,13 @@ analysis_data <- goal_lvl_dv_data %>%
 matched   <- analysis_data %>% filter(!is.na(elect_dem_ert)) %>% distinct(iso3, geo_area_name)
 unmatched <- analysis_data %>% filter(is.na(elect_dem_ert)) %>% distinct(iso3, geo_area_name)
 
-# for compatibility with the original MAIN_panel_data, which uses country_code and country_name.x
+# for compatibility with the original MAIN_panel_data, which uses country_code and country_name
 analysis_data$country_code <- analysis_data$iso3  
-analysis_data$country_name.x <- analysis_data$geo_area_name  
+analysis_data$country_name <- analysis_data$geo_area_name  
 
 # reorder columns: outcome first, then predictors
 analysis_data <- analysis_data %>%
-  select(iso3, country_code, geo_area_name, country_name.x, year, scope, goal, starts_with("dv_"), everything())
+  select(iso3, country_code, geo_area_name, country_name, year, scope, goal, starts_with("dv_"), everything())
 
 cat("analysis_data:", nrow(analysis_data), "rows |",
     n_distinct(analysis_data$iso3), "countries\n")
@@ -210,6 +214,24 @@ A few core specifications. Primary treatment is the **directional decomposition*
 each entered contemporaneously and lagged. All use country / goal / year fixed
 effects and SEs clustered by country.
 
+
+```{r}
+mx <- feols(
+  dv_n_observations_pct_goalbase 
+  ~ decline_ldi + improve_ldi 
+  #+ log_gdppc #+ log_luminosity 
+  + spi_overall_mod
+  | country_code + year,
+  data = analysis_data,
+  cluster = ~ country_code
+)
+
+summary(mx)
+
+```
+
+
+
 **Primary DV: `dv_n_observations_pct_goalbase`** — reporting relative to the
 cross-country norm for the goal. `asinh()` handles its right-skew and 0s (log-like,
 defined at 0). Modeled with `feols`. `goalbase` is preferred over `pct_baseline`
@@ -229,7 +251,7 @@ m_primary <- feols(asinh(dv_n_observations_pct_goalbase)
   + I(electric_access^2)
   + rural_pop_pct
   + log_gdppc
-  + spi_overall     # SPI mediation (statistical-capacity / ability variable)
+  + spi_overall_mod     # SPI mediation (statistical-capacity / ability variable)
   + log_luminosity  # luminosity mediation (ability variable)
   | iso3 + goal + year,
   data = goal, panel.id = ~ iso3^goal + year, 
@@ -250,7 +272,7 @@ m_overall <- feols(asinh(dv_n_observations_pct_goalbase)
   + I(electric_access^2)
   + rural_pop_pct
   + log_gdppc
-  + spi_overall
+  + spi_overall_mod
   + log_luminosity
   | iso3 + year, data = ovr, 
   panel.id = ~ iso3 + year, 
@@ -270,7 +292,7 @@ m_count   <- fepois(n_observations
   ~ l(decline_ldi, 0:1) 
   + l(improve_ldi, 0:1)
   + log_gdppc 
-  + spi_overall |
+  + spi_overall_mod |
   iso3 + goal + year, data = goal, 
   panel.id = ~ iso3^goal + year, 
   cluster = ~iso3)
@@ -280,7 +302,7 @@ m_country <- fepois(n_observations_country
   ~ l(decline_ldi, 0:1) 
   + l(improve_ldi, 0:1)
   + log_gdppc 
-  + spi_overall |
+  + spi_overall_mod |
   iso3 + goal + year, data = goal, 
   panel.id = ~ iso3^goal + year, 
   cluster = ~iso3)
@@ -288,5 +310,5 @@ m_country <- fepois(n_observations_country
 etable(m_count, m_country)
 ```
 
-> `spi_overall` (statistical capacity) is the key confounder — check its NA
+> `spi_overall_mod` (statistical capacity) is the key confounder — check its NA
 > coverage, as it may shrink the sample.

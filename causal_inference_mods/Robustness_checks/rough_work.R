@@ -11,7 +11,7 @@ panel <- readRDS("data/output/MAIN_panel_data.rds")
 # One row per country with its autocratization start year
 aut_cohorts <- panel %>%
   filter(!is.na(aut_ep_start_yr)) %>% # treated countries only
-  distinct(country_code, country_name.x, aut_ep_start_yr)
+  distinct(country_code, country_name, aut_ep_start_yr)
 
 # 1) How many treated countries total?
 aut_cohorts %>%

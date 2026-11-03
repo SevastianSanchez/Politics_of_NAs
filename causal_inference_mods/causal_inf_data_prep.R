@@ -30,15 +30,47 @@ library(broom)
 # SECTION 1: overall_twfe_analysis.Rmd — Loading & Merging Data
 # ============================================================================
 
-# Load data (adjust path if needed)
-# df <- read_csv("data/output/sdg_democracy_paneldata.csv")
-df <- readRDS("data/output/sdg_democracy_paneldata.rds")
+# Load the predictor panel, built by code/data_prep/build_predictor_panel.R.
+# That script reads V-Dem and WDI from dated snapshots in data/input/snapshots/
+# rather than pulling live, so this chain is reproducible. Rerun it (with
+# refresh_sources <- TRUE) to take new source vintages.
+#
+# It replaced sdg_democracy_paneldata.rds, which had no builder. The SDR-derived
+# columns here now carry an _sdr suffix: they are the SUPERSEDED outcome, kept
+# only for comparison against the UN Global Database measure in data/clean/.
+df <- readRDS("data/output/predictor_panel.rds")
 
-# Quickly Adding merge of SPI data
+# ---- SPI: statistical capacity ----------------------------------------------
+# spi_overall     World Bank published composite, UNTOUCHED (mean of all 5
+#                 pillars; verified equal to rowMeans(PIL1:PIL5) exactly, i.e.
+#                 20% each). Keeps its original meaning for traceability.
+# spi_overall_mod Modified copy: pillar 3 dropped, remaining four at 25% each,
+#                 per Landau, Jütting & MacFeely (2025), PARIS21 DP 18, p.17.
+#                 USE THIS IN MODELS. Pillar 3 (Data Products) scores SDG
+#                 reporting drawn from the UN Global SDG database — this
+#                 study's own outcome — so controlling for the published
+#                 composite partly controls for the dependent variable.
+#                 We depart from Landau et al. only on vintage: they use the
+#                 2020 snapshot for a cross-sectional design; a panel with
+#                 country FE needs the annual series or the control is absorbed.
+# Pillars kept for robustness. na.rm = FALSE throughout, matching the World
+# Bank: a country-year scores only when every contributing pillar is present.
 url <- "https://raw.githubusercontent.com/worldbank/SPI/refs/heads/master/03_output_data/SPI_index.csv"
 spi <- read_csv(url) %>%
-  dplyr::select(country, date, SPI.INDEX, iso3c) %>%
-  rename(country_name = country, country_code = iso3c, year = date, spi_overall = SPI.INDEX)
+  # SPI's own `country` column is dropped: predictor_panel already carries the
+  # authoritative country_name, and keeping this one collided into
+  # country_name.x / .y. Join on country_code + year only.
+  dplyr::select(date, iso3c, SPI.INDEX,
+                SPI.INDEX.PIL1, SPI.INDEX.PIL2, SPI.INDEX.PIL3,
+                SPI.INDEX.PIL4, SPI.INDEX.PIL5) %>%
+  rename(country_code = iso3c, year = date,
+         spi_overall = SPI.INDEX,                       # original, as published
+         spi_p1_use = SPI.INDEX.PIL1, spi_p2_services = SPI.INDEX.PIL2,
+         spi_p3_products = SPI.INDEX.PIL3, spi_p4_sources = SPI.INDEX.PIL4,
+         spi_p5_infra = SPI.INDEX.PIL5) %>%
+  mutate(spi_overall_mod = rowMeans(                    # modified copy
+    cbind(spi_p1_use, spi_p2_services, spi_p4_sources, spi_p5_infra),
+    na.rm = FALSE))
 
 # merging spi into main panel dataset
 panel <- df %>% left_join(spi, by = c("country_code", "year"))
@@ -58,40 +90,32 @@ violence_counts <- readxl::read_excel("data/input/political_violence_counts.xlsx
   col_names = c("country_name_acled", "year", "acled_events"),
   skip = 1)
 
+# ACLED ships country names only, no ISO3, so it is matched to ISO3 here and
+# joined on the code — the same key every other source uses. The old version
+# joined on `country_name.x`, a leftover join suffix, which then produced
+# country_name.x / .y in the output and forced downstream scripts to reference
+# the artifact instead of a real column name.
 violence_counts <- violence_counts %>%
-  rename(country_name = country_name_acled, poly_vio_events = acled_events) %>%
-  mutate(
-    country_name.x = as.character(country_name),
+  transmute(
+    country_code = countrycode::countrycode(as.character(country_name_acled),
+                                            origin = "country.name",
+                                            destination = "iso3c",
+                                            warn = FALSE),
     year = as.integer(year),
-    any_political_violence = if_else(!is.na(poly_vio_events) & poly_vio_events > 0, 1L, 0L))
-  
-panel <- panel %>% left_join(violence_counts, by = c("country_name.x", "year"))
+    poly_vio_events = acled_events,
+    any_political_violence = if_else(!is.na(acled_events) & acled_events > 0, 1L, 0L)) %>%
+  filter(!is.na(country_code)) %>%
+  distinct(country_code, year, .keep_all = TRUE)
 
-# Quickly Adding episode id for autocratization and democratization
-ert <- read.csv("data/input/ert.csv") %>%
-  filter(year >= 2000) %>%
-  dplyr::select(country_text_id, year, dem_ep_id, aut_ep_id) %>%
-  rename(country_code = country_text_id)
+panel <- panel %>% left_join(violence_counts, by = c("country_code", "year"))
 
-# merging episode id into main panel dataset
-panel <- panel %>% left_join(ert, by = c("country_code", "year"))
-
-# Quickly Adding V-Dem Liberal Democracy Index (v2x_liberal) [vdemdata]
-vdem_for_v2x_liberal <- vdemdata::vdem %>%
-  filter(year >= 2000) %>%
-  dplyr::select(country_text_id, year, v2x_liberal) %>% 
-  rename(country_code = country_text_id)
-
-# merging vdem liberal democracy index into main panel dataset
-panel <- panel %>% left_join(vdem_for_v2x_liberal, by = c("country_code", "year"))
-
-# Quickly Adding tax revenue data (for potential future use) [WDI]
-tax_rev_gdp <- WDI(country = "all", indicator = "GC.TAX.TOTL.GD.ZS", start = 2000, end = NULL)
-
-# merging tax revenue data into main panel dataset
-panel <- panel %>% left_join(tax_rev_gdp %>%
-  rename(country_code = iso3c, tax_rev_gdp = GC.TAX.TOTL.GD.ZS),
-  by = c("country_code", "year"))
+# Three joins used to sit here and have been removed, because predictor_panel
+# now supplies all of them:
+#   dem_ep_id / aut_ep_id  — re-read from ert.csv; collided into .x/.y suffixes
+#   v2x_liberal            — pulled live from vdemdata
+#   tax_rev_gdp            — pulled live from WDI
+# Beyond the collisions, the two live pulls reintroduced unsnapshotted sources
+# that change between runs, which is what build_predictor_panel.R exists to stop.
 
 # ----------------------------------------------------------------------------
 # SECTION 1a: overall_twfe_analysis.Rmd — Data Cleaning and Variable Setup
@@ -106,7 +130,7 @@ panel <- panel %>%
     #left_censored_aut_ep = (!is.na(aut_start_filled) & aut_start_filled < 2015),
     country_id = as.numeric(as.factor(country_code)), # Numeric ID required by did::att_gt()
     log_luminosity = log(luminosity + 1),
-    prop_missing_pct = prop_sdg_missing * 100)
+    prop_missing_pct = prop_sdg_missing_sdr * 100)
 
 panel <- panel %>% mutate(across(
   c(country_code, year, regime_type_2, regime_type_4, regime_type_10, aut_ep, 
@@ -294,10 +318,10 @@ cat("SPI median (baseline):", round(spi_median, 2), "\n")
 # ----------------------------------------------------------------------------
 
 # Overall outcome
-outcome_overall <- "prop_sdg_missing"
+outcome_overall <- "prop_sdg_missing_sdr"
 
 # Goal-level outcomes
-sdg_goals <- paste0("prop_miss_SDG", 1:17)
+sdg_goals <- paste0("prop_miss_SDG", 1:17, "_sdr")
 
 # ============================================================================
 # END OF DATA PREP
@@ -306,7 +330,7 @@ sdg_goals <- paste0("prop_miss_SDG", 1:17)
 #   - panel            : cleaned MAIN panel (from Section 1/2), factor-typed
 #   - panel_es         : panel with event_time / treated / event_time_cap vars
 #   - panel_cs         : CS-ready panel (idname, tname, gname, spi_hilow, etc.)
-#   - outcome_overall  : "prop_sdg_missing"
+#   - outcome_overall  : "prop_sdg_missing_sdr" (SUPERSEDED measure)
 #   - sdg_goals        : vector of 17 goal-level outcome variable names
 #
 # Each Rmd should now begin with:

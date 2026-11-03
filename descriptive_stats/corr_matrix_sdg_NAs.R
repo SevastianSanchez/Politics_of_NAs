@@ -3,27 +3,27 @@ library(dplyr)
 library(tidyr)
 library(purrr)
 
-data2 <- readRDS("data/output/sdg_democracy_paneldata.rds")
+data2 <- readRDS("data/output/predictor_panel.rds")
 
 # Extract the data 
 corr_data <- data2 %>%
-  dplyr::select(country_name, country_code, year, matches("^prop_miss_sdg\\d+"), 
+  dplyr::select(country_name, country_code, year, matches("^prop_miss_SDG\\d+_sdr"), 
                 elect_dem, lib_dem, log_gdppc, log_pop, income_level, rural_pop_pct, 
                 rd_expenditure_pct)
 
 # Matrix: (R) correlations for each SDG against lib_dem by year
 correlation_data <- corr_data %>%
-  select(year, matches("^prop_miss_sdg\\d+"), lib_dem) %>%
+  select(year, matches("^prop_miss_SDG\\d+_sdr"), lib_dem) %>%
   group_by(year) %>%
   summarise(
     across(
-      matches("^prop_miss_sdg\\d+"),
+      matches("^prop_miss_SDG\\d+_sdr"),
       ~cor(.x, lib_dem, use = "pairwise.complete.obs"),
       .names = "{.col}"
     )
   ) %>%
   pivot_longer(
-    cols = matches("^prop_miss_sdg\\d+"),
+    cols = matches("^prop_miss_SDG\\d+_sdr"),
     names_to = "SDG",
     values_to = "correlation"
   ) %>%
