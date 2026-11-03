@@ -13,7 +13,7 @@ library(kableExtra)
 # load data
 #source("code/data_prep/panel_wrangling.R")
 data <- readRDS("data/output/predictor_panel.rds")
-#data <- read_csv("data/output/ES_panel_data.csv")
+#data <- read_csv("data/output/panel_es_data.csv")
 
 # save data as csv
 write_csv(data, "data/output/predictor_panel.csv")

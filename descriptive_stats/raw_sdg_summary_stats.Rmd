@@ -214,7 +214,7 @@ sdg <- read_excel("data/input/SDR2025-data.xlsx", sheet = "Backdated SDG Index")
   filter(!id %in% ids_to_drop)
 
 # panel data (for income levels)
-ES_panel_data <- read_csv("data/output/ES_panel_data.csv") %>%
+panel_es_data <- read_csv("data/output/panel_es_data.csv") %>%
   filter(year >= 2000) %>% 
   filter(!country_code %in% ids_to_drop)
 ```

@@ -15,7 +15,7 @@ theme_set(theme_minimal(base_size = 12))
 source("code/install_packages.r")
 
 # Load data
-df <- read.csv("data/output/ES_panel_data.csv")
+df <- read.csv("data/output/panel_es_data.csv")
 
 # Create panel data structure
 df <- df %>%
@@ -88,7 +88,7 @@ cat("\nAPPROACH 1: TWO-WAY FIXED EFFECTS (TWFE)\n")
 cat(paste(rep("=", 80), collapse=""), "\n\n")
 
 # List of outcome variables
-outcome_vars <- c("prop_sdg_missing", 
+outcome_vars <- c("prop_sdg_missing_sdr", 
                  paste0("prop_miss_SDG", 1:17))
 
 # Function to run TWFE model
@@ -112,7 +112,7 @@ for (outcome in outcome_vars) {
 
 # Main result: Overall SDG missing data
 cat("\n--- Main Result: Overall SDG Data Availability ---\n")
-summary(twfe_results$prop_sdg_missing)
+summary(twfe_results$prop_sdg_missing_sdr)
 
 # Extract coefficients for all models
 twfe_coefs <- map_df(names(twfe_results), function(outcome) {
@@ -157,19 +157,19 @@ cat(sprintf("Mean backsliding (when >0): %.4f\n",
 cat(sprintf("Mean democratization (when >0): %.4f\n", 
             mean(df$democratization[df$democratization > 0], na.rm = TRUE)))
 cat(sprintf("Observations used in TWFE model: %d\n", 
-            nobs(twfe_results$prop_sdg_missing)))
+            nobs(twfe_results$prop_sdg_missing_sdr)))
 
 # Test for asymmetry using linearHypothesis
 cat("\n--- Testing Asymmetric Effects ---\n")
 cat("H0: backsliding = democratization\n\n")
 
 # Check if both coefficients exist
-coef_names <- names(coef(twfe_results$prop_sdg_missing))
+coef_names <- names(coef(twfe_results$prop_sdg_missing_sdr))
 has_both <- "backsliding" %in% coef_names && "democratization" %in% coef_names
 
 if (has_both) {
   # Perform linear hypothesis test
-  lh_test <- linearHypothesis(twfe_results$prop_sdg_missing,
+  lh_test <- linearHypothesis(twfe_results$prop_sdg_missing_sdr,
                               "backsliding = democratization")
   
   print(lh_test)
@@ -188,8 +188,8 @@ if (has_both) {
   }
   
   # Show actual coefficients for context
-  coefs <- coef(twfe_results$prop_sdg_missing)
-  ses <- se(twfe_results$prop_sdg_missing)
+  coefs <- coef(twfe_results$prop_sdg_missing_sdr)
+  ses <- se(twfe_results$prop_sdg_missing_sdr)
   cat(sprintf("\nBacksliding coefficient:      %.5f (SE: %.5f)\n",
               coefs["backsliding"], ses["backsliding"]))
   cat(sprintf("Democratization coefficient:  %.5f (SE: %.5f)\n",
@@ -205,11 +205,11 @@ if (has_both) {
 cat("\n--- Robustness Check: Lagged Dependent Variable ---\n")
 df <- df %>%
   group_by(country_code) %>%
-  mutate(prop_sdg_missing_lag = dplyr::lag(prop_sdg_missing)) %>%
+  mutate(prop_sdg_missing_lag = dplyr::lag(prop_sdg_missing_sdr)) %>%
   ungroup()
 
 # Lagged Dependent Variable (Missingness)
-twfe_robust <- feols(prop_sdg_missing ~ backsliding + democratization + 
+twfe_robust <- feols(prop_sdg_missing_sdr ~ backsliding + democratization + 
                     log_gdppc + electric_access + rural_pop_pct 
                     | country_code + year,
                     data = df,
@@ -227,7 +227,7 @@ cat(paste(rep("=", 80), collapse=""), "\n\n")
 
 # Prepare data for C-S (remove missing values)
 cs_data <- df %>%
-  filter(!is.na(prop_sdg_missing),
+  filter(!is.na(prop_sdg_missing_sdr),
          !is.na(log_gdppc),
          !is.na(log_pop)) %>%
   mutate(
@@ -254,7 +254,7 @@ cat(sprintf("Treated countries (ever autocratized): %d\n", n_treated))
 # Run Callaway-Sant'Anna
 cat("\nEstimating group-time ATTs...\n")
 cs_results <- att_gt(
-  yname = "prop_sdg_missing",
+  yname = "prop_sdg_missing_sdr",
   tname = "year",
   idname = "country_id",
   gname = "aut_cohort",
@@ -330,7 +330,7 @@ print(prop.table(table_cat))
 
 # Run categorical model
 cat("\n--- Categorical Model: Main Results ---\n")
-cat_model <- feols(prop_sdg_missing ~ change_category + 
+cat_model <- feols(prop_sdg_missing_sdr ~ change_category + 
                    log_gdppc + log_pop + electric_access + rural_pop_pct|
                    country_code + year,
                   data = df,
@@ -444,8 +444,8 @@ comparison_data <- tibble(
                "Categorical - Moderate Democratization",
                "Categorical - Large Democratization"),
   Estimate = c(
-    coef(twfe_results$prop_sdg_missing)["backsliding"],
-    coef(twfe_results$prop_sdg_missing)["democratization"],
+    coef(twfe_results$prop_sdg_missing_sdr)["backsliding"],
+    coef(twfe_results$prop_sdg_missing_sdr)["democratization"],
     cs_agg$overall.att,
     coef(cat_model)["change_categoryLarge backsliding"],
     coef(cat_model)["change_categoryModerate backsliding"],
@@ -453,8 +453,8 @@ comparison_data <- tibble(
     coef(cat_model)["change_categoryLarge democratization"]
   ),
   SE = c(
-    se(twfe_results$prop_sdg_missing)["backsliding"],
-    se(twfe_results$prop_sdg_missing)["democratization"],
+    se(twfe_results$prop_sdg_missing_sdr)["backsliding"],
+    se(twfe_results$prop_sdg_missing_sdr)["democratization"],
     cs_agg$overall.se,
     se(cat_model)["change_categoryLarge backsliding"],
     se(cat_model)["change_categoryModerate backsliding"],
@@ -503,7 +503,7 @@ cat(paste(rep("=", 80), collapse=""), "\n\n")
 
 # 6.1 Alternative clustering (by year)
 cat("--- Robustness 1: Alternative clustering (by year) ---\n")
-twfe_cluster_year <- feols(prop_sdg_missing ~ backsliding + democratization + 
+twfe_cluster_year <- feols(prop_sdg_missing_sdr ~ backsliding + democratization + 
                             log_gdppc + log_pop + electric_access + rural_pop_pct |
                             country_code + year,
                            data = df,
@@ -512,7 +512,7 @@ summary(twfe_cluster_year)
 
 # 6.2 Two-way clustering
 cat("\n--- Robustness 2: Two-way clustering ---\n")
-twfe_cluster_twoway <- feols(prop_sdg_missing ~ backsliding + democratization +
+twfe_cluster_twoway <- feols(prop_sdg_missing_sdr ~ backsliding + democratization +
                               log_gdppc + log_pop + electric_access + rural_pop_pct |
                               country_code + year,
                              data = df,
@@ -534,7 +534,7 @@ switchers <- df %>%
 df_stable <- df %>%
   filter(!(country_code %in% switchers$country_code))
 
-twfe_stable <- feols(prop_sdg_missing ~ backsliding + democratization +
+twfe_stable <- feols(prop_sdg_missing_sdr ~ backsliding + democratization +
                      log_gdppc + log_pop + electric_access + rural_pop_pct|
                      country_code + year,
                     data = df_stable,
@@ -551,7 +551,7 @@ df_placebo <- df %>%
   ) %>%
   ungroup()
 
-twfe_placebo <- feols(prop_sdg_missing ~ backsliding_lead + democratization_lead +
+twfe_placebo <- feols(prop_sdg_missing_sdr ~ backsliding_lead + democratization_lead +
                       backsliding + democratization +
                       log_gdppc + log_pop + electric_access + rural_pop_pct|
                       country_code + year,
@@ -568,7 +568,7 @@ for (inc_level in c("L", "LM", "UM", "H")) {
 
   if (nrow(df_inc) > 100) {
     income_results[[inc_level]] <- feols(
-      prop_sdg_missing ~ backsliding + democratization +
+      prop_sdg_missing_sdr ~ backsliding + democratization +
         log_gdppc + log_pop + electric_access + rural_pop_pct|
         country_code + year,
       data = df_inc,
@@ -589,7 +589,7 @@ cat("\nEXPORTING RESULTS\n")
 cat(paste(rep("=", 80), collapse=""), "\n\n")
 
 # Create regression table
-etable(twfe_results$prop_sdg_missing, 
+etable(twfe_results$prop_sdg_missing_sdr, 
        twfe_robust,
        cat_model,
        file = "regression_table.tex",
