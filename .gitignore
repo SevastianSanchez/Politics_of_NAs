@@ -16,3 +16,15 @@ data/raw/**/*.csv
 # Local tooling and private material (kept on disk, never pushed)
 .claude/
 _private_archive/
+
+# Large local-only working material (kept on disk, never pushed).
+# gis_related holds ~200 MB of geopackages, one of them 133 MB — over GitHub's
+# 100 MB per-file hard limit, so a `git add -A` that catches it fails the push.
+# If the dashboard needs map geometry, generate a simplified iso3-keyed file
+# small enough to track rather than tracking these.
+gis_related/
+
+# compIndexBuilder is a separate R package (Shiny app for building composite
+# indices), not part of this analysis. Belongs in its own repository.
+misc/compIndexBuilder/
+misc/compIndexBuilder_*.tar.gz

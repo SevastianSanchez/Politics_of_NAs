@@ -12,7 +12,7 @@ theme_set(theme_minimal(base_size = 12))
 ################################################################################
 
 # Load/install packages
-source("code/install_packages.R")
+source("code/packages.R")
 
 # Load data
 df <- read.csv("data/output/panel_es_data.csv")

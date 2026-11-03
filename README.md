@@ -34,12 +34,11 @@ The cleaned outcome tables, their grain, keys and every column are documented in
 | `causal_inference_mods/` | TWFE (`overall_twfe_analysis.Rmd`), Callaway–Sant'Anna DiD (`cs_did_analysis_v2.Rmd`), event studies, robustness checks |
 | `descriptive_stats/` | Descriptive analysis and summary tables |
 | `figures/`, `results_csv/` | Exported figures and model results |
-| `gis_related/` | QGIS project and country geometries for mapping |
 | `docs/` | Source for the interactive data dictionary |
 
 ## Reproducing
 
-Install dependencies with `code/install_packages.R` (loaded in scripts via `code/packages.R`). The raw UN SDG goal exports are not tracked because of their size; download them from the [UN SDG Global Database](https://unstats.un.org/sdgs/dataportal) into `data/raw/un_sdg_goal_exports/`, then run `code/data_prep/extract_SDG_series_data_2015_2023.R` to rebuild `data/clean/`.
+Dependencies are handled by `code/packages.R`, which installs anything missing (including `vdemdata` and `ERT` from GitHub, which are not on CRAN) and then loads everything. Scripts source it directly. The raw UN SDG goal exports are not tracked because of their size; download them from the [UN SDG Global Database](https://unstats.un.org/sdgs/dataportal) into `data/raw/un_sdg_goal_exports/`, then run `code/data_prep/extract_SDG_series_data_2015_2023.R` to rebuild `data/clean/`.
 
 ## Related work
 
