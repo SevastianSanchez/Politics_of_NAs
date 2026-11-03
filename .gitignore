@@ -28,3 +28,11 @@ gis_related/
 # indices), not part of this analysis. Belongs in its own repository.
 misc/compIndexBuilder/
 misc/compIndexBuilder_*.tar.gz
+
+# Build artifacts: knitr caches and R workspace dumps. Regenerated on knit,
+# and every rerun writes a new multi-MB blob into history if tracked.
+**/*_cache/
+**/*_files/
+*.RData
+*.rdb
+*.rdx
