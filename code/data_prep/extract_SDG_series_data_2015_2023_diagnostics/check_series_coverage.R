@@ -1,6 +1,6 @@
 # =============================================================================
 # DIAGNOSTIC: Series coverage check
-# Companion to code/data_prep/extract_SDG_series_data_2015_2023.r
+# Companion to code/data_prep/extract_SDG_series_data_2015_2023.R
 # =============================================================================
 #
 # WHY THIS EXISTS

@@ -28,7 +28,7 @@ The cleaned outcome tables, their grain, keys and every column are documented in
 
 | Folder | Contents |
 |---|---|
-| `code/data_prep/` | Extraction and cleaning of the UN SDG exports (`extract_SDG_series_data_2015_2023.r`), series stability, panel construction |
+| `code/data_prep/` | Extraction and cleaning of the UN SDG exports (`extract_SDG_series_data_2015_2023.R`), series stability, panel construction |
 | `data/clean/` | Analysis-ready outcome tables (see data dictionary) |
 | `data/input/`, `data/output/` | Covariate inputs and the merged country-year panel |
 | `causal_inference_mods/` | TWFE (`overall_twfe_analysis.Rmd`), Callaway–Sant'Anna DiD (`cs_did_analysis_v2.Rmd`), event studies, robustness checks |
@@ -39,7 +39,7 @@ The cleaned outcome tables, their grain, keys and every column are documented in
 
 ## Reproducing
 
-Install dependencies with `code/install_packages.r` (loaded in scripts via `code/packages.R`). The raw UN SDG goal exports are not tracked because of their size; download them from the [UN SDG Global Database](https://unstats.un.org/sdgs/dataportal) into `data/raw/un_sdg_goal_exports/`, then run `code/data_prep/extract_SDG_series_data_2015_2023.r` to rebuild `data/clean/`.
+Install dependencies with `code/install_packages.R` (loaded in scripts via `code/packages.R`). The raw UN SDG goal exports are not tracked because of their size; download them from the [UN SDG Global Database](https://unstats.un.org/sdgs/dataportal) into `data/raw/un_sdg_goal_exports/`, then run `code/data_prep/extract_SDG_series_data_2015_2023.R` to rebuild `data/clean/`.
 
 ## Related work
 

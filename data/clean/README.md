@@ -1,6 +1,6 @@
 # `data/clean/` — data dictionary
 
-Outputs of [`code/data_prep/extract_SDG_series_data_2015_2023.r`](../../code/data_prep/extract_SDG_series_data_2015_2023.r).
+Outputs of [`code/data_prep/extract_SDG_series_data_2015_2023.R`](../../code/data_prep/extract_SDG_series_data_2015_2023.R).
 One source table, six derived. UN SDG Global Database, **2015–2023**, **197 geographies**,
 **665 series**. Downloaded Aug 16 2026.
 

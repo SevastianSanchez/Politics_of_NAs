@@ -4,7 +4,7 @@
 #
 # HOW THIS IS USED
 # ----------------
-#   (a) Sourced from extract_SDG_series_data_2015_2023.r (section D0), where
+#   (a) Sourced from extract_SDG_series_data_2015_2023.R (section D0), where
 #       raw_data is already in memory. It is used as-is — no re-read.
 #   (b) Run directly (Rscript code/data_prep/build_series_stability.R) to
 #       rebuild the table without re-running the extract. In that case
@@ -65,7 +65,7 @@ if (exists("raw_data", inherits = TRUE) && is.data.frame(raw_data)) {
   .raw_path <- "data/clean/raw_data.csv.gz"
   if (!file.exists(.raw_path)) {
     stop("raw_data is not in the environment and ", .raw_path, " does not exist.\n",
-         "Run extract_SDG_series_data_2015_2023.r first.", call. = FALSE)
+         "Run extract_SDG_series_data_2015_2023.R first.", call. = FALSE)
   }
   message("build_series_stability: loading ", .raw_path)
   raw_data <- read_csv(.raw_path, col_types = cols(.default = col_character()),
