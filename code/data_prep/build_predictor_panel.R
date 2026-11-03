@@ -11,7 +11,7 @@
 # OUTPUT: data/output/predictor_panel.{rds,csv}  — one row per country x year
 #   Written under a NEW name on purpose. The old orphan file stays in place as
 #   a comparison reference (Section G). Once you trust this, point
-#   causal_inf_data_prep.R at predictor_panel.rds instead.
+#   causal_inf_data_prep.R reads it (the switch has been made).
 #
 # WHY SNAPSHOTS (Section C)
 # V-Dem and WDI revise their back-history between releases. Measured against
@@ -413,7 +413,4 @@ if (file.exists(manifest_path)) {
   message("Source vintages (data/input/snapshots/_manifest.csv):")
   print(as.data.frame(read_csv(manifest_path, show_col_types = FALSE)), row.names = FALSE)
 }
-message("\nNEXT: when you trust this, change causal_inf_data_prep.R line ~35 from")
-message("  readRDS(\"data/output/sdg_democracy_paneldata.rds\")")
-message("to")
-message("  readRDS(\"data/output/predictor_panel.rds\")")
+message("\nRead by code/data_prep/causal_inf_data_prep.R -> MAIN_panel_data.")

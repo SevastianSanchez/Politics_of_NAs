@@ -8,7 +8,7 @@ output: html_document
 source("code/packages.R")
 
 # Data prep 
-#source("causal_inference_mods/causal_inf_data_prep.R")
+#source("code/data_prep/causal_inf_data_prep.R")
 
 # Load data (adjust path if needed)
 #panel <- readRDS("data/output/MAIN_panel_data.rds")
@@ -691,8 +691,6 @@ goal_ft <- goal_table %>%
 save_as_image(goal_ft, path = "figures/causal_inference/twfe_goal_level_m3_table.png")
 
 # save panel data with goal-level missingness for future use
-#write_csv(panel, "data/output/MAIN_panel_data.csv")
-#saveRDS(panel, "data/output/MAIN_panel_data.rds")
 ```
 
 

@@ -27,7 +27,7 @@ library(patchwork)
 
 ```{r load-data}
 # panel <- read_csv("data/output/panel_es_data.csv")
-source("causal_inference_mods/causal_inf_data_prep.R")
+source("code/data_prep/causal_inf_data_prep.R")
 
 
 # number of NAs for each control variable using colSums and is.na
