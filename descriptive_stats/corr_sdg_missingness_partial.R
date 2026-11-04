@@ -4,7 +4,7 @@
 #
 # PURPOSE (not yet written)
 # ------------------------
-# The partial-effects counterpart to corr_matrix_sdg_NAs.R. That script
+# The partial-effects counterpart to corr_sdg_missingness.R. That script
 # correlates goal-level missingness against democracy indices directly; this
 # one is meant to do the same NET of the structural covariates (income,
 # log_gdppc, log_pop, rural_pop_pct, statistical capacity), so the remaining

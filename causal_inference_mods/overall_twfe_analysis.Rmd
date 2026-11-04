@@ -226,7 +226,7 @@ cor_matrix %>% round(2) %>% knitr::kable(
   caption = "Correlation matrix for control variables")
 
 # # All covariates used in models
-# source("descriptive_stats/corr_matrix_key_vars.R")
+# source(here("causal_inference_mods/corr_model_covariates.R"))
 ```
 
 *NOTES ABOUT VARIABLES:*

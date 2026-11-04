@@ -8,11 +8,11 @@ output/
   descriptive/      descriptive_stats/descriptive_analysis.Rmd
     figures/        19 PNGs
     tables/         PNG for the draft + CSV of the same numbers
-    results/        findings as data (multi-series_df.csv)
+    results/        findings as data
   causal/           causal_inference_mods/*.Rmd
-    figures/        coefficient and event-study plots
+    figures/        6 knitted CS DiD plots (PDF), names mirroring results/
     tables/         PNG + CSV, four regression/diagnostic tables
-    results/        Callaway-Sant'Anna ATTs, four CSVs
+    results/        Callaway-Sant'Anna ATTs (4 CSVs), multi-series event counts
 ```
 
 **Rules, so this does not drift again.**
@@ -37,3 +37,9 @@ output/
 Figures and tables are tracked in git on purpose: they are small, they are the
 figures in the paper draft, and a reviewer opening the repo should see results
 without running anything.
+
+Knitted output does not stay beside the Rmd. The CS DiD figures were sitting in
+`causal_inference_mods/cs_did_analysis_v2_files/figure-latex/` with knitr's own
+names (`plot-group-att-1.pdf`); they are now in `causal/figures/` named after
+the results they go with. `*_files/` and `*_cache/` are gitignored, so anything
+left there is lost on the next clean -- write figures here explicitly.

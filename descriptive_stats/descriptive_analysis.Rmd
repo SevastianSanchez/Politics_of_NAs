@@ -117,10 +117,10 @@ ggsave(filename = here("output/descriptive/figures/combined_histograms.png"),
 ## Descriptive Analysis: Correlation Matrix of SDG Missingness and Democracy Levels
 ```{r eval=FALSE, include=FALSE}
 # SDG missingness x democracy levels (elect_dem, lib_dem, di_score) 
-source("descriptive_stats/corr_matrix_sdg_NAs.R")
+source(here("descriptive_stats/corr_sdg_missingness.R"))
 
 # SDG missingness x democracy levels (elect_dem, lib_dem, di_score) [partial]
-source("descriptive_stats/partial_corr_matrix_sdg_NAs.R")
+source(here("descriptive_stats/corr_sdg_missingness_partial.R"))
 ```
 
 

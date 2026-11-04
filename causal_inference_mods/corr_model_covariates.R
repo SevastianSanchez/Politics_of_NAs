@@ -15,6 +15,9 @@
 # ----------
 #   causal_inference_mods/overall_twfe_analysis.Rmd  (call currently commented)
 #
+# Moved here from descriptive_stats/ on 4 Nov 2026: it is sourced only by the
+# TWFE file and supports its collinearity/VIF section, so it belongs beside it.
+#
 # STATUS
 # ------
 # Intentionally empty. It parses and sources cleanly. Replace this file when

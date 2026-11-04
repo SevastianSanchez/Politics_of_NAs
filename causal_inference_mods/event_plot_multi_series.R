@@ -3,6 +3,28 @@
 # Count of countries with increased SDG missingness
 # relative to the immediately previous calendar year
 # =========================================================
+#
+# Moved here from descriptive_stats/ on 4 Nov 2026. It builds first_treat from
+# aut_ep_start_yr, computes event_time, and averages over pre/post windows --
+# that is event-study machinery, so it belongs beside event_study_stag_twfe.Rmd
+# rather than with the descriptive summaries.
+#
+# ---------------------------------------------------------------------------
+# DOES NOT RUN AS WRITTEN. Two column sets it depends on are gone:
+#
+#   n_miss_SDG1..17     0 such columns in MAIN_panel_data
+#   prop_miss_SDG1..17  present, but named prop_miss_SDG1_sdr ... _SDG17_sdr
+#
+# starts_with("prop_miss_SDG") still selects them, but the pivot_longer
+# names_pattern "(n_miss|prop_miss)_SDG(\\d+)" cannot match a name ending in
+# _sdr, so the reshape at the goal level fails.
+#
+# These were the SDSN/SDR-derived outcomes, renamed with an _sdr suffix when
+# that source was abandoned. Do not just add _sdr to the pattern: the whole
+# point is that the SDR outcome is superseded. Repoint this at the UN Global
+# Database measure in data/clean/goal_lvl_dv_data.rds, whose goal-level
+# missingness columns are the intended replacement.
+# ---------------------------------------------------------------------------
 
 # 1) Load packages and data ----
 source(here::here("code/packages.R"))
@@ -173,7 +195,7 @@ plot_df_all <- bind_rows(plot_df_overall, plot_df_goals) %>%
     n_decrease, n_same, prop_n_increase, prop_n_decrease, prop_n_same, dplyr::everything())
 
 # 8) saving 
-write_csv(plot_df_all, here("output/descriptive/results/multi-series_df.csv"))
+write_csv(plot_df_all, here("output/causal/results/multi_series_event_df.csv"))
 
 # Plot 1:  --------------------------------------------------------------------
 
