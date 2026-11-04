@@ -1,0 +1,26 @@
+# Default YAML header for knitted reports in this project.
+# Copy the block between the --- fences to the top of an .Rmd file.
+# Carried over from the SIPA U6614 template; title and author filled in for
+# this project. Keep both output formats so a report knits to HTML for
+# reading and PDF for submission without editing the header.
+---
+title: 'The Politics of NAs: Mapping Data Loss During Autocratization'
+subtitle: 'Section X'
+author: 'Sevastian Sanchez'
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    number_sections: yes
+    highlight: tango
+    theme: default
+    fig_caption: yes
+    df_print: tibble
+  pdf_document:
+    toc: no
+    toc_depth: '3'
+    number_sections: yes
+urlcolor: blue
+---
