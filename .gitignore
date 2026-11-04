@@ -4,12 +4,11 @@
 **/._.DS_Store
 .Rproj.user
 
-# The bulk UN SDG goal exports (310 MB) and the update-info workbook: the
-# measure's own source, re-downloadable, documented in the README. Everything
-# else in data/01_source/ is a small covariate source and IS tracked -- so
-# these rules name the two paths, not every spreadsheet in the folder.
+# The bulk UN SDG goal exports only (310 MB). Too large to track; the README
+# documents re-downloading them. Everything else in data/01_source/ is small
+# and IS tracked, including sdg_update_info.xlsx, so a fresh clone can run
+# build_series_stability.R without re-downloading anything.
 data/01_source/un_sdg_exports/
-data/01_source/sdg_update_info.xlsx
 
 # Local R session files
 .RData

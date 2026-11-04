@@ -51,7 +51,30 @@ working directory is.
 
 ## Reproducing
 
-Dependencies are handled by `code/packages.R`, which installs anything missing (including `vdemdata` and `ERT` from GitHub, which are not on CRAN) and then loads everything. Scripts source it directly. The raw UN SDG goal exports are not tracked because of their size; download them from the [UN SDG Global Database](https://unstats.un.org/sdgs/dataportal) into `data/01_source/un_sdg_exports/`, then run `code/data_prep/extract_SDG_series_data_2015_2023.R` to rebuild `data/02_measure/`.
+Dependencies are handled by `code/packages.R`, which installs anything missing
+(including `vdemdata` and `ERT` from GitHub, which are not on CRAN) and then
+loads everything. Scripts source it directly.
+
+**Everything runs from a fresh clone except the extract.** Every input the
+other scripts need is tracked, including the built measure itself
+(`data/02_measure/raw_data.csv.gz`), so you do not have to rebuild the measure
+to use it or to run anything downstream of it:
+
+| Script | From a clone |
+|---|---|
+| `build_series_stability.R` | runs |
+| `..._diagnostics/check_series_coverage.R` | runs |
+| `build_predictor_panel.R` | runs — V-Dem and WDI read from the pinned snapshots; set `refresh_sources <- TRUE` to re-pull |
+| `causal_inf_data_prep.R` | runs, needs network — pulls the World Bank SPI index live |
+| `build_analysis_frame.Rmd` | runs |
+| `extract_SDG_series_data_2015_2023.R` | **needs the download below** |
+
+The UN SDG goal exports are 310 MB, too large to track. To rebuild the measure
+from source, download them from the
+[UN SDG Global Database](https://unstats.un.org/sdgs/dataportal) into
+`data/01_source/un_sdg_exports/`, then run
+`code/data_prep/extract_SDG_series_data_2015_2023.R` to regenerate
+`data/02_measure/`. Nothing else requires that download.
 
 ## Related work
 
