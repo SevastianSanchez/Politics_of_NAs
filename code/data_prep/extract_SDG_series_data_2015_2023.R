@@ -74,6 +74,9 @@ required_packages <- c("readxl", "dplyr", "purrr", "readr", "tidyr", "stringr",
 missing_packages <- required_packages[!required_packages %in% rownames(installed.packages())]
 if (length(missing_packages) > 0) install.packages(missing_packages)
 
+# here::here() resolves from the .Rproj root whatever the working directory is,
+# so this file works when sourced, run line-by-line, or knitted.
+library(here)
 library(readxl)
 library(dplyr)
 library(purrr)
@@ -99,8 +102,8 @@ end_year   <- 2023L
 baseline_years <- 2015:2017
 
 # Filesystem locations.
-input_folder  <- "data/raw/un_sdg_goal_exports"
-output_folder <- "data/clean"
+input_folder  <- here("data/raw/un_sdg_goal_exports")
+output_folder <- here("data/clean")
 dir.create(output_folder, recursive = TRUE, showWarnings = FALSE)
 
 # Only retain fields needed for an auditable series-availability analysis.
@@ -779,7 +782,7 @@ write_csv(raw_data, file.path(output_folder, "raw_data.csv.gz"))
 # Input = raw_data already in memory 
 # Output (objects) = `series_stability` and `stable_codes` — and writes
 # data/clean/series_stability.csv. 
-source("code/data_prep/build_series_stability.R")
+source(here("code/data_prep/build_series_stability.R"))
 
 
 # ---- D1. Country lookup → countries -----------------------------------------

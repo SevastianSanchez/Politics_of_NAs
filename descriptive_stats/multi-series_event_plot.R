@@ -5,9 +5,9 @@
 # =========================================================
 
 # 1) Load packages and data ----
-source("code/packages.R")
+source(here::here("code/packages.R"))
 
-panel <- read_csv("data/output/MAIN_panel_data.csv")
+panel <- read_csv(here("data/panels/MAIN_panel_data.csv"))
   
 ts_data <- panel %>%
   group_by(country_code) %>%
@@ -173,7 +173,7 @@ plot_df_all <- bind_rows(plot_df_overall, plot_df_goals) %>%
     n_decrease, n_same, prop_n_increase, prop_n_decrease, prop_n_same, dplyr::everything())
 
 # 8) saving 
-write_csv(plot_df_all, "data/output/multi-series_df.csv")
+write_csv(plot_df_all, here("output/descriptive/results/multi-series_df.csv"))
 
 # Plot 1:  --------------------------------------------------------------------
 

@@ -5,10 +5,10 @@
 # WHAT THIS DOES
 # Builds the country-year panel of treatment and control variables from its
 # sources, so the predictor side of the analysis is reproducible. Replaces
-# data/output/sdg_democracy_paneldata.rds, which had no builder: it existed on
+# data/panels/sdg_democracy_paneldata.rds, which had no builder: it existed on
 # disk, four scripts read it, and nothing could regenerate it.
 #
-# OUTPUT: data/output/predictor_panel.{rds,csv}  — one row per country x year
+# OUTPUT: data/panels/predictor_panel.{rds,csv}  — one row per country x year
 #   Written under a NEW name on purpose. The old orphan file stays in place as
 #   a comparison reference (Section G). Once you trust this, point
 #   causal_inf_data_prep.R reads it (the switch has been made).
@@ -38,6 +38,9 @@
 # =============================================================================
 
 suppressPackageStartupMessages({
+# here::here() resolves from the .Rproj root whatever the working directory is,
+# so this file works when sourced, run line-by-line, or knitted.
+library(here)
   library(readxl); library(readr); library(dplyr); library(tidyr)
   library(stringr); library(countrycode); library(purrr)
 })
@@ -53,17 +56,17 @@ end_year   <- 2023L
 # FALSE (default) reads the newest snapshot on disk — reproducible.
 refresh_sources <- FALSE
 
-snapshot_dir <- "data/input/snapshots"
-output_dir   <- "data/output"
+snapshot_dir <- here("data/input/snapshots")
+output_dir   <- here("data/panels")
 dir.create(snapshot_dir, recursive = TRUE, showWarnings = FALSE)
 
 # Frozen inputs: files on disk, so they cannot drift between runs.
-path_sdr        <- "data/input/SDR2025-data.xlsx"
+path_sdr        <- here("data/input/SDR2025-data.xlsx")
 sheet_sdr       <- "All Raw Data"
-path_ert        <- "data/input/ert.csv"
-path_gdppc      <- "data/input/gdppc_df_long.csv"
-path_income     <- "data/input/world_bank_income_classifications.csv"
-path_orphan     <- "data/output/sdg_democracy_paneldata.rds"   # reference only
+path_ert        <- here("data/input/ert.csv")
+path_gdppc      <- here("data/input/gdppc_df_long.csv")
+path_income     <- here("data/input/world_bank_income_classifications.csv")
+path_orphan     <- here("data/panels/sdg_democracy_paneldata.rds")   # reference only
 
 
 # =============================================================================
@@ -408,7 +411,7 @@ if (file.exists(path_orphan)) {
 saveRDS(predictor_panel, file.path(output_dir, "predictor_panel.rds"))
 write_csv(predictor_panel, file.path(output_dir, "predictor_panel.csv"))
 
-message("\nWrote data/output/predictor_panel.{rds,csv}")
+message("\nWrote data/panels/predictor_panel.{rds,csv}")
 if (file.exists(manifest_path)) {
   message("Source vintages (data/input/snapshots/_manifest.csv):")
   print(as.data.frame(read_csv(manifest_path, show_col_types = FALSE)), row.names = FALSE)

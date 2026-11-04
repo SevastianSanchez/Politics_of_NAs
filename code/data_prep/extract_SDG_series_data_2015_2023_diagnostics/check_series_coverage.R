@@ -27,12 +27,15 @@
 # =============================================================================
 
 suppressPackageStartupMessages({
+# here::here() resolves from the .Rproj root whatever the working directory is,
+# so this file works when sourced, run line-by-line, or knitted.
+library(here)
   library(readr); library(dplyr); library(jsonlite)
 })
 
 # ---- Paths -------------------------------------------------------------------
 # Run from the project root. raw_data.csv.gz is written by the extract script.
-raw_data_path <- "data/clean/raw_data.csv.gz"
+raw_data_path <- here("data/clean/raw_data.csv.gz")
 stopifnot(file.exists(raw_data_path))
 
 

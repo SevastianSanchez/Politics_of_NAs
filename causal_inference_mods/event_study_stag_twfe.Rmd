@@ -8,7 +8,7 @@ output: html_document
 # source("code/packages.R")
 # 
 # # load data 
-# panel <- readRDS("data/output/MAIN_panel_data.rds")
+# panel <- readRDS("data/panels/MAIN_panel_data.rds")
 # 
 # # # convert year to integer for event time calculations
 # # panel <- panel %>% 
@@ -175,8 +175,9 @@ iplot(
 
 
 ```{r}
-# saving panel_es as csv
-write_csv(panel_es, "data/output/panel_es_data.csv")
+# panel_es_data.csv is written by code/data_prep/causal_inf_data_prep.R, which
+# owns it. This chunk used to write it too, so running this file could overwrite
+# the canonical copy with whatever state this session happened to hold.
 ```
 
 

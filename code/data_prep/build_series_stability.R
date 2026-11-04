@@ -49,6 +49,9 @@
 # =============================================================================
 
 suppressPackageStartupMessages({
+# here::here() resolves from the .Rproj root whatever the working directory is,
+# so this file works when sourced, run line-by-line, or knitted.
+library(here)
   library(readr); library(dplyr); library(tidyr)
   library(stringr); library(readxl); library(janitor)
 })
@@ -62,7 +65,7 @@ if (exists("raw_data", inherits = TRUE) && is.data.frame(raw_data)) {
   message("build_series_stability: using raw_data already in the environment (",
           format(nrow(raw_data), big.mark = ","), " rows)")
 } else {
-  .raw_path <- "data/clean/raw_data.csv.gz"
+  .raw_path <- here("data/clean/raw_data.csv.gz")
   if (!file.exists(.raw_path)) {
     stop("raw_data is not in the environment and ", .raw_path, " does not exist.\n",
          "Run extract_SDG_series_data_2015_2023.R first.", call. = FALSE)
@@ -105,8 +108,8 @@ local({
 # They coincide today; the guard below catches it if they ever stop coinciding.
 core_window <- 2015:2023
 
-stability_updates_path <- "data/raw/sdg_update_info.xlsx"
-stability_output_path  <- "data/clean/series_stability.csv"
+stability_updates_path <- here("data/raw/sdg_update_info.xlsx")
+stability_output_path  <- here("data/clean/series_stability.csv")
 
 # The stable-core test requires presence in every core_window year. If raw_data
 # does not actually span the window, NO series can qualify and stable_codes

@@ -5,17 +5,18 @@ output: html_document
 
 ```{r}
 #load libraries/packages
-source("code/packages.R")
+source(here::here("code/packages.R"))
 library(dplyr)
 library(knitr)
 library(kableExtra)
 
 # load data
-data <- readRDS("data/output/predictor_panel.rds")
-#data <- read_csv("data/output/panel_es_data.csv")
+data <- readRDS(here("data/panels/predictor_panel.rds"))
+#data <- read_csv("data/panels/panel_es_data.csv")
 
-# save data as csv
-write_csv(data, "data/output/predictor_panel.csv")
+# NOTE: this chunk used to re-write data/panels/predictor_panel.csv, which made
+# an analysis script overwrite a pipeline artifact. build_predictor_panel.R is
+# the only thing that writes that file now; read it here, never write it.
 ```
 
 ## Sumary Statistics: DI Vars: elect_dem, lib_dem, di_score
@@ -86,11 +87,11 @@ hist_LDI_counts <- ggplot(data, aes(x = as.numeric(lib_dem))) +
 hist_LDI_counts
 
 # save all three histograms using ggsave 
-ggsave(filename = "descriptive_stats/figures/hist_NA_counts.png", 
+ggsave(filename = here("output/descriptive/figures/hist_NA_counts.png"), 
        plot = hist_NA_counts, width = 10, height = 8)
-ggsave(filename = "descriptive_stats/figures/hist_EDI_counts.png", 
+ggsave(filename = here("output/descriptive/figures/hist_EDI_counts.png"), 
        plot = hist_EDI_counts, width = 10, height = 8)
-ggsave(filename = "descriptive_stats/figures/hist_LDI_counts.png", 
+ggsave(filename = here("output/descriptive/figures/hist_LDI_counts.png"), 
        plot = hist_LDI_counts, width = 10, height = 8)
 
 # combine all three histograms into a single figure using patchwork
@@ -109,7 +110,7 @@ combined_histograms <-
 
 combined_histograms
 
-ggsave(filename = "descriptive_stats/figures/combined_histograms.png", 
+ggsave(filename = here("output/descriptive/figures/combined_histograms.png"), 
        plot = combined_histograms, width = 12, height = 4)
 ```
 
@@ -181,7 +182,7 @@ dens_plt_regimetype <- ggplot(data_plot,
 dens_plt_regimetype
 
 # saving density plot 1 
-ggsave(filename = "descriptive_stats/figures/dens_plt_regimetype.png", 
+ggsave(filename = here("output/descriptive/figures/dens_plt_regimetype.png"), 
        plot = dens_plt_regimetype, width = 15, height = 8)
 
 # sanity check 
@@ -229,9 +230,9 @@ box_plt_regxtime <- ggplot(data_plot,
 box_plt_regxtime
 
 # saving line and box plots 2 & 3
-ggsave(filename = "descriptive_stats/figures/line_plt_regxtime.png", 
+ggsave(filename = here("output/descriptive/figures/line_plt_regxtime.png"), 
        plot = line_plt_regxtime, width = 15, height = 8)
-ggsave(filename = "descriptive_stats/figures/box_plt_regxtime.png", 
+ggsave(filename = here("output/descriptive/figures/box_plt_regxtime.png"), 
        plot = box_plt_regxtime, width = 15, height = 8)
 
 # combine dens_plt_regimetype and line_plt_regxtime into a single figure using patchwork
@@ -254,7 +255,7 @@ combined_regime_plots <- (dens_plt_regimetype /
 combined_regime_plots
 
 ggsave(
-  filename = "descriptive_stats/figures/combined_regime_plots.png",
+  filename = here("output/descriptive/figures/combined_regime_plots.png"),
   plot     = combined_regime_plots,
   width    = 15,
   height   = 12
@@ -295,7 +296,7 @@ bar_plt_back_nonback <-ggplot(means_by_backsliding,
 bar_plt_back_nonback
 
 # save bar plot
-ggsave(filename = "descriptive_stats/figures/bar_plt_back_nonback.png", 
+ggsave(filename = here("output/descriptive/figures/bar_plt_back_nonback.png"), 
        plot = bar_plt_back_nonback, width = 12, height = 8)
 ```
 
@@ -332,7 +333,7 @@ bar_plt_back_dem_stab <- ggplot(means_by_status, aes(x = regime_status,
 bar_plt_back_dem_stab
 
 # save bar plot
-ggsave(filename = "descriptive_stats/figures/bar_plt_back_dem_stab.png", 
+ggsave(filename = here("output/descriptive/figures/bar_plt_back_dem_stab.png"), 
        plot = bar_plt_back_dem_stab, width = 12, height = 8)
 
 
@@ -357,7 +358,7 @@ combined_bars <-
 
 combined_bars
 
-ggsave(filename = "descriptive_stats/figures/combined_bars.png", 
+ggsave(filename = here("output/descriptive/figures/combined_bars.png"), 
        plot = combined_bars, width = 12, height = 10)
 
 # SUMMARY TABLE 
@@ -372,13 +373,16 @@ reg_status_sum_table <- regime_data %>%
     ci_upper = mean_missing + 1.96 * se_missing,
     .groups = "drop")
 
+# save the numbers before kable() replaces the data frame with its HTML
+write_csv(reg_status_sum_table, here("output/descriptive/tables/reg_status_sum_table.csv"))
+
 # formatting table
 reg_status_sum_table <- reg_status_sum_table %>%
   kable(digits = 3, caption = "Summary statistics of SDG missingness by regime status") %>%
   kable_classic_2(full_width = FALSE, position = "center")
 
 # save table
-save_kable(reg_status_sum_table, "descriptive_stats/tables/reg_status_sum_table.png")
+save_kable(reg_status_sum_table, here("output/descriptive/tables/reg_status_sum_table.png"))
 ```
 
 ## BACKSLIDING VS ALL ELSE: LAGGED AND LEAD MISSINGNESS
@@ -530,8 +534,9 @@ combined_long_tab <- combined_long %>%
 
 combined_long_tab
 
-# SAVE 
-save_kable(combined_long_tab, "descriptive_stats/tables/rq2_summary_tab.png")
+# SAVE — image for the draft, CSV so the numbers stay readable
+save_kable(combined_long_tab, here("output/descriptive/tables/rq2_summary_tab.png"))
+write_csv(combined_long,     here("output/descriptive/tables/rq2_summary_tab.csv"))
 
 # =============================================================================
 # BAR PLOT: BACKSLIDING YEARS VS NON-BACKSLIDING YEARS (BACKSLIDING COUNTRIES ONLY)
@@ -553,7 +558,7 @@ bar_plt_back_nonback_back_only <- ggplot(combined_summary,
 bar_plt_back_nonback_back_only
 
 #save 
-ggsave(filename = "descriptive_stats/figures/bar_plt_back_nonback_back_only.png", 
+ggsave(filename = here("output/descriptive/figures/bar_plt_back_nonback_back_only.png"), 
        plot = bar_plt_back_nonback_back_only, width = 12, height = 8)
 ```
 
@@ -576,7 +581,7 @@ dens_plt_income <- ggplot(data_plot,
 dens_plt_income
 
 # saving plot X
-ggsave(filename = "descriptive_stats/figures/dens_plt_income.png", 
+ggsave(filename = here("output/descriptive/figures/dens_plt_income.png"), 
        plot = dens_plt_income, width = 12, height = 8)
 
 # =============================================================================
@@ -597,7 +602,7 @@ box_plt_libdemxtime <- ggplot(ld_data, aes(x = factor(year), y = prop_sdg_missin
 box_plt_libdemxtime
 
 # saving plot 5
-ggsave(filename = "descriptive_stats/figures/box_plt_libdemxtime.png", 
+ggsave(filename = here("output/descriptive/figures/box_plt_libdemxtime.png"), 
        plot = box_plt_libdemxtime, width = 12, height = 8)
 
 # =============================================================================
@@ -618,7 +623,7 @@ dens_plt_income_libdem <- ggplot(ld_data,
 dens_plt_income_libdem
 
 # saving plot 6
-ggsave(filename = "descriptive_stats/figures/dens_plt_income_libdem.png", 
+ggsave(filename = here("output/descriptive/figures/dens_plt_income_libdem.png"), 
        plot = dens_plt_income_libdem, width = 12, height = 8)
 
 # Quick sanity check
@@ -638,7 +643,7 @@ box_plt_libdemxtimexincome <- ggplot(ld_data, aes(x = factor(year), y = prop_sdg
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 box_plt_libdemxtimexincome
 
-ggsave(filename = "descriptive_stats/figures/box_plt_libdemxtimexincome.png", 
+ggsave(filename = here("output/descriptive/figures/box_plt_libdemxtimexincome.png"), 
        plot = box_plt_libdemxtimexincome, width = 12, height = 8)
 
 # =============================================================================
@@ -661,7 +666,7 @@ line_plt_income_libdem <- ggplot(year_income_means,
   theme_minimal(base_size = 13)
 line_plt_income_libdem
 
-ggsave(filename = "descriptive_stats/figures/line_plt_income_libdem.png", 
+ggsave(filename = here("output/descriptive/figures/line_plt_income_libdem.png"), 
        plot = line_plt_income_libdem, width = 12, height = 8)
 ```
 
@@ -788,7 +793,8 @@ goal_diff_kable <- goal_diff_clean %>%
   kable_classic_2(full_width = FALSE)
 goal_diff_kable
 
-save_kable(goal_diff_kable, "descriptive_stats/tables/goal_diff_table.png")
+save_kable(goal_diff_kable, here("output/descriptive/tables/goal_diff_table.png"))
+write_csv(goal_diff_clean,  here("output/descriptive/tables/goal_diff_table.csv"))
 
 # =============================================================================
 # ERROR-BAR PLOTTING!
@@ -813,7 +819,7 @@ erbar_plt_goals <- ggplot(goal_diff_plot_data,
 erbar_plt_goals
 
 # saving 
-ggsave(filename = "descriptive_stats/figures/erbar_plt_goals.png", 
+ggsave(filename = here("output/descriptive/figures/erbar_plt_goals.png"), 
        plot = erbar_plt_goals, width = 12, height = 8)
 ```
 
@@ -896,7 +902,7 @@ ggplot(pre_backsliding_counts, aes(x = year, y = n_pre_backsliding, fill = incom
 ## Trend Analysis 
 ```{r}
 # load function 
-source("code/SDGCountryTrends_Function.R")
+source(here("code/SDGCountryTrends_Function.R"))
 
 create_sdg_trends_plot() # (country_name, sdg_numbers, data, sdg_colors)
 ```

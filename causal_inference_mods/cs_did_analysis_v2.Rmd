@@ -15,6 +15,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r packages}
+# here::here() resolves from the .Rproj root whatever the working directory is,
+# so this file works when sourced, run line-by-line, or knitted.
+library(here)
 library(tidyverse)
 library(did)
 library(ggplot2)
@@ -26,8 +29,8 @@ library(patchwork)
 # 1. Load Data
 
 ```{r load-data}
-# panel <- read_csv("data/output/panel_es_data.csv")
-source("code/data_prep/causal_inf_data_prep.R")
+# panel <- read_csv("data/panels/panel_es_data.csv")
+source(here("code/data_prep/causal_inf_data_prep.R"))
 
 
 # number of NAs for each control variable using colSums and is.na
@@ -636,16 +639,16 @@ if (!is.null(cs_spi_hi) && !is.null(cs_spi_lo)) {
 
 ```{r export}
 # Overall dynamic ATT
-write_csv(dynamic_overall, "data/output/cs_overall_dynamic_atts.csv")
+write_csv(dynamic_overall, here("output/causal/results/cs_overall_dynamic_atts.csv"))
 
 # Not-yet-treated robustness
-write_csv(dynamic_nyt, "data/output/cs_nyt_dynamic_atts.csv")
+write_csv(dynamic_nyt, here("output/causal/results/cs_nyt_dynamic_atts.csv"))
 
 # Goal-level dynamic ATTs
-write_csv(goal_dynamic_df, "data/output/cs_goal_dynamic_atts.csv")
+write_csv(goal_dynamic_df, here("output/causal/results/cs_goal_dynamic_atts.csv"))
 
 # Group-level ATTs
-write_csv(group_overall, "data/output/cs_group_atts.csv")
+write_csv(group_overall, here("output/causal/results/cs_group_atts.csv"))
 
 message("All results exported.")
 ```

@@ -5,13 +5,13 @@ output: html_document
 
 ## Loading prepared panel data & packages
 ```{r}
-source("code/packages.R")
+source(here::here("code/packages.R"))
 
 # Data prep 
 #source("code/data_prep/causal_inf_data_prep.R")
 
 # Load data (adjust path if needed)
-#panel <- readRDS("data/output/MAIN_panel_data.rds")
+#panel <- readRDS("data/panels/MAIN_panel_data.rds")
 panel <- analysis_data
 ```
 
@@ -83,8 +83,8 @@ na_values_by_country <- panel %>%
                 ~ .x > 0)) %>%
   janitor::adorn_totals("row")
 
-# Export the actual data [TO APPENDIX]
-#write_csv(na_values_by_country, "results_csv/na_values_by_country.csv")
+# Export the actual data [TO APPENDIX] — written as a CSV beside the table image
+# further down, so there is one copy of these numbers, not two.
 
 # Table of country NA values per variable 
 var_labels_na <- c(
@@ -122,7 +122,8 @@ na_ft <- na_ft %>%
   font(fontname = "Times New Roman", part = "footer") %>%
   autofit()
 
-save_as_image(na_ft, path = "figures/causal_inference/na_values_by_country_table.png")
+save_as_image(na_ft, path = here("output/causal/tables/na_values_by_country_table.png"))
+write_csv(na_table,         here("output/causal/tables/na_values_by_country_table.csv"))
 
 ```
 
@@ -203,7 +204,8 @@ vif_ft <- vif_ft %>%
   font(fontname = "Times New Roman", part = "footer") %>%
   autofit()
 
-save_as_image(vif_ft, path = "figures/causal_inference/vif1-4_table_twfe.png")
+save_as_image(vif_ft, path = here("output/causal/tables/vif1-4_table_twfe.png"))
+write_csv(vif_table,         here("output/causal/tables/vif1-4_table_twfe.csv"))
 ```
 
 ## Robustness Check: Correlation matrix of control variables
@@ -580,7 +582,9 @@ tab_options(
   ) %>%
   tab_source_note(source_note = "Note. Cell entries report coefficient estimates with standard errors clustered by country in parentheses below. All models include country and year fixed effects. The dependent variable is the proportion of SDG indicators missing overall.")
 
-gtsave(ldi_gt, "figures/causal_inference/twfe_lib_dem_table.png")
+# modelsummary() returns a formatted object, so re-run it with output = "data.frame"
+# to get the same coefficients as readable numbers.
+gtsave(ldi_gt, here("output/causal/tables/twfe_lib_dem_table.png"))
 ```
 
 
@@ -688,7 +692,8 @@ goal_ft <- goal_table %>%
   font(fontname = "Times New Roman", part = "footer") %>%
   autofit()
 
-save_as_image(goal_ft, path = "figures/causal_inference/twfe_goal_level_m3_table.png")
+save_as_image(goal_ft, path = here("output/causal/tables/twfe_goal_level_m3_table.png"))
+write_csv(goal_table,         here("output/causal/tables/twfe_goal_level_m3_table.csv"))
 
 # save panel data with goal-level missingness for future use
 ```

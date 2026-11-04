@@ -31,7 +31,7 @@ goal_lvl_dv_data <- read_rds(here("data/clean/goal_lvl_dv_data.rds"))
 #                              show_col_types = FALSE)
 
 # Treatment / control panel (country x year). Read-only.
-MAIN_panel_data <- read_csv(here("data/output/MAIN_panel_data.csv"),
+MAIN_panel_data <- read_csv(here("data/panels/MAIN_panel_data.csv"),
                             show_col_types = FALSE)
 
 cat("goal_lvl_dv_data:", nrow(goal_lvl_dv_data), "rows |",

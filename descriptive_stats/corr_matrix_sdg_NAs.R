@@ -1,9 +1,12 @@
+# here::here() resolves from the .Rproj root whatever the working directory is,
+# so this file works when sourced, run line-by-line, or knitted.
+library(here)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(purrr)
 
-data2 <- readRDS("data/output/predictor_panel.rds")
+data2 <- readRDS(here("data/panels/predictor_panel.rds"))
 
 # Extract the data 
 corr_data <- data2 %>%

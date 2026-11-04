@@ -28,13 +28,19 @@ The cleaned outcome tables, their grain, keys and every column are documented in
 
 | Folder | Contents |
 |---|---|
-| `code/data_prep/` | Extraction and cleaning of the UN SDG exports (`extract_SDG_series_data_2015_2023.R`), series stability, panel construction |
-| `data/clean/` | Analysis-ready outcome tables (see data dictionary) |
-| `data/input/`, `data/output/` | Covariate inputs and the merged country-year panel |
+| `code/data_prep/` | The whole pipeline: extraction and cleaning of the UN SDG exports (`extract_SDG_series_data_2015_2023.R`), series stability, predictor sourcing (`build_predictor_panel.R`), panel construction (`causal_inf_data_prep.R`), and the merge (`build_analysis_frame.Rmd`) |
+| `data/raw/` | The UN SDG goal exports. Not tracked — see Reproducing |
+| `data/input/` | External covariate sources, plus `snapshots/` holding the dated V-Dem and WDI pulls the pipeline is pinned to |
+| `data/clean/` | Analysis-ready outcome tables — the measure (see data dictionary) |
+| `data/panels/` | The built country-year panels: `predictor_panel`, `MAIN_panel_data`, `panel_es_data` |
+| `descriptive_stats/` | Descriptive analysis code (RQ1–RQ4) |
 | `causal_inference_mods/` | TWFE (`overall_twfe_analysis.Rmd`), Callaway–Sant'Anna DiD (`cs_did_analysis_v2.Rmd`), event studies, robustness checks |
-| `descriptive_stats/` | Descriptive analysis and summary tables |
-| `figures/`, `results_csv/` | Exported figures and model results |
+| `output/` | Everything the analysis produces, grouped by track then kind: `descriptive/{figures,tables,results}/` and `causal/{figures,tables,results}/`. See `output/README.md` for the rules |
 | `docs/` | Source for the interactive data dictionary |
+
+Code folders hold code; `data/` holds inputs and built panels; `output/` holds
+results. All paths in the scripts go through `here()`, so any file runs whatever
+the working directory is.
 
 ## Reproducing
 

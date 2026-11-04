@@ -22,7 +22,7 @@
 #
 # NOTE ON INPUTS
 # --------------
-# The sibling script reads data/output/predictor_panel.rds and the
+# The sibling script reads data/panels/predictor_panel.rds and the
 # SDR-derived prop_miss_SDG*_sdr columns. Those outcomes are superseded by
 # data/clean/goal_lvl_dv_data.rds, so point this at the new measure when you
 # write it rather than reproducing the old one.
