@@ -35,7 +35,7 @@ library(here)
 
 # ---- Paths -------------------------------------------------------------------
 # Run from the project root. raw_data.csv.gz is written by the extract script.
-raw_data_path <- here("data/clean/raw_data.csv.gz")
+raw_data_path <- here("data/02_measure/raw_data.csv.gz")
 stopifnot(file.exists(raw_data_path))
 
 

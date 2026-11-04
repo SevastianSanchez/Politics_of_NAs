@@ -4,9 +4,12 @@
 **/._.DS_Store
 .Rproj.user
 
-# Excluding bulk raw SDG series files
-data/raw/**/*.xls*
-data/raw/**/*.csv
+# The bulk UN SDG goal exports (310 MB) and the update-info workbook: the
+# measure's own source, re-downloadable, documented in the README. Everything
+# else in data/01_source/ is a small covariate source and IS tracked -- so
+# these rules name the two paths, not every spreadsheet in the folder.
+data/01_source/un_sdg_exports/
+data/01_source/sdg_update_info.xlsx
 
 # Local R session files
 .RData

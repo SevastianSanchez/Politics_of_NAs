@@ -8,7 +8,7 @@ output: html_document
 # source("code/packages.R")
 # 
 # # load data 
-# panel <- readRDS("data/panels/MAIN_panel_data.rds")
+# panel <- readRDS("data/03_panels/MAIN_panel_data.rds")
 # 
 # # # convert year to integer for event time calculations
 # # panel <- panel %>% 

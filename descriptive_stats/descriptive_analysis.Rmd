@@ -11,10 +11,10 @@ library(knitr)
 library(kableExtra)
 
 # load data
-data <- readRDS(here("data/panels/predictor_panel.rds"))
-#data <- read_csv("data/panels/panel_es_data.csv")
+data <- readRDS(here("data/03_panels/predictor_panel.rds"))
+#data <- read_csv("data/03_panels/panel_es_data.csv")
 
-# NOTE: this chunk used to re-write data/panels/predictor_panel.csv, which made
+# NOTE: this chunk used to re-write data/03_panels/predictor_panel.csv, which made
 # an analysis script overwrite a pipeline artifact. build_predictor_panel.R is
 # the only thing that writes that file now; read it here, never write it.
 ```

@@ -19,7 +19,7 @@ output/
 
 1. **Nothing here is an input.** Scripts read from `data/`, and write here.
    If a script needs something another script produced, that belongs in
-   `data/panels/` or `data/clean/`, not in `output/`.
+   `data/03_panels/` or `data/02_measure/`, not in `output/`.
 2. **One writer per file.** The script that creates a file owns it. Two scripts
    writing the same path is the bug that cost us `MAIN_panel_data` once already.
 3. **Every table gets a CSV next to its PNG.** A table saved only as an image

@@ -16,7 +16,7 @@ Author: Sevastian Sanchez, Columbia University (SIPA and QMSS)
 | Sustainable Development Report 2025 (SDSN) | SDG Index scores |
 | World Development Indicators; nighttime lights (Beyer, Hu and Yao, 2026) | Controls: population, rural share, electricity access, GDP per capita, luminosity |
 
-The cleaned outcome tables, their grain, keys and every column are documented in the **[interactive data dictionary](https://sevastiansanchez.github.io/Politics_of_NAs/data_dictionary.html)** (also available as [markdown](data/clean/README.md)).
+The cleaned outcome tables, their grain, keys and every column are documented in the **[interactive data dictionary](https://sevastiansanchez.github.io/Politics_of_NAs/data_dictionary.html)** (also available as [markdown](data/02_measure/README.md)).
 
 ## Methods
 
@@ -29,22 +29,29 @@ The cleaned outcome tables, their grain, keys and every column are documented in
 | Folder | Contents |
 |---|---|
 | `code/data_prep/` | The whole pipeline: extraction and cleaning of the UN SDG exports (`extract_SDG_series_data_2015_2023.R`), series stability, predictor sourcing (`build_predictor_panel.R`), panel construction (`causal_inf_data_prep.R`), and the merge (`build_analysis_frame.Rmd`) |
-| `data/raw/` | The UN SDG goal exports. Not tracked — see Reproducing |
-| `data/input/` | External covariate sources, plus `snapshots/` holding the dated V-Dem and WDI pulls the pipeline is pinned to |
-| `data/clean/` | Analysis-ready outcome tables — the measure (see data dictionary) |
-| `data/panels/` | The built country-year panels: `predictor_panel`, `MAIN_panel_data`, `panel_es_data` |
+| `data/01_source/` | Nothing here is ours. The UN SDG goal exports (310 MB, untracked — see Reproducing), the covariate sources, and `snapshots/` holding the dated V-Dem and WDI pulls the pipeline is pinned to |
+| `data/02_measure/` | Computed from `01_source/` alone — the measure (see data dictionary) |
+| `data/03_panels/` | Assembled from `01` and `02` — what the models read: `predictor_panel`, `MAIN_panel_data`, `panel_es_data`, `analysis_data` |
 | `descriptive_stats/` | Descriptive analysis code (RQ1–RQ4) |
 | `causal_inference_mods/` | TWFE (`overall_twfe_analysis.Rmd`), Callaway–Sant'Anna DiD (`cs_did_analysis_v2.Rmd`), event studies, robustness checks |
 | `output/` | Everything the analysis produces, grouped by track then kind: `descriptive/{figures,tables,results}/` and `causal/{figures,tables,results}/`. See `output/README.md` for the rules |
 | `docs/` | Source for the interactive data dictionary |
 
-Code folders hold code; `data/` holds inputs and built panels; `output/` holds
-results. All paths in the scripts go through `here()`, so any file runs whatever
-the working directory is.
+Code folders hold code; `data/` holds sources and built tables; `output/` holds
+results. The numbers on the `data/` folders are the direction of travel: one
+rule places every file, and nothing in `02` ever reads from `03`.
+
+```
+01_source ──→ 02_measure ──→ 03_panels
+     └──────────────────────────↗
+```
+
+All paths in the scripts go through `here()`, so any file runs whatever the
+working directory is.
 
 ## Reproducing
 
-Dependencies are handled by `code/packages.R`, which installs anything missing (including `vdemdata` and `ERT` from GitHub, which are not on CRAN) and then loads everything. Scripts source it directly. The raw UN SDG goal exports are not tracked because of their size; download them from the [UN SDG Global Database](https://unstats.un.org/sdgs/dataportal) into `data/raw/un_sdg_goal_exports/`, then run `code/data_prep/extract_SDG_series_data_2015_2023.R` to rebuild `data/clean/`.
+Dependencies are handled by `code/packages.R`, which installs anything missing (including `vdemdata` and `ERT` from GitHub, which are not on CRAN) and then loads everything. Scripts source it directly. The raw UN SDG goal exports are not tracked because of their size; download them from the [UN SDG Global Database](https://unstats.un.org/sdgs/dataportal) into `data/01_source/un_sdg_exports/`, then run `code/data_prep/extract_SDG_series_data_2015_2023.R` to rebuild `data/02_measure/`.
 
 ## Related work
 

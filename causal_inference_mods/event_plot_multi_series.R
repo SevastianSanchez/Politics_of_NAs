@@ -22,14 +22,14 @@
 # These were the SDSN/SDR-derived outcomes, renamed with an _sdr suffix when
 # that source was abandoned. Do not just add _sdr to the pattern: the whole
 # point is that the SDR outcome is superseded. Repoint this at the UN Global
-# Database measure in data/clean/goal_lvl_dv_data.rds, whose goal-level
+# Database measure in data/02_measure/goal_lvl_dv_data.rds, whose goal-level
 # missingness columns are the intended replacement.
 # ---------------------------------------------------------------------------
 
 # 1) Load packages and data ----
 source(here::here("code/packages.R"))
 
-panel <- read_csv(here("data/panels/MAIN_panel_data.csv"))
+panel <- read_csv(here("data/03_panels/MAIN_panel_data.csv"))
   
 ts_data <- panel %>%
   group_by(country_code) %>%

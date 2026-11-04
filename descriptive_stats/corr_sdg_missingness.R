@@ -6,7 +6,7 @@ library(dplyr)
 library(tidyr)
 library(purrr)
 
-data2 <- readRDS(here("data/panels/predictor_panel.rds"))
+data2 <- readRDS(here("data/03_panels/predictor_panel.rds"))
 
 # Extract the data 
 corr_data <- data2 %>%

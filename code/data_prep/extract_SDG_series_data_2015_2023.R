@@ -11,8 +11,8 @@
 # being filled in by the UN (2025 has ~20% of a normal year). Keeping them would
 # look like every country collapsing at once. See Section A2.
 #
-# INPUTS: data/raw/un_sdg_goal_exports/Goal1.xlsx ... Goal17.xlsx
-# OUTPUTS: data/clean/ (each file's basename == its R object name)
+# INPUTS: data/01_source/un_sdg_exports/Goal1.xlsx ... Goal17.xlsx
+# OUTPUTS: data/02_measure/ (each file's basename == its R object name)
 #
 # -----------------------------------------------------------------------------
 # raw_data.csv.gz — SOURCE OF TRUTH. One row per observation (country x series x
@@ -102,8 +102,8 @@ end_year   <- 2023L
 baseline_years <- 2015:2017
 
 # Filesystem locations.
-input_folder  <- here("data/raw/un_sdg_goal_exports")
-output_folder <- here("data/clean")
+input_folder  <- here("data/01_source/un_sdg_exports")
+output_folder <- here("data/02_measure")
 dir.create(output_folder, recursive = TRUE, showWarnings = FALSE)
 
 # Only retain fields needed for an auditable series-availability analysis.
@@ -781,7 +781,7 @@ write_csv(raw_data, file.path(output_folder, "raw_data.csv.gz"))
 
 # Input = raw_data already in memory 
 # Output (objects) = `series_stability` and `stable_codes` — and writes
-# data/clean/series_stability.csv. 
+# data/02_measure/series_stability.csv. 
 source(here("code/data_prep/build_series_stability.R"))
 
 

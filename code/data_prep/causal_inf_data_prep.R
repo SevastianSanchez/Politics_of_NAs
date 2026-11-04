@@ -34,14 +34,14 @@ library(broom)
 # ============================================================================
 
 # Load the predictor panel, built by code/data_prep/build_predictor_panel.R.
-# That script reads V-Dem and WDI from dated snapshots in data/input/snapshots/
+# That script reads V-Dem and WDI from dated snapshots in data/01_source/snapshots/
 # rather than pulling live, so this chain is reproducible. Rerun it (with
 # refresh_sources <- TRUE) to take new source vintages.
 #
 # It replaced sdg_democracy_paneldata.rds, which had no builder. The SDR-derived
 # columns here now carry an _sdr suffix: they are the SUPERSEDED outcome, kept
-# only for comparison against the UN Global Database measure in data/clean/.
-df <- readRDS(here("data/panels/predictor_panel.rds"))
+# only for comparison against the UN Global Database measure in data/02_measure/.
+df <- readRDS(here("data/03_panels/predictor_panel.rds"))
 
 # ---- SPI: statistical capacity ----------------------------------------------
 # spi_overall     World Bank published composite, UNTOUCHED (mean of all 5
@@ -79,7 +79,7 @@ spi <- read_csv(url) %>%
 panel <- df %>% left_join(spi, by = c("country_code", "year"))
 
 # Quickly Adding Luminosity Data (for potential future use)
-luminosity <- read_csv(here("data/input/csvs_other_indicators/nightlight_1992_2023_complete.csv")) %>%
+luminosity <- read_csv(here("data/01_source/csvs_other_indicators/nightlight_1992_2023_complete.csv")) %>%
   filter(year >= 2015) %>%
   rename(country_code = iso, luminosity = nlsum)
 
@@ -89,7 +89,7 @@ panel <- panel %>% left_join(luminosity, by = c("country_code", "year"))
       #(link)[https://sites.google.com/site/jiaxiongyao16/nighttime-lights-data?authuser=0] 
 
 # Quickly adding ACLED political violence counts (country-year) as conflict control
-violence_counts <- readxl::read_excel(here("data/input/political_violence_counts.xlsx"),
+violence_counts <- readxl::read_excel(here("data/01_source/political_violence_counts.xlsx"),
   col_names = c("country_name_acled", "year", "acled_events"),
   skip = 1)
 
@@ -172,9 +172,9 @@ panel <- panel %>%
 #   Models are run with and without it to check robustness.
   
 # Save as rds
-write_rds(panel, here("data/panels/MAIN_panel_data.rds")) 
+write_rds(panel, here("data/03_panels/MAIN_panel_data.rds")) 
 # save as csv for AI
-write_csv(panel, here("data/panels/MAIN_panel_data.csv"))
+write_csv(panel, here("data/03_panels/MAIN_panel_data.csv"))
 
 # ============================================================================
 # SECTION 3: event_study_stag_twfe.Rmd — Setup & Event-Time Variable Creation
@@ -211,7 +211,7 @@ panel_es <- panel_es %>%
 # ----------------------------------------------------------------------------
 
 # saving panel_es as csv
-write_csv(panel_es, here("data/panels/panel_es_data.csv"))
+write_csv(panel_es, here("data/03_panels/panel_es_data.csv"))
 
 # ============================================================================
 # SECTION 4: cs_did_analysis_v2.Rmd — Build CS Panel
@@ -220,7 +220,7 @@ write_csv(panel_es, here("data/panels/panel_es_data.csv"))
 # rather than the .rds panel directly, then applies its own additional
 # cohort/censoring/SPI-moderator variable construction below.
 
-panel <- read_csv(here("data/panels/panel_es_data.csv"))
+panel <- read_csv(here("data/03_panels/panel_es_data.csv"))
 
 # ----------------------------------------------------------------------------
 # SECTION 4a: cs_did_analysis_v2.Rmd — Left-Censoring Flag & CS Panel Build

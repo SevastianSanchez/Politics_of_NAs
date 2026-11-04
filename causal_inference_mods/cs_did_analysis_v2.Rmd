@@ -35,10 +35,10 @@ library(patchwork)
 > is pointed at is not. Repointing the overall models is a variable swap, but
 > the goal-level loop in section 7 needs restructuring: it expects 17 wide
 > columns, whereas the current measure is long (country x year x goal) in
-> `data/clean/goal_lvl_dv_data.rds`.
+> `data/02_measure/goal_lvl_dv_data.rds`.
 
 ```{r load-data}
-# panel <- read_csv("data/panels/panel_es_data.csv")
+# panel <- read_csv("data/03_panels/panel_es_data.csv")
 source(here("code/data_prep/causal_inf_data_prep.R"))
 
 

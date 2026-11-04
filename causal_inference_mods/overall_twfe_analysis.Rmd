@@ -11,7 +11,7 @@ source(here::here("code/packages.R"))
 #source("code/data_prep/causal_inf_data_prep.R")
 
 # Load data (adjust path if needed)
-#panel <- readRDS("data/panels/MAIN_panel_data.rds")
+#panel <- readRDS("data/03_panels/MAIN_panel_data.rds")
 panel <- analysis_data
 ```
 

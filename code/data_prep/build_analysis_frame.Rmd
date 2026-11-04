@@ -25,13 +25,13 @@ panel. We read MAIN only to extract from it; we never modify it.
 
 ```{r load}
 # Outcome panel (long: country x year x goal).
-goal_lvl_dv_data <- read_rds(here("data/clean/goal_lvl_dv_data.rds"))
+goal_lvl_dv_data <- read_rds(here("data/02_measure/goal_lvl_dv_data.rds"))
 
-# goal_lvl_dv_data <- read_csv(here("data/clean/goal_lvl_dv_data.csv"),
+# goal_lvl_dv_data <- read_csv(here("data/02_measure/goal_lvl_dv_data.csv"),
 #                              show_col_types = FALSE)
 
 # Treatment / control panel (country x year). Read-only.
-MAIN_panel_data <- read_csv(here("data/panels/MAIN_panel_data.csv"),
+MAIN_panel_data <- read_csv(here("data/03_panels/MAIN_panel_data.csv"),
                             show_col_types = FALSE)
 
 cat("goal_lvl_dv_data:", nrow(goal_lvl_dv_data), "rows |",
@@ -198,8 +198,8 @@ analysis_data <- analysis_data %>%
 ## 5. Save
 
 ```{r save}
-write_csv(analysis_data,  here("data/clean/analysis_data.csv"))
-saveRDS(analysis_data,    here("data/clean/analysis_data.rds"))
+write_csv(analysis_data,  here("data/03_panels/analysis_data.csv"))
+saveRDS(analysis_data,    here("data/03_panels/analysis_data.rds"))
 ```
 
 `analysis_data` is the long modelling frame: goal-varying `dv_*`
