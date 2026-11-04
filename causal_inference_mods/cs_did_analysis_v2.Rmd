@@ -28,6 +28,15 @@ library(patchwork)
 
 # 1. Load Data
 
+> **Open task: this file estimates on the superseded outcome.**
+> `outcome_overall` is `prop_sdg_missing_sdr` and `sdg_goals` is
+> `prop_miss_SDG1..17_sdr` -- the SDSN/SDR measure that was abandoned for
+> selection bias. The estimation machinery below is sound and has run; what it
+> is pointed at is not. Repointing the overall models is a variable swap, but
+> the goal-level loop in section 7 needs restructuring: it expects 17 wide
+> columns, whereas the current measure is long (country x year x goal) in
+> `data/clean/goal_lvl_dv_data.rds`.
+
 ```{r load-data}
 # panel <- read_csv("data/panels/panel_es_data.csv")
 source(here("code/data_prep/causal_inf_data_prep.R"))
@@ -56,61 +65,15 @@ Key decisions encoded here:
 - **`tname`** = `year` (integer).
 
 ```{r build-panel}
-# # Step 1: Flag left-censored countries
-# panel <- panel %>%
-#   mutate(
-#     left_censored = (!is.na(aut_start_filled) & aut_start_filled < 2015)
-#   )
-# 
-# cat("Left-censored countries (episode starts before 2015):",
-#     n_distinct(panel$country_code[panel$left_censored]), "\n")
-# 
-# # Step 2: Build CS panel
-# panel_cs <- panel %>%
-#   filter(!left_censored) %>%
-#   mutate(year = as.integer(year)) %>%
-#   rename(idname = country_id,
-#          tname  = year)
-# 
-# # Step 3: Assign constant gname per country (first episode start year; 0 = never-treated)
-# g_by_country <- panel_cs %>%
-#   group_by(idname) %>%
-#   summarise(
-#     gname = ifelse(
-#       any(aut_cohort > 0, na.rm = TRUE),
-#       min(aut_cohort[aut_cohort > 0], na.rm = TRUE),
-#       0L
-#     ),
-#     .groups = "drop"
-#   )
-# 
-# panel_cs <- panel_cs %>%
-#   select(-any_of("gname")) %>%
-#   left_join(g_by_country, by = "idname")
-# 
-# # Step 4: Restrict to identifiable cohorts only
-# panel_cs <- panel_cs %>%
-#   filter(
-#     gname == 0 | gname %in% 2016:2020
-#   )
+# Built by code/data_prep/causal_inf_data_prep.R, which flags left-censored
+# countries (episode starts before 2015), assigns one constant gname per
+# country (first episode start year, 0 = never-treated), and keeps cohorts
+# 2016-2020 plus the never-treated. See that script, section "CS panel".
 ```
 
 ```{r cohort-check}
-# # Verify gname is constant per country
-# n_multi_g <- panel_cs %>%
-#   distinct(idname, gname) %>%
-#   count(idname) %>%
-#   filter(n > 1) %>%
-#   nrow()
-# 
-# cat("Countries with inconsistent gname (should be 0):", n_multi_g, "\n")
-# 
-# # Cohort distribution
-# panel_cs %>%
-#   distinct(idname, gname) %>%
-#   count(gname, name = "n_countries") %>%
-#   arrange(gname) %>%
-#   print()
+# The prep script verifies gname is constant per country and prints the
+# cohort distribution when it runs.
 ```
 
 ---
@@ -118,26 +81,8 @@ Key decisions encoded here:
 # 3. SPI Moderator Variable
 
 ```{r spi-moderator}
-# # Compute baseline SPI per country (first non-missing observation)
-# spi_baseline <- panel_cs %>%
-#   arrange(idname, tname) %>%
-#   group_by(idname) %>%
-#   summarise(spi_base = first(na.omit(spi_overall_mod)), .groups = "drop")
-# 
-# # Median-split into High/Low SPI
-# spi_median <- median(spi_baseline$spi_base, na.rm = TRUE)
-# 
-# panel_cs <- panel_cs %>%
-#   left_join(spi_baseline, by = "idname") %>%
-#   mutate(
-#     spi_hilow = case_when(
-#       spi_base >= spi_median ~ "High SPI",
-#       spi_base <  spi_median ~ "Low SPI",
-#       TRUE ~ NA_character_
-#     )
-#   )
-# 
-# cat("SPI median (baseline):", round(spi_median, 2), "\n")
+# spi_hilow is built in the prep script: baseline spi_overall_mod per country
+# (first non-missing), median-split into High/Low SPI.
 ```
 
 ---
@@ -145,11 +90,10 @@ Key decisions encoded here:
 # 4. Outcome Variables
 
 ```{r outcomes}
-# # Overall outcome
-# outcome_overall <- "prop_sdg_missing"
-# 
-# # Goal-level outcomes
-# sdg_goals <- paste0("prop_miss_SDG", 1:17)
+# outcome_overall and sdg_goals come from the prep script. Both currently
+# point at the SUPERSEDED SDR measure (prop_sdg_missing_sdr and
+# prop_miss_SDG1..17_sdr). Repointing them is the open task -- see the
+# note under "1. Load Data".
 ```
 
 ---
