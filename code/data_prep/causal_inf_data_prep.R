@@ -53,13 +53,48 @@ df <- readRDS(here("data/03_panels/predictor_panel.rds"))
 #                 reporting drawn from the UN Global SDG database — this
 #                 study's own outcome — so controlling for the published
 #                 composite partly controls for the dependent variable.
-#                 We depart from Landau et al. only on vintage: they use the
-#                 2020 snapshot for a cross-sectional design; a panel with
-#                 country FE needs the annual series or the control is absorbed.
+#                 Landau et al. apply this to a single 2020 cross-section; the
+#                 World Bank publishes SPI annually (2016-2023 here, varying
+#                 within every country), so the same weighting is applied to
+#                 the full panel. No vintage departure.
 # Pillars kept for robustness. na.rm = FALSE throughout, matching the World
 # Bank: a country-year scores only when every contributing pillar is present.
-url <- "https://raw.githubusercontent.com/worldbank/SPI/refs/heads/master/03_output_data/SPI_index.csv"
-spi <- read_csv(url) %>%
+# Pulled live, then written to data/01_source/snapshots/ with its pull date, the
+# same way build_predictor_panel.R pins V-Dem and WDI. The World Bank revises
+# SPI's back-history between releases, so reading the newest snapshot by default
+# is what makes a reported coefficient reproducible. Set refresh_spi <- TRUE to
+# re-pull and write a new dated file beside it.
+refresh_spi  <- FALSE
+spi_snap_dir <- here("data/01_source/snapshots")
+spi_url      <- "https://raw.githubusercontent.com/worldbank/SPI/refs/heads/master/03_output_data/SPI_index.csv"
+
+.spi_existing <- sort(list.files(spi_snap_dir, pattern = "^spi__\\d{4}-\\d{2}-\\d{2}\\.csv$",
+                                 full.names = TRUE), decreasing = TRUE)
+
+if (!refresh_spi && length(.spi_existing) > 0) {
+  message("  [snapshot] spi <- ", basename(.spi_existing[1]))
+  spi_raw <- read_csv(.spi_existing[1], show_col_types = FALSE, progress = FALSE)
+} else {
+  message("  [snapshot] spi: pulling live from the World Bank SPI repository")
+  spi_raw   <- read_csv(spi_url, show_col_types = FALSE, progress = FALSE)
+  .spi_stamp <- format(Sys.Date(), "%Y-%m-%d")
+  .spi_out   <- file.path(spi_snap_dir, paste0("spi__", .spi_stamp, ".csv"))
+  write_csv(spi_raw, .spi_out)
+
+  .spi_row <- tibble(source = "spi", file = basename(.spi_out), pulled = .spi_stamp,
+                     rows = nrow(spi_raw), cols = ncol(spi_raw))
+  .spi_man <- file.path(spi_snap_dir, "_manifest.csv")
+  if (file.exists(.spi_man)) {
+    write_csv(bind_rows(read_csv(.spi_man, col_types = cols(.default = col_character()),
+                                 progress = FALSE),
+                        mutate(.spi_row, across(everything(), as.character))), .spi_man)
+  } else {
+    write_csv(.spi_row, .spi_man)
+  }
+  message("  [snapshot] wrote ", basename(.spi_out), " (", nrow(spi_raw), " rows)")
+}
+
+spi <- spi_raw %>%
   # SPI's own `country` column is dropped: predictor_panel already carries the
   # authoritative country_name, and keeping this one collided into
   # country_name.x / .y. Join on country_code + year only.
