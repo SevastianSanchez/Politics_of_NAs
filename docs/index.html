@@ -55,7 +55,16 @@ header{border-bottom:1px solid var(--rule);padding-block:3rem 2rem;background:va
   border-radius:2px;padding:.25em .6em;margin-bottom:1.1rem}
 .lede{font-family:var(--serif);font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--muted);
   max-width:56ch;margin-bottom:1.6rem}
+.sub{font-size:.98rem;color:var(--muted);max-width:60ch;margin-bottom:1.6rem}
 .byline{font-size:.86rem;color:var(--faint);margin:0}
+.diff{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:4px;overflow:hidden;
+  margin-top:1.3rem}
+.dcard{background:var(--panel);padding:1.1rem 1.1rem 1.2rem}
+.dcard .k{font-family:var(--serif);font-size:1.6rem;color:var(--accent);
+  line-height:1;display:block;margin-bottom:.5rem}
+.dcard h3{font-family:var(--sans);font-size:.86rem;margin-bottom:.35rem}
+.dcard p{font-size:.88rem;color:var(--muted);margin:0;max-width:none}
 
 section{padding-block:2.6rem;border-bottom:1px solid var(--rule2)}
 .eyebrow{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
@@ -134,9 +143,11 @@ footer p{max-width:64ch}
   <div class="wrap">
     <span class="tag">Preliminary &middot; not for citation</span>
     <h1>SDG Reporting Transparency</h1>
-    <p class="lede">A country&ndash;year measure of how much of the Sustainable Development Goal
-      framework a government actually reports, estimated by item response theory on the
-      UN Global SDG Database.</p>
+    <p class="lede">A transparency measure built to tell silence by choice from silence
+      by incapacity &mdash; and to say which policy domains went quiet.</p>
+    <p class="sub">A country&ndash;year index of how much of the Sustainable Development
+      Goal framework a government actually reports, estimated by item response theory on
+      the UN Global SDG Database, 2015&ndash;2023.</p>
     <p class="byline">Sevastian Sanchez &middot; Columbia University &middot;
       <span id="gen"></span> &middot;
       <a href="https://github.com/SevastianSanchez/Politics_of_NAs">source repository</a></p>
@@ -170,6 +181,37 @@ footer p{max-width:64ch}
       positive is more complete reporting, and each estimate carries its own
       uncertainty. They are posterior means, so the error bars are genuine posterior
       standard deviations rather than asymptotic approximations.</p>
+
+    <div class="diff">
+      <div class="dcard"><span class="k">607</span>
+        <h3>The whole framework</h3>
+        <p>Series covered across 197 countries and nine years, estimated rather than
+          hand&ndash;coded. Comparable inventories audit a few dozen indicators.</p></div>
+      <div class="dcard"><span class="k">0</span>
+        <h3>Denominators assumed</h3>
+        <p>Every simpler measure divides by a figure chosen by hand. This one estimates
+          how demanding each series is instead.</p></div>
+      <div class="dcard"><span class="k">16</span>
+        <h3>Domains resolved</h3>
+        <p>Goal&ndash;level scores show <em>which</em> areas fell silent, not merely that
+          a country did. Existing transparency indices return one number.</p></div>
+      <div class="dcard"><span class="k">&rarr;</span>
+        <h3>Silence attributed</h3>
+        <p>The SDG database records who produced each figure and why a cell is empty.
+          The World Development Indicators do not &mdash; which is why earlier measures
+          cannot separate won't from can't.</p></div>
+    </div>
+
+    <div class="note">
+      <h3>What this release does and does not do</h3>
+      <p>The attribution layer is the point of the project, and it is <em>not</em> in
+        the scores published here. This page carries the composite index only. Telling
+        withheld data from absent capacity requires the provenance split, which is in
+        progress.</p>
+      <p>The consequence is visible in the rankings: small island states with genuine
+        capacity constraints currently sit beside governments that are plainly
+        choosing silence. Separating those two is the work, not an oversight in it.</p>
+    </div>
   </div>
 </section>
 
