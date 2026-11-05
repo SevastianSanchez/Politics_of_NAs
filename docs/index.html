@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SDG Reporting Transparency — Preliminary Composite Index</title>
+<meta name="description" content="A country-year measure of SDG reporting transparency, estimated by item response theory on the UN Global SDG Database, 2015-2023.">
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#fff; --fg:#1d1c1a; --muted:#6b6862; --faint:#8d8a84;
+  --rule:#e3dfd8; --rule2:#efece6;
+  --accent:#7a4b2a; --accent-soft:#f3ece5;
+  --warn:#8a5a12; --warn-bg:#fdf5e4; --warn-rule:#e8d5a8;
+  --pos:#3f6b4a; --neg:#9b3b32;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#15140f; --panel:#1d1c17; --fg:#eceae4; --muted:#a3a097; --faint:#857f74;
+    --rule:#332f27; --rule2:#262319;
+    --accent:#d09a6a; --accent-soft:#2a2118;
+    --warn:#e0b765; --warn-bg:#2a2317; --warn-rule:#4d4027;
+    --pos:#7fb08c; --neg:#d4817a;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15140f; --panel:#1d1c17; --fg:#eceae4; --muted:#a3a097; --faint:#857f74;
+  --rule:#332f27; --rule2:#262319;
+  --accent:#d09a6a; --accent-soft:#2a2118;
+  --warn:#e0b765; --warn-bg:#2a2317; --warn-rule:#4d4027;
+  --pos:#7fb08c; --neg:#d4817a;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
+.wrap{max-width:62rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;line-height:1.2}
+h1{font-size:clamp(1.9rem,5vw,2.9rem);margin:0 0 .4rem}
+h2{font-size:clamp(1.25rem,3vw,1.6rem);margin:0 0 .6rem}
+h3{font-size:1.02rem;margin:0 0 .35rem}
+p{margin:0 0 .9rem;max-width:64ch}
+a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.86em;background:var(--accent-soft);
+  padding:.1em .35em;border-radius:3px}
+
+header{border-bottom:1px solid var(--rule);padding-block:3rem 2rem;background:var(--panel)}
+.tag{display:inline-block;font-family:var(--sans);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);
+  border-radius:2px;padding:.25em .6em;margin-bottom:1.1rem}
+.lede{font-family:var(--serif);font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--muted);
+  max-width:56ch;margin-bottom:1.6rem}
+.byline{font-size:.86rem;color:var(--faint);margin:0}
+
+section{padding-block:2.6rem;border-bottom:1px solid var(--rule2)}
+.eyebrow{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 .5rem}
+
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(8.5rem,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.fact{background:var(--panel);padding:1rem .9rem}
+.fact .n{font-family:var(--serif);font-size:1.7rem;line-height:1.1;display:block}
+.fact .l{font-size:.73rem;color:var(--muted);letter-spacing:.03em}
+
+.note{background:var(--warn-bg);border:1px solid var(--warn-rule);border-left:3px solid var(--warn);
+  border-radius:3px;padding:1rem 1.1rem;margin:1.4rem 0}
+.note h3{color:var(--warn);font-family:var(--sans);font-size:.78rem;letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:.45rem}
+.note p{margin-bottom:.5rem;font-size:.93rem}
+.note p:last-child{margin-bottom:0}
+
+.chartbox{background:var(--panel);border:1px solid var(--rule);border-radius:4px;
+  padding:1.2rem 1rem .6rem;margin:1.2rem 0;overflow-x:auto}
+svg{display:block;max-width:100%;height:auto}
+.gridline{stroke:var(--rule);stroke-width:1}
+.axis{fill:var(--faint);font-size:11px;font-family:var(--sans)}
+.trend{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round}
+.dot{fill:var(--accent)}
+.dot-last{fill:var(--neg)}
+
+.controls{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:1.2rem 0 .8rem}
+input[type=search],select{font-family:var(--sans);font-size:.9rem;padding:.45em .6em;
+  border:1px solid var(--rule);border-radius:3px;background:var(--panel);color:var(--fg);
+  min-width:0}
+input[type=search]{flex:1 1 12rem}
+.count{font-size:.8rem;color:var(--faint);margin-left:auto}
+
+.tablebox{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:.5rem .7rem;text-align:left;border-bottom:1px solid var(--rule2);white-space:nowrap}
+th{position:sticky;top:0;background:var(--panel);font-size:.72rem;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--muted);cursor:pointer;user-select:none;
+  border-bottom:1px solid var(--rule)}
+th:hover{color:var(--accent)}
+th[aria-sort] .arrow:after{content:"";color:var(--accent)}
+th[aria-sort=descending] .arrow:after{content:" \2193"}
+th[aria-sort=ascending] .arrow:after{content:" \2191"}
+td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:.84rem}
+td.name{white-space:normal;min-width:11rem}
+tbody tr:hover{background:var(--accent-soft)}
+.bar{display:inline-block;height:7px;border-radius:1px;background:var(--accent);
+  vertical-align:middle;opacity:.75}
+.se{color:var(--faint);font-size:.78em}
+
+.movers{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1.2rem;margin-top:1.1rem}
+.mcard{background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:1rem 1.1rem}
+.mcard h3{font-family:var(--sans);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:.7rem}
+.mrow{display:flex;justify-content:space-between;gap:.7rem;padding:.3rem 0;
+  border-bottom:1px solid var(--rule2);font-size:.9rem}
+.mrow:last-child{border-bottom:0}
+.mrow .d{font-family:var(--mono);font-size:.84rem;font-variant-numeric:tabular-nums}
+.down .d{color:var(--neg)} .up .d{color:var(--pos)}
+
+dl{margin:0} dt{font-weight:600;margin-top:.9rem;font-size:.95rem}
+dd{margin:.2rem 0 0;color:var(--muted);max-width:64ch;font-size:.94rem}
+ul{max-width:64ch;padding-left:1.2rem} li{margin-bottom:.4rem}
+.dl{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+.btn{display:inline-block;font-size:.86rem;padding:.5em .9em;border:1px solid var(--rule);
+  border-radius:3px;background:var(--panel);color:var(--fg);text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+footer{padding-block:2.2rem 3rem;color:var(--faint);font-size:.84rem}
+footer p{max-width:64ch}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="tag">Preliminary &middot; not for citation</span>
+    <h1>SDG Reporting Transparency</h1>
+    <p class="lede">A country&ndash;year measure of how much of the Sustainable Development Goal
+      framework a government actually reports, estimated by item response theory on the
+      UN Global SDG Database.</p>
+    <p class="byline">Sevastian Sanchez &middot; Columbia University &middot;
+      <span id="gen"></span> &middot;
+      <a href="https://github.com/SevastianSanchez/Politics_of_NAs">source repository</a></p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="facts" id="facts"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">What this measures</p>
+    <h2>Reporting is a choice, not just a capacity</h2>
+    <p>For every country, series and year, the UN database either holds a published
+      figure or it does not. Treat each of the 607 statistical series as an item on a
+      test and each country&ndash;year as a test&ndash;taker: a country's underlying
+      willingness and ability to report is then estimated jointly with how demanding
+      each series is. This is the design Hollyer, Rosendorff and Vreeland introduced
+      for World Development Indicators, applied here to SDG data.</p>
+    <p>The point of the model is that it removes a judgement call. Every simpler
+      measure of missing data has to divide by a denominator chosen by hand &mdash;
+      all series in the framework, or only those the UN opened a cell for. The first
+      assumes every country should report what the richest ones do; the second reacts
+      to reporting itself. Seven such measures built for this project disagreed badly,
+      two of them correlating at only 0.36. Estimating each series' difficulty instead
+      of assuming a denominator is what resolves that.</p>
+    <p>Scores are on a standard&ndash;normal scale: 0 is the average country&ndash;year,
+      positive is more complete reporting, and each estimate carries its own
+      uncertainty. They are posterior means, so the error bars are genuine posterior
+      standard deviations rather than asymptotic approximations.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Trend</p>
+    <h2>Mean score by year</h2>
+    <div class="chartbox"><div id="chart"></div></div>
+    <div class="note">
+      <h3>Read 2023 with care</h3>
+      <p>The series rises steadily through 2020 and then falls sharply in 2023. That
+        last drop is very likely an artefact rather than a finding: the UN database
+        fills recent years in gradually, and this snapshot was taken before 2023 had
+        settled. Small states with genuine capacity constraints appear alongside
+        deliberate non&ndash;reporters at the bottom of that year for the same reason.</p>
+      <p>Any analysis using these scores should either drop 2023 or absorb the lag
+        through year effects. Treating it as a normal year would read an archival
+        delay as a collapse in global transparency.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Change over time</p>
+    <h2>Largest movements, 2015 to 2023</h2>
+    <p>The steepest declines line up with events the measure was never told about &mdash;
+      the coup in Myanmar, war in Sudan, the Taliban's return in Afghanistan. Nothing
+      about regime type or conflict enters the model; it sees only whether numbers were
+      published.</p>
+    <div class="movers">
+      <div class="mcard down"><h3>Steepest declines</h3><div id="down"></div></div>
+      <div class="mcard up"><h3>Largest gains</h3><div id="up"></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Full results</p>
+    <h2>Country scores</h2>
+    <div class="controls">
+      <input type="search" id="q" placeholder="Search country or ISO code" aria-label="Search country">
+      <select id="yr" aria-label="Year"></select>
+      <select id="inc" aria-label="Income group"></select>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="tablebox">
+      <table id="tbl">
+        <thead><tr>
+          <th data-k="rank">#<span class="arrow"></span></th>
+          <th data-k="name">Country<span class="arrow"></span></th>
+          <th data-k="iso">ISO<span class="arrow"></span></th>
+          <th data-k="inc">Income group<span class="arrow"></span></th>
+          <th data-k="sc" class="num">Score<span class="arrow"></span></th>
+          <th data-k="sc">Relative<span class="arrow"></span></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="dl">
+      <a class="btn" href="composite_scores.csv" download>Download CSV</a>
+      <a class="btn" href="composite_scores.json">View JSON</a>
+      <a class="btn" href="data_dictionary.html">Data dictionary</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Method and status</p>
+    <h2>How it is built, and what is missing</h2>
+    <dl>
+      <dt>Estimation</dt>
+      <dd>Two&ndash;parameter logistic item response model, fitted by marginal maximum
+        likelihood with an EM algorithm; scores are expected a posteriori estimates.
+        The reported fit converged rather than exhausting its iteration cap, and
+        reproduced identically on an independent run.</dd>
+      <dt>Item set</dt>
+      <dd>607 of 665 series survive a filter removing those reported in fewer than 2%
+        or more than 98% of country&ndash;years, which carry no information for
+        separating countries.</dd>
+      <dt>Deliberately excluded</dt>
+      <dd>No democracy score, income group, population or region enters the model.
+        Those are explanatory variables in the accompanying study, and including them
+        would make any subsequent test circular.</dd>
+      <dt>Still to come</dt>
+      <dd>Goal&ndash;level disaggregation, giving every country a separate score for
+        each of the 16 goals with enough series to support one, is estimated but not
+        yet published here. A second version will distinguish figures produced by
+        national statistical offices from those imputed by international agencies, and
+        separate data suppressed from data that was never applicable &mdash; a
+        distinction the SDG database records and the World Development Indicators do
+        not.</dd>
+      <dt>Not yet smoothed</dt>
+      <dd>Scores are estimated independently by year. A dynamic prior linking adjacent
+        years, as in the original transparency index, is deferred: nine years is a
+        short series for a random walk to earn its place.</dd>
+    </dl>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Status.</strong> This page is a preliminary release of work in progress.
+      Scores may change before a versioned dataset is archived with a persistent
+      identifier. Please do not cite these figures yet.</p>
+    <p>Built from the UN Global SDG Indicators Database. Code and data in the
+      <a href="https://github.com/SevastianSanchez/Politics_of_NAs">project repository</a>.</p>
+  </div>
+</footer>
+
+<script>
+const F = n => n.toLocaleString();
+let D = null, sortK = "sc", sortDir = -1;
+
+fetch("composite_scores.json").then(r => r.json()).then(d => { D = d; init(); })
+  .catch(() => { document.getElementById("facts").innerHTML =
+    '<div class="fact"><span class="n">&mdash;</span><span class="l">data failed to load</span></div>'; });
+
+function init(){
+  document.getElementById("gen").textContent = "generated " + D.generated;
+
+  const facts = [
+    [F(D.n_countries), "countries"],
+    [D.years[0] + "–" + D.years[1], "years covered"],
+    [F(D.n_items), "statistical series"],
+    [F(D.n_rows), "country–years"],
+    [D.median_se.toFixed(3), "median standard error"],
+    [F(D.cycles), "iterations to converge"]
+  ];
+  document.getElementById("facts").innerHTML = facts.map(
+    f => '<div class="fact"><span class="n">' + f[0] + '</span><span class="l">' + f[1] + '</span></div>'
+  ).join("");
+
+  drawChart();
+  drawMovers();
+
+  const years = [...new Set(D.rows.map(r => r.yr))].sort((a,b) => b-a);
+  document.getElementById("yr").innerHTML =
+    years.map(y => '<option value="' + y + '">' + y + '</option>').join("");
+  const incs = [...new Set(D.rows.map(r => r.inc))].sort();
+  document.getElementById("inc").innerHTML =
+    '<option value="">All income groups</option>' +
+    incs.map(i => '<option>' + i + '</option>').join("");
+
+  document.getElementById("q").addEventListener("input", draw);
+  document.getElementById("yr").addEventListener("change", draw);
+  document.getElementById("inc").addEventListener("change", draw);
+  document.querySelectorAll("#tbl th").forEach(th => th.addEventListener("click", () => {
+    const k = th.dataset.k;
+    if (k === sortK) sortDir = -sortDir;
+    else { sortK = k; sortDir = (k === "name" || k === "iso" || k === "inc") ? 1 : -1; }
+    draw();
+  }));
+  draw();
+}
+
+function drawChart(){
+  const y = D.yearly, W = 720, H = 240, m = {t:14,r:16,b:30,l:44};
+  const iw = W-m.l-m.r, ih = H-m.t-m.b;
+  const xs = y.map(d => d.yr), vs = y.map(d => d.mean);
+  const lo = Math.min(...vs) - .06, hi = Math.max(...vs) + .06;
+  const X = v => m.l + (v - xs[0]) / (xs[xs.length-1] - xs[0]) * iw;
+  const Y = v => m.t + (hi - v) / (hi - lo) * ih;
+
+  let g = "";
+  const ticks = [-.3,-.2,-.1,0,.1];
+  ticks.filter(t => t >= lo && t <= hi).forEach(t => {
+    g += '<line class="gridline" x1="' + m.l + '" y1="' + Y(t).toFixed(1) +
+         '" x2="' + (W-m.r) + '" y2="' + Y(t).toFixed(1) + '"' +
+         (t === 0 ? ' stroke-dasharray="0"' : ' stroke-dasharray="2 3"') + '/>';
+    g += '<text class="axis" x="' + (m.l-8) + '" y="' + (Y(t)+4).toFixed(1) +
+         '" text-anchor="end">' + t.toFixed(1) + '</text>';
+  });
+  xs.forEach(v => {
+    g += '<text class="axis" x="' + X(v).toFixed(1) + '" y="' + (H-10) +
+         '" text-anchor="middle">' + v + '</text>';
+  });
+
+  const path = y.map((d,i) => (i ? "L" : "M") + X(d.yr).toFixed(1) + " " + Y(d.mean).toFixed(1)).join(" ");
+  g += '<path class="trend" d="' + path + '"/>';
+  y.forEach((d,i) => {
+    g += '<circle class="' + (i === y.length-1 ? "dot-last" : "dot") + '" cx="' +
+         X(d.yr).toFixed(1) + '" cy="' + Y(d.mean).toFixed(1) + '" r="' +
+         (i === y.length-1 ? 5 : 3.5) + '"><title>' + d.yr + ": " + d.mean.toFixed(3) +
+         '</title></circle>';
+  });
+
+  document.getElementById("chart").innerHTML =
+    '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Mean reporting transparency score by year, 2015 to 2023">' +
+    g + '</svg>';
+}
+
+function drawMovers(){
+  const first = {}, last = {}, nm = {};
+  D.rows.forEach(r => {
+    nm[r.iso] = r.name;
+    if (r.yr === D.years[0]) first[r.iso] = r.sc;
+    if (r.yr === D.years[1]) last[r.iso] = r.sc;
+  });
+  const ch = Object.keys(last).filter(k => k in first)
+    .map(k => ({ iso:k, name:nm[k], d:last[k]-first[k] }));
+  ch.sort((a,b) => a.d - b.d);
+  const row = o => '<div class="mrow"><span>' + o.name + '</span><span class="d">' +
+    (o.d > 0 ? "+" : "") + o.d.toFixed(2) + '</span></div>';
+  document.getElementById("down").innerHTML = ch.slice(0,8).map(row).join("");
+  document.getElementById("up").innerHTML = ch.slice(-8).reverse().map(row).join("");
+}
+
+function draw(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const yr = +document.getElementById("yr").value;
+  const inc = document.getElementById("inc").value;
+
+  let rows = D.rows.filter(r => r.yr === yr);
+  const ranked = [...rows].sort((a,b) => b.sc - a.sc);
+  const rank = {}; ranked.forEach((r,i) => rank[r.iso] = i+1);
+
+  if (inc) rows = rows.filter(r => r.inc === inc);
+  if (q) rows = rows.filter(r =>
+    r.name.toLowerCase().includes(q) || r.iso.toLowerCase().includes(q));
+
+  rows = rows.map(r => ({...r, rank: rank[r.iso]}));
+  rows.sort((a,b) => {
+    const A = sortK === "rank" ? a.rank : a[sortK], B = sortK === "rank" ? b.rank : b[sortK];
+    return (typeof A === "string" ? A.localeCompare(B) : A - B) * sortDir;
+  });
+
+  const lo = Math.min(...ranked.map(r => r.sc)), hi = Math.max(...ranked.map(r => r.sc));
+  document.getElementById("tbl").querySelector("tbody").innerHTML = rows.map(r => {
+    const w = Math.max(2, (r.sc - lo) / (hi - lo) * 100);
+    return '<tr><td class="num">' + r.rank + '</td><td class="name">' + r.name +
+      '</td><td>' + r.iso + '</td><td>' + r.inc + '</td><td class="num">' +
+      r.sc.toFixed(2) + ' <span class="se">&plusmn;' + r.se.toFixed(2) +
+      '</span></td><td><span class="bar" style="width:' + w.toFixed(1) + '%"></span></td></tr>';
+  }).join("");
+
+  document.getElementById("count").textContent =
+    rows.length + " of " + ranked.length + " countries";
+  document.querySelectorAll("#tbl th").forEach(th => {
+    if (th.dataset.k === sortK)
+      th.setAttribute("aria-sort", sortDir === 1 ? "ascending" : "descending");
+    else th.removeAttribute("aria-sort");
+  });
+}
+</script>
+</body>
+</html>
