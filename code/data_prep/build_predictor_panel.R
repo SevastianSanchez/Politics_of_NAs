@@ -9,14 +9,14 @@
 # disk, four scripts read it, and nothing could regenerate it.
 #
 # OUTPUT: data/03_panels/predictor_panel.{rds,csv}  — one row per country x year
-#   Written under a NEW name on purpose. The old orphan file stays in place as
-#   a comparison reference (Section G). Once you trust this, point
-#   causal_inf_data_prep.R reads it (the switch has been made).
+#   Written under a new name, not the orphan's. causal_inf_data_prep.R reads
+#   this file. The orphan has since been deleted; nothing here depends on it.
 #
 # WHY SNAPSHOTS (Section C)
-# V-Dem and WDI revise their back-history between releases. Measured against
-# the April 2026 orphan: V-Dem lib_dem matched on only 203 of 1,548
-# country-years (correlation 0.9998 — same construct, revised values). So a
+# V-Dem and WDI revise their back-history between releases. When this builder
+# was written it was checked once against the April 2026 orphan: V-Dem lib_dem
+# matched on only 203 of 1,548 country-years (correlation 0.9998 — same
+# construct, revised values). So a
 # builder that pulls live produces a different panel every run, and published
 # results would not be reproducible. Each live source is therefore written to
 # data/01_source/snapshots/ with its pull date and read from there by default.
@@ -66,7 +66,6 @@ sheet_sdr       <- "All Raw Data"
 path_ert        <- here("data/01_source/ert.csv")
 path_gdppc      <- here("data/01_source/gdppc_df_long.csv")
 path_income     <- here("data/01_source/world_bank_income_classifications.csv")
-path_orphan     <- here("data/03_panels/sdg_democracy_paneldata.rds")   # reference only
 
 
 # =============================================================================
@@ -209,7 +208,7 @@ ert <- read_csv(path_ert, show_col_types = FALSE, progress = FALSE) %>%
   ) %>% trim_panel()
 
 # ---- D3. SDR missingness (frozen workbook) ----------------------------------
-# The superseded outcome. Verified to reproduce the orphan's values exactly
+# The superseded outcome. Reproduces the April 2026 values exactly
 # (max |difference| 0.00000000 on all 18 columns, all 17 goals).
 # The 126 raw achievement columns are counted and then dropped.
 message("  [frozen]   SDR missingness <- ", basename(path_sdr))
@@ -311,7 +310,7 @@ predictor_panel <- vdem %>%
       suppressWarnings(countrycode(country_code, "iso3c", "country.name")),
       setNames(names(country_alias_to_iso3),
                unname(country_alias_to_iso3))[country_code]),
-    # Computed here, from the same pull as their inputs. In the orphan these
+    # Computed here, from the same pull as their inputs. In the April 2026 file these
     # drifted apart: total_pop had no NAs while log_pop had 179 and differed
     # by up to 0.218 in logs, because the two came from different WDI vintages.
     log_gdppc = log(gdp_pc),
@@ -330,83 +329,10 @@ message("  predictor_panel: ", nrow(predictor_panel), " rows x ",
         n_distinct(predictor_panel$year), " years")
 
 
-# =============================================================================
-# G. VALIDATION AGAINST THE ORPHAN
-# =============================================================================
-# The orphan is a sanity reference, NOT ground truth — it is a April 2026
-# snapshot and is internally inconsistent (see the log_pop note in Section F).
-# So the test differs by source type:
-#   frozen sources  -> must match EXACTLY; any difference is a real defect
-#   live sources    -> expected to differ by vintage; check correlation and
-#                      shape instead, and report the drift rather than hide it
-if (file.exists(path_orphan)) {
-  message("\nValidation against ", basename(path_orphan))
-  orph <- readRDS(path_orphan) %>% mutate(year = as.integer(year))
-  j <- predictor_panel %>%
-    inner_join(orph, by = c("country_code", "year"), suffix = c(".new", ".old"))
-  message("  overlapping country-years: ", nrow(j))
-
-  compare <- function(col, kind) {
-    a <- paste0(col, ".new"); b <- paste0(col, ".old")
-    if (!all(c(a, b) %in% names(j))) {
-      if (col %in% names(orph) && col %in% names(predictor_panel)) { a <- col; b <- col }
-      else return(tibble(column = col, kind = kind, verdict = "not in both"))
-    }
-    x <- suppressWarnings(as.numeric(j[[a]])); y <- suppressWarnings(as.numeric(j[[b]]))
-    both <- !is.na(x) & !is.na(y)
-    if (!any(both)) return(tibble(column = col, kind = kind, verdict = "no overlap"))
-    md <- max(abs(x[both] - y[both]))
-    cr <- if (sd(x[both]) > 0 && sd(y[both]) > 0) cor(x[both], y[both]) else NA_real_
-    tibble(column = col, kind = kind,
-           n = sum(both), exact = sum(abs(x[both] - y[both]) < 1e-9),
-           max_diff = round(md, 6), cor = round(cr, 6),
-           verdict = dplyr::case_when(
-             md < 1e-9                        ~ "exact",
-             kind == "frozen"                 ~ "MISMATCH — investigate",
-             !is.na(cr) && cr > 0.99          ~ "vintage drift (expected)",
-             TRUE                             ~ "DIVERGENT — investigate"))
-  }
-
-  frozen_cols <- c("prop_sdg_missing_sdr", paste0("prop_miss_SDG", 1:17, "_sdr"),
-                   "gdp_pc", "elect_dem_ert", "regime_type_2",
-                   "aut_ep", "dem_ep", "aut_ep_start_yr")
-  live_cols   <- c("elect_dem", "lib_dem", "part_dem", "egal_dem", "delib_dem",
-                   "regime_type_4", "regime_type_10",
-                   "electric_access", "rural_pop_pct", "total_pop")
-
-  # The SDR columns were renamed, so compare the new _sdr name to the old one.
-  rn <- c(prop_sdg_missing_sdr = "prop_sdg_missing",
-          setNames(paste0("prop_miss_SDG", 1:17), paste0("prop_miss_SDG", 1:17, "_sdr")))
-  for (newn in names(rn)) {
-    oldn <- rn[[newn]]
-    if (newn %in% names(predictor_panel) && oldn %in% names(orph)) {
-      j[[paste0(newn, ".new")]] <- predictor_panel[[newn]][
-        match(paste(j$country_code, j$year),
-              paste(predictor_panel$country_code, predictor_panel$year))]
-      j[[paste0(newn, ".old")]] <- orph[[oldn]][
-        match(paste(j$country_code, j$year), paste(orph$country_code, orph$year))]
-    }
-  }
-
-  res <- bind_rows(
-    map_dfr(frozen_cols, compare, kind = "frozen"),
-    map_dfr(live_cols,   compare, kind = "live"))
-  print(as.data.frame(res), row.names = FALSE)
-
-  bad <- res %>% filter(grepl("investigate", verdict))
-  if (nrow(bad) > 0) {
-    warning(nrow(bad), " column(s) need investigation: ",
-            paste(bad$column, collapse = ", "))
-  } else {
-    message("  All frozen columns reproduce exactly; live columns within vintage drift.")
-  }
-} else {
-  message("\nNo orphan file at ", path_orphan, " — skipping validation.")
-}
 
 
 # =============================================================================
-# H. WRITE
+# G. WRITE
 # =============================================================================
 saveRDS(predictor_panel, file.path(output_dir, "predictor_panel.rds"))
 write_csv(predictor_panel, file.path(output_dir, "predictor_panel.csv"))
