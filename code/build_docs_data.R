@@ -2,11 +2,15 @@
 # build_docs_data.R
 #
 # Emits the JSON and CSV that the GitHub Pages landing page (docs/index.html)
-# reads. Run after the composite fit; the page is static otherwise.
+# reads. Run after the overall fit; the page is static otherwise.
+#
+# The published measure is the World on Record Index (TWR): one overall score
+# per country-year. Column names here are the PUBLIC ones and should match the
+# data dictionary -- `twr` and `twr_se`, not the internal `theta` / `se`.
 #
 # INPUT   data/02_measure/irt_scores_1d.rds   (composite scores)
 #         data/03_panels/analysis_data.rds    (country names, income groups)
-# OUTPUT  docs/composite_scores.json, docs/composite_scores.csv
+# OUTPUT  docs/twr_scores.json, docs/twr_scores.csv
 # ==============================================================================
 
 suppressPackageStartupMessages({library(data.table); library(here); library(jsonlite)})
@@ -48,13 +52,13 @@ out <- list(
   rows        = rows)
 
 writeLines(toJSON(out, auto_unbox = TRUE, dataframe = "rows", digits = NA),
-           here("docs/composite_scores.json"))
-cat("wrote docs/composite_scores.json |", nrow(rows), "rows |",
+           here("docs/twr_scores.json"))
+cat("wrote docs/twr_scores.json |", nrow(rows), "rows |",
     uniqueN(s$iso3), "countries\n")
 
 # the downloadable copy the page links to, so docs/ is self-contained
 fwrite(s[, .(iso3, country_name, income_level, year,
-             composite = round(theta, 4), composite_se = round(se, 4))][
+             twr = round(theta, 4), twr_se = round(se, 4))][
          order(iso3, year)],
-       here("docs/composite_scores.csv"))
-cat("wrote docs/composite_scores.csv\n")
+       here("docs/twr_scores.csv"))
+cat("wrote docs/twr_scores.csv\n")

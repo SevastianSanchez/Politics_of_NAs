@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: "The World on Record: statistical reporting across countries, policy sectors, and time"
+message: "If you use these scores or this code, please cite the work below."
+type: dataset
+authors:
+  - family-names: Sanchez
+    given-names: Sevastian
+    affiliation: "Columbia University"
+    email: ss7257@columbia.edu
+abstract: >-
+  The first transparency measure covering the SDG era: latent reporting
+  behaviour across 607 statistical series and 197 countries, 2015-2023, with
+  uncertainty quantified for every country-year. The dataset provides the
+  World on Record Index (TWR), an overall score per country-year estimated by
+  item response theory on the UN Global SDG Indicators Database, together with
+  sector-level scores and the per-series item parameters.
+keywords:
+  - transparency
+  - missing data
+  - Sustainable Development Goals
+  - item response theory
+  - official statistics
+  - data availability
+  - democratic backsliding
+license: CC-BY-4.0
+license-url: "https://creativecommons.org/licenses/by/4.0/"
+repository-code: "https://github.com/SevastianSanchez/Politics_of_NAs"
+url: "https://sevastiansanchez.github.io/Politics_of_NAs/"
+version: "0.1.0"
+date-released: "2026-11-06"

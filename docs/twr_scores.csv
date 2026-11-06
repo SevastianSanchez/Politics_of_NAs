@@ -1,4 +1,4 @@
-iso3,country_name,income_level,year,composite,composite_se
+iso3,country_name,income_level,year,twr,twr_se
 AFG,Afghanistan,Low income,2015,-1.2338,0.1435
 AFG,Afghanistan,Low income,2016,-1.3431,0.1465
 AFG,Afghanistan,Low income,2017,-0.6854,0.1268

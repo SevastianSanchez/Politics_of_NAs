@@ -176,7 +176,7 @@
 
 <header class="top">
   <div class="wrap">
-    <p class="eyebrow"><a href="./" style="color:var(--accent);text-decoration:none">← SDG Reporting Transparency</a> · data dictionary</p>
+    <p class="eyebrow"><a href="./" style="color:var(--accent);text-decoration:none">← The World on Record</a> · data dictionary</p>
     <h1>SDG reporting data, mapped</h1>
     <p class="lede">Every dataset the prep pipeline writes to <code>data/02_measure/</code>, its grain and keys, and what each column means. One source table, six derived, plus the index scores built from them. Merge to the analysis panel on <code>iso3&nbsp;+&nbsp;year</code>.</p>
 
@@ -200,7 +200,7 @@
       <a href="./" style="display:inline-block;font-size:.86rem;padding:.5em .9em;
         border:1px solid var(--line);border-radius:3px;background:var(--surface);
         color:var(--ink);text-decoration:none">The index</a>
-      <a href="composite_scores.csv" download style="display:inline-block;font-size:.86rem;
+      <a href="twr_scores.csv" download style="display:inline-block;font-size:.86rem;
         padding:.5em .9em;border:1px solid var(--line);border-radius:3px;
         background:var(--surface);color:var(--ink);text-decoration:none">Download CSV</a>
       <a href="https://github.com/SevastianSanchez/Politics_of_NAs" style="display:inline-block;
@@ -235,10 +235,10 @@
       <div class="ds-rail" style="background:var(--accent)"></div>
       <div class="ds-head">
         <div class="ds-title">
-          <span class="name">irt_scores_1d</span>
+          <span class="name">twr_scores</span>
           <span class="role primary">index</span>
         </div>
-        <p class="ds-desc">The published measure. One reporting-transparency score per country-year, estimated by a two-parameter logistic item response model over 607 series drawn from <span class="mono">agg_series_depth</span>. Each series is treated as a test item and each country-year as a test-taker, so series difficulty is estimated rather than assumed &mdash; which is what removes the denominator choice every share-based measure has to make. Scores are expected a posteriori estimates, so <span class="mono">se</span> is a posterior standard deviation, not an asymptotic approximation. Published on the <a href="./">index site</a> as <span class="mono">composite_scores.csv</span>.</p>
+        <p class="ds-desc">The published measure: the <strong>World on Record Index (TWR)</strong>. One reporting-transparency score per country-year, estimated by a two-parameter logistic item response model over 607 series drawn from <span class="mono">agg_series_depth</span>. Each series is treated as a test item and each country-year as a test-taker, so series difficulty is estimated rather than assumed &mdash; which is what removes the denominator choice every share-based measure has to make. Scores are expected a posteriori estimates, so <span class="mono">se</span> is a posterior standard deviation, not an asymptotic approximation. Published on the <a href="./">index site</a> as <span class="mono">twr_scores.csv</span>.</p>
         <div class="meta">
           <div class="m"><span class="ml">grain</span><span class="mv">country × year</span></div>
           <div class="m"><span class="ml">key</span><span class="mv"><span class="k">iso3</span> + year</span></div>
@@ -253,8 +253,8 @@
           <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to analysis_data <span class="badge merge">MERGE</span> <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015&ndash;2023 <span class="badge key">KEY</span></td></tr>
           <tr class="grp-row"><td colspan="3"><span class="gl">the measure</span></td></tr>
-          <tr><td class="col"><span class="cn">theta</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Latent reporting transparency on a standard-normal scale. 0 is the average country-year; positive is more complete reporting. Published as <code>composite</code>.</td></tr>
-          <tr><td class="col"><span class="cn">se</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Posterior standard deviation of <span class="mono">theta</span>. Median 0.115. Wider for country-years near the extremes, where fewer series discriminate.</td></tr>
+          <tr><td class="col"><span class="cn">twr</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">The World on Record Index: latent reporting transparency on a standard-normal scale. 0 is the average country-year; positive is more complete reporting. Internally <code>theta</code> in the fit objects.</td></tr>
+          <tr><td class="col"><span class="cn">twr_se</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Posterior standard deviation of the TWR score. Median 0.115. Wider for country-years near the extremes, where fewer series discriminate.</td></tr>
         </tbody>
       </table></div>
     </section>

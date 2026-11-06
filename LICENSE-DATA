@@ -1,0 +1,60 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Sevastian Sanchez
+
+WHAT THIS COVERS
+  The data this repository produces, and the files published from it:
+
+    data/02_measure/   the measure and the fitted index scores
+    data/03_panels/    the assembled analysis panels
+    docs/              the score files served by the project website
+
+  The code that builds them is licensed separately under the MIT License;
+  see LICENSE.
+
+  Source data obtained from third parties is NOT covered and remains under
+  its own terms. That includes the UN Global SDG Indicators Database,
+  V-Dem and the Episodes of Regime Transformation dataset, the World Bank
+  Statistical Performance Indicators and World Development Indicators, and
+  any other material in data/01_source/.
+
+YOU ARE FREE TO
+  Share   — copy and redistribute the material in any medium or format
+  Adapt   — remix, transform, and build upon the material
+            for any purpose, including commercially.
+
+  The licensor cannot revoke these freedoms as long as you follow the
+  license terms.
+
+UNDER THE FOLLOWING TERMS
+  Attribution — You must give appropriate credit, provide a link to the
+  license, and indicate if changes were made. You may do so in any
+  reasonable manner, but not in any way that suggests the licensor
+  endorses you or your use.
+
+  No additional restrictions — You may not apply legal terms or
+  technological measures that legally restrict others from doing anything
+  the license permits.
+
+HOW TO ATTRIBUTE
+  Sanchez, Sevastian (2026). The World on Record: statistical reporting
+  across countries, policy sectors, and time. Columbia University.
+  https://github.com/SevastianSanchez/Politics_of_NAs
+  Licensed under CC BY 4.0.
+
+  See CITATION.cff for machine-readable citation metadata. A versioned
+  dataset with a persistent identifier is forthcoming; cite that in
+  preference to this repository once it exists.
+
+FULL LEGAL TEXT
+  This file is a human-readable summary of, and not a substitute for, the
+  license. The full legal text is at:
+
+    https://creativecommons.org/licenses/by/4.0/legalcode
+
+  A summary is at https://creativecommons.org/licenses/by/4.0/
+
+DISCLAIMER
+  The material is provided as-is and without warranties of any kind
+  concerning the material, express or implied. The scores are preliminary
+  research output and may change between versions.

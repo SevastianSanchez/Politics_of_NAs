@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SDG Reporting Transparency — Preliminary Composite Index</title>
+<title>The World on Record</title>
 <meta name="description" content="A country-year measure of SDG reporting transparency, estimated by item response theory on the UN Global SDG Database, 2015-2023.">
 <style>
 :root{
@@ -169,10 +169,13 @@ footer p{max-width:64ch}
 <header>
   <div class="wrap">
     <span class="tag">Preliminary &middot; not for citation</span>
-    <h1>SDG Reporting Transparency</h1>
+    <h1>The World on Record</h1>
     <p class="lede">The first transparency measure covering the SDG era: latent reporting
       behaviour across 607 statistical series and 197 countries, 2015&ndash;2023, with
       uncertainty quantified for every country&ndash;year.</p>
+    <p class="sub"><strong>The World on Record Index (TWR)</strong> is the overall score
+      published here. Sector&ndash;level scores follow when the goal model finishes
+      estimating.</p>
     <p class="sub">Existing transparency indices stop in 2015. This one begins there, and
       resolves reporting by policy domain rather than returning a single national score.
       Estimated by item response theory on the UN Global SDG Database.</p>
@@ -314,7 +317,7 @@ footer p{max-width:64ch}
 <section>
   <div class="wrap">
     <p class="eyebrow">Full results</p>
-    <h2>Country scores</h2>
+    <h2>TWR scores by country</h2>
     <div class="controls">
       <input type="search" id="q" placeholder="Search country or ISO code" aria-label="Search country">
       <select id="yr" aria-label="Year"></select>
@@ -328,15 +331,15 @@ footer p{max-width:64ch}
           <th data-k="name">Country<span class="arrow"></span></th>
           <th data-k="iso">ISO<span class="arrow"></span></th>
           <th data-k="inc">Income group<span class="arrow"></span></th>
-          <th data-k="sc" class="num">Score<span class="arrow"></span></th>
+          <th data-k="sc" class="num">TWR<span class="arrow"></span></th>
           <th data-k="sc">Relative<span class="arrow"></span></th>
         </tr></thead>
         <tbody></tbody>
       </table>
     </div>
     <div class="dl">
-      <a class="btn" href="composite_scores.csv" download>Download CSV</a>
-      <a class="btn" href="composite_scores.json">View JSON</a>
+      <a class="btn" href="twr_scores.csv" download>Download CSV</a>
+      <a class="btn" href="twr_scores.json">View JSON</a>
       <a class="btn" href="data_dictionary.html">Data dictionary</a>
     </div>
   </div>
@@ -436,7 +439,7 @@ footer p{max-width:64ch}
 const F = n => n.toLocaleString();
 let D = null, sortK = "sc", sortDir = -1;
 
-fetch("composite_scores.json").then(r => r.json()).then(d => { D = d; init(); })
+fetch("twr_scores.json").then(r => r.json()).then(d => { D = d; init(); })
   .catch(() => { document.getElementById("facts").innerHTML =
     '<div class="fact"><span class="n">&mdash;</span><span class="l">data failed to load</span></div>'; });
 

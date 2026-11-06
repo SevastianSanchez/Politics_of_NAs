@@ -8,11 +8,15 @@ Author: Sevastian Sanchez, Columbia University (SIPA and QMSS)
 
 ## The index
 
-**[SDG Reporting Transparency &rarr; sevastiansanchez.github.io/Politics_of_NAs](https://sevastiansanchez.github.io/Politics_of_NAs/)**
+**[The World on Record &rarr; sevastiansanchez.github.io/Politics_of_NAs](https://sevastiansanchez.github.io/Politics_of_NAs/)**
+
+*Statistical reporting across countries, policy sectors, and time.*
 
 The first transparency measure covering the SDG era: latent reporting behaviour across 607 statistical series and 197 countries, 2015–2023, with uncertainty quantified for every country-year. Existing transparency indices stop in 2015; this one begins there, and resolves reporting by policy domain rather than returning a single national score.
 
-The site carries the rankings, the yearly trend, the goal-level panel, a version roadmap and the downloadable scores. It is a preliminary release and not yet citable.
+The headline measure is the **World on Record Index (TWR)**: one overall score per country-year, with sector-level scores to follow. The site carries the rankings, the yearly trend, the sector panel, a version roadmap and the downloadable scores. It is a preliminary release and not yet citable.
+
+Cite via [CITATION.cff](CITATION.cff). Code is MIT-licensed ([LICENSE](LICENSE)); the data are CC BY 4.0 ([LICENSE-DATA](LICENSE-DATA)).
 
 ## Data
 
@@ -44,7 +48,7 @@ The cleaned outcome tables, their grain, keys and every column are documented in
 | `descriptive_stats/` | Descriptive analysis code (RQ1–RQ4) |
 | `causal_inference_mods/` | TWFE (`overall_twfe_analysis.Rmd`), Callaway–Sant'Anna DiD (`cs_did_analysis_v2.Rmd`), event studies, robustness checks |
 | `output/` | Everything the analysis produces, grouped by track then kind: `descriptive/{figures,tables,results}/` and `causal/{figures,tables,results}/`. See `output/README.md` for the rules |
-| `docs/` | The published site — the [index page](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the score files they serve. GitHub Pages builds this folder from `main`; `code/build_docs_data.R` regenerates its data |
+| `docs/` | The published site — [The World on Record](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the TWR score files they serve. GitHub Pages builds this folder from `main`; `code/build_docs_data.R` regenerates its data |
 
 Code folders hold code; `data/` holds sources and built tables; `output/` holds
 results. The numbers on the `data/` folders are the direction of travel: one
@@ -91,4 +95,4 @@ Di Gennaro Splendore, L., and Sanchez, S. (2025). *Untangling the relationship b
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+Code is MIT; see [LICENSE](LICENSE). The data this code produces — `data/02_measure/`, `data/03_panels/` and the files published in `docs/` — are CC BY 4.0; see [LICENSE-DATA](LICENSE-DATA). Third-party source data in `data/01_source/` remains under its own terms.
