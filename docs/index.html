@@ -126,6 +126,16 @@ tbody tr:hover{background:var(--accent-soft)}
 .mrow .d{font-family:var(--mono);font-size:.84rem;font-variant-numeric:tabular-nums}
 .down .d{color:var(--neg)} .up .d{color:var(--pos)}
 
+.vers{display:flex;flex-direction:column;gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:4px;overflow:hidden;margin-top:1.3rem}
+.ver{background:var(--panel);padding:1.1rem;display:flex;gap:1rem;align-items:flex-start}
+.ver.now{background:var(--accent-soft)}
+.ver .vn{font-family:var(--serif);font-size:1.25rem;color:var(--accent);
+  min-width:2.2rem;line-height:1.3}
+.ver h3{font-family:var(--sans);font-size:.92rem;margin-bottom:.3rem}
+.ver h3 em{font-style:normal;color:var(--accent);font-weight:500}
+.ver p{font-size:.9rem;color:var(--muted);margin:0;max-width:62ch}
+@media (max-width:30rem){.ver{flex-direction:column;gap:.4rem}}
 dl{margin:0} dt{font-weight:600;margin-top:.9rem;font-size:.95rem}
 dd{margin:.2rem 0 0;color:var(--muted);max-width:64ch;font-size:.94rem}
 ul{max-width:64ch;padding-left:1.2rem} li{margin-bottom:.4rem}
@@ -143,11 +153,12 @@ footer p{max-width:64ch}
   <div class="wrap">
     <span class="tag">Preliminary &middot; not for citation</span>
     <h1>SDG Reporting Transparency</h1>
-    <p class="lede">A transparency measure built to tell silence by choice from silence
-      by incapacity &mdash; and to say which policy domains went quiet.</p>
-    <p class="sub">A country&ndash;year index of how much of the Sustainable Development
-      Goal framework a government actually reports, estimated by item response theory on
-      the UN Global SDG Database, 2015&ndash;2023.</p>
+    <p class="lede">The first transparency measure covering the SDG era: latent reporting
+      behaviour across 607 statistical series and 197 countries, 2015&ndash;2023, with
+      uncertainty quantified for every country&ndash;year.</p>
+    <p class="sub">Existing transparency indices stop in 2015. This one begins there, and
+      resolves reporting by policy domain rather than returning a single national score.
+      Estimated by item response theory on the UN Global SDG Database.</p>
     <p class="byline">Sevastian Sanchez &middot; Columbia University &middot;
       <span id="gen"></span> &middot;
       <a href="https://github.com/SevastianSanchez/Politics_of_NAs">source repository</a></p>
@@ -183,6 +194,11 @@ footer p{max-width:64ch}
       standard deviations rather than asymptotic approximations.</p>
 
     <div class="diff">
+      <div class="dcard"><span class="k">2015&ndash;23</span>
+        <h3>The uncovered era</h3>
+        <p>The established transparency index runs to 2010, its maintained extension to
+          2015. For the years that follow &mdash; the pandemic, the backsliding wave,
+          half the SDG monitoring window &mdash; no comparable measure exists.</p></div>
       <div class="dcard"><span class="k">607</span>
         <h3>The whole framework</h3>
         <p>Series covered across 197 countries and nine years, estimated rather than
@@ -298,19 +314,65 @@ footer p{max-width:64ch}
       <dd>No democracy score, income group, population or region enters the model.
         Those are explanatory variables in the accompanying study, and including them
         would make any subsequent test circular.</dd>
-      <dt>Still to come</dt>
-      <dd>Goal&ndash;level disaggregation, giving every country a separate score for
-        each of the 16 goals with enough series to support one, is estimated but not
-        yet published here. A second version will distinguish figures produced by
-        national statistical offices from those imputed by international agencies, and
-        separate data suppressed from data that was never applicable &mdash; a
-        distinction the SDG database records and the World Development Indicators do
-        not.</dd>
+      <dt>Goal&ndash;level scores</dt>
+      <dd>Estimated by a bifactor model &mdash; one general factor plus one per SDG goal
+        with enough series to identify it &mdash; and not yet published on this page.
+        See the roadmap below.</dd>
       <dt>Not yet smoothed</dt>
       <dd>Scores are estimated independently by year. A dynamic prior linking adjacent
         years, as in the original transparency index, is deferred: nine years is a
         short series for a random walk to earn its place.</dd>
     </dl>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Roadmap</p>
+    <h2>What each version measures</h2>
+    <p>Three dimensions of reporting behaviour are separable in the SDG database and are
+      being added in sequence. Each is listed with what it covers, because a measure's
+      scope is a fact users need rather than a caveat to be buried.</p>
+
+    <div class="vers">
+      <div class="ver now">
+        <span class="vn">v1</span>
+        <div>
+          <h3>Domain &mdash; <em>this release</em></h3>
+          <p>Whether a government published anything for each of 607 series, resolved
+            into an overall score and a score per SDG goal. Answers which policy areas
+            fell silent, not merely that a country did. No existing transparency index
+            disaggregates this way.</p>
+        </div>
+      </div>
+      <div class="ver">
+        <span class="vn">v2</span>
+        <div>
+          <h3>Provenance</h3>
+          <p>The database records who produced each figure &mdash; a national
+            statistical office or an international agency &mdash; and why a cell is
+            empty: suppressed, structurally inapplicable, or unexplained. Separating
+            those is what distinguishes a government withholding data from one that
+            cannot produce it. The World Development Indicators record neither, which
+            is why no earlier measure can draw the line.</p>
+        </div>
+      </div>
+      <div class="ver">
+        <span class="vn">v3</span>
+        <div>
+          <h3>Depth</h3>
+          <p>A national total and a full breakdown by sex, age and location currently
+            score alike. 36% of series admit disaggregation, and depth correlates with
+            the index at 0.57 once the series set is held constant &mdash; so it
+            carries signal the binary discards. It enters as ordered responses the
+            model estimates over, not as a ratio computed after the fact.</p>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:1.3rem">Taken together the three produce a measure that can
+      tell silence by choice from silence by incapacity, and locate it by domain. That
+      is the destination; this page documents how far along the way it currently is.</p>
   </div>
 </section>
 
