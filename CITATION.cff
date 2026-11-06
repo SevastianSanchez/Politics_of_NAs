@@ -10,10 +10,10 @@ authors:
 abstract: >-
   The first transparency measure covering the SDG era: latent reporting
   behaviour across 607 statistical series and 197 countries, 2015-2023, with
-  uncertainty quantified for every country-year. The dataset provides the
-  World on Record Index (TWR), an overall score per country-year estimated by
-  item response theory on the UN Global SDG Indicators Database, together with
-  sector-level scores and the per-series item parameters.
+  uncertainty quantified for every country-year. The World on Record Index
+  (TWR) gives each country-year a single score, estimated by item response
+  theory on the UN Global SDG Indicators Database. Sector-level scores and
+  per-series item parameters accompany it.
 keywords:
   - transparency
   - missing data
