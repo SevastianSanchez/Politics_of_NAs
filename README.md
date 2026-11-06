@@ -6,6 +6,14 @@ Which development data disappear when democracies backslide, and which disappear
 
 Author: Sevastian Sanchez, Columbia University (SIPA and QMSS)
 
+## The index
+
+**[SDG Reporting Transparency &rarr; sevastiansanchez.github.io/Politics_of_NAs](https://sevastiansanchez.github.io/Politics_of_NAs/)**
+
+The first transparency measure covering the SDG era: latent reporting behaviour across 607 statistical series and 197 countries, 2015–2023, with uncertainty quantified for every country-year. Existing transparency indices stop in 2015; this one begins there, and resolves reporting by policy domain rather than returning a single national score.
+
+The site carries the rankings, the yearly trend, the goal-level panel, a version roadmap and the downloadable scores. It is a preliminary release and not yet citable.
+
 ## Data
 
 | Source | Use |

@@ -4,85 +4,86 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Politics of NAs: Data Dictionary</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
   :root{
-    --bg:#eef1f3; --surface:#ffffff; --surface-2:#f4f6f8; --surface-3:#e9edf0;
-    --ink:#16202b; --ink-2:#4d5d6b; --ink-3:#7c8b98;
-    --line:#d8dee3; --line-2:#e6eaee;
-    --accent:#0d6e73; --accent-ink:#0a5559; --accent-soft:#d6e8e8;
+    --bg:#fbfaf8; --surface:#ffffff; --surface-2:#f6f4f0; --surface-3:#efece6;
+    --ink:#1d1c1a; --ink-2:#6b6862; --ink-3:#8d8a84;
+    --line:#e3dfd8; --line-2:#efece6;
+    --accent:#7a4b2a; --accent-ink:#5e3920; --accent-soft:#f3ece5;
     /* role hues (semantic, not the accent) */
-    --r-primary:#0d6e73; --r-primary-bg:#d8e9e9;
-    --r-robust:#9a6714;  --r-robust-bg:#f0e6d0;
-    --r-supp:#5f4a86;    --r-supp-bg:#e4ddef;
-    --r-source:#334656;  --r-source-bg:#dde4ea;
-    --r-ref:#4f6b5e;     --r-ref-bg:#dde9e2;
-    --key:#b4472b; --key-bg:#f3ddd4;
-    --merge:#0d6e73; --merge-bg:#cfe6e6;
+    --r-primary:#7a4b2a; --r-primary-bg:#f0e7dd;
+    --r-robust:#7d6a24;  --r-robust-bg:#f0ecd9;
+    --r-supp:#6b4a63;    --r-supp-bg:#eee4ec;
+    --r-source:#4a4a46;  --r-source-bg:#e9e7e2;
+    --r-ref:#4a6450;     --r-ref-bg:#e2ebe4;
+    --key:#a4442b; --key-bg:#f5e0d8;
+    --merge:#7a4b2a; --merge-bg:#ece0d4;
     --shadow:0 1px 2px rgba(20,32,43,.04), 0 4px 16px rgba(20,32,43,.05);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     color-scheme:light;
   }
   :root:not([data-theme="light"]){ @media (prefers-color-scheme:dark){
-    --bg:#0e141a; --surface:#151d24; --surface-2:#1b242c; --surface-3:#222d36;
-    --ink:#e7eef2; --ink-2:#a3b3bf; --ink-3:#6f8291;
-    --line:#28333c; --line-2:#212a32;
-    --accent:#54b6bb; --accent-ink:#7fcccf; --accent-soft:#153033;
-    --r-primary:#54b6bb; --r-primary-bg:#123033;
-    --r-robust:#d3a24e;  --r-robust-bg:#2e2716;
-    --r-supp:#a992d6;    --r-supp-bg:#241d33;
-    --r-source:#93a7b6;  --r-source-bg:#1c262e;
-    --r-ref:#8fbaa5;     --r-ref-bg:#182620;
-    --key:#e0876a; --key-bg:#2e1c15;
-    --merge:#54b6bb; --merge-bg:#12302f;
+    --bg:#15140f; --surface:#1d1c17; --surface-2:#22201a; --surface-3:#262319;
+    --ink:#eceae4; --ink-2:#a3a097; --ink-3:#857f74;
+    --line:#332f27; --line-2:#262319;
+    --accent:#d09a6a; --accent-ink:#e3b589; --accent-soft:#2a2118;
+    --r-primary:#d09a6a; --r-primary-bg:#2d241a;
+    --r-robust:#c9b26a;  --r-robust-bg:#2b2716;
+    --r-supp:#c2a0bb;    --r-supp-bg:#2a2029;
+    --r-source:#a8a49c;  --r-source-bg:#24221d;
+    --r-ref:#9bbda6;     --r-ref-bg:#1e2720;
+    --key:#e09a7f; --key-bg:#2f1f18;
+    --merge:#d09a6a; --merge-bg:#2d241a;
     --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.28);
     color-scheme:dark;
   }}
   :root[data-theme="dark"]{
-    --bg:#0e141a; --surface:#151d24; --surface-2:#1b242c; --surface-3:#222d36;
-    --ink:#e7eef2; --ink-2:#a3b3bf; --ink-3:#6f8291;
-    --line:#28333c; --line-2:#212a32;
-    --accent:#54b6bb; --accent-ink:#7fcccf; --accent-soft:#153033;
-    --r-primary:#54b6bb; --r-primary-bg:#123033;
-    --r-robust:#d3a24e;  --r-robust-bg:#2e2716;
-    --r-supp:#a992d6;    --r-supp-bg:#241d33;
-    --r-source:#93a7b6;  --r-source-bg:#1c262e;
-    --r-ref:#8fbaa5;     --r-ref-bg:#182620;
-    --key:#e0876a; --key-bg:#2e1c15;
-    --merge:#54b6bb; --merge-bg:#12302f;
+    --bg:#15140f; --surface:#1d1c17; --surface-2:#22201a; --surface-3:#262319;
+    --ink:#eceae4; --ink-2:#a3a097; --ink-3:#857f74;
+    --line:#332f27; --line-2:#262319;
+    --accent:#d09a6a; --accent-ink:#e3b589; --accent-soft:#2a2118;
+    --r-primary:#d09a6a; --r-primary-bg:#2d241a;
+    --r-robust:#c9b26a;  --r-robust-bg:#2b2716;
+    --r-supp:#c2a0bb;    --r-supp-bg:#2a2029;
+    --r-source:#a8a49c;  --r-source-bg:#24221d;
+    --r-ref:#9bbda6;     --r-ref-bg:#1e2720;
+    --key:#e09a7f; --key-bg:#2f1f18;
+    --merge:#d09a6a; --merge-bg:#2d241a;
     --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.28);
     color-scheme:dark;
   }
 
   *{box-sizing:border-box}
+  h1,h2,h3{font-family:var(--serif); font-weight:600; text-wrap:balance}
   body{
     background:var(--bg); color:var(--ink);
-    font-family:"IBM Plex Sans", system-ui, sans-serif;
+    font-family:var(--sans);
     line-height:1.5; margin:0;
     -webkit-font-smoothing:antialiased;
   }
-  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace}
+  .mono{font-family:var(--mono)}
   .wrap{max-width:1080px; margin:0 auto; padding:0 24px}
 
   /* ---- masthead ---- */
   header.top{padding:56px 0 30px; border-bottom:1px solid var(--line)}
-  .eyebrow{font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.16em;
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.16em;
     text-transform:uppercase; color:var(--accent-ink); font-weight:500; margin:0 0 14px}
   h1{font-size:clamp(30px,4.4vw,46px); line-height:1.04; letter-spacing:-.02em;
     font-weight:700; margin:0 0 14px; text-wrap:balance}
   .lede{font-size:17px; color:var(--ink-2); max-width:64ch; margin:0}
-  .lede code{font-family:"IBM Plex Mono",monospace; font-size:.9em; color:var(--ink);
+  .lede code{font-family:var(--mono); font-size:.9em; color:var(--ink);
     background:var(--surface-3); padding:1px 5px; border-radius:4px}
 
   /* ---- legend strip ---- */
   .legend{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center;
     padding:18px 0; margin-top:22px; border-top:1px solid var(--line-2)}
   .legend .grp{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
-  .lk{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.03em;
+  .lk{font-family:var(--mono); font-size:11px; letter-spacing:.03em;
     color:var(--ink-3); margin-right:2px}
 
-  .role{font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  .role{font-family:var(--mono); font-size:11px; font-weight:600;
     letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border-radius:5px;
     white-space:nowrap}
   .role.primary{color:var(--r-primary); background:var(--r-primary-bg)}
@@ -91,7 +92,7 @@
   .role.source{color:var(--r-source); background:var(--r-source-bg)}
   .role.ref{color:var(--r-ref); background:var(--r-ref-bg)}
 
-  .badge{font-family:"IBM Plex Mono",monospace; font-size:10px; font-weight:600;
+  .badge{font-family:var(--mono); font-size:10px; font-weight:600;
     letter-spacing:.05em; padding:2px 6px; border-radius:4px; white-space:nowrap}
   .badge.key{color:var(--key); background:var(--key-bg)}
   .badge.merge{color:var(--merge); background:var(--merge-bg); border:1px solid var(--merge)}
@@ -99,15 +100,15 @@
   /* ---- lineage ---- */
   .lineage{margin:30px 0 4px; padding:22px; background:var(--surface);
     border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow)}
-  .lineage h2{font-size:13px; font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;
+  .lineage h2{font-size:13px; font-family:var(--mono); letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-3); font-weight:500; margin:0 0 16px}
   .flow{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
-  .src-node{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:14px;
+  .src-node{font-family:var(--mono); font-weight:600; font-size:14px;
     padding:12px 16px; border-radius:9px; background:var(--r-source-bg); color:var(--r-source);
     border:1px solid color-mix(in srgb, var(--r-source) 30%, transparent); white-space:nowrap}
   .arrow{color:var(--ink-3); font-size:20px; flex:none}
   .derived{display:flex; flex-direction:column; gap:7px; flex:1; min-width:220px}
-  .dnode{display:flex; align-items:center; gap:9px; font-family:"IBM Plex Mono",monospace;
+  .dnode{display:flex; align-items:center; gap:9px; font-family:var(--mono);
     font-size:13px; color:var(--ink); background:var(--surface-2); padding:7px 11px;
     border-radius:7px; border:1px solid var(--line-2)}
   .dot{width:8px; height:8px; border-radius:50%; flex:none}
@@ -119,37 +120,37 @@
   .ds-rail{height:3px; width:100%}
   .ds-head{padding:22px 26px 20px; border-bottom:1px solid var(--line-2)}
   .ds-title{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:12px}
-  .ds-title .name{font-family:"IBM Plex Mono",monospace; font-size:21px; font-weight:600;
+  .ds-title .name{font-family:var(--mono); font-size:21px; font-weight:600;
     letter-spacing:-.01em; color:var(--ink)}
   .ds-desc{color:var(--ink-2); font-size:15px; max-width:74ch; margin:0}
   .meta{display:flex; gap:26px; flex-wrap:wrap; margin-top:16px}
   .meta .m{display:flex; flex-direction:column; gap:3px}
-  .meta .ml{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.08em;
+  .meta .ml{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em;
     text-transform:uppercase; color:var(--ink-3)}
-  .meta .mv{font-family:"IBM Plex Mono",monospace; font-size:14px; font-weight:500;
+  .meta .mv{font-family:var(--mono); font-size:14px; font-weight:500;
     color:var(--ink); font-variant-numeric:tabular-nums}
   .meta .mv .k{color:var(--accent-ink)}
 
   /* ---- column table ---- */
   .tbl-scroll{overflow-x:auto}
   table{width:100%; border-collapse:collapse; font-size:14px}
-  thead th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.08em;
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em;
     text-transform:uppercase; color:var(--ink-3); font-weight:500; text-align:left;
     padding:12px 26px; background:var(--surface-2); border-bottom:1px solid var(--line)}
   tbody td{padding:10px 26px; border-bottom:1px solid var(--line-2); vertical-align:top}
   tbody tr:last-child td{border-bottom:none}
   .grp-row td{background:var(--surface-2); padding:7px 26px}
-  .grp-row .gl{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em;
+  .grp-row .gl{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em;
     text-transform:uppercase; color:var(--accent-ink); font-weight:600}
   td.col{white-space:nowrap}
-  td.col .cn{font-family:"IBM Plex Mono",monospace; font-size:13.5px; font-weight:500; color:var(--ink)}
+  td.col .cn{font-family:var(--mono); font-size:13.5px; font-weight:500; color:var(--ink)}
   td.type{white-space:nowrap}
-  td.type .ty{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-2);
+  td.type .ty{font-family:var(--mono); font-size:12px; color:var(--ink-2);
     background:var(--surface-3); padding:2px 7px; border-radius:5px}
   td.desc{color:var(--ink-2); font-size:13.5px; line-height:1.45; min-width:280px}
-  td.desc code{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink);
+  td.desc code{font-family:var(--mono); font-size:12px; color:var(--ink);
     background:var(--surface-3); padding:1px 4px; border-radius:4px}
-  .na{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--key);
+  .na{font-family:var(--mono); font-size:11px; color:var(--key);
     white-space:nowrap}
 
   footer{border-top:1px solid var(--line); padding:28px 0 60px; color:var(--ink-3);
@@ -157,7 +158,7 @@
   footer .mono{font-size:12px}
 
   .toggle{position:fixed; top:16px; right:16px; z-index:10;
-    font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.05em;
+    font-family:var(--mono); font-size:11px; letter-spacing:.05em;
     color:var(--ink-2); background:var(--surface); border:1px solid var(--line);
     border-radius:20px; padding:7px 13px; cursor:pointer; box-shadow:var(--shadow)}
   .toggle:hover{color:var(--ink); border-color:var(--ink-3)}
@@ -175,7 +176,7 @@
 
 <header class="top">
   <div class="wrap">
-    <p class="eyebrow">Politics of NAs · data dictionary</p>
+    <p class="eyebrow"><a href="./" style="color:var(--accent);text-decoration:none">← SDG Reporting Transparency</a> · data dictionary</p>
     <h1>SDG reporting data, mapped</h1>
     <p class="lede">Every dataset the prep pipeline writes to <code>data/clean/</code>, its grain and keys, and what each column means. One source table, six derived. Merge to the treatment panel on <code>iso3&nbsp;+&nbsp;year</code>.</p>
 
@@ -193,6 +194,18 @@
         <span class="badge key">KEY</span><span class="lk">grain</span>
         <span class="badge merge">MERGE</span><span class="lk">to MAIN_panel_data</span>
       </div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.3rem">
+      <a href="./" style="display:inline-block;font-size:.86rem;padding:.5em .9em;
+        border:1px solid var(--line);border-radius:3px;background:var(--surface);
+        color:var(--ink);text-decoration:none">The index</a>
+      <a href="composite_scores.csv" download style="display:inline-block;font-size:.86rem;
+        padding:.5em .9em;border:1px solid var(--line);border-radius:3px;
+        background:var(--surface);color:var(--ink);text-decoration:none">Download CSV</a>
+      <a href="https://github.com/SevastianSanchez/Politics_of_NAs" style="display:inline-block;
+        font-size:.86rem;padding:.5em .9em;border:1px solid var(--line);border-radius:3px;
+        background:var(--surface);color:var(--ink);text-decoration:none">Repository</a>
     </div>
   </div>
 </header>
