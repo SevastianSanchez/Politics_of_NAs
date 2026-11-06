@@ -178,7 +178,7 @@
   <div class="wrap">
     <p class="eyebrow"><a href="./" style="color:var(--accent);text-decoration:none">← SDG Reporting Transparency</a> · data dictionary</p>
     <h1>SDG reporting data, mapped</h1>
-    <p class="lede">Every dataset the prep pipeline writes to <code>data/clean/</code>, its grain and keys, and what each column means. One source table, six derived. Merge to the treatment panel on <code>iso3&nbsp;+&nbsp;year</code>.</p>
+    <p class="lede">Every dataset the prep pipeline writes to <code>data/02_measure/</code>, its grain and keys, and what each column means. One source table, six derived, plus the index scores built from them. Merge to the analysis panel on <code>iso3&nbsp;+&nbsp;year</code>.</p>
 
     <div class="legend">
       <div class="grp">
@@ -192,7 +192,7 @@
       <div class="grp">
         <span class="lk">markers</span>
         <span class="badge key">KEY</span><span class="lk">grain</span>
-        <span class="badge merge">MERGE</span><span class="lk">to MAIN_panel_data</span>
+        <span class="badge merge">MERGE</span><span class="lk">to analysis_data</span>
       </div>
     </div>
 
@@ -221,6 +221,7 @@
         <div class="dnode"><span class="dot" style="background:var(--r-robust)"></span>agg_series_counts_rc <span style="color:var(--ink-3)">· robustness</span></div>
         <div class="dnode"><span class="dot" style="background:var(--r-supp)"></span>agg_series_depth <span style="color:var(--ink-3)">· supplementary</span></div>
         <div class="dnode"><span class="dot" style="background:var(--r-ref)"></span>series_list · series_stability · geo_exclusions <span style="color:var(--ink-3)">· reference</span></div>
+        <div class="dnode"><span class="dot" style="background:var(--accent)"></span>irt_* <span style="color:var(--ink-3)">· index scores, from agg_series_depth</span></div>
       </div>
     </div>
   </section>
@@ -228,6 +229,35 @@
 
 <main>
   <div class="wrap">
+
+    <!-- ============ INDEX SCORES ============ -->
+    <section class="ds">
+      <div class="ds-rail" style="background:var(--accent)"></div>
+      <div class="ds-head">
+        <div class="ds-title">
+          <span class="name">irt_scores_1d</span>
+          <span class="role primary">index</span>
+        </div>
+        <p class="ds-desc">The published measure. One reporting-transparency score per country-year, estimated by a two-parameter logistic item response model over 607 series drawn from <span class="mono">agg_series_depth</span>. Each series is treated as a test item and each country-year as a test-taker, so series difficulty is estimated rather than assumed &mdash; which is what removes the denominator choice every share-based measure has to make. Scores are expected a posteriori estimates, so <span class="mono">se</span> is a posterior standard deviation, not an asymptotic approximation. Published on the <a href="./">index site</a> as <span class="mono">composite_scores.csv</span>.</p>
+        <div class="meta">
+          <div class="m"><span class="ml">grain</span><span class="mv">country × year</span></div>
+          <div class="m"><span class="ml">key</span><span class="mv"><span class="k">iso3</span> + year</span></div>
+          <div class="m"><span class="ml">rows</span><span class="mv">1,773</span></div>
+          <div class="m"><span class="ml">file</span><span class="mv">.csv + .rds</span></div>
+        </div>
+      </div>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr class="grp-row"><td colspan="3"><span class="gl">identity &amp; keys</span></td></tr>
+          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to analysis_data <span class="badge merge">MERGE</span> <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015&ndash;2023 <span class="badge key">KEY</span></td></tr>
+          <tr class="grp-row"><td colspan="3"><span class="gl">the measure</span></td></tr>
+          <tr><td class="col"><span class="cn">theta</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Latent reporting transparency on a standard-normal scale. 0 is the average country-year; positive is more complete reporting. Published as <code>composite</code>.</td></tr>
+          <tr><td class="col"><span class="cn">se</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Posterior standard deviation of <span class="mono">theta</span>. Median 0.115. Wider for country-years near the extremes, where fewer series discriminate.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
 
     <!-- ============ PRIMARY ============ -->
     <section class="ds">
@@ -251,7 +281,7 @@
           <tr class="grp-row"><td colspan="3"><span class="gl">identity &amp; keys</span></td></tr>
           <tr><td class="col"><span class="cn">geo_area_code</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">UN M49 numeric code <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">geo_area_name</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">Country / territory name</td></tr>
-          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to MAIN_panel_data <span class="badge merge">MERGE</span></td></tr>
+          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to analysis_data <span class="badge merge">MERGE</span></td></tr>
           <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015–2023 <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">scope</span></td><td class="type"><span class="ty">chr</span></td><td class="desc"><code>goal</code> = per country-year-goal · <code>overall</code> = per country-year, all goals aggregated <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">goal</span></td><td class="type"><span class="ty">int</span></td><td class="desc">SDG 1–17; <code>NA</code> on overall rows <span class="badge key">KEY</span></td></tr>
@@ -482,7 +512,7 @@
 
 <footer>
   <div class="wrap">
-    <p><span class="mono">extract_SDG_series_data_2015_2023.R</span> → <span class="mono">data/clean/</span> · UN SDG Global Database, 2015–2023 · 197 geographies · 665 series · downloaded Aug 16 2026.</p>
+    <p><span class="mono">extract_SDG_series_data_2015_2023.R</span> → <span class="mono">data/02_measure/</span> · index fitted by <span class="mono">build_irt_composite.R</span>, which also writes <span class="mono">irt_composite_item_params.csv</span> (per-series difficulty and discrimination), <span class="mono">irt_response_matrix.rds</span> and <span class="mono">irt_series_goal_assignment.csv</span> · UN SDG Global Database, 2015–2023 · 197 geographies · 665 series · downloaded Aug 16 2026.</p>
     <p style="margin-top:6px;color:var(--ink-3)">Repository: <a href="https://github.com/SevastianSanchez/Politics_of_NAs" style="color:var(--accent-ink)">github.com/SevastianSanchez/Politics_of_NAs</a></p>
     <p style="margin-top:6px;color:var(--ink-3)">CSV re-reads guess column types; the <span class="mono">.rds</span> twins preserve exact types and the column labels quoted here.</p>
   </div>

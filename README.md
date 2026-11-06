@@ -21,8 +21,9 @@ The site carries the rankings, the yearly trend, the goal-level panel, a version
 | UN SDG Global Database, 2015–2023 (665 series, 197 geographies, ~1.3M observations) | Outcome: reported vs. missing observations by country, year and goal |
 | V-Dem and Episodes of Regime Transformation (ERT) | Democracy measures and autocratization episodes (treatment) |
 | World Bank Statistical Performance Indicators (SPI) | Statistical capacity control |
-| Sustainable Development Report 2025 (SDSN) | SDG Index scores |
 | World Development Indicators; nighttime lights (Beyer, Hu and Yao, 2026) | Controls: population, rural share, electricity access, GDP per capita, luminosity |
+
+The Sustainable Development Report (SDSN) was used earlier and is no longer a source. Its missingness measure is biased in ways that make it unsuitable as an outcome here, so it is retained only as an external comparison (`prop_sdg_missing_sdr`) and the descriptive work that rested on it is being rebuilt on the measure above.
 
 The cleaned outcome tables, their grain, keys and every column are documented in the **[interactive data dictionary](https://sevastiansanchez.github.io/Politics_of_NAs/data_dictionary.html)** (also available as [markdown](data/02_measure/README.md)).
 
@@ -36,14 +37,14 @@ The cleaned outcome tables, their grain, keys and every column are documented in
 
 | Folder | Contents |
 |---|---|
-| `code/data_prep/` | The whole pipeline: extraction and cleaning of the UN SDG exports (`extract_SDG_series_data_2015_2023.R`), series stability, predictor sourcing (`build_predictor_panel.R`), panel construction (`causal_inf_data_prep.R`), and the merge (`build_analysis_frame.Rmd`) |
+| `code/data_prep/` | The whole pipeline: extraction and cleaning of the UN SDG exports (`extract_SDG_series_data_2015_2023.R`), series stability, predictor sourcing (`build_predictor_panel.R`), panel construction (`causal_inf_data_prep.R`), the merge (`build_analysis_frame.Rmd`), and the index — `irt_prep.R` (shared response matrix, sourced by both fits), `build_irt_composite.R` and `build_irt_goals.R` |
 | `data/01_source/` | Nothing here is ours. The UN SDG goal exports (310 MB, untracked — see Reproducing), the covariate sources, and `snapshots/` holding the dated V-Dem and WDI pulls the pipeline is pinned to |
-| `data/02_measure/` | Computed from `01_source/` alone — the measure (see data dictionary) |
-| `data/03_panels/` | Assembled from `01` and `02` — what the models read: `predictor_panel`, `MAIN_panel_data`, `panel_es_data`, `analysis_data` |
+| `data/02_measure/` | Computed from `01_source/` alone — the measure, including the fitted index scores and item parameters (`irt_*`). See the data dictionary |
+| `data/03_panels/` | Assembled from `01` and `02` — what the models read. `analysis_data` is the panel current work builds on; `MAIN_panel_data` and `panel_es_data` were built against the earlier outcome definition and are superseded as that work moves across |
 | `descriptive_stats/` | Descriptive analysis code (RQ1–RQ4) |
 | `causal_inference_mods/` | TWFE (`overall_twfe_analysis.Rmd`), Callaway–Sant'Anna DiD (`cs_did_analysis_v2.Rmd`), event studies, robustness checks |
 | `output/` | Everything the analysis produces, grouped by track then kind: `descriptive/{figures,tables,results}/` and `causal/{figures,tables,results}/`. See `output/README.md` for the rules |
-| `docs/` | Source for the interactive data dictionary |
+| `docs/` | The published site — the [index page](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the score files they serve. GitHub Pages builds this folder from `main`; `code/build_docs_data.R` regenerates its data |
 
 Code folders hold code; `data/` holds sources and built tables; `output/` holds
 results. The numbers on the `data/` folders are the direction of travel: one
