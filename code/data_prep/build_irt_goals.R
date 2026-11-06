@@ -70,7 +70,14 @@ msg("   ", mins, " min | converged: ", conv, " | cycles: ", cycles)
 if (!conv)
   warning("BIFACTOR FIT DID NOT CONVERGE - do not publish these scores")
 
-Theta <- fscores(fit, method = "EAP", full.scores.SE = TRUE)
+# Save the fit before scoring: fscores() on a 17-dimensional model can exhaust
+# memory, and losing a multi-hour fit to a failure in the step after it is an
+# avoidable way to lose a day.
+saveRDS(fit, file.path(here("data/02_measure"), "irt_goal_fit.rds"))
+
+# QMC integration rather than a full quadrature grid, which mirt recommends
+# above a few dimensions and which a 16 GB vector limit makes necessary here.
+Theta <- fscores(fit, method = "EAP", full.scores.SE = TRUE, QMC = TRUE)
 # columns: G, S1..SK, then the matching SEs
 nf <- 1L + length(spec_levels)
 th <- Theta[, 1:nf, drop = FALSE]
@@ -131,7 +138,6 @@ if (file.exists(comp_path)) {
 
 msg("writing")
 
-saveRDS(fit,            file.path(out, "irt_goal_fit.rds"))
 fwrite(scores_goal,     file.path(out, "irt_goal_scores.csv"))
 saveRDS(scores_goal,    file.path(out, "irt_goal_scores.rds"))
 fwrite(scores_general,  file.path(out, "irt_goal_general_factor.csv"))

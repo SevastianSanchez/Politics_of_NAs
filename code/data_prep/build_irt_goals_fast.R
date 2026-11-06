@@ -72,7 +72,19 @@ msg("   ", mins, " min | converged: ", conv, " | cycles: ", cycles)
 if (!conv)
   warning("FAST BIFACTOR FIT DID NOT CONVERGE - do not publish these scores")
 
-Theta <- fscores(fit, method = "EAP", full.scores.SE = TRUE)
+# Save the fit IMMEDIATELY, before anything that can fail. The first attempt at
+# this script lost 66 minutes of converged fitting because it wrote nothing
+# until the end and fscores() then died on memory -- the same flaw that made
+# the original combined script hold the composite hostage to the bifactor.
+out <- here("data/02_measure")
+saveRDS(fit, file.path(out, "irt_goal_fast_fit.rds"))
+msg("   fit saved before scoring")
+
+# fscores() on a 17-dimensional model integrates over a full quadrature grid
+# and exhausted a 16 GB vector limit. QMC replaces that grid with quasi-Monte
+# Carlo draws, which is the method mirt itself recommends above a few
+# dimensions; it is stochastic, hence the seed set in irt_prep.R.
+Theta <- fscores(fit, method = "EAP", full.scores.SE = TRUE, QMC = TRUE)
 nf <- 1L + length(spec_levels)
 th <- Theta[, 1:nf, drop = FALSE]
 se <- Theta[, (nf + 1):(2 * nf), drop = FALSE]
@@ -114,9 +126,7 @@ co[, p_reported := as.numeric(p_rep[keep][match(series_code, names(p_rep[keep]))
 # ---- WRITE -------------------------------------------------------------------
 
 msg("writing")
-out <- here("data/02_measure")
 
-saveRDS(fit,           file.path(out, "irt_goal_fast_fit.rds"))
 fwrite(scores_goal,    file.path(out, "irt_goal_fast_scores.csv"))
 saveRDS(scores_goal,   file.path(out, "irt_goal_fast_scores.rds"))
 fwrite(scores_general, file.path(out, "irt_goal_fast_general.csv"))
@@ -134,7 +144,8 @@ fwrite(data.table(
   max_cycles      = max_cycles,
   converged       = conv,
   cycles          = cycles,
-  minutes         = mins),
+  minutes         = mins,
+  final_loglik    = round(extract.mirt(fit, "logLik"), 3)),
   file.path(out, "irt_goal_fast_run_log.csv"))
 
 # agreement with the published overall score, as a sanity check
