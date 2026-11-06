@@ -149,9 +149,9 @@ fwrite(data.table(
   file.path(out, "irt_goal_fast_run_log.csv"))
 
 # agreement with the published overall score, as a sanity check
-twr <- as.data.table(readRDS(file.path(out, "irt_scores_1d.rds")))
+twr <- as.data.table(readRDS(file.path(out, "irt_composite_scores.rds")))
 chk <- merge(scores_general, twr, by = c("iso3", "year"))
 msg("correlation of this fit's general factor with the published TWR: ",
-    sprintf("%.4f", cor(chk$twr_bifactor, chk$theta)))
+    sprintf("%.4f", cor(chk$twr_bifactor, chk$composite)))
 
 msg("done. sector rows: ", nrow(scores_goal))

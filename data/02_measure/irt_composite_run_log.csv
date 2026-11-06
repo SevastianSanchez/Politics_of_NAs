@@ -1,0 +1,2 @@
+run_date,fit,n_country_years,n_items,item_filter,max_cycles,converged,cycles,minutes,median_se
+2026-11-06,unidimensional 2PL,1773,607,0.02-0.98,30000,TRUE,13561,22.3,0.1151

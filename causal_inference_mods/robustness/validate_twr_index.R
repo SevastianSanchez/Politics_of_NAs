@@ -39,7 +39,7 @@
 #   first. It is the one external benchmark that would test TWR against the
 #   measure it descends from.
 #
-# INPUT   data/02_measure/irt_scores_1d.rds      (TWR scores)
+# INPUT   data/02_measure/irt_composite_scores.rds  (TWR scores)
 #         data/03_panels/analysis_data.rds       (SPI, income, legacy DVs)
 #         data/02_measure/agg_series_counts_rc.csv (availability share)
 # OUTPUT  output/measure/results/*.csv, output/measure/figures/*.png
@@ -56,8 +56,8 @@ msg <- function(...) cat(format(Sys.time(), "[%H:%M:%S] "), ..., "\n", sep = "")
 res_dir <- here("output/measure/results")
 fig_dir <- here("output/measure/figures")
 
-twr <- as.data.table(readRDS(here("data/02_measure/irt_scores_1d.rds")))
-setnames(twr, c("theta", "se"), c("twr", "twr_se"))
+twr <- as.data.table(readRDS(here("data/02_measure/irt_composite_scores.rds")))
+setnames(twr, c("composite", "composite_se"), c("twr", "twr_se"))
 
 a <- as.data.table(readRDS(here("data/03_panels/analysis_data.rds")))
 ov <- a[scope == "overall"]

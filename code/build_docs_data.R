@@ -6,16 +6,17 @@
 #
 # The published measure is the World on Record Index (TWR): one overall score
 # per country-year. Column names here are the PUBLIC ones and should match the
-# data dictionary -- `twr` and `twr_se`, not the internal `theta` / `se`.
+# data dictionary -- `twr` and `twr_se`, not the internal `composite` /
+# `composite_se` that build_irt_composite.R writes.
 #
-# INPUT   data/02_measure/irt_scores_1d.rds   (composite scores)
+# INPUT   data/02_measure/irt_composite_scores.rds   (the TWR scores)
 #         data/03_panels/analysis_data.rds    (country names, income groups)
 # OUTPUT  docs/twr_scores.json, docs/twr_scores.csv
 # ==============================================================================
 
 suppressPackageStartupMessages({library(data.table); library(here); library(jsonlite)})
 
-s <- as.data.table(readRDS(here("data/02_measure/irt_scores_1d.rds")))
+s <- as.data.table(readRDS(here("data/02_measure/irt_composite_scores.rds")))
 a <- as.data.table(readRDS(here("data/03_panels/analysis_data.rds")))
 
 meta <- unique(a[, .(iso3, country_name, income_level)])
@@ -31,13 +32,13 @@ inc_lab <- c(H = "High income", UM = "Upper-middle income",
 s[income_level %in% names(inc_lab), income_level := inc_lab[income_level]]
 
 rows <- s[, .(iso = iso3, name = country_name, inc = income_level, yr = year,
-              sc = round(theta, 3), se = round(se, 3))]
+              sc = round(composite, 3), se = round(composite_se, 3))]
 setorder(rows, iso, yr)
 
-yearly <- s[, .(yr = year[1], mean = round(mean(theta), 4), n = .N), by = year][, -1]
+yearly <- s[, .(yr = year[1], mean = round(mean(composite), 4), n = .N), by = year][, -1]
 setorder(yearly, yr)
 
-log1 <- fread(here("data/02_measure/irt_run_log_1d.csv"))
+log1 <- fread(here("data/02_measure/irt_composite_run_log.csv"))
 
 out <- list(
   generated   = format(Sys.time(), "%Y-%m-%d"),
@@ -58,7 +59,7 @@ cat("wrote docs/twr_scores.json |", nrow(rows), "rows |",
 
 # the downloadable copy the page links to, so docs/ is self-contained
 fwrite(s[, .(iso3, country_name, income_level, year,
-             twr = round(theta, 4), twr_se = round(se, 4))][
+             twr = round(composite, 4), twr_se = round(composite_se, 4))][
          order(iso3, year)],
        here("docs/twr_scores.csv"))
 cat("wrote docs/twr_scores.csv\n")
