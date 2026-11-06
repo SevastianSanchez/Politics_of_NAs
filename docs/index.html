@@ -136,6 +136,23 @@ tbody tr:hover{background:var(--accent-soft)}
 .ver h3 em{font-style:normal;color:var(--accent);font-weight:500}
 .ver p{font-size:.9rem;color:var(--muted);margin:0;max-width:62ch}
 @media (max-width:30rem){.ver{flex-direction:column;gap:.4rem}}
+.grow{display:grid;grid-template-columns:11rem 1fr 6rem;gap:.7rem;align-items:center;
+  padding:.3rem 0;font-size:.88rem}
+.grow .gl{color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gtrack{position:relative;height:16px;background:var(--rule2);border-radius:2px}
+.gfill{position:absolute;left:0;top:0;bottom:0;background:var(--accent);
+  border-radius:2px;opacity:.8}
+.gbase{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--fg);opacity:.45}
+.gnum{font-family:var(--mono);font-size:.8rem;text-align:right;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.gdelta{font-family:var(--mono);font-size:.74rem;margin-left:.3rem}
+.gdown{color:var(--neg)} .gup{color:var(--pos)}
+.glegend{font-size:.76rem;color:var(--faint);margin-top:.9rem;display:flex;
+  flex-wrap:wrap;gap:1.1rem;align-items:center}
+.glegend span{display:inline-flex;align-items:center;gap:.35rem}
+.swatch{width:12px;height:10px;border-radius:2px;background:var(--accent);opacity:.8}
+.tick{width:2px;height:12px;background:var(--fg);opacity:.45}
+@media (max-width:34rem){.grow{grid-template-columns:7.5rem 1fr 5rem;font-size:.8rem}}
 dl{margin:0} dt{font-weight:600;margin-top:.9rem;font-size:.95rem}
 dd{margin:.2rem 0 0;color:var(--muted);max-width:64ch;font-size:.94rem}
 ul{max-width:64ch;padding-left:1.2rem} li{margin-bottom:.4rem}
@@ -247,6 +264,35 @@ footer p{max-width:64ch}
         through year effects. Treating it as a normal year would read an archival
         delay as a collapse in global transparency.</p>
     </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">By policy domain</p>
+    <h2>Which areas went quiet</h2>
+    <p>A single national score says a government reports less. It cannot say what it
+      stopped reporting. Scores resolved to the 16 SDG goals with enough series to
+      support them can &mdash; and roughly half the variation in goal&ndash;level
+      reporting is not explained by a country's overall level, so the domains move
+      substantially on their own.</p>
+
+    <div class="note">
+      <h3>Preview &mdash; placeholder figures</h3>
+      <p>The panel below shows <strong>raw reporting shares</strong>: the fraction of
+        each goal's series a country published. These are not the released measure.
+        The goal&ndash;level model is still estimating; when it lands these are
+        replaced by scores that hold each country's overall level constant, so the
+        published numbers will be smaller and differently scaled. The pattern is what
+        is worth reading here, not the values.</p>
+    </div>
+
+    <div class="controls">
+      <select id="gc" aria-label="Country"></select>
+      <select id="gy" aria-label="Year"></select>
+      <span class="count" id="gnote"></span>
+    </div>
+    <div class="tablebox" style="padding:1.1rem"><div id="goals"></div></div>
   </div>
 </section>
 
@@ -411,6 +457,7 @@ function init(){
 
   drawChart();
   drawMovers();
+  initGoals();
 
   const years = [...new Set(D.rows.map(r => r.yr))].sort((a,b) => b-a);
   document.getElementById("yr").innerHTML =
@@ -430,6 +477,62 @@ function init(){
     draw();
   }));
   draw();
+}
+
+/* ---- goal-level panel (PREVIEW: raw shares, swapped for model scores later) ---- */
+let G = null;
+
+function initGoals(){
+  fetch("goal_preview.json").then(r => r.json()).then(g => {
+    G = g;
+    const cs = [...g.countries].sort((a,b) => a.name.localeCompare(b.name));
+    G.countries = cs;
+    document.getElementById("gc").innerHTML = cs.map((c,i) =>
+      '<option value="' + i + '"' + (c.iso === "AFG" ? " selected" : "") + '>' +
+      c.name + '</option>').join("");
+    document.getElementById("gy").innerHTML = g.years.map(y =>
+      '<option' + (y === g.years[g.years.length-1] ? " selected" : "") + '>' +
+      y + '</option>').join("");
+    document.getElementById("gc").addEventListener("change", drawGoals);
+    document.getElementById("gy").addEventListener("change", drawGoals);
+    drawGoals();
+  }).catch(() => {
+    document.getElementById("goals").innerHTML =
+      '<p style="color:var(--faint)">goal preview data failed to load</p>';
+  });
+}
+
+function drawGoals(){
+  const ci = +document.getElementById("gc").value;
+  const yr = +document.getElementById("gy").value;
+  const yi = G.years.indexOf(yr), y0 = 0;
+  const c  = G.countries[ci];
+
+  const rows = G.goals.map((g,k) => ({
+    label: g.label, n: g.n_items,
+    v: c.s[k][yi], base: c.s[k][y0]
+  })).sort((a,b) => b.v - a.v);
+
+  const max = Math.max(0.6, ...rows.map(r => Math.max(r.v, r.base)));
+  document.getElementById("goals").innerHTML = rows.map(r => {
+    const d = r.v - r.base;
+    const sign = d > 0 ? "+" : "";
+    const cls  = Math.abs(d) < 0.005 ? "" : (d < 0 ? "gdown" : "gup");
+    return '<div class="grow"><span class="gl" title="' + r.n + ' series">' +
+      r.label + '</span><span class="gtrack">' +
+      '<span class="gfill" style="width:' + (100*r.v/max).toFixed(1) + '%"></span>' +
+      '<span class="gbase" style="left:' + (100*r.base/max).toFixed(1) + '%" title="' +
+        G.years[y0] + ': ' + r.base.toFixed(2) + '"></span>' +
+      '</span><span class="gnum">' + r.v.toFixed(2) +
+      (yr === G.years[y0] ? '' :
+        '<span class="gdelta ' + cls + '">' + sign + d.toFixed(2) + '</span>') +
+      '</span></div>';
+  }).join("") +
+  '<div class="glegend"><span><i class="swatch"></i>share of goal reported in ' + yr +
+    '</span><span><i class="tick"></i>' + G.years[y0] + ' level</span>' +
+    '<span>hover a goal for its series count</span></div>';
+
+  document.getElementById("gnote").textContent = c.iso + " · 16 goals";
 }
 
 function drawChart(){
