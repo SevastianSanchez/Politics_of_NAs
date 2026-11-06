@@ -1,0 +1,5 @@
+income,income_level,n,mean_twr,median,sd,monotone,r2_income_only
+Low,L,263,-1.095,-1.017,0.667,TRUE,0.625
+Lower-middle,LM,438,-0.492,-0.388,0.541,TRUE,0.625
+Upper-middle,UM,414,-0.07,0.109,0.689,TRUE,0.625
+High,H,456,1.191,1.286,0.665,TRUE,0.625
