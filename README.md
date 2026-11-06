@@ -1,5 +1,7 @@
 # The Politics of NAs: Mapping Data Loss During Autocratization
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23997606.svg)](https://doi.org/10.5281/zenodo.23997606)
+
 **Status: work in progress.** Code and results change as the analysis develops.
 
 Which development data disappear when democracies backslide, and which disappear first? This project treats missing values in the UN Sustainable Development Goal (SDG) database as an outcome in their own right: a measure of how much a government reports, not a nuisance to impute away. It asks whether autocratization episodes reduce SDG reporting, and whether the losses concentrate in particular goals.
@@ -16,7 +18,17 @@ The first transparency measure covering the SDG era: latent reporting behaviour 
 
 The headline measure is the **World on Record Index (TWR)**: one overall score per country-year, with sector-level scores to follow. The site carries the rankings, the yearly trend, the sector panel, a version roadmap and the downloadable scores. It is a preliminary release and not yet citable.
 
-Cite via [CITATION.cff](CITATION.cff). Code is MIT-licensed ([LICENSE](LICENSE)); the data are CC BY 4.0 ([LICENSE-DATA](LICENSE-DATA)).
+### How to cite
+
+> Sanchez, S. (2026). *The World on Record: statistical reporting across countries, policy sectors, and time* (v1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23997606
+
+Use the **concept DOI** above when referring to the dataset generally — it always resolves to the newest version. Cite the **version DOI** for the release your analysis actually used, so your results stay reproducible after later versions change the scores:
+
+| Release | Version DOI |
+|---|---|
+| v1.0.0 | [10.5281/zenodo.23997607](https://doi.org/10.5281/zenodo.23997607) |
+
+Machine-readable metadata is in [CITATION.cff](CITATION.cff). Code is MIT-licensed ([LICENSE](LICENSE)); the data are CC BY 4.0 ([LICENSE-DATA](LICENSE-DATA)).
 
 ## Data
 
