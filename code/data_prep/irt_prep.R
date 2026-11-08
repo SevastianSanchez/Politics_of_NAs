@@ -22,9 +22,14 @@
 #   spec_levels  the goals that get their own factor
 #   spec_idx     per-item factor index for bfactor(); NA = general factor only
 #   shared_log   audit trail for series that sit under several goals
+#   variant_map  the series -> cluster map that was applied, for audit
+#   variant_reps the surviving representative series after variant collapse
 #
 # INPUT  data/02_measure/agg_series_depth.rds   (reported flag per cell)
 #        data/02_measure/series_list.csv        (series -> goal mapping)
+#        data/02_measure/series_variant_map.csv (redundant-variant clusters --
+#                                                built by build_variant_map.R,
+#                                                which must be run first)
 # ==============================================================================
 
 source(here::here("code/packages.R"))
@@ -85,6 +90,66 @@ keep  <- p_rep > item_lo & p_rep < item_hi
 msg("   items: ", ncol(resp), " -> ", sum(keep),
     " after the ", item_lo * 100, "-", item_hi * 100, "% filter")
 resp  <- resp[, keep]
+
+# ---- B1. COLLAPSE REDUNDANT SERIES VARIANTS ---------------------------------
+# Some measurements appear in the database more than once -- SH_STA_STNT
+# (children stunted, %) and SH_STA_STNTN (the same children, in thousands).
+# Counting both means a country scores higher simply because one of its
+# reported measurements was written down twice, while a country reporting a
+# single-variant series earns one point for the same reporting act. So each
+# redundant cluster contributes ONE item.
+#
+# Which series are redundant is decided in build_variant_map.R, not here, and
+# only where BOTH conditions hold: identical reported/not patterns across every
+# country-year, AND descriptions that show they measure the same thing another
+# way. Series that merely share a pattern are kept separate -- at 99.5%
+# reported, unrelated series coincide trivially.
+#
+# Series are NOT aggregated to UN indicator level: an indicator can hold a
+# variant family plus genuinely different series, and collapsing it would erase
+# the latter. The index stays at goal x series granularity.
+
+vmap_path <- here("data/02_measure/series_variant_map.csv")
+if (!file.exists(vmap_path))
+  stop("series_variant_map.csv is missing. Run ",
+       "code/data_prep/build_variant_map.R first -- the IRT fits must not run ",
+       "on an unchecked item set.", call. = FALSE)
+
+vmap <- fread(vmap_path)[, .(series_code, cluster, verdict)]
+vmap <- vmap[series_code %in% colnames(resp)]
+
+if (nrow(vmap) != ncol(resp))
+  stop("series_variant_map.csv covers ", nrow(vmap), " of the ", ncol(resp),
+       " series in the filtered matrix. It is stale -- re-run ",
+       "code/data_prep/build_variant_map.R against the current export.",
+       call. = FALSE)
+
+# UNIT TEST, re-asserted at fit time so a refreshed export cannot slip through.
+# Every cluster we are about to merge must move as one unit in every
+# country-year. If a new export breaks that, these series are no longer
+# redundant and merging them would destroy a real reporting choice.
+to_merge <- vmap[verdict == "collapse"]
+bad <- to_merge[, {
+  sub <- as.matrix(resp[, series_code, drop = FALSE])
+  .(n_disagreeing = sum(apply(sub, 1,
+      function(z) length(unique(z[!is.na(z)])) > 1)))
+}, by = cluster][n_disagreeing > 0]
+
+if (nrow(bad)) {
+  print(bad)
+  stop("VARIANT COLLAPSE TEST FAILED. The clusters above contain series that ",
+       "do NOT always move together in this data, so they are not redundant ",
+       "variants. Re-run code/data_prep/build_variant_map.R and inspect them ",
+       "before fitting.", call. = FALSE)
+}
+
+variant_reps  <- vmap[series_code == cluster | verdict != "collapse"]$series_code
+variant_map   <- vmap                     # left in the environment for audit
+n_before      <- ncol(resp)
+resp          <- resp[, colnames(resp) %in% variant_reps, drop = FALSE]
+msg("   variant collapse: ", n_before, " -> ", ncol(resp),
+    " items (", uniqueN(to_merge$cluster), " redundant clusters merged, ",
+    "collapse test passed)")
 
 # The goal assignment is only USED by the goal-level fit, but it is built here
 # so that both scripts report the same item set and the audit trail is
