@@ -79,7 +79,13 @@ cells[, y := as.integer(!is.na(reported) & reported)]
 msg("   completed grid: ", format(nrow(cells), big.mark = ","), " cells, ",
     sprintf("%.1f%%", 100 * mean(cells$y)), " reported")
 
-wide <- dcast(cells, iso3 + year ~ series_code, value.var = "y")
+# data.table::dcast is named explicitly because packages.R attaches reshape2,
+# which masks dcast. Running this file standalone happens to work (data.table
+# is attached after packages.R, so it wins), but SOURCING it from a script that
+# already loaded data.table flips the order: reshape2 wins, dcast returns a
+# plain data.frame, and the next line fails on .(iso3, year). Qualifying the
+# call makes the result independent of load order.
+wide <- data.table::dcast(cells, iso3 + year ~ series_code, value.var = "y")
 keys <- wide[, .(iso3, year)]
 resp <- as.data.frame(wide[, -(1:2)])
 
