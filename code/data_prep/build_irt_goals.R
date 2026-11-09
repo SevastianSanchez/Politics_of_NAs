@@ -141,7 +141,12 @@ fit_goal <- function(g) {
       if (!ok) "   <-- CHECK" else ""))
 
   co <- as.data.table(coef(f, simplify = TRUE)$items, keep.rownames = "series_code")
-  co[, goal := g][, p_reported := round(colMeans(M)[series_code], 4)]
+  # `g` is BOTH this function's argument and a column of a 2PL coefficient
+  # matrix (the guessing parameter, fixed at 0). Inside `[`, data.table resolves
+  # the column, so `goal := g` silently wrote 0 for every series. Use the
+  # argument explicitly.
+  goal_number <- g
+  co[, goal := goal_number][, p_reported := round(colMeans(M)[series_code], 4)]
   co[, weight_pct := round(100 * abs(a1) / sum(abs(a1)), 2)]
 
   # concentration: share of the score's weight in its five heaviest series
