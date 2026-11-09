@@ -1,7 +1,7 @@
 # The World on Record Index (TWR) — version 1.2.0
 
-Released 9 November 2026. Concept DOI 10.5281/zenodo.23997606 resolves to the
-latest version.
+Released 9 November 2026. Version DOI 10.5281/zenodo.24091914. Concept DOI
+10.5281/zenodo.23997606 resolves to the latest version.
 
 ## What is new: the sector layer
 
@@ -117,6 +117,6 @@ Fitted with mirt 1.48 on R 4.5.3. The composite converges in 187 cycles
 ## Citation
 
 Sanchez, S. (2026). *The World on Record Index* (Version 1.2.0) [Data set].
-Zenodo. https://doi.org/10.5281/zenodo.23997606
+Zenodo. https://doi.org/10.5281/zenodo.24091914
 
 Contact: ss7257@columbia.edu
