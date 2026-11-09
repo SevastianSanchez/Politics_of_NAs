@@ -5,6 +5,11 @@ kind, so that regenerating one track means clearing one folder:
 
 ```
 output/
+  measure/          code/ -- building and checking the index itself
+    tables/         external validity, SPI disagreements, collinear series,
+                    series provenance
+    results/        paper_numbers.txt, every figure the paper quotes
+    figures/        (empty)
   descriptive/      descriptive_stats/descriptive_analysis.Rmd
     figures/        19 PNGs
     tables/         PNG for the draft + CSV of the same numbers
@@ -14,6 +19,10 @@ output/
     tables/         PNG + CSV, four regression/diagnostic tables
     results/        Callaway-Sant'Anna ATTs (4 CSVs), multi-series event counts
 ```
+
+**The scores themselves are not here.** `twr` and `goal_level` live in
+`data/02_measure/`, because they are inputs to the descriptive and causal
+tracks (rule 1 below). `output/measure/` holds only what *checks* them.
 
 **Rules, so this does not drift again.**
 
@@ -37,6 +46,16 @@ output/
 Figures and tables are tracked in git on purpose: they are small, they are the
 figures in the paper draft, and a reviewer opening the repo should see results
 without running anything.
+
+6. **Every file here must be regenerable by a script in `code/`.** Tracking
+   results only works if a reader can tell which build produced them. On
+   9 Nov 2026, thirteen CSVs and three PNGs were removed from
+   `output/measure/` to `_private_archive/validation_607_pre_rebuild/`: they
+   were computed on the 607-series index, the script that wrote them had since
+   been replaced, and nothing could bring them up to date in place. One of them
+   reported a median posterior SD of 0.1151 against the released index's
+   0.1138. An orphaned result does not stay neutral; it quietly contradicts the
+   measure.
 
 Knitted output does not stay beside the Rmd. The CS DiD figures were sitting in
 `causal_inference_mods/cs_did_analysis_v2_files/figure-latex/` with knitr's own

@@ -16,8 +16,15 @@ Run order. Anything not listed here is a helper or a one-off.
 
 Supporting: `packages.R` · `data_prep/build_hrv_snapshot.R` (HRV2 snapshot) ·
 `data_prep/build_predictor_panel.R` · `data_prep/build_series_stability.R` ·
-`data_prep/causal_inf_data_prep.R` · `build_docs_goal_preview.R` ·
-`SDGCountryTrends_Function.R`
+`data_prep/causal_inf_data_prep.R` · `collinear_series_report.R` (which series
+agree so closely they might be duplicates, and why each was or was not
+collapsed) · `SDGCountryTrends_Function.R`
+
+**Not in the v1 run order:** `data_prep/build_irt_bifactor.R` builds
+`goal_relative` — a goal's reporting net of the country's own overall level —
+from a bifactor model. It is a long, checkpointed fit and is **not part of
+v1.2.0**, which ships `twr` and `goal_level` only. Safe to re-run: it resumes
+from its checkpoint.
 
 **`superseded/` must not be run.** See `superseded/README.md` and `METHODS_LOG.md`.
 
