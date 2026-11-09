@@ -127,6 +127,11 @@ saveRDS(fit, file.path(out, "irt_goal_relative_fit.rds"))
 msg("scoring (exact, <=2 dimensions per integral)")
 X    <- as.matrix(fit@Data$data)
 cf   <- coef(fit, simplify = TRUE)$items
+# mirt files the general-only series (goal 7) under specific index 1. That is
+# correct for scoring: their specific loading is zero, so their contribution to
+# goal 1's integral does not vary with theta_1 and cancels in the posterior,
+# while the total likelihood still counts them exactly once. It is wrong only
+# as a SERIES COUNT -- see n_by_goal below.
 spec <- fit@Internals$bfactor$specific
 N <- nrow(X); J <- ncol(X); G <- max(spec)
 
@@ -210,7 +215,15 @@ if (val_cor < 0.9999 || val_diff > 0.01)
        call. = FALSE)
 
 # ---- HEALTH, and the guard ---------------------------------------------------
-health <- rel[, .(series = sum(spec == match(goal[1], spec_levels)),
+# Series counts come from irt_prep's own spec, NOT from
+# fit@Internals$bfactor$specific. mirt stores the general-only series (goal 7,
+# passed as NA) under specific index 1 for its own bookkeeping, so reading the
+# count from there credits them to goal 1 and reports 35 series instead of 32.
+# It is only a count: those series have zero loading on every specific factor,
+# so they do not enter any goal factor's posterior.
+n_by_goal <- table(item_goal[!is.na(spec_idx)])
+
+health <- rel[, .(series = as.integer(n_by_goal[as.character(goal[1])]),
                   sd_score    = round(sd(goal_relative), 3),
                   se_median   = round(median(goal_relative_se), 3),
                   reliability = round(var(goal_relative) /

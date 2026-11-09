@@ -1,0 +1,2 @@
+run_date,fit,n_country_years,n_series,n_goal_factors,cycles,accelerate,prior,tol,scorer,scorer_cor_vs_mirt_eap_general,scorer_max_abs_diff,median_se,median_reliability,mirt_version,r_version
+2026-11-09,"bifactor 2PL, 1 general + 16 goal factors",1773,524,16,215,squarem,"norm(0,2) on all estimated a",0.001,"exact, bifactor property, 61 nodes",1,0,0.4064,0.813,1.48,4.5.3
