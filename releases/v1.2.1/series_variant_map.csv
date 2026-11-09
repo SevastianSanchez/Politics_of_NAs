@@ -1,0 +1,608 @@
+series_code,indicator,units,series_description,pattern_group,cluster,verdict,evidence
+AG_LND_FRST,15.1.1,PERCENT,Forest area as a proportion of total land area (%),11,AG_LND_FRST,collapse,identical pattern; min desc similarity 0.33; indicators 15.1.1; units PERCENT/HA_TH
+AG_LND_FRSTN,15.1.1,HA_TH,Forest area (thousands of hectares),11,AG_LND_FRST,collapse,identical pattern; min desc similarity 0.33; indicators 15.1.1; units PERCENT/HA_TH
+AG_LND_TOTL,15.1.1,HA_TH,Land area (thousands of hectares),11,AG_LND_FRST,collapse,identical pattern; min desc similarity 0.33; indicators 15.1.1; units PERCENT/HA_TH
+AG_LND_SUST_PRXCSS,2.4.1,SCORE,"[PROXY] Progress toward productive and sustainable agriculture, current status score",22,AG_LND_SUST_PRXCSS,collapse,identical pattern; min desc similarity 0.70; indicators 2.4.1; units SCORE
+AG_LND_SUST_PRXTS,2.4.1,SCORE,"[PROXY] Progress toward productive and sustainable agriculture, trend score",22,AG_LND_SUST_PRXCSS,collapse,identical pattern; min desc similarity 0.70; indicators 2.4.1; units SCORE
+AG_PRD_FIESMS,2.1.2,PERCENT,Prevalence of moderate or severe food insecurity in the population (%),24,AG_PRD_FIESMS,collapse,identical pattern; min desc similarity 0.83; indicators 2.1.2; units PERCENT/NUM_TH
+AG_PRD_FIESMSN,2.1.2,NUM_TH,Population in moderate or severe food insecurity (thousands of people),24,AG_PRD_FIESMS,collapse,identical pattern; min desc similarity 0.83; indicators 2.1.2; units PERCENT/NUM_TH
+DC_ENVTECH_IMP,17.7.1,CU_USD,Amount of tracked imported Environmentally Sound Technologies (current United States dollars),33,DC_ENVTECH_IMP,collapse,identical pattern; min desc similarity 0.57; indicators 17.7.1; units CU_USD
+DC_ENVTECH_TT,17.7.1,CU_USD,Total trade of tracked Environmentally Sound Technologies (current United States dollars),33,DC_ENVTECH_IMP,collapse,identical pattern; min desc similarity 0.57; indicators 17.7.1; units CU_USD
+DC_FTA_TOTAL,17.9.1,CON_USD_M,Total official development assistance (gross disbursement) for technical cooperation (millions of 2024 United States dollars),36,DC_FTA_TOTAL,collapse,identical pattern; min desc similarity 0.18; indicators 17.9.1/1.a.1/4.b.1/8.a.1/10.b.1; units CON_USD_M/PERCENT/CU_USD_M
+DC_ODA_POVLG,1.a.1,PERCENT,"Official development assistance grants for poverty reduction, by recipient countries (percentage of GNI)",36,DC_FTA_TOTAL,collapse,identical pattern; min desc similarity 0.18; indicators 17.9.1/1.a.1/4.b.1/8.a.1/10.b.1; units CON_USD_M/PERCENT/CU_USD_M
+DC_TOF_SCHIPSL,4.b.1,CON_USD_M,"Total official flows for scholarships, by recipient countries (millions of constant 2024 United States dollars)",36,DC_FTA_TOTAL,collapse,identical pattern; min desc similarity 0.18; indicators 17.9.1/1.a.1/4.b.1/8.a.1/10.b.1; units CON_USD_M/PERCENT/CU_USD_M
+DC_TOF_TRDCML,8.a.1,CON_USD_M,"Total official flows (commitments) for Aid for Trade, by recipient countries (millions of constant 2024 United States dollars)",36,DC_FTA_TOTAL,collapse,identical pattern; min desc similarity 0.18; indicators 17.9.1/1.a.1/4.b.1/8.a.1/10.b.1; units CON_USD_M/PERCENT/CU_USD_M
+DC_TOF_TRDDBML,8.a.1,CON_USD_M,"Total official flows (disbursement) for Aid for Trade, by recipient countries (millions of constant 2024 United States dollars)",36,DC_FTA_TOTAL,collapse,identical pattern; min desc similarity 0.18; indicators 17.9.1/1.a.1/4.b.1/8.a.1/10.b.1; units CON_USD_M/PERCENT/CU_USD_M
+DC_TRF_TOTL,10.b.1,CU_USD_M,"Total assistance for development, by recipient countries (millions of current United States dollars)",36,DC_FTA_TOTAL,collapse,identical pattern; min desc similarity 0.18; indicators 17.9.1/1.a.1/4.b.1/8.a.1/10.b.1; units CON_USD_M/PERCENT/CU_USD_M
+DC_ODA_LDCG,17.2.1,PERCENT,"Net official development assistance (ODA) to LDCs as a percentage of OECD-DAC donors' GNI, by donor countries (%)",39,DC_ODA_LDCG,collapse,identical pattern; min desc similarity 0.77; indicators 17.2.1; units PERCENT
+DC_ODA_LLDCG,17.2.1,PERCENT,"Net official development assistance (ODA) to landlocked developing countries as a percentage of OECD-DAC donors' GNI, by donor countries (%)",39,DC_ODA_LDCG,collapse,identical pattern; min desc similarity 0.77; indicators 17.2.1; units PERCENT
+DC_ODA_LDCS,17.2.1,CON_USD_M,"Net official development assistance (ODA) to LDCs from OECD-DAC countries, by donor countries (millions of constant 2024 United States dollars)",40,DC_ODA_LDCS,collapse,identical pattern; min desc similarity 0.75; indicators 17.2.1; units CON_USD_M
+DC_ODA_LLDC,17.2.1,CON_USD_M,"Net official development assistance (ODA) to landlocked developing countries from OECD-DAC countries, by donor countries (millions of constant 2024 United States dollars)",40,DC_ODA_LDCS,collapse,identical pattern; min desc similarity 0.75; indicators 17.2.1; units CON_USD_M
+DC_ODA_TOTL,17.2.1,CON_USD_M,"Net official development assistance (ODA) from OECD-DAC countries, by donor countries (millions of constant 2024 United States dollars)",46,DC_ODA_TOTL,collapse,identical pattern; min desc similarity 0.40; indicators 17.2.1/10.b.1; units CON_USD_M/CU_USD_M
+DC_TRF_TOTDL,10.b.1,CU_USD_M,"Total assistance for development, by donor countries (millions of current United States dollars)",46,DC_ODA_TOTL,collapse,identical pattern; min desc similarity 0.40; indicators 17.2.1/10.b.1; units CON_USD_M/CU_USD_M
+DC_TOF_TRDCMDL,8.a.1,CON_USD_M,"Total official flows (commitments) for Aid for Trade, by donor countries (millions of constant 2024 United States dollars)",58,DC_TOF_TRDCMDL,collapse,identical pattern; min desc similarity 1.00; indicators 8.a.1; units CON_USD_M
+DC_TOF_TRDDBMDL,8.a.1,CON_USD_M,"Total official flows (disbursement) for Aid for Trade, by donor countries (millions of constant 2024 United States dollars)",58,DC_TOF_TRDCMDL,collapse,identical pattern; min desc similarity 1.00; indicators 8.a.1; units CON_USD_M
+EN_ATM_CO2,9.4.1,TONNES_M,Carbon dioxide emissions from fuel combustion (millions of tonnes),71,EN_ATM_CO2,collapse,identical pattern; min desc similarity 0.33; indicators 9.4.1; units TONNES_M/KG_PER_CON_USD
+EN_ATM_CO2GDP,9.4.1,KG_PER_CON_USD,Carbon dioxide emissions per unit of GDP PPP (kilogrammes of CO2 per constant 2021 United States dollars),71,EN_ATM_CO2,collapse,identical pattern; min desc similarity 0.33; indicators 9.4.1; units TONNES_M/KG_PER_CON_USD
+EN_ATM_CO2MVA,9.4.1,KG_PER_CON_USD,Carbon dioxide emissions from manufacturing industries per unit of manufacturing value added (kilogrammes of CO2 per constant 2020 United States dollars),71,EN_ATM_CO2,collapse,identical pattern; min desc similarity 0.33; indicators 9.4.1; units TONNES_M/KG_PER_CON_USD
+EN_ATM_GHGT_WLU,13.2.2,MT_CO2E,Total greenhouse gas emissions with LULUCF (Mt CO₂ equivalent),72,EN_ATM_GHGT_WLU,collapse,identical pattern; min desc similarity 0.67; indicators 13.2.2; units MT_CO2E
+EN_ATM_GHGT_WOLU,13.2.2,MT_CO2E,Total greenhouse gas emissions without LULUCF (Mt CO₂ equivalent),72,EN_ATM_GHGT_WLU,collapse,identical pattern; min desc similarity 0.67; indicators 13.2.2; units MT_CO2E
+EN_EWT_COLLPCAP,12.4.2,KG,"Electronic waste collected, per capita (KG)",73,EN_EWT_COLLPCAP,collapse,identical pattern; min desc similarity 1.00; indicators 12.4.2; units KG/TONNES
+EN_EWT_COLLV,12.4.2,TONNES,Electronic waste collected (Tonnes),73,EN_EWT_COLLPCAP,collapse,identical pattern; min desc similarity 1.00; indicators 12.4.2; units KG/TONNES
+EN_EWT_GENPCAP,12.4.2,KG,"Electronic waste generated, per capita (Kg)",75,EN_EWT_GENPCAP,collapse,identical pattern; min desc similarity 1.00; indicators 12.4.2; units KG/TONNES
+EN_EWT_GENV,12.4.2,TONNES,Electronic waste generated (Tonnes),75,EN_EWT_GENPCAP,collapse,identical pattern; min desc similarity 1.00; indicators 12.4.2; units KG/TONNES
+EN_HAZ_GENV,12.4.2,TONNES,Hazardous waste generated (Tonnes),85,EN_HAZ_GENV,collapse,identical pattern; min desc similarity 1.00; indicators 12.4.2; units TONNES/KG
+EN_HAZ_PCAP,12.4.2,KG,"Hazardous waste generated, per capita (Kg)",85,EN_HAZ_GENV,collapse,identical pattern; min desc similarity 1.00; indicators 12.4.2; units TONNES/KG
+EN_LKRV_PWAN,6.6.1,KMSQ,Lakes and rivers permanent water area (square kilometres),91,EN_LKRV_PWAN,collapse,identical pattern; min desc similarity 0.67; indicators 6.6.1; units KMSQ
+EN_LKRV_SWAN,6.6.1,KMSQ,Lakes and rivers seasonal water area (square kilometres),91,EN_LKRV_PWAN,collapse,identical pattern; min desc similarity 0.67; indicators 6.6.1; units KMSQ
+EN_LKRV_PWAP,6.6.1,PERCENT,Lakes and rivers permanent water area (% of total land area),92,EN_LKRV_PWAP,collapse,identical pattern; min desc similarity 0.67; indicators 6.6.1; units PERCENT
+EN_LKRV_SWAP,6.6.1,PERCENT,Lakes and rivers seasonal water area (% of total land area),92,EN_LKRV_PWAP,collapse,identical pattern; min desc similarity 0.67; indicators 6.6.1; units PERCENT
+EN_LKW_QLTRB,6.6.1,PERCENT,Lake water quality turbidity (%),94,EN_LKW_QLTRB,collapse,identical pattern; min desc similarity 0.50; indicators 6.6.1; units PERCENT
+EN_LKW_QLTRST,6.6.1,PERCENT,Lake water quality trophic state (%),94,EN_LKW_QLTRB,collapse,identical pattern; min desc similarity 0.50; indicators 6.6.1; units PERCENT
+EN_MAR_BEALIT_BP,14.1.1,PERCENT,Beach litter originating from national land-based sources that ends in the beach (%),98,EN_MAR_BEALIT_BP,collapse,identical pattern; min desc similarity 0.91; indicators 14.1.1; units PERCENT/TONNES
+EN_MAR_BEALIT_OP,14.1.1,PERCENT,Beach litter originating from national land-based sources that ends in the ocean (%),98,EN_MAR_BEALIT_BP,collapse,identical pattern; min desc similarity 0.91; indicators 14.1.1; units PERCENT/TONNES
+EN_MAR_BEALIT_OV,14.1.1,TONNES,Beach litter originating from national land-based sources that ends in the ocean (Tonnes),98,EN_MAR_BEALIT_BP,collapse,identical pattern; min desc similarity 0.91; indicators 14.1.1; units PERCENT/TONNES
+EN_MAR_BEALIT_BV,14.1.1,TONNES,Beach litter originating from national land-based sources that ends in the beach (Tonnes),99,EN_MAR_BEALIT_BV,collapse,identical pattern; min desc similarity 0.73; indicators 14.1.1; units TONNES
+EN_MAR_BEALIT_EXP,14.1.1,TONNES,Exported beach litter originating from national land-based sources (Tonnes),99,EN_MAR_BEALIT_BV,collapse,identical pattern; min desc similarity 0.73; indicators 14.1.1; units TONNES
+EN_RSRV_MNWAN,6.6.1,KMSQ,Reservoir minimum water area (square kilometres),115,EN_RSRV_MNWAN,collapse,identical pattern; min desc similarity 0.60; indicators 6.6.1; units KMSQ
+EN_RSRV_MXWAN,6.6.1,KMSQ,Reservoir maximum water area (square kilometres),115,EN_RSRV_MNWAN,collapse,identical pattern; min desc similarity 0.60; indicators 6.6.1; units KMSQ
+EN_RSRV_MNWAP,6.6.1,PERCENT,Reservoir minimum water area (% of total land area),116,EN_RSRV_MNWAP,collapse,identical pattern; min desc similarity 0.60; indicators 6.6.1; units PERCENT
+EN_RSRV_MXWAP,6.6.1,PERCENT,Reservoir maximum water area (% of total land area),116,EN_RSRV_MNWAP,collapse,identical pattern; min desc similarity 0.60; indicators 6.6.1; units PERCENT
+EN_RVR_MNRVFLC,6.6.1,PERCENT,Change in minimum river flow (%),117,EN_RVR_MNRVFLC,collapse,identical pattern; min desc similarity 0.60; indicators 6.6.1; units PERCENT
+EN_RVR_MXRVFLC,6.6.1,PERCENT,Change in maximum river flow (%),117,EN_RVR_MNRVFLC,collapse,identical pattern; min desc similarity 0.60; indicators 6.6.1; units PERCENT
+EN_RVR_MNRVFLN,6.6.1,M3_PER_SEC,River flow minimum (m3/s),118,EN_RVR_MNRVFLN,collapse,identical pattern; min desc similarity 0.50; indicators 6.6.1; units M3_PER_SEC
+EN_RVR_MXRVFLN,6.6.1,M3_PER_SEC,River flow maximum (m3/s),118,EN_RVR_MNRVFLN,collapse,identical pattern; min desc similarity 0.50; indicators 6.6.1; units M3_PER_SEC
+EN_WBE_MANGC,6.6.1,PERCENT,Mangrove total area change (%),126,EN_WBE_MANGC,collapse,identical pattern; min desc similarity 0.67; indicators 6.6.1; units PERCENT/KMSQ
+EN_WBE_MANGN,6.6.1,KMSQ,Mangrove area (square kilometres),126,EN_WBE_MANGC,collapse,identical pattern; min desc similarity 0.67; indicators 6.6.1; units PERCENT/KMSQ
+ER_FFS_CMPT_CD,12.c.1,CU_USD_B,Fossil-fuel subsidies (consumption and production) (billions of nominal United States dollars),139,ER_FFS_CMPT_CD,collapse,identical pattern; min desc similarity 0.75; indicators 12.c.1; units CU_USD_B/PERCENT/CU_USD
+ER_FFS_CMPT_GDP,12.c.1,PERCENT,Fossil-fuel subsidies (consumption and production) as a proportion of total GDP (%),139,ER_FFS_CMPT_CD,collapse,identical pattern; min desc similarity 0.75; indicators 12.c.1; units CU_USD_B/PERCENT/CU_USD
+ER_FFS_CMPT_PC_CD,12.c.1,CU_USD,Fossil-fuel subsidies (consumption and production) per capita (nominal United States dollars),139,ER_FFS_CMPT_CD,collapse,identical pattern; min desc similarity 0.75; indicators 12.c.1; units CU_USD_B/PERCENT/CU_USD
+ER_GRF_ANIMKPT_TRB,2.5.1,NUMBER,Number of transboundary breeds (including extinct ones),141,ER_GRF_ANIMKPT_TRB,collapse,identical pattern; min desc similarity 1.00; indicators 2.5.1/2.5.2; units NUMBER
+ER_NOEX_TRBBREDN,2.5.2,NUMBER,Number of transboundary breeds (not extinct) (number),141,ER_GRF_ANIMKPT_TRB,collapse,identical pattern; min desc similarity 1.00; indicators 2.5.1/2.5.2; units NUMBER
+ER_H2O_IWRMD,6.5.1,PERCENT,Degree of integrated water resources management implementation (%),146,ER_H2O_IWRMD,collapse,identical pattern; min desc similarity 0.60; indicators 6.5.1; units PERCENT
+ER_H2O_IWRMD_EE,6.5.1,PERCENT,"Degree of integrated water resources management implementation, enabling environment (%)",146,ER_H2O_IWRMD,collapse,identical pattern; min desc similarity 0.60; indicators 6.5.1; units PERCENT
+ER_H2O_IWRMD_IP,6.5.1,PERCENT,"Degree of integrated water resources management implementation, institutions and participation (%)",146,ER_H2O_IWRMD,collapse,identical pattern; min desc similarity 0.60; indicators 6.5.1; units PERCENT
+ER_H2O_IWRMD_MI,6.5.1,PERCENT,"Degree of integrated water resources management implementation, management instruments (%)",146,ER_H2O_IWRMD,collapse,identical pattern; min desc similarity 0.60; indicators 6.5.1; units PERCENT
+ER_H2O_PRDU,6.b.1,NUMBER,"Countries with procedures in law or policy for participation by service users/communities in planning program in rural drinking-water supply, by level of definition in procedures (10 = Clearly defined; 5 = Not clearly defined ; 0 = NA)",148,ER_H2O_PRDU,collapse,identical pattern; min desc similarity 0.36; indicators 6.b.1; units NUMBER
+ER_H2O_RURP,6.b.1,NUMBER,"Countries with users/communities participating in planning programs in rural drinking-water supply, by level of participation (3 = High; 2 = Moderate; 1 = Low; 0 = NA)",148,ER_H2O_PRDU,collapse,identical pattern; min desc similarity 0.36; indicators 6.b.1; units NUMBER
+ER_WAT_PART,6.b.1,NUMBER,"Countries with users/communities participating in planning programs in water resources planning and management, by level of participation (3 = High; 2 = Moderate; 1 = Low; 0 = NA)",148,ER_H2O_PRDU,collapse,identical pattern; min desc similarity 0.36; indicators 6.b.1; units NUMBER
+ER_WAT_PRDU,6.b.1,NUMBER,"Countries with procedures in law or policy for participation by service users/communities in planning program in water resources planning and management, by level of definition in procedures (10 = Clearly defined; 5 = Not clearly defined ; 0 = NA)",148,ER_H2O_PRDU,collapse,identical pattern; min desc similarity 0.36; indicators 6.b.1; units NUMBER
+ER_MTN_DGRDA,15.4.2,KMSQ,Area of degraded mountain land (square kilometres),155,ER_MTN_DGRDA,collapse,identical pattern; min desc similarity 0.17; indicators 15.4.2; units KMSQ/PERCENT
+ER_MTN_DGRDP,15.4.2,PERCENT,Proportion of degraded mountain land (%),155,ER_MTN_DGRDA,collapse,identical pattern; min desc similarity 0.17; indicators 15.4.2; units KMSQ/PERCENT
+ER_MTN_GRNCOV,15.4.2,KMSQ,Mountain green cover area (square kilometres),155,ER_MTN_DGRDA,collapse,identical pattern; min desc similarity 0.17; indicators 15.4.2; units KMSQ/PERCENT
+ER_MTN_GRNCVI,15.4.2,PERCENT,Mountain Green Cover Index,155,ER_MTN_DGRDA,collapse,identical pattern; min desc similarity 0.17; indicators 15.4.2; units KMSQ/PERCENT
+ER_MTN_TOTL,15.4.2,KMSQ,Mountain area (square kilometres),155,ER_MTN_DGRDA,collapse,identical pattern; min desc similarity 0.17; indicators 15.4.2; units KMSQ/PERCENT
+FB_BNK_ACCSS_ILF,8.10.2,PERCENT,Proportion of adults (15 years and older) active in labor force with an account at a financial institution or mobile-money-service provider (% of adults aged 15 years and older),171,FB_BNK_ACCSS_ILF,collapse,identical pattern; min desc similarity 0.85; indicators 8.10.2; units PERCENT
+FB_BNK_ACCSS_OLF,8.10.2,PERCENT,Proportion of adults (15 years and older) out of labor force with an account at a financial institution or mobile-money-service provider (% of adults aged 15 years and older),171,FB_BNK_ACCSS_ILF,collapse,identical pattern; min desc similarity 0.85; indicators 8.10.2; units PERCENT
+IT_NET_BBND,17.6.1,PER_100_POP,"Fixed broadband subscriptions per 100 inhabitants, by speed (per 100 inhabitants)",216,IT_NET_BBND,collapse,identical pattern; min desc similarity 0.80; indicators 17.6.1; units PER_100_POP/NUMBER
+IT_NET_BBNDN,17.6.1,NUMBER,"Number of fixed broadband subscriptions, by speed (number)",216,IT_NET_BBND,collapse,identical pattern; min desc similarity 0.80; indicators 17.6.1; units PER_100_POP/NUMBER
+NE_EXP_GNFS_KD_ZG,17.13.1,PERCENT,Annual growth of exports of goods and services (%),223,NE_EXP_GNFS_KD_ZG,collapse,identical pattern; min desc similarity 0.67; indicators 17.13.1; units PERCENT
+NE_IMP_GNFS_KD_ZG,17.13.1,PERCENT,Annual growth of imports of goods and services (%),223,NE_EXP_GNFS_KD_ZG,collapse,identical pattern; min desc similarity 0.67; indicators 17.13.1; units PERCENT
+SE_SGE_BIODIV,"12.8.1,13.3.1,4.7.1",INDEX,Score on greening education in biodiversity (%),264,SE_SGE_BIODIV,collapse,"identical pattern; min desc similarity 0.43; indicators 12.8.1,13.3.1,4.7.1; units INDEX"
+SE_SGE_CLIMCH,"12.8.1,13.3.1,4.7.1",INDEX,Score on greening education in climate change (%),264,SE_SGE_BIODIV,collapse,"identical pattern; min desc similarity 0.43; indicators 12.8.1,13.3.1,4.7.1; units INDEX"
+SE_SGE_ENVSUST,"12.8.1,13.3.1,4.7.1",INDEX,Score on greening education in environment and sustainability (%),264,SE_SGE_BIODIV,collapse,"identical pattern; min desc similarity 0.43; indicators 12.8.1,13.3.1,4.7.1; units INDEX"
+SE_SGE_OVERALL,"12.8.1,13.3.1,4.7.1",INDEX,"Score on greening education in environment and sustainability, climate change, and biodiversity (%)",264,SE_SGE_BIODIV,collapse,"identical pattern; min desc similarity 0.43; indicators 12.8.1,13.3.1,4.7.1; units INDEX"
+SG_GEN_PARL,5.5.1,PERCENT,Proportion of seats held by women in national parliaments (% of total number of seats),296,SG_GEN_PARL,collapse,identical pattern; min desc similarity 1.00; indicators 5.5.1; units PERCENT/NUMBER
+SG_GEN_PARLN,5.5.1,NUMBER,Number of seats held by women in national parliaments (number),296,SG_GEN_PARL,collapse,identical pattern; min desc similarity 1.00; indicators 5.5.1; units PERCENT/NUMBER
+SG_LGL_GENEQEMP,5.1.1,PERCENT,"Legal frameworks that promote, enforce and monitor gender equality (percentage of achievement, 0 - 100) -- Area 3: employment and economic benefits",304,SG_LGL_GENEQEMP,collapse,identical pattern; min desc similarity 0.60; indicators 5.1.1; units PERCENT
+SG_LGL_GENEQLFP,5.1.1,PERCENT,"Legal frameworks that promote, enforce and monitor gender equality (percentage of achievement, 0 - 100) -- Area 1: overarching legal frameworks and public life",304,SG_LGL_GENEQEMP,collapse,identical pattern; min desc similarity 0.60; indicators 5.1.1; units PERCENT
+SG_LGL_GENEQMAR,5.1.1,PERCENT,"Legal frameworks that promote, enforce and monitor gender equality (percentage of achievement, 0 - 100) -- Area 4: marriage and family",304,SG_LGL_GENEQEMP,collapse,identical pattern; min desc similarity 0.60; indicators 5.1.1; units PERCENT
+SG_LGL_GENEQVAW,5.1.1,PERCENT,"Legal frameworks that promote, enforce and monitor gender equality (percentage of achievement, 0 - 100) --  Area 2: violence against women",304,SG_LGL_GENEQEMP,collapse,identical pattern; min desc similarity 0.60; indicators 5.1.1; units PERCENT
+SG_PLN_PRVNDI,17.15.1,PERCENT,Proportion of project objectives of new development interventions drawn from country-led result frameworks - data by provider (%),308,SG_PLN_PRVNDI,collapse,identical pattern; min desc similarity 0.47; indicators 17.15.1; units PERCENT
+SG_PLN_PRVRICTRY,17.15.1,PERCENT,Proportion of results indicators drawn from country-led results frameworks - data by provider (%),308,SG_PLN_PRVNDI,collapse,identical pattern; min desc similarity 0.47; indicators 17.15.1; units PERCENT
+SG_PLN_RECNDI,17.15.1,PERCENT,Proportion of project objectives in new development interventions drawn from country-led result frameworks - data by recipient (%),309,SG_PLN_RECNDI,collapse,identical pattern; min desc similarity 0.47; indicators 17.15.1; units PERCENT
+SG_PLN_RECRICTRY,17.15.1,PERCENT,Proportion of results indicators drawn from country-led results frameworks - data by recipient (%),309,SG_PLN_RECNDI,collapse,identical pattern; min desc similarity 0.47; indicators 17.15.1; units PERCENT
+SH_AAP_ASMORT,3.9.1,PER_100000_POP,"Age-standardized mortality rate attributed to ambient air pollution (deaths per 100,000 population)",333,SH_AAP_ASMORT,collapse,identical pattern; min desc similarity 0.88; indicators 3.9.1; units PER_100000_POP
+SH_STA_ASAIRP,3.9.1,PER_100000_POP,"Age-standardized mortality rate attributed to household and ambient air pollution (deaths per 100,000 population)",333,SH_AAP_ASMORT,collapse,identical pattern; min desc similarity 0.88; indicators 3.9.1; units PER_100000_POP
+SH_FPL_INFM,5.6.1,PERCENT,"Proportion of women who make their own informed decisions regarding sexual relations, contraceptive use and reproductive health care (% of women aged 15-49 years)",343,SH_FPL_INFM,collapse,identical pattern; min desc similarity 0.62; indicators 5.6.1; units PERCENT
+SH_FPL_INFMCU,5.6.1,PERCENT,Proportion of women who make their own informed decisions regarding contraceptive use (% of women aged 15-49 years),343,SH_FPL_INFM,collapse,identical pattern; min desc similarity 0.62; indicators 5.6.1; units PERCENT
+SH_FPL_INFMRH,5.6.1,PERCENT,Proportion of women who make their own informed decisions regarding reproductive health care (% of women aged 15-49 years),343,SH_FPL_INFM,collapse,identical pattern; min desc similarity 0.62; indicators 5.6.1; units PERCENT
+SH_FPL_INFMSR,5.6.1,PERCENT,Proportion of women who make their own informed decisions regarding sexual relations (% of women aged 15-49 years),343,SH_FPL_INFM,collapse,identical pattern; min desc similarity 0.62; indicators 5.6.1; units PERCENT
+SH_LGR_ACSRHEC10,5.6.2,PERCENT,"(S.4.C.10) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 10: HIV Counselling and Test Services",351,SH_LGR_ACSRHEC10,collapse,identical pattern; min desc similarity 0.86; indicators 5.6.2; units PERCENT
+SH_LGR_ACSRHEC11,5.6.2,PERCENT,"(S.4.C.11) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 11: HIV Treatment and Care Services (%)",351,SH_LGR_ACSRHEC10,collapse,identical pattern; min desc similarity 0.86; indicators 5.6.2; units PERCENT
+SH_LGR_ACSRHEC12,5.6.2,PERCENT,"(S.4.C.12) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 12: HIV Confidentiality (%)",351,SH_LGR_ACSRHEC10,collapse,identical pattern; min desc similarity 0.86; indicators 5.6.2; units PERCENT
+SH_LGR_ACSRHEC7,5.6.2,PERCENT,"(S.2.C.7) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 7: Emergency Contraception (%)",358,SH_LGR_ACSRHEC7,collapse,identical pattern; min desc similarity 0.76; indicators 5.6.2; units PERCENT
+SH_LGR_ACSRHES2,5.6.2,PERCENT,"(S.2) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Section 2: Contraceptive and Family Planning (%)",358,SH_LGR_ACSRHEC7,collapse,identical pattern; min desc similarity 0.76; indicators 5.6.2; units PERCENT
+SH_STA_ANEM,2.2.3,PERCENT,Proportion of women aged 15-49 years with anaemia (%),334,SH_STA_ANEM,collapse,identical pattern; min desc similarity 0.71; indicators 2.2.3; units PERCENT
+SH_STA_ANEM_NPRG,2.2.3,PERCENT,"Proportion of women aged 15-49 years with anaemia, non-pregnant (%)",334,SH_STA_ANEM,collapse,identical pattern; min desc similarity 0.71; indicators 2.2.3; units PERCENT
+SH_STA_ANEM_PREG,2.2.3,PERCENT,"Proportion of women aged 15-49 years with anaemia, pregnant (%)",334,SH_STA_ANEM,collapse,identical pattern; min desc similarity 0.71; indicators 2.2.3; units PERCENT
+SH_STA_STNT,2.2.1,PER_POP_U5,Proportion of children moderately or severely stunted (%),375,SH_STA_STNT,collapse,identical pattern; min desc similarity 1.00; indicators 2.2.1; units PER_POP_U5/NUM_TH
+SH_STA_STNTN,2.2.1,NUM_TH,Children moderately or severely stunted (thousands),375,SH_STA_STNT,collapse,identical pattern; min desc similarity 1.00; indicators 2.2.1; units PER_POP_U5/NUM_TH
+SH_STA_TRAF,3.6.1,PER_100000_POP,"Death rate due to road traffic injuries, by sex (per 100,000 population)",376,SH_STA_TRAF,collapse,identical pattern; min desc similarity 0.57; indicators 3.6.1; units PER_100000_POP/NUMBER
+SH_STA_TRAFN,3.6.1,NUMBER,Number of deaths rate due to road traffic injuries,376,SH_STA_TRAF,collapse,identical pattern; min desc similarity 0.57; indicators 3.6.1; units PER_100000_POP/NUMBER
+SH_STA_WAST,2.2.2,PER_POP_U5,Proportion of children moderately or severely wasted (%),377,SH_STA_WAST,collapse,identical pattern; min desc similarity 1.00; indicators 2.2.2; units PER_POP_U5/NUM_TH
+SH_STA_WASTN,2.2.2,NUM_TH,Children moderately or severely wasted (thousands),377,SH_STA_WAST,collapse,identical pattern; min desc similarity 1.00; indicators 2.2.2; units PER_POP_U5/NUM_TH
+SL_DOM_TSPDCW,5.4.1,PERCENT,"Proportion of time spent on unpaid care work, by sex, age and location (%)",405,SL_DOM_TSPDCW,collapse,identical pattern; min desc similarity 0.60; indicators 5.4.1; units PERCENT
+SL_DOM_TSPDDC,5.4.1,PERCENT,"Proportion of time spent on unpaid domestic chores, by sex, age and location (%)",405,SL_DOM_TSPDCW,collapse,identical pattern; min desc similarity 0.60; indicators 5.4.1; units PERCENT
+SN_STA_OVWGT,2.2.2,PER_POP_U5,Proportion of children moderately or severely overweight (%),427,SN_STA_OVWGT,collapse,identical pattern; min desc similarity 1.00; indicators 2.2.2; units PER_POP_U5/NUM_TH
+SN_STA_OVWGTN,2.2.2,NUM_TH,Children moderately or severely overweight (thousands),427,SN_STA_OVWGT,collapse,identical pattern; min desc similarity 1.00; indicators 2.2.2; units PER_POP_U5/NUM_TH
+TM_TAX_DMFN,17.12.1,PERCENT,"Average tariff applied by developed countries, most-favored nation status, by type of product (%)",448,TM_TAX_DMFN,collapse,identical pattern; min desc similarity 0.67; indicators 17.12.1; units PERCENT
+TM_TAX_DPRF,17.12.1,PERCENT,"Average tariff applied by developed countries, preferential status, by type of product (%)",448,TM_TAX_DMFN,collapse,identical pattern; min desc similarity 0.67; indicators 17.12.1; units PERCENT
+TM_TAX_WMFN,17.10.1,PERCENT,"Worldwide weighted tariff-average, most-favoured-nation status, by type of product (%)",449,TM_TAX_WMFN,collapse,identical pattern; min desc similarity 0.64; indicators 17.10.1; units PERCENT
+TM_TAX_WMPS,17.10.1,PERCENT,"Worldwide weighted tariff-average, preferential status, by type of product (%)",449,TM_TAX_WMFN,collapse,identical pattern; min desc similarity 0.64; indicators 17.10.1; units PERCENT
+TX_EXP_GBMRCH,17.11.1,PERCENT,Developing countries’ and least developed countries’ share of global merchandise exports (%),450,TX_EXP_GBMRCH,collapse,identical pattern; min desc similarity 0.75; indicators 17.11.1; units PERCENT
+TX_IMP_GBMRCH,17.11.1,PERCENT,Developing countries’ and least developed countries’ share of global merchandise imports (%),450,TX_EXP_GBMRCH,collapse,identical pattern; min desc similarity 0.75; indicators 17.11.1; units PERCENT
+VC_DSR_GDPLS,"1.5.2,11.5.2",CU_USD_M,Direct economic loss attributed to disasters (current United States dollars),464,VC_DSR_GDPLS,collapse,"identical pattern; min desc similarity 0.71; indicators 1.5.2,11.5.2; units CU_USD_M/PERCENT"
+VC_DSR_LSGP,"1.5.2,11.5.2",PERCENT,Direct economic loss attributed to disasters relative to GDP (%),464,VC_DSR_GDPLS,collapse,"identical pattern; min desc similarity 0.71; indicators 1.5.2,11.5.2; units CU_USD_M/PERCENT"
+VC_DSR_MMHN,"1.5.1,11.5.1,13.1.1",NUMBER,Number of deaths and missing persons attributed to disasters (number),470,VC_DSR_MMHN,collapse,"identical pattern; min desc similarity 0.83; indicators 1.5.1,11.5.1,13.1.1; units NUMBER/PER_100000_POP"
+VC_DSR_MTMP,"1.5.1,11.5.1,13.1.1",PER_100000_POP,"Number of deaths and missing persons attributed to disasters per 100,000 population (number)",470,VC_DSR_MMHN,collapse,"identical pattern; min desc similarity 0.83; indicators 1.5.1,11.5.1,13.1.1; units NUMBER/PER_100000_POP"
+VC_DTH_TOCVN,16.1.2,NUMBER,"Number of conflict-related deaths (civilians), by sex, age and cause of death (Number)",476,VC_DTH_TOCVN,collapse,identical pattern; min desc similarity 0.38; indicators 16.1.2; units NUMBER/PER_100000_POP
+VC_DTH_TOTN,16.1.2,NUMBER,"Number of total conflict-related deaths, by sex, age and cause of death (Number)",476,VC_DTH_TOCVN,collapse,identical pattern; min desc similarity 0.38; indicators 16.1.2; units NUMBER/PER_100000_POP
+VC_DTH_TOTR,16.1.2,PER_100000_POP,"Number of total conflict-related deaths per 100,000 population (Per 100,000 population)",476,VC_DTH_TOCVN,collapse,identical pattern; min desc similarity 0.38; indicators 16.1.2; units NUMBER/PER_100000_POP
+VC_HTF_DETV,16.2.2,NUMBER,"Detected victims of human trafficking, by age and sex (number)",478,VC_HTF_DETV,collapse,identical pattern; min desc similarity 1.00; indicators 16.2.2; units NUMBER/PER_100000_POP
+VC_HTF_DETVR,16.2.2,PER_100000_POP,"Detected victims of human trafficking, by age and sex (per 100,000 population)",478,VC_HTF_DETV,collapse,identical pattern; min desc similarity 1.00; indicators 16.2.2; units NUMBER/PER_100000_POP
+VC_HTF_DETVFL,16.2.2,NUMBER,"Detected victims of human trafficking for forced labour, servitude and slavery, by age and sex (number)",479,VC_HTF_DETVFL,collapse,identical pattern; min desc similarity 1.00; indicators 16.2.2; units NUMBER/PER_100000_POP
+VC_HTF_DETVFLR,16.2.2,PER_100000_POP,"Detected victims of human trafficking for forced labour, servitude and slavery, by age and sex (per 100,000 population)",479,VC_HTF_DETVFL,collapse,identical pattern; min desc similarity 1.00; indicators 16.2.2; units NUMBER/PER_100000_POP
+VC_HTF_DETVOG,16.2.2,NUMBER,"Detected victims of human trafficking for removal of organ, by age and sex (number)",480,VC_HTF_DETVOG,collapse,identical pattern; min desc similarity 1.00; indicators 16.2.2; units NUMBER/PER_100000_POP
+VC_HTF_DETVOGR,16.2.2,PER_100000_POP,"Detected victims of human trafficking for removal of organ, by age and sex (per 100,000 population)",480,VC_HTF_DETVOG,collapse,identical pattern; min desc similarity 1.00; indicators 16.2.2; units NUMBER/PER_100000_POP
+VC_HTF_DETVOP,16.2.2,NUMBER,"Detected victims of human trafficking for other purposes, by age and sex (number)",481,VC_HTF_DETVOP,collapse,identical pattern; min desc similarity 1.00; indicators 16.2.2; units NUMBER/PER_100000_POP
+VC_HTF_DETVOPR,16.2.2,PER_100000_POP,"Detected victims of human trafficking for other purposes, by age and sex (per 100,000 population)",481,VC_HTF_DETVOP,collapse,identical pattern; min desc similarity 1.00; indicators 16.2.2; units NUMBER/PER_100000_POP
+VC_HTF_DETVSX,16.2.2,NUMBER,"Detected victims of human trafficking for sexual exploitation, by age and sex (number)",482,VC_HTF_DETVSX,collapse,identical pattern; min desc similarity 1.00; indicators 16.2.2; units NUMBER/PER_100000_POP
+VC_HTF_DETVSXR,16.2.2,PER_100000_POP,"Detected victims of human trafficking for sexual exploitation, by age and sex (per 100,000 population)",482,VC_HTF_DETVSX,collapse,identical pattern; min desc similarity 1.00; indicators 16.2.2; units NUMBER/PER_100000_POP
+VC_IHR_PSRC,16.1.1,PER_100000_POP,"Number of victims of intentional homicide per 100,000 population, by sex (victims per 100,000 population)",483,VC_IHR_PSRC,collapse,identical pattern; min desc similarity 0.80; indicators 16.1.1; units PER_100000_POP/NUMBER
+VC_IHR_PSRCN,16.1.1,NUMBER,"Number of victims of intentional homicide, by sex (number)",483,VC_IHR_PSRC,collapse,identical pattern; min desc similarity 0.80; indicators 16.1.1; units PER_100000_POP/NUMBER
+AG_PRD_AGVAS,2.a.1,PERCENT,Agriculture value added share of GDP (%),23,AG_PRD_AGVAS,keep_separate,identical pattern with 2 other series but best desc similarity only 0.17
+EG_EGY_CLEAN,7.1.2,PERCENT,Proportion of population with primary reliance on clean fuels and technology (%),64,EG_EGY_CLEAN,keep_separate,identical pattern with 1 other series but best desc similarity only 0.00
+ER_IAS_LEGIS,15.8.1,BOOL,"Legislation, Regulation, Act related to the prevention of introduction and management of Invasive Alien Species (1 = YES, 0 = NO)",152,ER_IAS_LEGIS,keep_separate,identical pattern with 1 other series but best desc similarity only 0.00
+ER_IAS_NBSAP,15.8.1,BOOL,"National Biodiversity Strategy and Action Plan (NBSAP) targets alignment to Aichi Biodiversity target 9 set out in the Strategic Plan for Biodiversity 2011-2020 (1 = YES, 0 = NO)",152,ER_IAS_NBSAP,keep_separate,identical pattern with 1 other series but best desc similarity only 0.00
+FC_ACC_SSID,9.3.2,PERCENT,Proportion of small-scale industries with a loan or line of credit (%),174,FC_ACC_SSID,keep_separate,identical pattern with 1 other series but best desc similarity only 0.00
+IC_FRM_BRIB,16.5.2,PERCENT,Bribery incidence (% of firms experiencing at least one bribe payment request),174,IC_FRM_BRIB,keep_separate,identical pattern with 1 other series but best desc similarity only 0.00
+SH_ACS_DTP3,3.b.1,PERCENT,Proportion of the target population who received 3 doses of diphtheria-tetanus-pertussis (DTP3) vaccine (%),334,SH_ACS_DTP3,keep_separate,identical pattern with 3 other series but best desc similarity only 0.00
+SH_ACS_UNHC_25,3.8.1,INDEX,"Universal health coverage (UHC) service coverage index, 2025 methodology",338,SH_ACS_UNHC_25,keep_separate,identical pattern with 1 other series but best desc similarity only 0.00
+SH_DTH_NCOM,3.4.1,PERCENT,"Mortality rate attributed to cardiovascular disease, cancer, diabetes or chronic respiratory disease (probability)",342,SH_DTH_NCOM,keep_separate,identical pattern with 2 other series but best desc similarity only 0.18
+SH_STA_MORT,3.1.1,PER_100000_LIVE_BIRTHS,Maternal mortality ratio,338,SH_STA_MORT,keep_separate,identical pattern with 1 other series but best desc similarity only 0.00
+SH_STA_WASHARI,3.9.2,PER_100000_POP,"Mortality rate attributed to unsafe water, unsafe sanitation and lack of hygiene from diarrhoea, intestinal nematode infections, malnutrition and acute respiratory infections (deaths per 100,000 population)",333,SH_STA_WASHARI,keep_separate,identical pattern with 2 other series but best desc similarity only 0.10
+SH_TRP_INTVN,3.3.5,NUMBER,Number of people requiring interventions against neglected tropical diseases (number),64,SH_TRP_INTVN,keep_separate,identical pattern with 1 other series but best desc similarity only 0.00
+SI_POV_50MI,10.2.1,PERCENT,Proportion of people living below 50 percent of median income (%),396,SI_POV_50MI,keep_separate,identical pattern with 1 other series but best desc similarity only 0.11
+SI_POV_DAY1,1.1.1,PERCENT,Proportion of population below international poverty line (%),396,SI_POV_DAY1,keep_separate,identical pattern with 1 other series but best desc similarity only 0.11
+VC_DSR_AFFCT,"1.5.1,11.5.1,13.1.1",NUMBER,Number of people affected by disaster (number),454,VC_DSR_AFFCT,keep_separate,identical pattern with 1 other series but best desc similarity only 0.12
+VC_DSR_DAFF,"1.5.1,11.5.1,13.1.1",PER_100000_POP,"Number of directly affected persons attributed to disasters per 100,000 population (number)",454,VC_DSR_DAFF,keep_separate,identical pattern with 1 other series but best desc similarity only 0.12
+AG_PRD_ORTIND,2.a.1,INDEX,Agriculture orientation index for government expenditures,23,AG_PRD_ORTIND,review,identical pattern with 2 other series but best desc similarity only 0.33
+AG_XPD_AGSGB,2.a.1,PERCENT,Agriculture share of Government Expenditure (%),23,AG_XPD_AGSGB,review,identical pattern with 2 other series but best desc similarity only 0.33
+ER_NOEX_LBREDN,2.5.2,NUMBER,Number of local breeds (not extinct) (number),156,ER_NOEX_LBREDN,review,identical pattern with 1 other series but best desc similarity only 0.33
+ER_UNK_LBREDN,2.5.2,NUMBER,Number of local breeds with unknown risk status (number),156,ER_UNK_LBREDN,review,identical pattern with 1 other series but best desc similarity only 0.33
+ER_UNK_TRBBREDN,2.5.2,NUMBER,Number of transboundary breeds with unknown risk status (number),141,ER_UNK_TRBBREDN,review,identical pattern with 2 other series but best desc similarity only 0.33
+SG_PLN_PRPOLRES,17.15.1,PERCENT,Extent of use of country-owned results frameworks and planning tools by providers of development cooperation - data by provider (%),308,SG_PLN_PRPOLRES,review,identical pattern with 3 other series but best desc similarity only 0.29
+SG_PLN_PRVRIMON,17.15.1,PERCENT,Proportion of results indicators which will be monitored using government sources and monitoring systems - data by provider (%),308,SG_PLN_PRVRIMON,review,identical pattern with 3 other series but best desc similarity only 0.24
+SG_PLN_RECRIMON,17.15.1,PERCENT,Proportion of results indicators which will be monitored using government sources and monitoring systems - data by recipient (%),309,SG_PLN_RECRIMON,review,identical pattern with 3 other series but best desc similarity only 0.24
+SG_PLN_REPOLRES,17.15.1,PERCENT,Extent of use of country-owned results frameworks and planning tools by providers of development cooperation - data by recipient (%),309,SG_PLN_REPOLRES,review,identical pattern with 3 other series but best desc similarity only 0.29
+SG_SCP_CNTRY,12.1.1,NUMBER,Countries with sustainable consumption and production (SCP) national action plans or SCP mainstreamed as a priority or target into national policies (1 = YES; 0 = NO),314,SG_SCP_CNTRY,review,identical pattern with 2 other series but best desc similarity only 0.29
+SG_SCP_POLINS,12.1.1,NUMBER,Countries with policy instrument for sustainable consumption and production (1 = YES; 0 = NO),314,SG_SCP_POLINS,review,identical pattern with 2 other series but best desc similarity only 0.33
+SG_SCP_TOTLN,12.1.1,NUMBER,"Number of policies, instruments and mechanism in place for sustainable consumption and production (Number)",314,SG_SCP_TOTLN,review,identical pattern with 2 other series but best desc similarity only 0.33
+SH_STA_POISN,3.9.3,PER_100000_POP,"Mortality rate attributed to unintentional poisonings, by sex (deaths per 100,000 population)",342,SH_STA_POISN,review,identical pattern with 2 other series but best desc similarity only 0.33
+SH_STA_SCIDE,3.4.2,PER_100000_POP,"Suicide mortality rate, by sex (deaths per 100,000 population)",342,SH_STA_SCIDE,review,identical pattern with 2 other series but best desc similarity only 0.33
+AG_FOOD_WST,12.3.1,TONNES,Food waste (Tonnes),1,AG_FOOD_WST,single,""
+AG_FOOD_WST_PC,12.3.1,KG,Food waste per capita (KG),2,AG_FOOD_WST_PC,single,""
+AG_FPA_CFPI,2.c.1,INDEX,"Indicator of Food Price Anomalies (IFPA), by Consumer Food Price Index",3,AG_FPA_CFPI,single,""
+AG_FPA_COMM,2.c.1,INDEX,"Indicator of Food Price Anomalies (IFPA), by type of product",4,AG_FPA_COMM,single,""
+AG_LND_AGRBIO,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of use of agro-biodiversity supportive practices (%),5,AG_LND_AGRBIO,single,""
+AG_LND_AGRWAG,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of wage rate in agriculture (%),6,AG_LND_AGRWAG,single,""
+AG_LND_DGRD,15.3.1,PERCENT,Proportion of land that is degraded over total land area (%),7,AG_LND_DGRD,single,""
+AG_LND_FERTMG,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of management of fertilizers (%),8,AG_LND_FERTMG,single,""
+AG_LND_FIES,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of food security (%),9,AG_LND_FIES,single,""
+AG_LND_FOVH,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of farm output value per hectare (%),10,AG_LND_FOVH,single,""
+AG_LND_FRSTBIOPHA,15.2.1,T_PER_HA,Above-ground biomass in forest (tonnes per hectare),12,AG_LND_FRSTBIOPHA,single,""
+AG_LND_FRSTCHG,15.2.1,PERCENT,Annual forest area change rate (%),13,AG_LND_FRSTCHG,single,""
+AG_LND_FRSTMGT,15.2.1,PERCENT,Proportion of forest area with a long-term management plan (%),14,AG_LND_FRSTMGT,single,""
+AG_LND_FRSTPRCT,15.2.1,PERCENT,Proportion of forest area within legally established protected areas (%),15,AG_LND_FRSTPRCT,single,""
+AG_LND_H2OAVAIL,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of variation in water availability (%),16,AG_LND_H2OAVAIL,single,""
+AG_LND_LNDSTR,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of secure tenure rights to agricultural land (%),17,AG_LND_LNDSTR,single,""
+AG_LND_NFI,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of net farm income (%),18,AG_LND_NFI,single,""
+AG_LND_PSTCDSMG,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of management of pesticides (%),19,AG_LND_PSTCDSMG,single,""
+AG_LND_RMM,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of risk mitigation mechanisms (%),20,AG_LND_RMM,single,""
+AG_LND_SDGRD,2.4.1,PERCENT,Proportion of agricultural land area that has achieved an acceptable or desirable level of soil degradation (%),21,AG_LND_SDGRD,single,""
+AG_PRD_FIESS,2.1.2,PERCENT,Prevalence of severe food insecurity in the population (%),25,AG_PRD_FIESS,single,""
+AG_PRD_FIESSN,2.1.2,NUM_TH,Population in severe food insecurity (thousands of people),26,AG_PRD_FIESSN,single,""
+AG_PRD_XSUBDY,2.b.1,CU_USD_M,Agricultural export subsidies (millions of current United States dollars),27,AG_PRD_XSUBDY,single,""
+BN_CAB_XOKA_GD_ZS,17.13.1,PERCENT,Current account balance as a proportion of GDP (%),28,BN_CAB_XOKA_GD_ZS,single,""
+BN_KLT_PTXL_CD,17.13.1,CU_USD,"Portfolio investment, net (Balance of Payments, current United States dollars)",29,BN_KLT_PTXL_CD,single,""
+BX_KLT_DINV_WD_GD_ZS,17.13.1,PERCENT,"Foreign direct investment, net inflows, as a proportion of GDP (%)",30,BX_KLT_DINV_WD_GD_ZS,single,""
+BX_TRF_PWKR,17.3.2,PERCENT,Volume of remittances (in United States dollars) as a proportion of total GDP (%),31,BX_TRF_PWKR,single,""
+DC_ENVTECH_EXP,17.7.1,CU_USD,Amount of tracked exported Environmentally Sound Technologies (current United States dollars),32,DC_ENVTECH_EXP,single,""
+DC_ENVTECH_REXP,17.7.1,CU_USD,Amount of tracked re-exported Environmentally Sound Technologies (current United States dollars),34,DC_ENVTECH_REXP,single,""
+DC_ENVTECH_RIMP,17.7.1,CU_USD,Amount of tracked re-imported Environmentally Sound Technologies (current United States dollars),35,DC_ENVTECH_RIMP,single,""
+DC_ODA_BDVDL,"15.a.1,15.b.1",CON_USD_M,"Total official development assistance for biodiversity, by donor countries (millions of constant 2024 United States dollars)",37,DC_ODA_BDVDL,single,""
+DC_ODA_BDVL,"15.a.1,15.b.1",CON_USD_M,"Total official development assistance for biodiversity, by recipient countries (millions of constant 2024 United States dollars)",38,DC_ODA_BDVL,single,""
+DC_ODA_POVDLG,1.a.1,PERCENT,"Official development assistance grants for poverty reduction, by donor countries (percentage of GNI)",41,DC_ODA_POVDLG,single,""
+DC_ODA_SIDS,17.2.1,CON_USD_M,"Net official development assistance (ODA) to small island states (SIDS) from OECD-DAC countries, by donor countries (millions of constant 2024 United States dollars)",42,DC_ODA_SIDS,single,""
+DC_ODA_SIDSG,17.2.1,PERCENT,"Net official development assistance (ODA) to small island states (SIDS) as a percentage of OECD-DAC donors' GNI, by donor countries (%)",43,DC_ODA_SIDSG,single,""
+DC_ODA_TOTG,17.2.1,PERCENT,"Net official development assistance (ODA) as a percentage of OECD-DAC donors' GNI, by donor countries (%)",44,DC_ODA_TOTG,single,""
+DC_ODA_TOTGGE,17.2.1,PERCENT,"Official development assistance (ODA) as a percentage of OECD-DAC donors' GNI on grant equivalent basis, by donor countries (%)",45,DC_ODA_TOTGGE,single,""
+DC_ODA_TOTLGE,17.2.1,CON_USD_M,"Official development assistance (ODA) from OECD-DAC countries on grant equivalent basis, by donor countries (millions of constant 2024 United States dollars)",47,DC_ODA_TOTLGE,single,""
+DC_OSSD_GRT,17.3.1,CU_USD_M,Gross receipts by developing countries of official sustainable development grants (millions of United States dollars),48,DC_OSSD_GRT,single,""
+DC_OSSD_GRT_SSC,17.3.1,CU_USD_M,Gross receipts by developing countries of official sustainable development grants from South-South cooperation providers (millions of United States dollars),49,DC_OSSD_GRT_SSC,single,""
+DC_OSSD_MPF,17.3.1,CU_USD_M,Gross receipts by developing countries of mobilised private finance (MPF) - on an experimental basis (millions of United States dollars),50,DC_OSSD_MPF,single,""
+DC_OSSD_OFFCL,17.3.1,CU_USD_M,Gross receipts by developing countries of official concessional sustainable development loans (millions of United States dollars),51,DC_OSSD_OFFCL,single,""
+DC_OSSD_OFFNL,17.3.1,CU_USD_M,Gross receipts by developing countries of official non-concessional sustainable development loans (millions of United States dollars),52,DC_OSSD_OFFNL,single,""
+DC_OSSD_PRVGRT,17.3.1,CU_USD_M,Gross receipts by developing countries of private grants (millions of United States dollars),53,DC_OSSD_PRVGRT,single,""
+DC_TOF_AGRL,2.a.2,CON_USD_M,"Total official flows (disbursements) for agriculture, by recipient countries (millions of constant 2024 United States dollars)",54,DC_TOF_AGRL,single,""
+DC_TOF_HLTHL,3.b.2,CON_USD_M,"Total official development assistance to medical research and basic health sectors, gross disbursement, by recipient countries (millions of constant 2024 United States dollars)",55,DC_TOF_HLTHL,single,""
+DC_TOF_HLTHNT,3.b.2,CON_USD_M,"Total official development assistance to medical research and basic health sectors, net disbursement, by recipient countries (millions of constant 2024 United States dollars)",56,DC_TOF_HLTHNT,single,""
+DC_TOF_INFRAL,9.a.1,CON_USD_M,"Total official flows for infrastructure, by recipient countries (millions of constant 2024 United States dollars)",57,DC_TOF_INFRAL,single,""
+DC_TOF_URBINFRA,11.c.1,CON_USD_M,Total official development assistance and other official flows in support of urban infrastructure or urban infrastructure projects (millions of constant 2023 United States dollars),59,DC_TOF_URBINFRA,single,""
+DC_TOF_WASHL,6.a.1,CON_USD_M,"Total official development assistance (gross disbursement) for water supply and sanitation, by recipient countries (millions of constant 2024 United States dollars)",60,DC_TOF_WASHL,single,""
+DP_DOD_DLD2_CR_CG_Z1,17.13.1,PERCENT,"Gross public sector debt, Central Government, as a proportion of GDP (%)",61,DP_DOD_DLD2_CR_CG_Z1,single,""
+DT_DOD_DECT_GN_ZS,17.13.1,PERCENT,External debt stocks as a proportion of GNI (%),62,DT_DOD_DECT_GN_ZS,single,""
+DT_TDS_DECT,17.4.1,PERCENT,"Debt service as a proportion of exports of goods, services and primary income (%)",63,DT_TDS_DECT,single,""
+EG_EGY_RNEW,"12.a.1,7.b.1",W_PER_CAPITA,Installed renewable electricity-generating capacity (watts per capita),65,EG_EGY_RNEW,single,""
+EG_IFF_RANDN,7.a.1,CON_USD_M,"International financial flows to developing countries in support of clean energy research and development and renewable energy production, including in hybrid systems (millions of constant 2023 United States dollars)",66,EG_IFF_RANDN,single,""
+EG_TBA_H2CO,6.5.2,PERCENT,Proportion of transboundary basins (river and lake basins and aquifers) with an operational arrangement for water cooperation (%),67,EG_TBA_H2CO,single,""
+EG_TBA_H2COAQ,6.5.2,PERCENT,Proportion of transboundary aquifers with an operational arrangement for water cooperation (%),68,EG_TBA_H2COAQ,single,""
+EG_TBA_H2CORL,6.5.2,PERCENT,Proportion of transboundary river and lake basins with an operational arrangement for water cooperation (%),69,EG_TBA_H2CORL,single,""
+EN_ACS_URB_OPENSP,11.7.1,PERCENT,Average share of urban population with convenient access to open public spaces (%),70,EN_ACS_URB_OPENSP,single,""
+EN_EWT_COLLR,12.4.2,PERCENT,Proportion of electronic waste collected (%),74,EN_EWT_COLLR,single,""
+EN_EWT_RCYPCAP,12.5.1,KG,"Electronic waste recycled, per capita (Kg)",76,EN_EWT_RCYPCAP,single,""
+EN_EWT_RCYR,12.5.1,PERCENT,Proportion of electronic waste recycled (%),77,EN_EWT_RCYR,single,""
+EN_EWT_RCYV,12.5.1,TONNES,Electronic waste recycled (Tonnes),78,EN_EWT_RCYV,single,""
+EN_H2O_GRAMBQ,6.3.2,PERCENT,Proportion of groundwater bodies with good ambient water quality (%),79,EN_H2O_GRAMBQ,single,""
+EN_H2O_OPAMBQ,6.3.2,PERCENT,Proportion of open water bodies with good ambient water quality (%),80,EN_H2O_OPAMBQ,single,""
+EN_H2O_RVAMBQ,6.3.2,PERCENT,Proportion of river water bodies with good ambient water quality (%),81,EN_H2O_RVAMBQ,single,""
+EN_H2O_WBAMBQ,6.3.2,PERCENT,Proportion of bodies of water with good ambient water quality (%),82,EN_H2O_WBAMBQ,single,""
+EN_HAZ_EXP,12.4.2,TONNES,"Hazardous waste exported, (Tonnes)",83,EN_HAZ_EXP,single,""
+EN_HAZ_GENGDP,12.4.2,KG_PER_CON_USD,"Hazardous waste generated, per unit of GDP (kilograms per constant 2015 United States dollars)",84,EN_HAZ_GENGDP,single,""
+EN_HAZ_IMP,12.4.2,TONNES,"Hazardous waste imported, (Tonnes)",86,EN_HAZ_IMP,single,""
+EN_HAZ_TREATV,12.4.2,TONNES,"Hazardous waste treated, by type of treatment (Tonnes)",87,EN_HAZ_TREATV,single,""
+EN_HAZ_TRTDISR,12.4.2,PERCENT,Proportion of hazardous waste treated or disposed (%),88,EN_HAZ_TRTDISR,single,""
+EN_HAZ_TRTDISV,12.4.2,TONNES,Hazardous waste treated or disposed (Tonnes),89,EN_HAZ_TRTDISV,single,""
+EN_LKRV_PWAC,6.6.1,PERCENT,Lakes and rivers permanent water area change (%),90,EN_LKRV_PWAC,single,""
+EN_LKRV_SWAC,6.6.1,PERCENT,Lakes and rivers seasonal water area change (%),93,EN_LKRV_SWAC,single,""
+EN_LND_CNSPOP,11.3.1,Ratio,Ratio of land consumption rate to population growth rate,95,EN_LND_CNSPOP,single,""
+EN_LND_INDQTHSNG,11.1.1,PERCENT,Proportion of urban population living in inadequate housing (%),96,EN_LND_INDQTHSNG,single,""
+EN_LND_SLUM,11.1.1,PERCENT,Proportion of urban population living in slums (%),97,EN_LND_SLUM,single,""
+EN_MAR_BEALIT_PUSA,14.1.1,NUM_ITEMS_PER_100M2,Beach litter items per unit of surface area (Number of items per 100 square meters),100,EN_MAR_BEALIT_PUSA,single,""
+EN_MAR_CHLANM,14.1.1,PERCENT,"Chlorophyll-a anomaly, remote sensing (%)",101,EN_MAR_CHLANM,single,""
+EN_MAR_CHLDEV,14.1.1,PERCENT,"Chlorophyll-a deviations, remote sensing (%)",102,EN_MAR_CHLDEV,single,""
+EN_MAR_TN_MML,14.1.1,MCMOL_PER_LT,Coastal Eutrophication: Total Nitrogen (micromole per liter),103,EN_MAR_TN_MML,single,""
+EN_MAR_TP_MML,14.1.1,MCMOL_PER_LT,Coastal Eutrophication: Total Phosphorus (micromole per liter),104,EN_MAR_TP_MML,single,""
+EN_MWT_COLLV,12.4.2,TONNES,Municipal waste collected (Tonnes),105,EN_MWT_COLLV,single,""
+EN_MWT_EXP,12.4.2,TONNES,Municipal waste exported (Tonnes),106,EN_MWT_EXP,single,""
+EN_MWT_GENV,12.4.2,TONNES,Municipal waste generated (Tonnes),107,EN_MWT_GENV,single,""
+EN_MWT_IMP,12.4.2,TONNES,Municipal waste imported (Tonnes),108,EN_MWT_IMP,single,""
+EN_MWT_RCYR,12.5.1,PERCENT,Proportion of municipal waste recycled (%),109,EN_MWT_RCYR,single,""
+EN_MWT_RCYV,12.5.1,TONNES,Municipal waste recycled (Tonnes),110,EN_MWT_RCYV,single,""
+EN_MWT_TREATR,12.4.2,PERCENT,"Proportion of municipal waste treated, by type of treatment (%)",111,EN_MWT_TREATR,single,""
+EN_MWT_TREATV,12.4.2,TONNES,Municipal waste treated by type of treatment (Tonnes),112,EN_MWT_TREATV,single,""
+EN_REF_WASCOL,11.6.1,PERCENT,"Municipal Solid Waste collection coverage, by cities (%)",113,EN_REF_WASCOL,single,""
+EN_RSRV_MNWAC,6.6.1,PERCENT,Reservoir minimum water area change (%),114,EN_RSRV_MNWAC,single,""
+EN_SCP_ECSYBA,14.2.1,NUMBER,Number of countries using ecosystem-based approaches to managing marine areas (1 = YES; 0 = NO),119,EN_SCP_ECSYBA,single,""
+EN_SCP_FRMN,12.6.1,NUMBER,"Number of companies publishing sustainability reports with disclosure by dimension, by level of requirement (Number)",120,EN_SCP_FRMN,single,""
+EN_SCP_FSHGDP,14.7.1,PERCENT,Sustainable fisheries as a proportion of GDP,121,EN_SCP_FSHGDP,single,""
+EN_TWT_GENV,12.4.2,TONNES,"Total waste generation, by activity (Tonnes)",122,EN_TWT_GENV,single,""
+EN_URB_OPENSP,11.7.1,PERCENT,Average share of the built-up area of cities that is open space for public use for all (%),123,EN_URB_OPENSP,single,""
+EN_WBE_HMWTL,6.6.1,KMSQ,Extent of human made wetlands (square kilometres),124,EN_WBE_HMWTL,single,""
+EN_WBE_INWTL,6.6.1,KMSQ,Extent of inland wetlands (square kilometres),125,EN_WBE_INWTL,single,""
+EN_WBE_WTLN,6.6.1,KMSQ,Wetlands area (square kilometres),127,EN_WBE_WTLN,single,""
+EN_WBE_WTLP,6.6.1,PERCENT,Wetlands area (% of total land area),128,EN_WBE_WTLP,single,""
+EN_WWT_GEN,6.3.1,M_M3_PER_YR,Total wastewater generated (million m3/year),129,EN_WWT_GEN,single,""
+EN_WWT_TREAT,6.3.1,M_M3_PER_YR,Total wastewater treated (million m3/year),130,EN_WWT_TREAT,single,""
+EN_WWT_TREATR,6.3.1,PERCENT,"Proportion of wastewater treated, by activity and location (%)",131,EN_WWT_TREATR,single,""
+EN_WWT_TREATR_SF,6.3.1,PERCENT,"Proportion of wastewater safely treated, by activity and location (%)",132,EN_WWT_TREATR_SF,single,""
+EN_WWT_TREAT_SF,6.3.1,M_M3_PER_YR,Total wastewater safely treated (million m3/year),133,EN_WWT_TREAT_SF,single,""
+EN_WWT_WWDS,6.3.1,PERCENT,Proportion of safely treated domestic wastewater flows (%),134,EN_WWT_WWDS,single,""
+ER_BDY_ABT2NP,15.9.1,NUMBER,Countries that established national targets in accordance with Aichi Biodiversity Target 2 of the Strategic Plan for Biodiversity 2011-2020 in their National Biodiversity Strategy and Action Plans (1 = YES; 0 = NO),135,ER_BDY_ABT2NP,single,""
+ER_CBD_ABSCLRHS,15.6.1,NUMBER,"Countries that have legislative, administrative and policy framework or measures reported to the Access and Benefit-Sharing Clearing-House (1 = YES; 0 = NO)",136,ER_CBD_ABSCLRHS,single,""
+ER_CBD_NAGOYA,15.6.1,NUMBER,Countries that are parties to the Nagoya Protocol (1 = YES; 0 = NO),137,ER_CBD_NAGOYA,single,""
+ER_CBD_ORSPGRFA,15.6.1,NUMBER,"Countries that have legislative, administrative and policy framework or measures reported through the Online Reporting System on Compliance  of the International Treaty on Plant Genetic Resources for Food and Agriculture (PGRFA) (1 = YES; 0 = NO)",138,ER_CBD_ORSPGRFA,single,""
+ER_GRF_ANIMKPT,2.5.1,NUMBER,Number of local breeds kept in the country,140,ER_GRF_ANIMKPT,single,""
+ER_GRF_ANIMRCNTN,2.5.1,NUMBER,Number of local breeds for which sufficient genetic resources are stored for reconstitution,142,ER_GRF_ANIMRCNTN,single,""
+ER_GRF_ANIMRCNTN_TRB,2.5.1,NUMBER,Number of transboundary breeds for which sufficient genetic resources are stored for reconstitution,143,ER_GRF_ANIMRCNTN_TRB,single,""
+ER_GRF_PLNTSTOR,2.5.1,NUMBER,Plant genetic resources accessions stored ex situ (number),144,ER_GRF_PLNTSTOR,single,""
+ER_H2O_FWTL,14.4.1,PERCENT,Proportion of fish stocks within biologically sustainable levels (not overexploited) (%),145,ER_H2O_FWTL,single,""
+ER_H2O_IWRMD_FI,6.5.1,PERCENT,"Degree of integrated water resources management implementation, financing (%)",147,ER_H2O_IWRMD_FI,single,""
+ER_H2O_STRESS,6.4.2,PERCENT,Level of water stress: freshwater withdrawal as a proportion of available freshwater resources (%),149,ER_H2O_STRESS,single,""
+ER_H2O_WUEYST,6.4.1,USD/m3,Water Use Efficiency (United States dollars per cubic meter),150,ER_H2O_WUEYST,single,""
+ER_IAS_GLOFUN,15.8.1,BOOL,"Recipient countries of global funding with access to any funding from global financial mechanisms for projects related to invasive alien species  management (1 = YES, 0 = NO)",151,ER_IAS_GLOFUN,single,""
+ER_IAS_NATBUD,15.8.1,BOOL,"Countries with an allocation from the national budget to manage the threat of invasive alien species (1 = YES, 0 = NO)",153,ER_IAS_NATBUD,single,""
+ER_MRN_MPA,14.5.1,PERCENT,Average proportion of Marine Key Biodiversity Areas (KBAs) covered by protected areas (%),154,ER_MRN_MPA,single,""
+ER_OAW_MNACD,14.3.1,PH,Average marine acidity (pH) measured at agreed suite of representative sampling stations,157,ER_OAW_MNACD,single,""
+ER_PTD_FRHWTR,15.1.2,PERCENT,Average proportion of Freshwater Key Biodiversity Areas (KBAs) covered by protected areas (%),158,ER_PTD_FRHWTR,single,""
+ER_PTD_MTN,15.4.1,PERCENT,Average proportion of Mountain Key Biodiversity Areas (KBAs) covered by protected areas (%),159,ER_PTD_MTN,single,""
+ER_PTD_TERR,15.1.2,PERCENT,Average proportion of Terrestrial Key Biodiversity Areas (KBAs) covered by protected areas (%),160,ER_PTD_TERR,single,""
+ER_RDE_OSEX,14.a.1,PERCENT,National ocean science expenditure as a share of total research and development funding (%),161,ER_RDE_OSEX,single,""
+ER_REG_SSFRAR,14.b.1,NUMBER,Degree of application of a legal/regulatory/policy/institutional framework which recognizes and protects access rights for small-scale fisheries (level of implementation: 1 lowest to 5 highest),162,ER_REG_SSFRAR,single,""
+ER_REG_UNFCIM,14.6.1,NUMBER,"Progress by countries in the degree of implementation of international instruments aiming to combat illegal, unreported and unregulated fishing (level of implementation: 1 lowest to 5 highest)",163,ER_REG_UNFCIM,single,""
+ER_RSK_LBREDS,2.5.2,PERCENT,Proportion of local breeds classified as being at risk of extinction as a share of local breeds with known level of extinction risk (%),164,ER_RSK_LBREDS,single,""
+ER_RSK_TRBBREDS,2.5.2,PERCENT,Proportion of transboundary breeds classified as being at risk of extinction as a share of local breeds with known level of extinction risk (%),165,ER_RSK_TRBBREDS,single,""
+ER_UNCLOS_IMPLE,14.c.1,PERCENT,Score for the implementation of UNCLOS and its two implementing agreements (%),166,ER_UNCLOS_IMPLE,single,""
+ER_UNCLOS_RATACC,14.c.1,PERCENT,Score for the ratification of and accession to UNCLOS and its two implementing agreements (%),167,ER_UNCLOS_RATACC,single,""
+ER_WLD_TRPOACH,"15.7.1,15.c.1",PERCENT,Proportion of traded wildlife that was poached or illicitly trafficked,168,ER_WLD_TRPOACH,single,""
+FB_ATM_TOTL,8.10.1,PER_100000_POP,"Number of automated teller machines (ATMs) per 100,000 adults",169,FB_ATM_TOTL,single,""
+FB_BNK_ACCSS,8.10.2,PERCENT,"Proportion of adults (15 years and older) with an account at a financial institution or mobile-money-service provider, by sex (% of adults aged 15 years and older)",170,FB_BNK_ACCSS,single,""
+FB_BNK_CAPA_ZS,17.13.1,PERCENT,Bank capital to assets ratio (%),172,FB_BNK_CAPA_ZS,single,""
+FB_CBK_BRCH,8.10.1,PER_100000_POP,"Number of commercial bank branches per 100,000 adults",173,FB_CBK_BRCH,single,""
+FI_FSI_FSANL,10.5.1,PERCENT,Non-performing loans to total gross loans (%),175,FI_FSI_FSANL,single,""
+FI_FSI_FSERA,10.5.1,PERCENT,Return on assets (%),176,FI_FSI_FSERA,single,""
+FI_FSI_FSKA,10.5.1,PERCENT,Regulatory capital to assets (%),177,FI_FSI_FSKA,single,""
+FI_FSI_FSKNL,10.5.1,PERCENT,Non-performing loans net of provisions to capital (%),178,FI_FSI_FSKNL,single,""
+FI_FSI_FSKRTC,10.5.1,PERCENT,Regulatory Tier 1 capital to risk-weighted assets (%),179,FI_FSI_FSKRTC,single,""
+FI_FSI_FSLS,10.5.1,PERCENT,Liquid assets to short term liabilities (%),180,FI_FSI_FSLS,single,""
+FI_FSI_FSSNO,10.5.1,PERCENT,Net open position in foreign exchange to capital (%),181,FI_FSI_FSSNO,single,""
+FI_RES_TOTL_MO,17.13.1,Ratio,Total reserves in months of imports (ratio),182,FI_RES_TOTL_MO,single,""
+FM_LBL_BMNY_IR_ZS,17.13.1,Ratio,Broad money to total reserves ratio,183,FM_LBL_BMNY_IR_ZS,single,""
+FM_LBL_BMNY_ZG,17.13.1,PERCENT,Annual broad money growth (%),184,FM_LBL_BMNY_ZG,single,""
+FP_CPI_TOTL_ZG,17.13.1,PERCENT,"Annual inflation, consumer prices (%)",185,FP_CPI_TOTL_ZG,single,""
+GB_POP_SCIERD,9.5.2,PER_1000000_POP,"Researchers (in full-time equivalent) per million inhabitants (per 1,000,000 population)",186,GB_POP_SCIERD,single,""
+GB_XPD_CULNAT_PB,11.4.1,CON_PPP_USD,"Total expenditure per capita spent on cultural and natural heritage, public (PPP, constant 2017 United States dollars)",187,GB_XPD_CULNAT_PB,single,""
+GB_XPD_CULNAT_PBPV,11.4.1,CON_PPP_USD,"Total expenditure per capita spent on cultural and natural heritage, public and private (PPP, constant 2017 United States dollars)",188,GB_XPD_CULNAT_PBPV,single,""
+GB_XPD_CULNAT_PV,11.4.1,CON_PPP_USD,"Total expenditure per capita spent on cultural and natural heritage, private (PPP, constant 2017 United States dollars)",189,GB_XPD_CULNAT_PV,single,""
+GB_XPD_CUL_PBPV,11.4.1,CON_PPP_USD,"Total expenditure per capita spent on cultural heritage, public and private (PPP, constant 2017 United States dollars)",190,GB_XPD_CUL_PBPV,single,""
+GB_XPD_NAT_PBPV,11.4.1,CON_PPP_USD,"Total expenditure per capita spent on natural heritage, public and private (PPP, constant 2017 United States dollars)",191,GB_XPD_NAT_PBPV,single,""
+GB_XPD_RSDV,9.5.1,PERCENT,Research and development expenditure as a proportion of GDP (%),192,GB_XPD_RSDV,single,""
+GC_BAL_CASH_GD_ZS,17.13.1,PERCENT,Cash surplus/deficit as a proportion of GDP (%),193,GC_BAL_CASH_GD_ZS,single,""
+GC_GOB_TAXD,17.1.2,PERCENT,Proportion of domestic budget funded by domestic taxes (%),194,GC_GOB_TAXD,single,""
+GC_TAX_TOTL_GD_ZS,17.13.1,PERCENT,Tax revenue as a proportion of GDP (%),195,GC_TAX_TOTL_GD_ZS,single,""
+GF_COM_PPPI,17.17.1,CU_USD_M,"Amount of United States dollars committed to public-private partnerships for infrastructure, million USD nominal",196,GF_COM_PPPI,single,""
+GF_COM_PPPI_KD,17.17.1,CON_USD_M,"Amount of United States dollars committed to public-private partnerships for infrastructure, million USD real",197,GF_COM_PPPI_KD,single,""
+GF_FRN_FDI,17.3.1,CU_USD_M,Foreign direct investment (FDI) inflows (millions of United States dollars),198,GF_FRN_FDI,single,""
+GF_XPD_GBPC,16.6.1,PERCENT,Primary government expenditures as a proportion of original approved budget (%),199,GF_XPD_GBPC,single,""
+GR_G14_GDP,17.1.1,PERCENT,Total government revenue (budgetary central government) as a proportion of GDP (%),200,GR_G14_GDP,single,""
+GR_G14_XDC,17.1.1,CUR_LCU_M,"Total government revenue, in local currency",201,GR_G14_XDC,single,""
+IC_GEN_MGTL,5.5.2,PERCENT,Proportion of women in managerial positions - 13th ICLS (%),202,IC_GEN_MGTL,single,""
+IC_GEN_MGTL_19ICLS,5.5.2,PERCENT,Proportion of women in managerial positions - 19th ICLS (%),203,IC_GEN_MGTL_19ICLS,single,""
+IC_GEN_MGTN,5.5.2,PERCENT,Proportion of women in senior and middle management positions - 13th ICLS (%),204,IC_GEN_MGTN,single,""
+IC_GEN_MGTN_19ICLS,5.5.2,PERCENT,Proportion of women in senior and middle management positions - 19th ICLS (%),205,IC_GEN_MGTN_19ICLS,single,""
+IQ_SPI_PIL4,17.18.1,INDEX,Data Sources performance index (Statistical Performance Indicators Pillar 4) (Index),206,IQ_SPI_PIL4,single,""
+IQ_SPI_PIL5,17.18.1,INDEX,Data Infrastructure performance index (Statistical Performance Indicators Pillar 5) (Index),207,IQ_SPI_PIL5,single,""
+IS_RDP_FRGVOL,9.1.2,T_KM,"Freight volume, by mode of transport (tonne kilometres)",208,IS_RDP_FRGVOL,single,""
+IS_RDP_PFVOL,9.1.2,P_KM,"Passenger volume (passenger kilometres), by mode of transport",209,IS_RDP_PFVOL,single,""
+IS_RDP_PORFVOL,9.1.2,TEU,"Container port traffic, maritime transport (twenty-foot equivalent units - TEUs)",210,IS_RDP_PORFVOL,single,""
+IT_MOB_2GNTWK,9.c.1,PERCENT,Proportion of population covered by at least a 2G mobile network (%),211,IT_MOB_2GNTWK,single,""
+IT_MOB_3GNTWK,9.c.1,PERCENT,Proportion of population covered by at least a 3G mobile network (%),212,IT_MOB_3GNTWK,single,""
+IT_MOB_4GNTWK,9.c.1,PERCENT,Proportion of population covered by at least a 4G mobile network (%),213,IT_MOB_4GNTWK,single,""
+IT_MOB_5GNTWK,9.c.1,PERCENT,Proportion of population covered by at least a 5G mobile network (%),214,IT_MOB_5GNTWK,single,""
+IT_MOB_OWN,5.b.1,PERCENT,"Proportion of individuals who own a mobile telephone, by sex (%)",215,IT_MOB_OWN,single,""
+IT_USE_ii99,17.8.1,PERCENT,Proportion of individuals using the Internet (%),217,IT_USE_ii99,single,""
+IU_COR_BRIB,16.5.1,PERCENT,"Prevalence rate of bribery, by sex (%)",218,IU_COR_BRIB,single,""
+IU_DMK_INCL,16.7.2,PERCENT,Proportion of population who believe decision-making is inclusive (%),219,IU_DMK_INCL,single,""
+IU_DMK_RESP,16.7.2,PERCENT,Proportion of population who believe decision-making is responsive (%),220,IU_DMK_RESP,single,""
+NE_CON_GOVT_KD_ZG,17.13.1,PERCENT,Annual growth of the general government final consumption expenditure (%),221,NE_CON_GOVT_KD_ZG,single,""
+NE_CON_PRVT_KD_ZG,17.13.1,PERCENT,Annual growth of households and NPISHs final consumption expenditure (%),222,NE_CON_PRVT_KD_ZG,single,""
+NE_GDI_TOTL_KD_ZG,17.13.1,PERCENT,Annual growth of the gross capital formation (%),224,NE_GDI_TOTL_KD_ZG,single,""
+NV_IND_SSIS,9.3.1,PERCENT,Proportion of small-scale manufacturing industries in total manufacturing value added based on international classification (%),225,NV_IND_SSIS,single,""
+NV_IND_SSIS_NC,9.3.1,PERCENT,Proportion of small-scale industries in total industry value added based on national classification (%),226,NV_IND_SSIS_NC,single,""
+NV_IND_TECH,9.b.1,PERCENT,Proportion of medium and high-tech manufacturing value added in total value added (%),227,NV_IND_TECH,single,""
+NY_GDP_MKTP_KD_ZG,17.13.1,PERCENT,Annual GDP growth (%),228,NY_GDP_MKTP_KD_ZG,single,""
+PD_AGR_LSFP,2.3.1,CON_PPP_USD,"Productivity of large-scale food producers (agricultural output per labour day, PPP) (constant 2017 international $)",229,PD_AGR_LSFP,single,""
+PD_AGR_SSFP,2.3.1,CON_PPP_USD,"Productivity of small-scale food producers (agricultural output per labour day, PPP) (constant 2017 international $)",230,PD_AGR_SSFP,single,""
+SD_CPA_UPRDP,11.a.1,NUMBER,Countries that have national urban policies or regional development plans that respond to population dynamics; ensure balanced territorial development; and increase local fiscal space (1 = YES; 0 = NO),231,SD_CPA_UPRDP,single,""
+SD_MDP_ANDI,1.2.2,PERCENT,Average proportion of deprivations for people multidimensionally poor (%),232,SD_MDP_ANDI,single,""
+SD_MDP_MUHC,1.2.2,PERCENT,Proportion of population living in multidimensional poverty (%),233,SD_MDP_MUHC,single,""
+SD_MDP_MUHHC,1.2.2,PERCENT,Proportion of households living in multidimensional poverty (%),234,SD_MDP_MUHHC,single,""
+SD_XPD_ESED,1.a.2,PERCENT,"Proportion of total government spending on essential services, education [UIS methodology] (%)",235,SD_XPD_ESED,single,""
+SE_ACC_HNDWSH,4.a.1,PERCENT,"Proportion of schools with basic handwashing facilities, by education level (%)",236,SE_ACC_HNDWSH,single,""
+SE_ACS_CMPTR,4.a.1,PERCENT,"Proportion of schools with access to computers for pedagogical purposes, by education level (%)",237,SE_ACS_CMPTR,single,""
+SE_ACS_ELECT,4.a.1,PERCENT,"Proportion of schools with access to electricity, by education level (%)",238,SE_ACS_ELECT,single,""
+SE_ACS_H2O,4.a.1,PERCENT,"Proportion of schools with access to basic drinking water, by education level (%)",239,SE_ACS_H2O,single,""
+SE_ACS_INTNT,4.a.1,PERCENT,"Proportion of schools with access to the internet for pedagogical purposes, by education level (%)",240,SE_ACS_INTNT,single,""
+SE_ACS_SANIT,4.a.1,PERCENT,"Proportion of schools with access to single-sex basic sanitation, by education level (%)",241,SE_ACS_SANIT,single,""
+SE_ADT_ACTS,4.4.1,PERCENT,"Proportion of youth and adults with information and communications technology (ICT) skills, by sex and type of skill (%)",242,SE_ADT_ACTS,single,""
+SE_ADT_AGP_LITR,4.5.1,Ratio,Adjusted gender parity index for youth/adult literacy rate (ratio),243,SE_ADT_AGP_LITR,single,""
+SE_ADT_ALP_LITR,4.5.1,Ratio,Adjusted location parity index for youth/adult literacy rate (ratio),244,SE_ADT_ALP_LITR,single,""
+SE_ADT_AWP_LITR,4.5.1,Ratio,Adjusted wealth parity index for youth/adult literacy rate (ratio),245,SE_ADT_AWP_LITR,single,""
+SE_ADT_EDUCTRN,4.3.1,PERCENT,"Participation rate in formal and non-formal education and training, by sex (%)",246,SE_ADT_EDUCTRN,single,""
+SE_ADT_LITR,4.6.1,PERCENT,Youth/adult literacy rate (%),247,SE_ADT_LITR,single,""
+SE_AGP_CPRA,4.5.1,Ratio,"Adjusted gender parity index for completion rate, by location, wealth quintile and education level",248,SE_AGP_CPRA,single,""
+SE_ALP_CPLR,4.5.1,Ratio,"Adjusted location parity index for completion rate, by sex, wealth quintile and education level",249,SE_ALP_CPLR,single,""
+SE_AWP_CPRA,4.5.1,Ratio,"Adjusted wealth parity index for completion rate, by sex, location and education level",250,SE_AWP_CPRA,single,""
+SE_DEV_ONTRK,4.2.1,PERCENT,"Proportion of children aged 36−59 months who are developmentally on track in at least three of the following domains: literacy-numeracy, physical development, social-emotional development, and learning (% of children aged 36-59 months)",251,SE_DEV_ONTRK,single,""
+SE_GCEDESD_CUR,"12.8.1,13.3.1,4.7.1",INDEX,Extent to which global citizenship education and education for sustainable development are mainstreamed in curricula,252,SE_GCEDESD_CUR,single,""
+SE_GCEDESD_NEP,"12.8.1,13.3.1,4.7.1",INDEX,Extent to which global citizenship education and education for sustainable development are mainstreamed in national education policies,253,SE_GCEDESD_NEP,single,""
+SE_GCEDESD_SAS,"12.8.1,13.3.1,4.7.1",INDEX,Extent to which global citizenship education and education for sustainable development are mainstreamed in student assessment,254,SE_GCEDESD_SAS,single,""
+SE_GCEDESD_TED,"12.8.1,13.3.1,4.7.1",INDEX,Extent to which global citizenship education and education for sustainable development are mainstreamed in teacher education,255,SE_GCEDESD_TED,single,""
+SE_GPI_ICTS,4.5.1,Ratio,"Gender parity index for youth/adults with information and communications technology (ICT) skills, by type of skill (ratio)",256,SE_GPI_ICTS,single,""
+SE_GPI_PART,4.5.1,Ratio,Adjusted gender parity index for participation rate in formal and non-formal education and training (ratio),257,SE_GPI_PART,single,""
+SE_GPI_PTNPRE,4.5.1,Ratio,"Adjusted gender parity index for participation rate in organized learning (one year before the official primary entry age), (ratio)",258,SE_GPI_PTNPRE,single,""
+SE_GPI_TCAQ,4.5.1,Ratio,"Adjusted gender parity index for the proportion of teachers with the minimum required qualifications, by education level (ratio)",259,SE_GPI_TCAQ,single,""
+SE_INF_DSBL,4.a.1,PERCENT,"Proportion of schools with access to adapted infrastructure and materials for students with disabilities, by education level (%)",260,SE_INF_DSBL,single,""
+SE_LGP_ACHI,4.5.1,Ratio,Adjusted language test parity index for achieving a minimum proficiency level in reading and mathematics (ratio),261,SE_LGP_ACHI,single,""
+SE_NAP_ACHI,4.5.1,Ratio,Adjusted immigration status parity index for achieving a minimum proficiency level in reading and mathematics (ratio),262,SE_NAP_ACHI,single,""
+SE_PRE_PARTN,4.2.2,PERCENT,"Participation rate in organized learning (one year before the official primary entry age), by sex (%)",263,SE_PRE_PARTN,single,""
+SE_TOT_CPLR,4.1.2,PERCENT,"Completion rate, by sex, location, wealth quintile and education level (%)",265,SE_TOT_CPLR,single,""
+SE_TOT_GPI,4.5.1,Ratio,Adjusted gender parity index for achieving a minimum proficiency level in reading and mathematics (ratio),266,SE_TOT_GPI,single,""
+SE_TOT_PRFL,4.1.1,PERCENT,Proportion of children and young people achieving a minimum proficiency level in reading and mathematics (%),267,SE_TOT_PRFL,single,""
+SE_TOT_RUPI,4.5.1,Ratio,Adjusted rural to urban parity index for achieving a minimum proficiency level in reading and mathematics (ratio),268,SE_TOT_RUPI,single,""
+SE_TOT_SESPI,4.5.1,Ratio,Adjusted low to high socio-economic parity index for achieving a minimum proficiency level in reading and mathematics (ratio),269,SE_TOT_SESPI,single,""
+SE_TRA_GRDL,4.c.1,PERCENT,"Proportion of teachers with the minimum required qualifications, by education level and sex (%)",270,SE_TRA_GRDL,single,""
+SG_CPA_MIGRS,10.7.2,NUMBER,"Countries with migration policies to facilitate orderly, safe, regular and responsible migration and mobility of people, by policy domain (1 = Requires further progress; 2 = Partially meets; 3 = Meets; 4 = Fully meets)",271,SG_CPA_MIGRS,single,""
+SG_CPA_OFDI,17.5.1,NUMBER,"Number of countries with an outward investment promotion scheme which can benefit developing countries, including LDCs (1 = YES, 0 = NO)",272,SG_CPA_OFDI,single,""
+SG_CPA_SDEVP,17.14.1,PERCENT,Mechanisms in place to enhance policy coherence for sustainable development (%),273,SG_CPA_SDEVP,single,""
+SG_DMK_JDC,16.7.1,Ratio,Proportions of positions in the judiciary compared to national distributions (ratio),274,SG_DMK_JDC,single,""
+SG_DMK_JDC_CNS,16.7.1,Ratio,"Proportions of positions in the judiciary compared to national distributions, Constitutional Court (ratio)",275,SG_DMK_JDC_CNS,single,""
+SG_DMK_JDC_HGR,16.7.1,Ratio,"Proportions of positions in the judiciary compared to national distributions, Higher Courts (ratio)",276,SG_DMK_JDC_HGR,single,""
+SG_DMK_JDC_LWR,16.7.1,Ratio,"Proportions of positions in the judiciary compared to national distributions, Lower Courts (ratio)",277,SG_DMK_JDC_LWR,single,""
+SG_DMK_PARLCC_LC,16.7.1,NUMBER,"Number of chairs of permanent committees, by age sex and focus of the committee, Lower Chamber or Unicameral",278,SG_DMK_PARLCC_LC,single,""
+SG_DMK_PARLCC_UC,16.7.1,NUMBER,"Number of chairs of permanent committees, by age sex and focus of the committee, Upper Chamber",279,SG_DMK_PARLCC_UC,single,""
+SG_DMK_PARLMP_LC,16.7.1,Ratio,"Ratio for female members of parliaments (Ratio of the proportion of women in parliament in the proportion of women in the national population with the age of eligibility as a lower bound boundary), Lower Chamber or Unicameral",280,SG_DMK_PARLMP_LC,single,""
+SG_DMK_PARLMP_UC,16.7.1,Ratio,"Ratio for female members of parliaments (Ratio of the proportion of women in parliament in the proportion of women in the national population with the age of eligibility as a lower bound boundary), Upper Chamber",281,SG_DMK_PARLMP_UC,single,""
+SG_DMK_PARLSP_LC,16.7.1,NUMBER,"Number of speakers in parliament, by age and sex , Lower Chamber or Unicameral",282,SG_DMK_PARLSP_LC,single,""
+SG_DMK_PARLSP_UC,16.7.1,NUMBER,"Number of speakers in parliament, by age and sex, Upper Chamber",283,SG_DMK_PARLSP_UC,single,""
+SG_DMK_PARLYTHN_LC,16.7.1,NUMBER,"Number of youth in parliament, Lower Chamber or Unicameral (Number)",284,SG_DMK_PARLYTHN_LC,single,""
+SG_DMK_PARLYTHN_UC,16.7.1,NUMBER,"Number of youth in parliament, Upper Chamber (Number)",285,SG_DMK_PARLYTHN_UC,single,""
+SG_DMK_PARLYTHP_LC,16.7.1,PERCENT,"Proportion of youth in parliament, Lower Chamber or Unicameral (%)",286,SG_DMK_PARLYTHP_LC,single,""
+SG_DMK_PARLYTHP_UC,16.7.1,PERCENT,"Proportion of youth in parliament, Upper Chamber (%)",287,SG_DMK_PARLYTHP_UC,single,""
+SG_DMK_PARLYTHR_LC,16.7.1,Ratio,"Ratio of young members in parliament (Ratio of the proportion of young members in parliament in the proportion of the national population with the age of eligibility as a lower bound boundary), Lower Chamber or Unicameral",288,SG_DMK_PARLYTHR_LC,single,""
+SG_DMK_PARLYTHR_UC,16.7.1,Ratio,"Ratio of young members in parliament (Ratio of the proportion of young members in parliament in the proportion of the national population with the age of eligibility as a lower bound boundary), Upper Chamber",289,SG_DMK_PARLYTHR_UC,single,""
+SG_DMK_PSRVC,16.7.1,Ratio,Proportions of positions in the public service compared to national distributions (ratio),290,SG_DMK_PSRVC,single,""
+SG_DSR_LGRGSR,"1.5.3,11.b.1,13.1.2",INDEX,Score of adoption and implementation of national DRR strategies in line with the Sendai Framework,291,SG_DSR_LGRGSR,single,""
+SG_DSR_SILN,"1.5.4,11.b.2,13.1.3",NUMBER,Number of local governments that adopt and implement local DRR strategies in line with national strategies (number),292,SG_DSR_SILN,single,""
+SG_DSR_SILS,"1.5.4,11.b.2,13.1.3",PERCENT,Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies (%),293,SG_DSR_SILS,single,""
+SG_GEN_EQPWNN,5.c.1,NUMBER,Countries with systems to track and make public allocations for gender equality and women's empowerment (0 = does not meet the requirement; 1 = approached the requirement; 2  =  Fully meets requirement),294,SG_GEN_EQPWNN,single,""
+SG_GEN_LOCGELS,5.5.1,PERCENT,Proportion of elected seats held by women in deliberative bodies of local government (%),295,SG_GEN_LOCGELS,single,""
+SG_GEN_PARLNT,5.5.1,NUMBER,Current number of seats in national parliaments (number),297,SG_GEN_PARLNT,single,""
+SG_GOV_LOGV,"1.5.4,11.b.2,13.1.3",NUMBER,Number of local governments (number),298,SG_GOV_LOGV,single,""
+SG_HAZ_CMRBASEL,12.4.1,PERCENT,"Parties meeting their commitments and obligations in transmitting information as required by Basel Convention on hazardous waste, and other chemicals (%)",299,SG_HAZ_CMRBASEL,single,""
+SG_HAZ_CMRMNMT,12.4.1,PERCENT,"Parties meeting their commitments and obligations in transmitting information as required by Minamata Convention on hazardous waste, and other chemicals (%)",300,SG_HAZ_CMRMNMT,single,""
+SG_HAZ_CMRMNTRL,12.4.1,PERCENT,"Parties meeting their commitments and obligations in transmitting information as required by Montreal Protocol on hazardous waste, and other chemicals (%)",301,SG_HAZ_CMRMNTRL,single,""
+SG_HAZ_CMRROTDAM,12.4.1,PERCENT,"Parties meeting their commitments and obligations in transmitting information as required by Rotterdam Convention on hazardous waste, and other chemicals (%)",302,SG_HAZ_CMRROTDAM,single,""
+SG_HAZ_CMRSTHOLM,12.4.1,PERCENT,"Parties meeting their commitments and obligations in transmitting information as required by Stockholm Convention on hazardous waste, and other chemicals (%)",303,SG_HAZ_CMRSTHOLM,single,""
+SG_LGL_LNDFEMOD,5.a.2,SCORE,Degree to which the legal framework (including customary law) guarantees women’s equal rights to land ownership and/or control (1=No evidence to 6=Highest levels of guarantees),305,SG_LGL_LNDFEMOD,single,""
+SG_PLN_MSTKSDG_P,17.16.1,NUMBER,"Number of countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals, Provider (1 = YES; 0 = NO)",306,SG_PLN_MSTKSDG_P,single,""
+SG_PLN_MSTKSDG_R,17.16.1,NUMBER,"Number of countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals, Recipient (1 = YES; 0 = NO)",307,SG_PLN_MSTKSDG_R,single,""
+SG_REG_BRTH,16.9.1,PERCENT,Proportion of children under 5 years of age whose births have been registered with a civil authority (% of children under 5 years of age),310,SG_REG_BRTH,single,""
+SG_REG_BRTH90N,17.19.2,NUMBER,Countries with birth registration data that are at least 90 percent complete (1 = YES; 0 = NO),311,SG_REG_BRTH90N,single,""
+SG_REG_CENSUSN,17.19.2,NUMBER,Countries that have conducted at least one population and housing census in the last 10 years (1 = YES; 0 = NO),312,SG_REG_CENSUSN,single,""
+SG_REG_DETH75N,17.19.2,NUMBER,Countries with death registration data that are at least 75 percent complete (1 = YES; 0 = NO),313,SG_REG_DETH75N,single,""
+SG_SCP_PROCN,12.7.1,NUMBER,Number of countries implementing sustainable public procurement policies and action plans,315,SG_SCP_PROCN,single,""
+SG_STT_CAPTY,17.19.1,CU_USD,Dollar value of all resources made available to strengthen statistical capacity in developing countries (current United States dollars),316,SG_STT_CAPTY,single,""
+SG_STT_FPOS,17.18.2,NUMBER,Countries with national statistical legislation exists that complies with the Fundamental Principles of Official Statistics (1 = YES; 0 = NO),317,SG_STT_FPOS,single,""
+SG_STT_NSDSFDDNR,17.18.3,NUMBER,Countries with national statistical plans with funding from donors (1 = YES; 0 = NO),318,SG_STT_NSDSFDDNR,single,""
+SG_STT_NSDSFDGVT,17.18.3,NUMBER,Countries with national statistical plans with funding from Government (1 = YES; 0 = NO),319,SG_STT_NSDSFDGVT,single,""
+SG_STT_NSDSFDOTHR,17.18.3,NUMBER,Countries with national statistical plans with funding from others (1 = YES; 0 = NO),320,SG_STT_NSDSFDOTHR,single,""
+SG_STT_NSDSFND,17.18.3,NUMBER,Countries with national statistical plans that are fully funded (1 = YES; 0 = NO),321,SG_STT_NSDSFND,single,""
+SG_STT_NSDSIMPL,17.18.3,NUMBER,Countries with national statistical plans that are under implementation (1 = YES; 0 = NO),322,SG_STT_NSDSIMPL,single,""
+SG_STT_ODIN,17.18.1,INDEX,Open Data Inventory (ODIN) Coverage Index,323,SG_STT_ODIN,single,""
+SG_URB_CSPART,11.3.2,PERCENT,Proportion of cities with a direct participation structure of civil society in urban planning and management that operate regularly and democratically,324,SG_URB_CSPART,single,""
+SG_XPD_EDUC,1.a.2,PERCENT,"Proportion of total government spending on essential services, education (%)",325,SG_XPD_EDUC,single,""
+SG_XPD_ESSRV,1.a.2,PERCENT,Proportion of total government spending on essential services (%),326,SG_XPD_ESSRV,single,""
+SG_XPD_HLTH,1.a.2,PERCENT,"Proportion of total government spending on essential services, health (%)",327,SG_XPD_HLTH,single,""
+SG_XPD_PR,1.b.1,PERCENT,Proportion of government spending which benefits the poorest 20 percent (%),328,SG_XPD_PR,single,""
+SG_XPD_PROT,1.a.2,PERCENT,"Proportion of total government spending on essential services, social protection (%)",329,SG_XPD_PROT,single,""
+SG_XPD_PR_EDUC,1.b.1,PERCENT,Proportion of government spending on education which benefits the poorest 20 percent (%),330,SG_XPD_PR_EDUC,single,""
+SG_XPD_PR_HLTH,1.b.1,PERCENT,Proportion of government spending on health which benefits the poorest 20 percent (%),331,SG_XPD_PR_HLTH,single,""
+SG_XPD_PR_SOC,1.b.1,PERCENT,Proportion of government spending on social transfers which benefits the poorest 20 percent (%),332,SG_XPD_PR_SOC,single,""
+SH_ACS_HPV,3.b.1,PERCENT,Proportion of the target population who received the final dose of human papillomavirus (HPV) vaccine (%),335,SH_ACS_HPV,single,""
+SH_ACS_MCV2,3.b.1,PERCENT,Proportion of the target population who received measles-containing-vaccine second-dose (MCV2) (%),336,SH_ACS_MCV2,single,""
+SH_ACS_PCV3,3.b.1,PERCENT,Proportion of the target population who received a 3rd dose of pneumococcal conjugate (PCV3) vaccine (%),337,SH_ACS_PCV3,single,""
+SH_ALC_CONSPT,3.5.2,LTPUREAL,Alcohol consumption per capita (aged 15 years and older) within a calendar year (litres of pure alcohol),339,SH_ALC_CONSPT,single,""
+SH_BLD_ECOLI,3.d.2,PERCENT,"Percentage of bloodstream infection due to Escherichia coli resistant to 3rd-generation cephalosporin (e.g., ESBL- E. coli) among patients seeking care and whose blood sample is taken and tested (%)",340,SH_BLD_ECOLI,single,""
+SH_BLD_MRSA,3.d.2,PERCENT,Percentage of bloodstream infection due to methicillin-resistant Staphylococcus aureus (MRSA) among patients seeking care and whose blood sample is taken and tested (%),341,SH_BLD_MRSA,single,""
+SH_FPL_MTMM,3.7.1,PERCENT,Proportion of women of reproductive age (aged 15-49 years) who have their need for family planning satisfied with modern methods (% of women aged 15-49 years),344,SH_FPL_MTMM,single,""
+SH_H2O_SAFE,6.1.1,PERCENT,"Proportion of population using safely managed drinking water services, by urban/rural (%)",345,SH_H2O_SAFE,single,""
+SH_HAP_ASMORT,3.9.1,PER_100000_POP,"Age-standardized mortality rate attributed to household air pollution (deaths per 100,000 population)",346,SH_HAP_ASMORT,single,""
+SH_HIV_INCD,3.3.1,PER_1000_UNINFECTED_POP,"Number of new HIV infections per 1,000 uninfected population, by sex and age (per 1,000 uninfected population)",347,SH_HIV_INCD,single,""
+SH_IHR_CAPS,3.d.1,PERCENT,"International Health Regulations (IHR) capacity, by type of IHR capacity (%)",348,SH_IHR_CAPS,single,""
+SH_LGR_ACSRHE,5.6.2,PERCENT,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (%)",349,SH_LGR_ACSRHE,single,""
+SH_LGR_ACSRHEC1,5.6.2,PERCENT,"(S.1.C.1) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 1: Maternity Care (%)",350,SH_LGR_ACSRHEC1,single,""
+SH_LGR_ACSRHEC13,5.6.2,PERCENT,"(S.4.C.13) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 13: HPV Vaccine (%)",352,SH_LGR_ACSRHEC13,single,""
+SH_LGR_ACSRHEC2,5.6.2,PERCENT,"(S.1.C.2) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 2: Life Saving Commodities (%)",353,SH_LGR_ACSRHEC2,single,""
+SH_LGR_ACSRHEC3,5.6.2,PERCENT,"(S.1.C.3) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 3: Abortion",354,SH_LGR_ACSRHEC3,single,""
+SH_LGR_ACSRHEC4,5.6.2,PERCENT,"(S.1.C.4) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 4: Post-Abortion Care (%)",355,SH_LGR_ACSRHEC4,single,""
+SH_LGR_ACSRHEC5,5.6.2,PERCENT,"(S.2.C.5) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 5: Contraceptive Services (%)",356,SH_LGR_ACSRHEC5,single,""
+SH_LGR_ACSRHEC6,5.6.2,PERCENT,"(S.2.C.6) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 6: Contraceptive Consent (%)",357,SH_LGR_ACSRHEC6,single,""
+SH_LGR_ACSRHEC8,5.6.2,PERCENT,"(S.3.C.8) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 8: Sexuality Education Curriculum Laws (%)",359,SH_LGR_ACSRHEC8,single,""
+SH_LGR_ACSRHEC9,5.6.2,PERCENT,"(S.3.C.9) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Component 9: Sexuality Education Curriculum Topics (%)",360,SH_LGR_ACSRHEC9,single,""
+SH_LGR_ACSRHES1,5.6.2,PERCENT,"(S.1) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Section 1: Maternity Care (%)",361,SH_LGR_ACSRHES1,single,""
+SH_LGR_ACSRHES3,5.6.2,PERCENT,"(S.3) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Section 3: Sexuality Education (%)",362,SH_LGR_ACSRHES3,single,""
+SH_LGR_ACSRHES4,5.6.2,PERCENT,"(S.4) Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education: Section 4: HIV and HPV (%)",363,SH_LGR_ACSRHES4,single,""
+SH_MDD_CHLD,2.2.4,PERCENT,Prevalence of minimum dietary diversity among children aged 6-23 months (%),364,SH_MDD_CHLD,single,""
+SH_MDD_WMN_NPRG,2.2.4,PERCENT,Prevalence of minimum dietary diversity among non-pregnant women aged 15-49 years (%),365,SH_MDD_WMN_NPRG,single,""
+SH_MED_DEN,3.c.1,PER_10000_POP,"Health worker density, by type of occupation (per 10,000 population)",366,SH_MED_DEN,single,""
+SH_MED_HWRKDIS,3.c.1,PERCENT,"Health worker distribution, by sex and type of occupation (%)",367,SH_MED_HWRKDIS,single,""
+SH_OOP_XPD_EARNNET40,3.8.2,PERCENT,"Proportion of the population with positive out-of-pocket household expenditure on health exceeding 40% of household discretionary budget, by location, quintile, type of household and characteristics of the head of household (%)",368,SH_OOP_XPD_EARNNET40,single,""
+SH_PRV_SMOK,3.a.1,PERCENT,"Age-standardized prevalence of current tobacco use among persons aged 15 years and older, by sex (%)",369,SH_PRV_SMOK,single,""
+SH_SAN_DEFECT,6.2.1,PERCENT,"Proportion of population practicing open defecation, by urban/rural (%)",370,SH_SAN_DEFECT,single,""
+SH_SAN_HNDWSH,6.2.1,PERCENT,"Proportion of population with basic handwashing facilities on premises, by urban/rural (%)",371,SH_SAN_HNDWSH,single,""
+SH_SAN_SAFE,6.2.1,PERCENT,"Proportion of population using safely managed sanitation services, by urban/rural (%)",372,SH_SAN_SAFE,single,""
+SH_STA_BRTC,3.1.2,PERCENT,Proportion of births attended by skilled health personnel (%),373,SH_STA_BRTC,single,""
+SH_STA_MALR,3.3.3,PER_1000_POP,"Malaria incidence per 1,000 population at risk (per 1,000 population)",374,SH_STA_MALR,single,""
+SH_SUD_ALCOL,3.5.1,PERCENT,"Alcohol use disorders, 12-month prevalence (%)",378,SH_SUD_ALCOL,single,""
+SH_SUD_TREAT,3.5.1,PERCENT,"Coverage of treatment interventions (pharmacological, psychosocial and rehabilitation and aftercare services) for substance use disorders (%)",379,SH_SUD_TREAT,single,""
+SI_AGR_LSFP,2.3.2,CON_PPP_USD,"Average income of large-scale food producers, PPP (constant 2017 international $)",380,SI_AGR_LSFP,single,""
+SI_AGR_SSFP,2.3.2,CON_PPP_USD,"Average income of small-scale food producers, PPP (constant 2017 international $)",381,SI_AGR_SSFP,single,""
+SI_COV_BENFTS,1.3.1,PERCENT,"[ILO] Proportion of population covered by at least one social protection benefit, by sex (%)",382,SI_COV_BENFTS,single,""
+SI_COV_CHLD,1.3.1,PERCENT,"[ILO] Proportion of children/households receiving child/family cash benefit, by sex (%)",383,SI_COV_CHLD,single,""
+SI_COV_DISAB,1.3.1,PERCENT,"[ILO] Proportion of population with severe disabilities receiving disability cash benefit, by sex (%)",384,SI_COV_DISAB,single,""
+SI_COV_LMKT,1.3.1,PERCENT,[World Bank] Proportion of population covered by labour market programs (%),385,SI_COV_LMKT,single,""
+SI_COV_MATNL,1.3.1,PERCENT,[ILO] Proportion of mothers with newborns receiving maternity cash benefit (%),386,SI_COV_MATNL,single,""
+SI_COV_PENSN,1.3.1,PERCENT,"[ILO] Proportion of population above statutory pensionable age receiving a pension, by sex (%)",387,SI_COV_PENSN,single,""
+SI_COV_POOR,1.3.1,PERCENT,"[ILO] Proportion of poor population receiving social assistance cash benefit, by sex (%)",388,SI_COV_POOR,single,""
+SI_COV_SOCAST,1.3.1,PERCENT,[World Bank] Proportion of population covered by social assistance programs (%),389,SI_COV_SOCAST,single,""
+SI_COV_SOCINS,1.3.1,PERCENT,[World Bank] Proportion of population covered by social insurance programs (%),390,SI_COV_SOCINS,single,""
+SI_COV_UEMP,1.3.1,PERCENT,"[ILO] Proportion of unemployed persons receiving unemployment cash benefit, by sex (%)",391,SI_COV_UEMP,single,""
+SI_COV_VULN,1.3.1,PERCENT,"[ILO] Proportion of vulnerable population receiving social assistance cash benefit, by sex (%)",392,SI_COV_VULN,single,""
+SI_COV_WKINJRY,1.3.1,PERCENT,"[ILO] Proportion of employed population covered in the event of work injury, by sex (%)",393,SI_COV_WKINJRY,single,""
+SI_DST_FISP,10.4.2,PERCENT,"Redistributive impact of fiscal policy, Gini index (%)",394,SI_DST_FISP,single,""
+SI_HEI_TOTL,10.1.1,PERCENT,Growth rates of household expenditure or income per capita (%),395,SI_HEI_TOTL,single,""
+SI_POV_EMP1,1.1.1,PERCENT,"Employed population below international poverty line, by sex and age (%)",397,SI_POV_EMP1,single,""
+SI_POV_NAHC,1.2.1,PERCENT,Proportion of population living below the national poverty line (%),398,SI_POV_NAHC,single,""
+SI_RMT_COST,10.c.1,PERCENT,Average remittance costs of sending $200 to a receiving country as a proportion of the amount remitted (%),399,SI_RMT_COST,single,""
+SI_RMT_COST_BC,10.c.1,PERCENT,Average remittance costs of sending $200 in a corridor as a proportion of the amount remitted (%),400,SI_RMT_COST_BC,single,""
+SI_RMT_COST_SC,10.c.1,PERCENT,SmaRT average remittance costs of sending $200 in a corridor as a proportion of the amount remitted (%),401,SI_RMT_COST_SC,single,""
+SI_RMT_COST_SND,10.c.1,PERCENT,Average remittance costs of sending $200 for a sending country as a proportion of the amount remitted (%),402,SI_RMT_COST_SND,single,""
+SL_CPA_YEMP,8.b.1,SCORE,"Existence of a developed and operationalized national strategy for youth employment, as a distinct strategy or as part of a national employment strategy",403,SL_CPA_YEMP,single,""
+SL_DOM_TSPD,5.4.1,PERCENT,"Proportion of time spent on unpaid domestic chores and care work, by sex, age and location (%)",404,SL_DOM_TSPD,single,""
+SL_EMP_EARN,8.5.1,CUR_LCU,Average hourly earnings of employees by sex and occupation (local currency),406,SL_EMP_EARN,single,""
+SL_EMP_FTLINJUR,8.8.1,PER_100000_EMP,"Fatal occupational injuries among employees, by sex and migrant status (per 100,000 employees)",407,SL_EMP_FTLINJUR,single,""
+SL_EMP_GTOTL,10.4.1,PERCENT,Labour share of GDP (%),408,SL_EMP_GTOTL,single,""
+SL_EMP_INJUR,8.8.1,PER_100000_EMP,"Non-fatal occupational injuries among employees, by sex and migrant status (per 100,000 employees)",409,SL_EMP_INJUR,single,""
+SL_EMP_PCAP,8.2.1,PERCENT,Annual growth rate of real GDP per employed person (%),410,SL_EMP_PCAP,single,""
+SL_ISV_IFEM,8.3.1,PERCENT,"Proportion of informal employment, by sector and sex - 13th ICLS (%)",411,SL_ISV_IFEM,single,""
+SL_ISV_IFEM_19ICLS,8.3.1,PERCENT,"Proportion of informal employment, by sector and sex - 19th ICLS (%)",412,SL_ISV_IFEM_19ICLS,single,""
+SL_LBR_NTLCPL,8.8.2,SCORE,Level of national compliance with labour rights (freedom of association and collective bargaining) based on International Labour Organization (ILO) textual sources and national legislation,413,SL_LBR_NTLCPL,single,""
+SL_TLF_CHLDEA,8.7.1,PERCENT,"Proportion of children engaged in economic activity, by sex and age  (%)",414,SL_TLF_CHLDEA,single,""
+SL_TLF_CHLDEC,8.7.1,PERCENT,"Proportion of children engaged in economic activity and household chores, by sex and age (%)",415,SL_TLF_CHLDEC,single,""
+SL_TLF_MANF,9.2.2,PERCENT,Manufacturing employment as a proportion of total employment - 13th ICLS (%),416,SL_TLF_MANF,single,""
+SL_TLF_MANF_19ICLS,9.2.2,PERCENT,Manufacturing employment as a proportion of total employment - 19th ICLS(%),417,SL_TLF_MANF_19ICLS,single,""
+SL_TLF_NEET,8.6.1,PERCENT,"Proportion of youth not in education, employment or training, by sex and age - 13th ICLS (%)",418,SL_TLF_NEET,single,""
+SL_TLF_NEET_19ICLS,8.6.1,PERCENT,"Proportion of youth not in education, employment or training, by sex and age - 19th ICLS (%)",419,SL_TLF_NEET_19ICLS,single,""
+SL_TLF_UEM,8.5.2,PERCENT,"Unemployment rate, by sex and age - 13th ICLS (%)",420,SL_TLF_UEM,single,""
+SL_TLF_UEMDIS,8.5.2,PERCENT,"Unemployment rate, by sex and disability - 13th ICLS (%)",421,SL_TLF_UEMDIS,single,""
+SL_TLF_UEMDIS_19ICLS,8.5.2,PERCENT,"Unemployment rate, by sex and disability - 19th ICLS (%)",422,SL_TLF_UEMDIS_19ICLS,single,""
+SL_TLF_UEM_19ICLS,8.5.2,PERCENT,"Unemployment rate, by sex and age - 19th ICLS (%)",423,SL_TLF_UEM_19ICLS,single,""
+SM_DTH_MIGR,10.7.3,NUMBER,Total deaths and disappearances recorded during migration (number),424,SM_DTH_MIGR,single,""
+SN_ITK_DEFC,2.1.1,PERCENT,Prevalence of undernourishment (%),425,SN_ITK_DEFC,single,""
+SN_ITK_DEFCN,2.1.1,NUM_M,Number of undernourished people (millions),426,SN_ITK_DEFCN,single,""
+SP_ACS_BSRVH2O,1.4.1,PERCENT,"Proportion of population using basic drinking water services, by location (%)",428,SP_ACS_BSRVH2O,single,""
+SP_ACS_BSRVSAN,1.4.1,PERCENT,"Proportion of population using basic sanitation services, by location (%)",429,SP_ACS_BSRVSAN,single,""
+SP_DYN_ADKL,3.7.2,PER_1000_POP,"Adolescent birth rate (per 1,000 women aged 15-19 and 10-14 years)",430,SP_DYN_ADKL,single,""
+SP_DYN_MRBF15,5.3.1,PERCENT,Proportion of women aged 20-24 years who were married or in a union before age 15 (%),431,SP_DYN_MRBF15,single,""
+SP_DYN_MRBF18,5.3.1,PERCENT,Proportion of women aged 20-24 years who were married or in a union before age 18 (%),432,SP_DYN_MRBF18,single,""
+SP_GNP_WNOWNS,5.a.1,PERCENT,"Share of women among owners or rights-bearers of agricultural land, by type of tenure (%)",433,SP_GNP_WNOWNS,single,""
+SP_LGL_LNDAGSEC,5.a.1,PERCENT,"Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex (%)",434,SP_LGL_LNDAGSEC,single,""
+SP_LGL_LNDDOC,1.4.2,PERCENT,"Proportion of people with legally recognized documentation of their rights to land out of total adult population, by sex (%)",435,SP_LGL_LNDDOC,single,""
+SP_LGL_LNDSTR,1.4.2,PERCENT,"Proportion of people with secure tenure rights to land out of total adult population, by sex (%)",436,SP_LGL_LNDSTR,single,""
+SP_PSR_OSATIS_GOV,16.6.2,PERCENT,Proportion of population who say that overall they are satisfied with the quality of government services (%),437,SP_PSR_OSATIS_GOV,single,""
+SP_PSR_OSATIS_HLTH,16.6.2,PERCENT,Proportion of population who say that overall they are satisfied with the quality of healthcare services (%),438,SP_PSR_OSATIS_HLTH,single,""
+SP_PSR_OSATIS_SEC,16.6.2,PERCENT,Proportion of population who say that overall they are satisfied with the quality of secondary education services (%),439,SP_PSR_OSATIS_SEC,single,""
+SP_PSR_SATIS_GOV,16.6.2,PERCENT,"Proportion of population satisfied with their last experience of public services, government services (%)",440,SP_PSR_SATIS_GOV,single,""
+SP_TRN_PUBL,11.2.1,PERCENT,Proportion of population that has convenient access to public transport (%),441,SP_TRN_PUBL,single,""
+ST_EEV_ACCSEEA,12.b.1,NUMBER,Implementation of standard accounting tools to monitor the economic and environmental aspects of tourism (SEEA tables),442,ST_EEV_ACCSEEA,single,""
+ST_EEV_ACCTSA,12.b.1,NUMBER,Implementation of standard accounting tools to monitor the economic and environmental aspects of tourism (Tourism Satellite Account tables),443,ST_EEV_ACCTSA,single,""
+ST_EEV_STDACCT,12.b.1,NUMBER,Implementation of standard accounting tools to monitor the economic and environmental aspects of tourism (number of tables),444,ST_EEV_STDACCT,single,""
+ST_EMP_TRSMN,8.9.2,NUMBER,Employed persons in the tourism industries (number),445,ST_EMP_TRSMN,single,""
+ST_GDP_ZS,8.9.1,PERCENT,Tourism direct GDP as a proportion of total GDP (%),446,ST_GDP_ZS,single,""
+TG_VAL_TOTL_GD_ZS,17.13.1,PERCENT,Merchandise trade as a proportion of GDP (%),447,TG_VAL_TOTL_GD_ZS,single,""
+TX_EXP_GBSVR,17.11.1,PERCENT,Developing countries’ and least developed countries’ share of global services exports (%),451,TX_EXP_GBSVR,single,""
+TX_IMP_GBSVR,17.11.1,PERCENT,Developing countries’ and least developed countries’ share of global services imports (%),452,TX_IMP_GBSVR,single,""
+VC_ARM_SZTRACE,16.4.2,PERCENT,"Proportion of seized, found or surrendered arms whose illicit origin or context has been traced or established by a competent authority in line with international instruments",453,VC_ARM_SZTRACE,single,""
+VC_DSR_AGLH,"1.5.2,11.5.2",CU_USD,Direct agriculture loss attributed to disasters (current United States dollars),455,VC_DSR_AGLH,single,""
+VC_DSR_BSDN,11.5.3,NUMBER,Number of disruptions to basic services attributed to disasters (number),456,VC_DSR_BSDN,single,""
+VC_DSR_CDAN,11.5.3,NUMBER,Number of damaged critical infrastructure attributed to disasters (number),457,VC_DSR_CDAN,single,""
+VC_DSR_CDYN,11.5.3,NUMBER,Number of other destroyed or damaged critical infrastructure units and facilities attributed to disasters (number),458,VC_DSR_CDYN,single,""
+VC_DSR_CHLN,"1.5.2,11.5.2",CU_USD_M,Direct economic loss to cultural heritage damaged or destroyed attributed to disasters (millions of current United States dollars),459,VC_DSR_CHLN,single,""
+VC_DSR_CILN,"1.5.2,11.5.2",CU_USD,Direct economic loss resulting from damaged or destroyed critical infrastructure attributed to disasters (current United States dollars),460,VC_DSR_CILN,single,""
+VC_DSR_DDPA,"1.5.2,11.5.2",CU_USD,Direct economic loss to other damaged or destroyed productive assets attributed to disasters (current United States dollars),461,VC_DSR_DDPA,single,""
+VC_DSR_EFDN,11.5.3,NUMBER,Number of destroyed or damaged educational facilities attributed to disasters (number),462,VC_DSR_EFDN,single,""
+VC_DSR_ESDN,11.5.3,NUMBER,Number of disruptions to educational services attributed to disasters (number),463,VC_DSR_ESDN,single,""
+VC_DSR_HFDN,11.5.3,NUMBER,Number of destroyed or damaged health facilities attributed to disasters (number),465,VC_DSR_HFDN,single,""
+VC_DSR_HOLH,"1.5.2,11.5.2",CU_USD,Direct economic loss in the housing sector attributed to disasters (current United States dollars),466,VC_DSR_HOLH,single,""
+VC_DSR_HSDN,11.5.3,NUMBER,Number of disruptions to health services attributed to disasters (number),467,VC_DSR_HSDN,single,""
+VC_DSR_IJILN,"1.5.1,11.5.1,13.1.1",NUMBER,Number of injured or ill people attributed to disasters (number),468,VC_DSR_IJILN,single,""
+VC_DSR_MISS,"1.5.1,11.5.1,13.1.1",NUMBER,Number of missing persons due to disaster (number),469,VC_DSR_MISS,single,""
+VC_DSR_MORT,"1.5.1,11.5.1,13.1.1",NUMBER,Number of deaths due to disaster (number),471,VC_DSR_MORT,single,""
+VC_DSR_OBDN,11.5.3,NUMBER,Number of disruptions to other basic services attributed to disasters (number),472,VC_DSR_OBDN,single,""
+VC_DSR_PDAN,"1.5.1,11.5.1,13.1.1",NUMBER,Number of people whose damaged dwellings were attributed to disasters (number),473,VC_DSR_PDAN,single,""
+VC_DSR_PDLN,"1.5.1,11.5.1,13.1.1",NUMBER,"Number of people whose livelihoods were disrupted or destroyed, attributed to disasters (number)",474,VC_DSR_PDLN,single,""
+VC_DSR_PDYN,"1.5.1,11.5.1,13.1.1",NUMBER,Number of people whose destroyed dwellings were attributed to disasters (number),475,VC_DSR_PDYN,single,""
+VC_DTH_TONCVN,16.1.2,NUMBER,"Number of conflict-related deaths (non-civilians), by sex, age and cause of death (Number)",477,VC_DTH_TONCVN,single,""
+VC_PRR_PHYV,16.3.1,PERCENT,"Police reporting rate for physical assault in the previous 12 months, by sex (%)",484,VC_PRR_PHYV,single,""
+VC_PRR_PHY_VIO,16.3.1,PERCENT,"Police reporting rate for physical violence in the previous 12 months, by sex (%)",485,VC_PRR_PHY_VIO,single,""
+VC_PRR_ROBB,16.3.1,PERCENT,"Police reporting rate for robbery in the previous 12 months, by sex (%)",486,VC_PRR_ROBB,single,""
+VC_PRR_SEXV,16.3.1,PERCENT,"Police reporting rate for sexual assault in the previous 12 months, by sex (%)",487,VC_PRR_SEXV,single,""
+VC_PRR_SEX_VIO,16.3.1,PERCENT,"Police reporting rate for sexual violence in the previous 12 months, by sex (%)",488,VC_PRR_SEX_VIO,single,""
+VC_PRS_UNSNT,16.3.2,PERCENT,Unsentenced detainees as a proportion of overall prison population (%),489,VC_PRS_UNSNT,single,""
+VC_SNS_WALN_DRK,16.1.4,PERCENT,Proportion of population that feel safe walking alone around the area they live after dark (%),490,VC_SNS_WALN_DRK,single,""
+VC_VAW_MARR,5.2.1,PERCENT,"Proportion of ever-partnered women and girls subjected to physical and/or sexual violence by a current or former intimate partner in the previous 12 months, by age (%)",491,VC_VAW_MARR,single,""
+VC_VAW_MTUHRAN,16.10.1,NUMBER,"Countries with at least one verified case of killings of human rights defenders, journalists, and trade unionists (1 = YES, 0 = NO)",492,VC_VAW_MTUHRAN,single,""
+VC_VAW_NONMARR,5.2.2,PERCENT,Proportion of women and girls aged 15 years and older subjected to sexual violence by persons other than an intimate partner in the previous 12 months (%),493,VC_VAW_NONMARR,single,""
+VC_VAW_PHYPYV,16.2.1,PERCENT,Proportion of children aged 1-14 years who experienced physical punishment and/or psychological aggression by caregivers in last month (% of children aged 1-14 years),494,VC_VAW_PHYPYV,single,""
+VC_VAW_SXVLN,16.2.3,PERCENT,"Proportion of population aged 18-29 years who experienced sexual violence by age 18, by sex (% of population aged 18-29)",495,VC_VAW_SXVLN,single,""
+VC_VOC_ENFDISN,16.10.1,NUMBER,"Countries with at least one verified case of enforced disappearance of human rights defenders, journalists, and trade unionists (1 = YES, 0 = NO)",496,VC_VOC_ENFDISN,single,""
+VC_VOH_SXPH,11.7.2,PERCENT,"Proportion of persons victim of non-sexual or sexual harassment, in the previous 12 months (%)",497,VC_VOH_SXPH,single,""
+VC_VOV_GDSD,"10.3.1,16.b.1",PERCENT,"Proportion of population reporting having felt discriminated against, by grounds of discrimination, sex and disability (%)",498,VC_VOV_GDSD,single,""
+VC_VOV_PHYL,16.1.3,PERCENT,"Proportion of population subjected to physical violence in the previous 12 months, by sex (%)",499,VC_VOV_PHYL,single,""
+VC_VOV_PHY_ASLT,16.1.3,PERCENT,"Proportion of population subjected to physical assault in the previous 12 months, by sex (%)",500,VC_VOV_PHY_ASLT,single,""
+VC_VOV_PSYCHL,16.1.3,PERCENT,"Proportion of population subjected to psychological violence in the previous 12 months, by sex (%)",501,VC_VOV_PSYCHL,single,""
+VC_VOV_ROBB,16.1.3,PERCENT,"Proportion of population subjected to robbery in the previous 12 months, by sex (%)",502,VC_VOV_ROBB,single,""
+VC_VOV_SEXL,16.1.3,PERCENT,"Proportion of population subjected to sexual violence in the previous 12 months, by sex (%)",503,VC_VOV_SEXL,single,""
+VC_VOV_SEX_ASLT,16.1.3,PERCENT,"Proportion of population subjected to sexual assault in the previous 12 months, by sex (%)",504,VC_VOV_SEX_ASLT,single,""
