@@ -25,7 +25,7 @@ country's overall level — from 18% for goal 17 to 99.9% for goal 15.
 
 | Check | Result |
 |---|---|
-| Convergence | 16 of 16 goals, 20–73 EM cycles each |
+| Convergence | 16 of 16 goals, 19–73 EM cycles each |
 | Reliability | 0.772–0.953, median **0.844**; every goal above 0.70 |
 | Median posterior SD | 0.338 (overall index: 0.114) |
 | Bootstrap, 500 replicates | **0 failed replicates**; sampling SD is 7–42% of the posterior SE, median 13% |
@@ -78,9 +78,9 @@ instead. Modelling the dependence directly is deferred.
 
 **Provenance.** `weight_agency_pct` records how much of each goal's score rests
 on series the custodian agency produces rather than the country. It is high for
-goals 3 (93.8%), 2 (91.0%), 6 (78.5%), 14 (72.6%) and 17 (45.7%), and at or
-below 6.2% for the other eleven. Modelling provenance rather than disclosing it
-is the v2 design.
+goals 3 (93.8%), 2 (91.0%), 6 (78.5%), 14 (72.6%) and 17 (45.7%). Of the other
+eleven, goal 1 is 14.0% and the remaining ten are at or below 6.2%. Modelling
+provenance rather than disclosing it is the v2 design.
 
 **Dynamic smoothing** across years is deliberately not done. Nine years is short
 for a random walk to earn its place.
