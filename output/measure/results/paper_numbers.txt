@@ -1,0 +1,84 @@
+=== SECTION 5: model and estimation ===
+series after the 2-98% filter : 607 of 665
+series after variant collapse : 524
+EM cycles to converge         : 187   (minutes 0.4)
+converged                     : TRUE
+
+=== SECTION 6: the index ===
+2023 highest: France (1.99), Finland (1.94), Spain (1.92), Italy (1.76), Portugal (1.66), Slovenia (1.65)
+2023 lowest : Eritrea (-2.32), Democratic People's Republic of Korea (-2.30), Micronesia (Federated States of) (-2.10), Syrian Arab Republic (-2.02), Tuvalu (-1.93), Kosovo (-1.91)
+steepest declines: Myanmar (-1.01), Micronesia (Federated States of) (-0.77), Timor-Leste (-0.75), Sudan (-0.72), Cabo Verde (-0.67), Afghanistan (-0.62), Marshall Islands (-0.57)
+largest increases: Andorra (+0.87), Somalia (+0.77), Seychelles (+0.70), Rwanda (+0.70), Eswatini (+0.68)
+
+=== SECTION 7.1: convergent validity ===
+modified SPI (pillars 1,2,4,5)  spearman 0.88 | pearson 0.866 | n 1336
+unmodified SPI                  pearson  0.852 | n 1329
+(the by-pillar table and HRV come from validate_twr_external.R ->
+ output/measure/tables/twr_external_validity.csv)
+
+=== SECTION 7.2: known-groups ===
+  L: -0.9 (n 263)
+  UM: 0.04 (n 414)
+  LM: -0.37 (n 438)
+  H: 1.22 (n 456)
+
+=== SECTION 7.3: against the share-based measures ===
+  pct_frontier: 0.614 (n 1773)
+  pct_goalbase: 0.679 (n 1773)
+  stable_pct_goalbase: 0.67 (n 1773)
+  pct_baseline: 0.052 (n 1773)
+  stable_pct_baseline: 0.041 (n 1773)
+  raw reported count            : 0.679
+
+=== SECTION 7.4: reliability and precision ===
+empirical reliability : 0.987
+median SE             : 0.1138
+95th percentile SE    : 0.1391
+maximum SE            : 0.1643
+
+=== SECTION 7.5: is it a capacity index? ===
+R2 of SPI(mod) + log GDP pc : 0.82 (n 1317)
+within-country corr with SPI(mod), demeaned : 0.169
+share of total variance that is within-country : 4.8%
+countries with no SPI at all : 27
+
+=== SECTION 9: the sector layer ===
+goals scored            : 16 of 17 (goal 7 has 3 series, too few)
+country-year-goal rows  : 28,368
+all converged           : TRUE
+reliability  median     : 0.844  min 0.772  max 0.953
+goals at or above 0.70  : 16 of 16   (reference point, not a cut)
+median SE               : 0.3375  (overall index: 0.1138)
+held on content grounds : 6, 15
+variation NOT explained by the overall index, median : 63.7%
+  least independent : goal 17 at 17.7%
+  most independent  : goal 15 at 99.9%
+concentration, share of weight in the 5 heaviest series :
+  goal 10: 79.9%   agency-produced weight 4.6%
+  goal 14: 75.6%   agency-produced weight 72.6%
+  goal 1: 75.1%   agency-produced weight 14%
+  goal 4: 68%   agency-produced weight 2.3%
+  goal 15: 66.4%   agency-produced weight 0.7%
+  goal 3: 64.3%   agency-produced weight 93.8%
+  goal 13: 62.7%   agency-produced weight 0%
+  goal 8: 58.6%   agency-produced weight 4.7%
+  goal 6: 54.8%   agency-produced weight 78.5%
+  goal 9: 52.2%   agency-produced weight 6.2%
+  goal 11: 50.8%   agency-produced weight 0.7%
+  goal 16: 44.2%   agency-produced weight 1.8%
+  goal 12: 33.9%   agency-produced weight 4.8%
+  goal 5: 32.6%   agency-produced weight 1.4%
+  goal 2: 26.1%   agency-produced weight 91%
+  goal 17: 23.1%   agency-produced weight 45.7%
+
+=== SECTION 8: limitations ===
+  2015: mean -0.14 | median SE 0.114
+  2016: mean -0.09 | median SE 0.116
+  2017: mean -0.04 | median SE 0.112
+  2018: mean 0.05 | median SE 0.115
+  2019: mean 0.13 | median SE 0.111
+  2020: mean 0.11 | median SE 0.114
+  2021: mean 0.09 | median SE 0.113
+  2022: mean 0.11 | median SE 0.115
+  2023: mean -0.15 | median SE 0.114
+  2022->2023 change: -0.26

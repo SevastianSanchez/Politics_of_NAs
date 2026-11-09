@@ -9,7 +9,7 @@
 :root{
   --bg:#fbfaf8; --panel:#fff; --fg:#1d1c1a; --muted:#6b6862; --faint:#8d8a84;
   --rule:#e3dfd8; --rule2:#efece6;
-  --accent:#7a4b2a; --accent-soft:#f3ece5;
+  --accent:#7a4b2a; --accent-soft:#f3ece5; --bar2:#c89355;
   --warn:#8a5a12; --warn-bg:#fdf5e4; --warn-rule:#e8d5a8;
   --pos:#3f6b4a; --neg:#9b3b32;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
@@ -21,7 +21,7 @@
   :root:not([data-theme="light"]){
     --bg:#15140f; --panel:#1d1c17; --fg:#eceae4; --muted:#a3a097; --faint:#857f74;
     --rule:#332f27; --rule2:#262319;
-    --accent:#d09a6a; --accent-soft:#2a2118;
+    --accent:#d09a6a; --accent-soft:#2a2118; --bar2:#b07c3d;
     --warn:#e0b765; --warn-bg:#2a2317; --warn-rule:#4d4027;
     --pos:#7fb08c; --neg:#d4817a;
     color-scheme:dark;
@@ -30,7 +30,7 @@
 :root[data-theme="dark"]{
   --bg:#15140f; --panel:#1d1c17; --fg:#eceae4; --muted:#a3a097; --faint:#857f74;
   --rule:#332f27; --rule2:#262319;
-  --accent:#d09a6a; --accent-soft:#2a2118;
+  --accent:#d09a6a; --accent-soft:#2a2118; --bar2:#b07c3d;
   --warn:#e0b765; --warn-bg:#2a2317; --warn-rule:#4d4027;
   --pos:#7fb08c; --neg:#d4817a;
   color-scheme:dark;
@@ -116,6 +116,19 @@ tbody tr:hover{background:var(--accent-soft)}
   vertical-align:middle;opacity:.75}
 .se{color:var(--faint);font-size:.78em}
 
+.vbar{fill:var(--accent);fill-opacity:.85}
+.vbar.total{fill-opacity:1}
+.vbar.overlap{fill:var(--bar2);fill-opacity:1;stroke:var(--accent);stroke-width:1.2;
+  stroke-opacity:.55}
+.vtrack{fill:var(--rule2)}
+.vlab{fill:var(--fg);font-size:12.5px;font-family:var(--sans)}
+.vval{fill:var(--muted);font-size:11.5px;font-family:var(--mono)}
+.vkey{font-size:.78rem;color:var(--faint);margin-top:.2rem;display:flex;
+  flex-wrap:wrap;gap:1.1rem;align-items:center}
+.vkey span{display:inline-flex;align-items:center;gap:.35rem}
+.vsw{width:12px;height:10px;border-radius:2px;background:var(--accent);opacity:.85}
+.vsw.warn{background:var(--bar2);opacity:1;box-shadow:inset 0 0 0 1px var(--accent)}
+tr.overlap td{color:var(--muted)}
 .movers{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1.2rem;margin-top:1.1rem}
 .mcard{background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:1rem 1.1rem}
 .mcard h3{font-family:var(--sans);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;
@@ -136,13 +149,32 @@ tbody tr:hover{background:var(--accent-soft)}
 .ver h3 em{font-style:normal;color:var(--accent);font-weight:500}
 .ver p{font-size:.9rem;color:var(--muted);margin:0;max-width:62ch}
 @media (max-width:30rem){.ver{flex-direction:column;gap:.4rem}}
-.grow{display:grid;grid-template-columns:11rem 1fr 6rem;gap:.7rem;align-items:center;
+.grow{display:grid;grid-template-columns:13.5rem 1fr 6.4rem;gap:.7rem;align-items:center;
   padding:.3rem 0;font-size:.88rem}
-.grow .gl{color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grow .gl{color:var(--fg);line-height:1.25;min-width:0}
+.grow .gl .gtop{display:flex;align-items:center;gap:.3rem;min-width:0}
+.grow .gl .gname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.grow .gl .gbadge{flex:0 0 auto;margin-left:0}
 .gtrack{position:relative;height:16px;background:var(--rule2);border-radius:2px}
 .gfill{position:absolute;left:0;top:0;bottom:0;background:var(--accent);
   border-radius:2px;opacity:.8}
 .gbase{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--fg);opacity:.45}
+.gzero{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--fg);opacity:.3}
+.gerr{position:absolute;top:50%;height:2px;transform:translateY(-50%);
+  background:var(--fg);opacity:.3;border-radius:1px}
+.gbadge{font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;
+  padding:.1rem .34rem;border-radius:3px;background:var(--accent-soft);
+  color:var(--accent);margin-left:.4rem;white-space:nowrap}
+.gl .gsub{display:block;color:var(--faint);font-size:.72rem;font-family:var(--mono);
+  white-space:nowrap}
+.gmetrics{margin-top:1.1rem;border-top:1px solid var(--rule2);padding-top:.9rem}
+.gmetrics .gmwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gmetrics table{width:100%;min-width:33rem;border-collapse:collapse;font-size:.8rem}
+.gmetrics th,.gmetrics td{text-align:right;padding:.3rem .5rem;
+  border-bottom:1px solid var(--rule2)}
+.gmetrics th:first-child,.gmetrics td:first-child{text-align:left}
+.gmetrics td.mono{font-family:var(--mono)}
+.gmetrics tr.held td{opacity:.62}
 .gnum{font-family:var(--mono);font-size:.8rem;text-align:right;
   font-variant-numeric:tabular-nums;white-space:nowrap}
 .gdelta{font-family:var(--mono);font-size:.74rem;margin-left:.3rem}
@@ -152,7 +184,8 @@ tbody tr:hover{background:var(--accent-soft)}
 .glegend span{display:inline-flex;align-items:center;gap:.35rem}
 .swatch{width:12px;height:10px;border-radius:2px;background:var(--accent);opacity:.8}
 .tick{width:2px;height:12px;background:var(--fg);opacity:.45}
-@media (max-width:34rem){.grow{grid-template-columns:7.5rem 1fr 5rem;font-size:.8rem}}
+@media (max-width:34rem){.grow{grid-template-columns:9rem 1fr 5rem;font-size:.8rem}
+  .gl .gsub{font-size:.66rem}.gbadge{font-size:.6rem}}
 dl{margin:0} dt{font-weight:600;margin-top:.9rem;font-size:.95rem}
 dd{margin:.2rem 0 0;color:var(--muted);max-width:64ch;font-size:.94rem}
 ul{max-width:64ch;padding-left:1.2rem} li{margin-bottom:.4rem}
@@ -171,7 +204,7 @@ footer p{max-width:64ch}
     <span class="tag">Preliminary &middot; not for citation</span>
     <h1>The World on Record</h1>
     <p class="lede">The first transparency measure covering the SDG era: latent reporting
-      behaviour across 607 statistical series and 197 countries, 2015&ndash;2023, with
+      behaviour across 524 statistical series and 197 countries, 2015&ndash;2023, with
       uncertainty quantified for every country&ndash;year.</p>
     <p class="sub"><strong>The World on Record Index (TWR)</strong> is the overall score
       published here. Sector&ndash;level scores follow when the goal model finishes
@@ -196,7 +229,7 @@ footer p{max-width:64ch}
     <p class="eyebrow">What this measures</p>
     <h2>Reporting is a choice, not just a capacity</h2>
     <p>For every country, series and year, the UN database either holds a published
-      figure or it does not. Treat each of the 607 statistical series as an item on a
+      figure or it does not. Treat each of the 524 statistical series as an item on a
       test and each country&ndash;year as a test&ndash;taker: a country's underlying
       willingness and ability to report is then estimated jointly with how demanding
       each series is. This is the design Hollyer, Rosendorff and Vreeland introduced
@@ -219,10 +252,10 @@ footer p{max-width:64ch}
         <p>The established transparency index runs to 2010, its maintained extension to
           2015. For the years that follow &mdash; the pandemic, the backsliding wave,
           half the SDG monitoring window &mdash; no comparable measure exists.</p></div>
-      <div class="dcard"><span class="k">607</span>
+      <div class="dcard"><span class="k">524</span>
         <h3>The whole framework</h3>
-        <p>Series covered across 197 countries and nine years, estimated rather than
-          hand&ndash;coded. Comparable inventories audit a few dozen indicators.</p></div>
+        <p>Distinct series covered across 197 countries and nine years, estimated rather
+          than hand&ndash;coded. Comparable inventories audit a few dozen indicators.</p></div>
       <div class="dcard"><span class="k">0</span>
         <h3>Denominators assumed</h3>
         <p>Every simpler measure divides by a figure chosen by hand. This one estimates
@@ -276,18 +309,26 @@ footer p{max-width:64ch}
     <h2>Which areas went quiet</h2>
     <p>A single national score says a government reports less. It cannot say what it
       stopped reporting. Scores resolved to the 16 SDG goals with enough series to
-      support them can &mdash; and roughly half the variation in goal&ndash;level
-      reporting is not explained by a country's overall level, so the domains move
-      substantially on their own.</p>
+      support them can. And they are not a restatement of the overall index: across
+      the 16 goals, a median of <strong>64%</strong> of the variation in goal&ndash;level
+      reporting is not explained by a country's overall level, ranging from 18% for
+      goal 17 to almost all of it for goals 6 and 15. The domains move on their own,
+      which is the point of measuring them separately.</p>
 
     <div class="note">
-      <h3>Preview &mdash; placeholder figures</h3>
-      <p>The panel below shows <strong>raw reporting shares</strong>: the fraction of
-        each goal's series a country published. These are not the released measure.
-        The goal&ndash;level model is still estimating; when it lands these are
-        replaced by scores that hold each country's overall level constant, so the
-        published numbers will be smaller and differently scaled. The pattern is what
-        is worth reading here, not the values.</p>
+      <h3>Every goal ships with its own error bar</h3>
+      <p>These are model scores, on the same scale as the overall index: positive
+        means a country reported more on that goal than the average country-year,
+        negative means less. Each is a separate fit on that goal's series alone,
+        so a goal's score owes nothing to the other fifteen.</p>
+      <p>Nothing is excluded for being imprecise. Reliability is printed for every
+        goal and <strong>0.70 is shown as a reference point, not applied as a
+        cut</strong>. Two goals are held back on content grounds rather than
+        precision: <strong>goal 6</strong> is largely satellite measurement, so
+        &ldquo;reported&rdquo; mostly records whether an agency published, and
+        <strong>goal 15</strong> carries treaty and policy instruments that may
+        track commitment status rather than reporting effort. <strong>Goal 7</strong>
+        has three series, too few to identify a factor, and gets no score at all.</p>
     </div>
 
     <div class="controls">
@@ -339,8 +380,62 @@ footer p{max-width:64ch}
     </div>
     <div class="dl">
       <a class="btn" href="twr_scores.csv" download>Download CSV</a>
+      <a class="btn" href="goal_scores.csv" download>Download goal scores</a>
       <a class="btn" href="twr_scores.json">View JSON</a>
       <a class="btn" href="data_dictionary.html">Data dictionary</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">External validity</p>
+    <h2>Checked against an index built by someone else</h2>
+    <p>A measure that only agrees with itself has proved nothing. These scores are
+      compared with two indices built by other researchers from other evidence. The World
+      Bank&rsquo;s <strong>Statistical Performance Indicators</strong> rate a
+      country&rsquo;s statistical system from censuses, surveys, administrative records and
+      institutional arrangements; agreement is <strong>0.85</strong> across 1,425 shared
+      country&ndash;years. The <strong>HRV transparency index</strong> &mdash; the
+      Bayesian latent&ndash;variable measure of reporting this method descends from &mdash;
+      agrees at <strong>0.85</strong> on the 149 countries where the two overlap.</p>
+    <div class="chartbox"><div id="vchart"></div></div>
+    <div class="vkey">
+      <span><i class="vsw"></i> independent of this index&rsquo;s inputs</span>
+      <span><i class="vsw warn"></i> partly shares this index&rsquo;s source data</span>
+    </div>
+    <p style="margin-top:1.3rem">The ordering is the real result. SPI&rsquo;s third pillar
+      scores how many SDG indicators a country has published, drawn from the same UN
+      database used here, so some agreement there is mechanical rather than
+      corroborating. If the headline 0.85 were an artifact of shared inputs, pillar 3
+      would sit at the top. It sits at the bottom, at 0.48, while the pillars built from
+      wholly separate evidence &mdash; data sources and data infrastructure &mdash; are
+      the ones near 0.82.</p>
+    <div class="tablebox" style="margin-top:1.2rem">
+      <table id="vtbl">
+        <thead><tr>
+          <th>Benchmark</th><th>Country&ndash;years</th>
+          <th>Pearson <span class="arrow"></span></th><th>Spearman</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="vkey" style="margin-top:.6rem">&dagger; shares source data with this index:
+      part of SPI pillar 3 scores SDG indicator availability taken from the same UN
+      database.</p>
+    <div class="note">
+      <h3>What this does not establish</h3>
+      <p>The agreement above is <em>between</em> countries. Within a single country over
+        time, the median correlation with SPI is only <strong id="vwc">0.15</strong>.
+        SPI is a slow&ndash;moving assessment of statistical institutions and barely
+        shifts from year to year, so it cannot corroborate the annual movement in these
+        scores &mdash; and annual movement is what any analysis of reporting change
+        depends on. Cross&ndash;sectional validity is established here; the
+        year&ndash;to&ndash;year variation is not yet externally checked.</p>
+      <p>The HRV comparison carries the same limit for a different reason. HRV&rsquo;s
+        updated release ends in 2015 and this panel begins in 2015, so the two meet in one
+        year only. Its 0.83 is a strong cross&ndash;sectional agreement with the closest
+        prior measure of the same thing, and it says nothing about any later year.</p>
     </div>
   </div>
 </section>
@@ -356,17 +451,38 @@ footer p{max-width:64ch}
         The reported fit converged rather than exhausting its iteration cap, and
         reproduced identically on an independent run.</dd>
       <dt>Item set</dt>
-      <dd>607 of 665 series survive a filter removing those reported in fewer than 2%
+      <dd>Two steps, in order. A filter first removes series reported in fewer than 2%
         or more than 98% of country&ndash;years, which carry no information for
-        separating countries.</dd>
+        separating countries: 665 series become 607. Redundant variants are then
+        collapsed, leaving <strong>524</strong>.</dd>
+      <dt>Why 524 and not 607</dt>
+      <dd>Some measurements are entered in the database more than once. Children stunted
+        appears as a percentage and, separately, as a count in thousands. A country that
+        publishes one always publishes the other, so counting both pays it twice for a
+        single reporting decision, while a country whose series has no twin is paid once.
+        Each such cluster therefore contributes one series. Two conditions must both hold
+        before a cluster is collapsed. The series must be reported, and not reported,
+        together in every one of the 1,773 country&ndash;years; and their descriptions
+        must show they measure the same thing a different way. The pattern alone is not
+        sufficient, because at these reporting rates unrelated series coincide by chance:
+        forest certification, electricity access and refugee counts all move together in
+        99.5% of country&ndash;years without measuring anything in common. Series that
+        merely resemble one another are kept apart, since a country publishing one and
+        withholding the other has made a real reporting choice. 59 clusters met both
+        conditions. The test is re&ndash;run every time the model is fitted and stops it
+        if a future data release breaks it.</dd>
       <dt>Deliberately excluded</dt>
       <dd>No democracy score, income group, population or region enters the model.
         Those are explanatory variables in the accompanying study, and including them
         would make any subsequent test circular.</dd>
       <dt>Goal&ndash;level scores</dt>
-      <dd>Estimated by a bifactor model &mdash; one general factor plus one per SDG goal
-        with enough series to identify it &mdash; and not yet published on this page.
-        See the roadmap below.</dd>
+      <dd>Published above, as <span class="mono">goal_level</span>. Each goal is a
+        <em>separate</em> fit on its own series rather than one joint model, so a
+        goal's score owes nothing to the other fifteen. Sixteen goals are scored;
+        goal 7 has three series, too few to identify a factor, and gets none.
+        Fitting on 17&ndash;75 series instead of 524 makes these error bars about
+        three times the overall index's, which is why every goal is published with
+        its own.</dd>
       <dt>Not yet smoothed</dt>
       <dd>Scores are estimated independently by year. A dynamic prior linking adjacent
         years, as in the original transparency index, is deferred: nine years is a
@@ -388,10 +504,17 @@ footer p{max-width:64ch}
         <span class="vn">v1</span>
         <div>
           <h3>Domain &mdash; <em>this release</em></h3>
-          <p>Whether a government published anything for each of 607 series, resolved
+          <p>Whether a government published anything for each of 524 series, resolved
             into an overall score and a score per SDG goal. Answers which policy areas
             fell silent, not merely that a country did. No existing transparency index
             disaggregates this way.</p>
+          <p style="margin-top:.6rem">Every goal score is released with its reliability
+            and standard error beside it, and none is withheld for being imprecise
+            &mdash; the convention V&ndash;Dem, the World Bank&rsquo;s governance
+            indicators and the HRV index all follow. Two goals are withheld on a
+            different basis: their series measure something other than a
+            country&rsquo;s reporting effort, and an interval cannot warn a reader
+            about that.</p>
         </div>
       </div>
       <div class="ver">
@@ -428,13 +551,14 @@ footer p{max-width:64ch}
 <footer>
   <div class="wrap">
     <p><strong>How to cite.</strong> Sanchez, S. (2026). <em>The World on Record:
-      statistical reporting across countries, policy sectors, and time</em> (v1.0.0)
+      statistical reporting across countries, policy sectors, and time</em> (v1.2.0)
       [Data set]. Zenodo. <a href="https://doi.org/10.5281/zenodo.23997606">
       https://doi.org/10.5281/zenodo.23997606</a><br>
-      That is the concept DOI, which always resolves to the newest version. Cite the
-      version DOI for the release you actually used &mdash; v1.0.0 is
-      <a href="https://doi.org/10.5281/zenodo.23997607">10.5281/zenodo.23997607</a> &mdash;
-      so your results stay reproducible once later versions change the scores.</p>
+      That is the concept DOI, which always resolves to the newest version. For
+      reproducibility, cite instead the <em>version</em> DOI shown on the Zenodo
+      record for the release you actually used, so your results stay fixed once a
+      later version changes the scores. v1.0.0 is
+      <a href="https://doi.org/10.5281/zenodo.23997607">10.5281/zenodo.23997607</a>.</p>
 
     <p><strong>Licence.</strong> Scores and derived data are released under
       <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>: reuse and
@@ -454,7 +578,9 @@ footer p{max-width:64ch}
 const F = n => n.toLocaleString();
 let D = null, sortK = "sc", sortDir = -1;
 
-fetch("twr_scores.json").then(r => r.json()).then(d => { D = d; init(); })
+drawValidity();
+
+fetch("twr_scores.json", {cache:"no-cache"}).then(r => r.json()).then(d => { D = d; init(); })
   .catch(() => { document.getElementById("facts").innerHTML =
     '<div class="fact"><span class="n">&mdash;</span><span class="l">data failed to load</span></div>'; });
 
@@ -497,11 +623,11 @@ function init(){
   draw();
 }
 
-/* ---- goal-level panel (PREVIEW: raw shares, swapped for model scores later) ---- */
+/* ---- goal-level panel: the released sector layer (goal_level scores) ---- */
 let G = null;
 
 function initGoals(){
-  fetch("goal_preview.json").then(r => r.json()).then(g => {
+  fetch("goal_scores.json", {cache:"no-cache"}).then(r => r.json()).then(g => {
     G = g;
     const cs = [...g.countries].sort((a,b) => a.name.localeCompare(b.name));
     G.countries = cs;
@@ -516,7 +642,7 @@ function initGoals(){
     drawGoals();
   }).catch(() => {
     document.getElementById("goals").innerHTML =
-      '<p style="color:var(--faint)">goal preview data failed to load</p>';
+      '<p style="color:var(--faint)">goal score data failed to load</p>';
   });
 }
 
@@ -526,31 +652,78 @@ function drawGoals(){
   const yi = G.years.indexOf(yr), y0 = 0;
   const c  = G.countries[ci];
 
-  const rows = G.goals.map((g,k) => ({
-    label: g.label, n: g.n_items,
-    v: c.s[k][yi], base: c.s[k][y0]
+  const rows = G.goals.map((m,k) => ({
+    g: m.g, label: m.name, n: m.series, rel: m.rel,
+    held: m.status !== "release",
+    v: c.s[k][yi], se: c.se[k][yi], base: c.s[k][y0]
   })).sort((a,b) => b.v - a.v);
 
-  const max = Math.max(0.6, ...rows.map(r => Math.max(r.v, r.base)));
+  // diverging track: scores are on the index scale and go either side of zero
+  const span = Math.max(1.2, ...rows.map(r => Math.abs(r.v) + r.se, 0),
+                             ...rows.map(r => Math.abs(r.base)));
+  const pos = v => 50 + 50 * v / span;          // percent across the track
+
   document.getElementById("goals").innerHTML = rows.map(r => {
     const d = r.v - r.base;
     const sign = d > 0 ? "+" : "";
     const cls  = Math.abs(d) < 0.005 ? "" : (d < 0 ? "gdown" : "gup");
-    return '<div class="grow"><span class="gl" title="' + r.n + ' series">' +
-      r.label + '</span><span class="gtrack">' +
-      '<span class="gfill" style="width:' + (100*r.v/max).toFixed(1) + '%"></span>' +
-      '<span class="gbase" style="left:' + (100*r.base/max).toFixed(1) + '%" title="' +
+    const x0 = pos(Math.min(0, r.v)), x1 = pos(Math.max(0, r.v));
+    const e0 = pos(r.v - r.se), e1 = pos(r.v + r.se);
+    return '<div class="grow"><span class="gl" title="' + r.label + ' \u2014 ' +
+      r.n + ' series, reliability ' + r.rel.toFixed(2) + '">' +
+      '<span class="gtop"><span class="gname">' + r.label + '</span>' +
+      (r.held ? '<span class="gbadge">held</span>' : '') + '</span>' +
+      '<span class="gsub">' + r.n + ' series &middot; rel ' + r.rel.toFixed(2) +
+      '</span></span>' +
+      '<span class="gtrack">' +
+      '<span class="gzero" style="left:' + pos(0).toFixed(1) + '%"></span>' +
+      '<span class="gerr" style="left:' + e0.toFixed(1) + '%;width:' +
+        Math.max(0, e1-e0).toFixed(1) + '%"></span>' +
+      '<span class="gfill" style="left:' + x0.toFixed(1) + '%;width:' +
+        Math.max(0.6, x1-x0).toFixed(1) + '%"></span>' +
+      '<span class="gbase" style="left:' + pos(r.base).toFixed(1) + '%" title="' +
         G.years[y0] + ': ' + r.base.toFixed(2) + '"></span>' +
       '</span><span class="gnum">' + r.v.toFixed(2) +
       (yr === G.years[y0] ? '' :
         '<span class="gdelta ' + cls + '">' + sign + d.toFixed(2) + '</span>') +
       '</span></div>';
   }).join("") +
-  '<div class="glegend"><span><i class="swatch"></i>share of goal reported in ' + yr +
+  '<div class="glegend"><span><i class="swatch"></i>goal score in ' + yr +
     '</span><span><i class="tick"></i>' + G.years[y0] + ' level</span>' +
-    '<span>hover a goal for its series count</span></div>';
+    '<span>the pale bar is &plusmn;1 standard error</span></div>' +
+  goalMetricsTable();
 
-  document.getElementById("gnote").textContent = c.iso + " · 16 goals";
+  document.getElementById("gnote").textContent =
+    c.iso + " \u00b7 " + G.goals.length + " goals \u00b7 goal 7 not scored";
+}
+
+/* Per-goal diagnostics, published alongside the scores rather than used to
+   filter them: reliability against the 0.70 reference, the typical standard
+   error, how much of the score sits in its five heaviest series, and how much
+   of its weight rests on series the custodian agency produces rather than the
+   country reporting. */
+function goalMetricsTable(){
+  const rows = [...G.goals].sort((a,b) => b.rel - a.rel).map(m =>
+    '<tr' + (m.status !== "release" ? ' class="held"' : '') + '>' +
+    '<td>' + m.g + '. ' + m.name + (m.status !== "release" ?
+      '<span class="gbadge">held</span>' : '') + '</td>' +
+    '<td class="mono">' + m.series + '</td>' +
+    '<td class="mono">' + m.rel.toFixed(3) + '</td>' +
+    '<td class="mono">' + m.se_med.toFixed(2) + '</td>' +
+    '<td class="mono">' + m.conc.toFixed(0) + '%</td>' +
+    '<td class="mono">' + m.agency.toFixed(0) + '%</td></tr>').join("");
+  return '<div class="gmetrics"><div class="gmwrap"><table><thead><tr>' +
+    '<th>Goal</th><th>Series</th><th>Reliability</th><th>Median SE</th>' +
+    '<th title="share of the score carried by its five heaviest series">Top 5</th>' +
+    '<th title="share of the score resting on series produced by the custodian agency rather than the country">Agency</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
+    '<p style="font-size:.76rem;color:var(--faint);margin:.7rem 0 0">' +
+    'Reliability of ' + G.reliability_reference.toFixed(2) + ' (Nunnally) is a ' +
+    'reference point, not a cut: every goal fitted is published. <em>Top 5</em> is ' +
+    'how concentrated a score is in its heaviest series, and <em>Agency</em> how ' +
+    'much of it rests on series the custodian agency produces rather than the ' +
+    'country. Both are disclosed so a reader can weigh a goal, not to exclude it.' +
+    '</p></div>';
 }
 
 function drawChart(){
@@ -587,6 +760,53 @@ function drawChart(){
   document.getElementById("chart").innerHTML =
     '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Mean reporting transparency score by year, 2015 to 2023">' +
     g + '</svg>';
+}
+
+function drawValidity(){
+  fetch("validity_spi.json", {cache:"no-cache"}).then(r => r.json()).then(V => {
+    const rows = V.pillars, W = 720, rh = 30, pad = 10;
+    const H = rows.length * rh + pad * 2 + 18;
+    const labW = 232, barL = labW + 12, barR = W - 54;
+    const X = v => barL + Math.max(0, v) / 0.9 * (barR - barL);
+    let g = "";
+    [0, 0.2, 0.4, 0.6, 0.8].forEach(t => {
+      g += '<line class="gridline" x1="' + X(t).toFixed(1) + '" y1="' + pad +
+           '" x2="' + X(t).toFixed(1) + '" y2="' + (H - 18) +
+           '" stroke-dasharray="2 3"/>';
+      g += '<text class="vval" x="' + X(t).toFixed(1) + '" y="' + (H - 4) +
+           '" text-anchor="middle">' + t.toFixed(1) + '</text>';
+    });
+    rows.forEach((d, i) => {
+      const y = pad + i * rh, bh = 14, cy = y + (rh - bh) / 2;
+      g += '<text class="vlab" x="0" y="' + (cy + 11) + '">' + d.label +
+           (d.note ? ' <tspan class="vval">(' + d.note + ')</tspan>' : '') + '</text>';
+      g += '<rect class="vtrack" x="' + barL + '" y="' + cy + '" width="' +
+           (barR - barL) + '" height="' + bh + '" rx="2"/>';
+      g += '<rect class="vbar' + (d.is_total ? " total" : "") +
+           (d.overlaps_source ? " overlap" : "") + '" x="' + barL + '" y="' + cy +
+           '" width="' + (X(d.pearson) - barL).toFixed(1) + '" height="' + bh +
+           '" rx="2"><title>' + d.label + ": r = " + d.pearson +
+           " (n = " + d.n + ')</title></rect>';
+      g += '<text class="vval" x="' + (barR + 6) + '" y="' + (cy + 11) + '">' +
+           d.pearson.toFixed(2) + '</text>';
+    });
+    document.getElementById("vchart").innerHTML =
+      '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label=' +
+      '"Correlation of this index with the World Bank Statistical Performance ' +
+      'Indicators, overall and by pillar. Overall 0.83; pillar 3, which shares ' +
+      'source data with this index, is lowest at 0.39.">' + g + '</svg>';
+
+    document.querySelector("#vtbl tbody").innerHTML = rows.map(d =>
+      '<tr' + (d.overlaps_source ? ' class="overlap"' : '') + '><td class="name">' +
+      d.label + (d.overlaps_source ? " \u2020" : "") +
+      (d.note ? ' <span class="se">(' + d.note + ')</span>' : '') + '</td><td class="num">' +
+      d.n.toLocaleString() + '</td><td class="num">' + d.pearson.toFixed(3) +
+      '</td><td class="num">' + d.spearman.toFixed(3) + '</td></tr>').join("");
+    document.getElementById("vwc").textContent = V.within_country_median.toFixed(2);
+  }).catch(() => {
+    document.getElementById("vchart").innerHTML =
+      '<p class="sub">Validity figures unavailable.</p>';
+  });
 }
 
 function drawMovers(){

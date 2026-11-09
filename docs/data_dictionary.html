@@ -238,7 +238,7 @@
           <span class="name">twr_scores</span>
           <span class="role primary">index</span>
         </div>
-        <p class="ds-desc">The published measure: the <strong>World on Record Index (TWR)</strong>. One reporting-transparency score per country-year, estimated by a two-parameter logistic item response model over 607 series drawn from <span class="mono">agg_series_depth</span>. Each series is treated as a test item and each country-year as a test-taker, so series difficulty is estimated rather than assumed &mdash; which is what removes the denominator choice every share-based measure has to make. Scores are expected a posteriori estimates, so <span class="mono">se</span> is a posterior standard deviation, not an asymptotic approximation. Published on the <a href="./">index site</a> as <span class="mono">twr_scores.csv</span>.</p>
+        <p class="ds-desc">The published measure: the <strong>World on Record Index (TWR)</strong>. One reporting-transparency score per country-year, estimated by a two-parameter logistic item response model over 524 series drawn from <span class="mono">agg_series_depth</span> (665 series, less those reported in under 2% or over 98% of country-years, less redundant variants of the same measurement collapsed to one series each). Each series is treated as a test item and each country-year as a test-taker, so series difficulty is estimated rather than assumed &mdash; which is what removes the denominator choice every share-based measure has to make. Scores are expected a posteriori estimates, so <span class="mono">se</span> is a posterior standard deviation, not an asymptotic approximation. Published on the <a href="./">index site</a> as <span class="mono">twr_scores.csv</span>.</p>
         <div class="meta">
           <div class="m"><span class="ml">grain</span><span class="mv">country × year</span></div>
           <div class="m"><span class="ml">key</span><span class="mv"><span class="k">iso3</span> + year</span></div>
@@ -255,6 +255,39 @@
           <tr class="grp-row"><td colspan="3"><span class="gl">the measure</span></td></tr>
           <tr><td class="col"><span class="cn">twr</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">The World on Record Index: latent reporting transparency on a standard-normal scale. 0 is the average country-year; positive is more complete reporting. Internally <code>theta</code> in the fit objects.</td></tr>
           <tr><td class="col"><span class="cn">twr_se</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Posterior standard deviation of the TWR score. Median 0.115. Wider for country-years near the extremes, where fewer series discriminate.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds">
+      <div class="ds-rail" style="background:var(--accent)"></div>
+      <div class="ds-head">
+        <div class="ds-title">
+          <span class="name">goal_scores</span>
+          <span class="role primary">sector layer</span>
+        </div>
+        <p class="ds-desc">The <strong>sector layer</strong>: one reporting score per country-year <em>per SDG goal</em>, so the measure can say what a government stopped reporting, not only that it reported less. Each goal is a <strong>separate</strong> two-parameter logistic fit on that goal's own series, drawn from the same 524 that build the overall index, so a goal's score owes nothing to the other fifteen and the two layers stay on the same scale. Sixteen goals are scored; <strong>goal 7 is not</strong>, having three series &mdash; too few to identify a factor. Across the sixteen, a median of <strong>64%</strong> of the variation in goal-level reporting is not explained by a country's overall index, which is why the layer exists. <strong>Nothing is excluded for imprecision</strong>: every goal fitted is published with its reliability and standard error, and 0.70 (Nunnally) is reported as a reference point rather than applied as a cut. Two goals carry <span class="mono">goal_status = hold_content</span> on content grounds, not precision &mdash; goal 6 is largely satellite measurement, so "reported" mostly records whether an agency published, and goal 15 carries treaty and policy instruments that may track commitment status rather than reporting effort. Published on the <a href="./">index site</a> as <span class="mono">goal_scores.csv</span>.</p>
+        <div class="meta">
+          <div class="m"><span class="ml">grain</span><span class="mv">country × year × goal</span></div>
+          <div class="m"><span class="ml">key</span><span class="mv"><span class="k">iso3</span> + year + goal</span></div>
+          <div class="m"><span class="ml">rows</span><span class="mv">28,368</span></div>
+          <div class="m"><span class="ml">file</span><span class="mv">.csv + .rds</span></div>
+        </div>
+      </div>
+      <div class="tbl-scroll"><table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr class="grp-row"><td colspan="3"><span class="gl">identity &amp; keys</span></td></tr>
+          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to analysis_data and to twr_scores <span class="badge merge">MERGE</span> <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015&ndash;2023 <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">goal</span></td><td class="type"><span class="ty">int</span></td><td class="desc">SDG goal number. 1&ndash;6 and 8&ndash;17; goal 7 is absent by construction <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">goal_name</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">The goal's official short title, e.g. "Good health and well-being"</td></tr>
+          <tr class="grp-row"><td colspan="3"><span class="gl">the measure</span></td></tr>
+          <tr><td class="col"><span class="cn">goal_level</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Reporting on that goal, <strong>overall level included</strong>, on the same standard-normal scale as <code>twr</code>. 0 is the average country-year; positive is more complete reporting on that goal. Not a share and not comparable to one.</td></tr>
+          <tr><td class="col"><span class="cn">goal_level_se</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Posterior standard deviation of <code>goal_level</code>. Median 0.338 &mdash; roughly three times the overall index's, because each goal is fitted on 17&ndash;75 series rather than 524. <strong>Report it.</strong> A nonparametric bootstrap (500 replicates, no failures) puts the sampling SD at 7&ndash;42% of this, so the published figure is conservative.</td></tr>
+          <tr class="grp-row"><td colspan="3"><span class="gl">how to weigh a goal — disclosed, never used to filter</span></td></tr>
+          <tr><td class="col"><span class="cn">goal_reliability</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Marginal reliability of that goal's score: 0.772&ndash;0.953, median 0.844. Every goal clears 0.70, which is printed as a reference point and <em>not</em> applied as a cut.</td></tr>
+          <tr><td class="col"><span class="cn">goal_status</span></td><td class="type"><span class="ty">chr</span></td><td class="desc"><code>release</code> or <code>hold_content</code>. The hold is on content grounds (goals 6 and 15), never on precision. Held goals are still published in full; the flag travels with the data because an error bar cannot warn a reader about either case.</td></tr>
         </tbody>
       </table></div>
     </section>

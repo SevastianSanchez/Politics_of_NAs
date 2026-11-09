@@ -1,0 +1,2 @@
+run_date,fit,n_country_years,n_series_total,goals_fitted,goals_skipped,goals_held,accelerate,prior,tol,max_cycles,all_converged,median_reliability,min_reliability,median_se,minutes,mirt_version,r_version
+2026-11-09,"unidimensional 2PL, one per goal",1773,524,16,7,6/15,squarem,"norm(0,2) on a1",0.001,5000,TRUE,0.844,0.772,0.3375,0.25,1.48,4.5.3

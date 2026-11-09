@@ -1,160 +1,245 @@
 # ==============================================================================
 # build_irt_goals.R
 #
-# Fit 2 of 2: the GOAL-LEVEL disaggregation. A bifactor model -- one general
-# factor plus one factor per SDG goal -- giving every country-year a score for
-# each goal on top of its overall level.
+# Fit 2 of 2: the SECTOR layer. One reporting score per country-year PER GOAL.
+# Independent of build_irt_composite.R -- neither can delay or break the other.
 #
-# Independent of build_irt_composite.R by design. This fit is far slower (the
-# EM step integrates over 17 dimensions instead of 1), so coupling the two
-# would hold the composite index hostage to this one. Nothing here is required
-# for the composite index to be built, published or cited.
+# WHAT THIS IS
+#   The composite answers "how much did this country report". This answers
+#   "how much did it report ON GOAL g". One separate unidimensional 2PL per
+#   goal, fitted on that goal's own series only.
 #
-# WHAT A GOAL SCORE MEANS
-#   Each series loads on the general factor AND on exactly one goal's factor,
-#   so the goal factor captures what is left over once overall reporting level
-#   is accounted for:
+#   The column is `goal_level`: reporting on that goal with the country's
+#   overall level INCLUDED. Its companion `goal_relative` -- the same quantity
+#   with the overall level stripped out -- comes from a bifactor model and is
+#   built by its own script, because that fit takes hours and must not be able
+#   to hold this one up.
 #
-#   goal_deviation  "Given this country's overall level, does it report more or
-#                   less than expected on this goal?" This is the quantity the
-#                   research question asks about -- which goals go dark
-#                   disproportionately, rather than which countries are quiet
-#                   overall.
-#   goal_level      general + specific. The absolute position, which is what
-#                   outside users of the index usually want.
-#   expected_share  the model-implied probability that a series in this goal is
-#                   reported, averaged over that goal's items. On [0,1], so it
-#                   is the version a non-technical reader can interpret
-#                   directly.
+#   Why separate fits and not one 17-factor model? Both are wanted and they
+#   answer different questions. A separate fit per goal is also what makes the
+#   held-out test below possible: a goal's score owes nothing to the other 16.
 #
-#   SDG 7 gets no sub-score: it has only 3 usable series, too few to identify
-#   its own factor. Its series still inform the general factor. It is NOT
-#   pooled into another goal -- different sectors, and merging them would make
-#   the sub-score uninterpretable. See goal_general_only in irt_prep.R.
+# WHY THESE SETTINGS
+#   Taken from METHODS_LOG.md, not chosen here. Do not change one without
+#   reading that file; each of these cost hours to establish.
 #
-# ESTIMATION
-#   Marginal maximum likelihood (mirt's bfactor, EM with dimension reduction);
-#   Bayesian EAP for the scores, so the SEs are posterior standard deviations.
+#   accelerate = "squarem"   Binary model. mirt's default Ramsay accelerator
+#                            reaches the same fixed point ~20x slower; it ran
+#                            the bifactor past 19 h without returning.
+#   prior norm(0, 2) on a1   The pre-flight screen finds 9 groups of perfectly
+#                            collinear series. Inside a single factor those
+#                            make the factor a copy of the block, and the
+#                            block's discrimination has no finite value. The
+#                            prior bounds it without deleting the series.
+#                            NOT lognormal: 172 of 1,045 loadings are negative
+#                            and lognormal gives those zero density, which
+#                            would force sign flips.
+#   TOL = 1e-3               mirt's 1e-4 is unreachable here: a handful of
+#                            near-zero loadings and extreme intercepts sit on
+#                            a flat ridge and drift below 1e-3 forever. Shown
+#                            to change no score by more than 0.0065 against
+#                            SEs of 0.3-0.5.
 #
-# RUNTIME   HOURS, not minutes, and it may exhaust the cycle cap without
-#           converging. An unconverged fit is not publishable; the script says
-#           so loudly. If it does hit the cap, the fix is a cheaper estimator
-#           (QMCEM, a looser TOL, or fewer quadrature points) rather than a
-#           longer wait.
+# WHAT IS AND IS NOT RELEASED
+#   Every goal fitted here ships, each printed with its reliability and SE.
+#   Nothing is dropped for imprecision; 0.70 (Nunnally) is a reference point,
+#   not a cut. Goals 6 and 15 are fitted and written but flagged `hold`, on
+#   CONTENT grounds and for different reasons -- see CLAUDE.md. An error bar
+#   cannot warn a reader about either, so the flag travels with the data.
+#
+#   Goal 7 gets no score. It has 3 series, below the >=10 needed to identify a
+#   factor. That is a structural fact about the goal, not a judgement on it.
+#
+# EVIDENCE THESE SCORES CARRY (9 Nov 2026, see METHODS_LOG.md)
+#   Reliability  0.772 - 0.953, median 0.844; every goal above 0.70.
+#   Bootstrap    B = 500, 0 failed replicates. Bootstrap SD is 7-42% of the
+#                posterior SE, median 13% -- the published SEs are
+#                conservative, so report the SE, not the bootstrap SD.
+#   Held-out     Fit on 70% of a goal's series, predict the held-out 30%.
+#                Median AUC 0.725 against a per-series permutation null that
+#                sits on 0.500. 13 of 16 goals at 0.649 or better. The three
+#                weakest -- 17 (0.618), 15 (0.526), 6 (0.479) -- are exactly
+#                the three already flagged on content grounds.
+#
+# RUNTIME  under a minute for all 16 goals. No checkpointing needed.
 #
 # INPUT   via code/data_prep/irt_prep.R
-#         data/02_measure/irt_composite_fit.rds  (OPTIONAL -- only to compare
-#         the two models; absence just skips that comparison)
-# OUTPUT  data/02_measure/irt_goal_*
+# OUTPUT  data/02_measure/irt_goal_level_{scores.csv,scores.rds,
+#         item_params.csv,health.csv,run_log.csv,fits.rds}
+#         This script writes no file that build_irt_composite.R writes.
 # ==============================================================================
 
 source(here::here("code/data_prep/irt_prep.R"))
 
-msg("items per goal factor: ",
-    paste(as.integer(table(factor(spec_idx, levels = seq_along(spec_levels)))),
-          collapse = " "))
-if (!is.na(goal_general_only))
-  msg("SDG ", goal_general_only, ": ", sum(item_goal == goal_general_only),
-      " items, general factor only (no sub-score)")
+suppressMessages({library(mirt); library(data.table); library(here)})
 
-# ---- FIT ---------------------------------------------------------------------
+# Provenance, for disclosure only. `Nature` in the UN exports marks whether a
+# value is country-produced (C/CA) or produced by the custodian agency (E/M/G).
+# Built by code/data_prep/build_series_provenance.R; absent is not fatal.
+prov_path <- here::here("output/measure/tables/series_provenance_nature.csv")
+prov <- if (file.exists(prov_path)) data.table::fread(prov_path) else NULL
 
-msg("fitting bifactor (1 general + ", length(spec_levels), " goal factors)")
-t0 <- Sys.time()
-fit <- bfactor(resp, spec_idx, verbose = FALSE,
-               technical = list(NCYCLES = max_cycles))
-conv   <- extract.mirt(fit, "converged")
-cycles <- extract.mirt(fit, "iterations")
-mins   <- round(as.numeric(difftime(Sys.time(), t0, units = "mins")), 1)
-msg("   ", mins, " min | converged: ", conv, " | cycles: ", cycles)
-if (!conv)
-  warning("BIFACTOR FIT DID NOT CONVERGE - do not publish these scores")
+MIN_SERIES   <- 10L      # below this a factor is not identified
+TOL          <- 1e-3
+PRIOR_SD     <- 2
+MAX_CYCLES   <- 5000L
+REL_REF      <- 0.70     # reported as a reference point, never applied as a cut
+HOLD_CONTENT <- c(6L, 15L)   # withheld on content grounds; see CLAUDE.md
 
-# Save the fit before scoring: fscores() on a 17-dimensional model can exhaust
-# memory, and losing a multi-hour fit to a failure in the step after it is an
-# avoidable way to lose a day.
-saveRDS(fit, file.path(here("data/02_measure"), "irt_goal_fit.rds"))
+# ---- ONE GOAL ----------------------------------------------------------------
+fit_goal <- function(g) {
+  cs <- colnames(resp)[item_goal == g]
+  M  <- resp[, cs, drop = FALSE]
 
-# QMC integration rather than a full quadrature grid, which mirt recommends
-# above a few dimensions and which a 16 GB vector limit makes necessary here.
-Theta <- fscores(fit, method = "EAP", full.scores.SE = TRUE, QMC = TRUE)
-# columns: G, S1..SK, then the matching SEs
-nf <- 1L + length(spec_levels)
-th <- Theta[, 1:nf, drop = FALSE]
-se <- Theta[, (nf + 1):(2 * nf), drop = FALSE]
+  # Guard, not a filter: the 2-98% screen already ran globally in irt_prep.R.
+  # If it ever bites here, say so rather than dropping series silently.
+  p  <- colMeans(M)
+  drop <- !(p > 0.02 & p < 0.98)
+  if (any(drop)) {
+    msg("  goal ", g, ": ", sum(drop), " series near-constant within goal, dropped")
+    M <- M[, !drop, drop = FALSE]
+  }
 
-# ---- SCORES ------------------------------------------------------------------
+  if (ncol(M) < MIN_SERIES) {
+    msg(sprintf("  goal %-2d  series %3d  -- SKIPPED, under %d, factor not identified",
+                g, ncol(M), MIN_SERIES))
+    return(NULL)
+  }
 
-msg("deriving goal-level scores")
+  v <- mirt(M, 1, itemtype = "2PL", pars = "values")
+  i <- grepl("^a1$", v$name) & v$est
+  v$prior.type[i] <- "norm"; v$prior_1[i] <- 0; v$prior_2[i] <- PRIOR_SD
 
-goal_rows <- vector("list", length(spec_levels))
-for (k in seq_along(spec_levels)) {
-  g     <- spec_levels[k]
-  items <- which(spec_idx == k)
+  t0 <- Sys.time()
+  f  <- suppressWarnings(mirt(M, 1, itemtype = "2PL", pars = v, verbose = FALSE,
+          accelerate = "squarem", TOL = TOL,
+          technical = list(NCYCLES = MAX_CYCLES, warn = FALSE)))
+  mins <- as.numeric(difftime(Sys.time(), t0, units = "mins"))
 
-  pr <- vapply(items, function(i)
-    probtrace(extract.item(fit, i), th)[, 2], numeric(nrow(th)))
+  th <- fscores(f, method = "EAP", full.scores.SE = TRUE)
 
-  goal_rows[[k]] <- data.table(
-    keys,
-    goal              = g,
-    n_items           = length(items),
-    goal_deviation    = th[, k + 1],
-    goal_deviation_se = se[, k + 1],
-    goal_level        = th[, 1] + th[, k + 1],
-    expected_share    = rowMeans(pr))
+  # Orient the factor so that MORE reporting is a HIGHER score. A 2PL is
+  # identified only up to sign, and the sign mirt lands on is arbitrary, so
+  # without this a goal could silently flip between runs.
+  s <- th[, 1] * sign(cor(th[, 1], rowSums(M)))
+
+  rel  <- var(s) / (var(s) + mean(th[, 2]^2))
+  conv <- extract.mirt(f, "converged")
+  cyc  <- extract.mirt(f, "iterations")
+  amax <- max(abs(coef(f, simplify = TRUE)$items[, "a1"]))
+
+  # Publishable means: the optimiser converged, it did not simply hit the cap,
+  # and every score has a finite standard error. max|a| is REPORTED, not gated:
+  # a slope of 10-17 here is a near-duplicate series bounded by the prior, which
+  # is the prior working, not divergence. The bifactor's max|a| < 10 rule in
+  # METHODS_LOG.md was written for a model where a factor became a copy of a
+  # collinear block and slopes ran past 80. See the Nov 9 diagnostic rows.
+  ok <- conv && cyc < MAX_CYCLES && !any(is.na(th[, 2])) && all(th[, 2] > 0)
+
+  msg(sprintf("  goal %-2d  series %3d  cycles %5d  conv=%-5s  max|a| %5.2f  rel %.3f  medSE %.3f  %.1f min%s",
+      g, ncol(M), cyc, conv, amax, rel, median(th[, 2]), mins,
+      if (!ok) "   <-- CHECK" else ""))
+
+  co <- as.data.table(coef(f, simplify = TRUE)$items, keep.rownames = "series_code")
+  co[, goal := g][, p_reported := round(colMeans(M)[series_code], 4)]
+  co[, weight_pct := round(100 * abs(a1) / sum(abs(a1)), 2)]
+
+  # concentration: share of the score's weight in its five heaviest series
+  top5 <- sum(sort(co$weight_pct, decreasing = TRUE)[1:min(5, nrow(co))])
+  # provenance: share of weight from series that are mostly NOT country-produced
+  agency_w <- if (!is.null(prov)) {
+    pc <- prov$pct_C[match(co$series_code, prov$SeriesCode)]
+    sum(co$weight_pct[!is.na(pc) & pc < 50])
+  } else NA_real_
+
+  list(
+    goal   = g,
+    scores = data.table(iso3 = keys$iso3, year = keys$year, goal = g,
+                        goal_level    = round(s, 4),
+                        goal_level_se = round(th[, 2], 4)),
+    params = co,
+    health = data.table(goal = g, series = ncol(M), cycles = cyc,
+                        converged = conv, clean = ok,
+                        max_abs_a   = round(amax, 3),
+                        # disclosure, not gates: how concentrated the score is,
+                        # and how much of its weight rests on series the
+                        # custodian agency produces rather than the country
+                        weight_top5_pct  = round(top5, 1),
+                        weight_agency_pct = round(agency_w, 1),
+                        reliability = round(rel, 3),
+                        above_ref   = rel >= REL_REF,
+                        se_median   = round(median(th[, 2]), 3),
+                        se_max      = round(max(th[, 2]), 3),
+                        release     = if (g %in% HOLD_CONTENT) "hold_content" else "release",
+                        minutes     = round(mins, 2)),
+    fit    = f)
 }
-scores_goal <- rbindlist(goal_rows)
-setorder(scores_goal, iso3, year, goal)
 
-# the general factor from THIS model, kept for comparison against the
-# standalone composite fit -- they should agree closely
-scores_general <- data.table(keys, general = th[, 1], general_se = se[, 1])
-setorder(scores_general, iso3, year)
+# ---- ALL GOALS ---------------------------------------------------------------
+msg("goal_level: one 1-factor 2PL per goal | squarem | prior norm(0, ", PRIOR_SD,
+    ") | TOL ", TOL)
 
-co <- as.data.table(coef(fit, simplify = TRUE)$items, keep.rownames = "series_code")
-co[, goal := item_goal[match(series_code, colnames(resp))]]
-co[, p_reported := as.numeric(p_rep[keep][match(series_code, names(p_rep[keep]))])]
+t_all <- Sys.time()
+res   <- Filter(Negate(is.null), lapply(sort(unique(item_goal)), fit_goal))
+mins  <- as.numeric(difftime(Sys.time(), t_all, units = "mins"))
 
-# ---- DOES THE DISAGGREGATION EARN ITS PLACE? ---------------------------------
-# Optional: only if the composite fit has already been built.
+scores <- rbindlist(lapply(res, `[[`, "scores"))
+params <- rbindlist(lapply(res, `[[`, "params"))
+health <- rbindlist(lapply(res, `[[`, "health"))
+setorder(scores, iso3, year, goal)
+setorder(health, goal)
 
-out <- here("data/02_measure")
-comp_path <- file.path(out, "irt_composite_fit.rds")
-if (file.exists(comp_path)) {
-  fit_1d <- readRDS(comp_path)
-  cmp <- anova(fit_1d, fit, verbose = FALSE)
-  fwrite(as.data.table(cmp, keep.rownames = "model"),
-         file.path(out, "irt_model_comparison.csv"))
-  msg("composite vs goal-level: ",
-      paste(capture.output(print(cmp)), collapse = " | "))
-} else {
-  msg("composite fit not found - skipping the model comparison")
+# ---- GUARDS ------------------------------------------------------------------
+# An unconverged or degenerate fit is not publishable. Halt loudly rather than
+# writing quietly; a bad score that reaches data/ is worse than no score.
+stopifnot(
+  nrow(health) >= 15L,
+  nrow(scores) == nrow(health) * nrow(resp),
+  !any(is.na(scores$goal_level)),
+  !any(is.na(scores$goal_level_se))
+)
+if (!all(health$clean)) {
+  print(health[clean == FALSE])
+  stop("one or more goals is not publishable (did not converge, hit the cycle ",
+       "cap, or has a non-finite standard error) -- nothing written. ",
+       "Read METHODS_LOG.md before changing a setting.")
 }
 
 # ---- WRITE -------------------------------------------------------------------
-# The response matrix and the goal assignment are written by
-# build_irt_composite.R, not here: one writer per file.
-
 msg("writing")
+out <- here("data/02_measure")
 
-fwrite(scores_goal,     file.path(out, "irt_goal_scores.csv"))
-saveRDS(scores_goal,    file.path(out, "irt_goal_scores.rds"))
-fwrite(scores_general,  file.path(out, "irt_goal_general_factor.csv"))
-fwrite(co,              file.path(out, "irt_goal_item_params.csv"))
+saveRDS(setNames(lapply(res, `[[`, "fit"), sapply(res, `[[`, "goal")),
+        file.path(out, "irt_goal_level_fits.rds"))
+fwrite(scores,  file.path(out, "irt_goal_level_scores.csv"))
+saveRDS(scores, file.path(out, "irt_goal_level_scores.rds"))
+fwrite(params,  file.path(out, "irt_goal_level_item_params.csv"))
+fwrite(health,  file.path(out, "irt_goal_level_health.csv"))
 
 fwrite(data.table(
-  run_date          = as.character(Sys.Date()),
-  fit               = "bifactor (1 general + goal factors)",
-  n_country_years   = nrow(resp),
-  n_items           = ncol(resp),
-  item_filter       = paste0(item_lo, "-", item_hi),
-  goal_factors      = length(spec_levels),
-  goal_general_only = goal_general_only,
-  max_cycles        = max_cycles,
-  converged         = conv,
-  cycles            = cycles,
-  minutes           = mins),
-  file.path(out, "irt_goal_run_log.csv"))
+  run_date        = as.character(Sys.Date()),
+  fit             = "unidimensional 2PL, one per goal",
+  n_country_years = nrow(resp),
+  n_series_total  = ncol(resp),
+  goals_fitted    = nrow(health),
+  goals_skipped   = paste(setdiff(sort(unique(item_goal)), health$goal), collapse = "/"),
+  goals_held      = paste(HOLD_CONTENT, collapse = "/"),
+  accelerate      = "squarem",
+  prior           = paste0("norm(0,", PRIOR_SD, ") on a1"),
+  tol             = TOL,
+  max_cycles      = MAX_CYCLES,
+  all_converged   = all(health$converged),
+  median_reliability = median(health$reliability),
+  min_reliability    = min(health$reliability),
+  median_se       = round(median(scores$goal_level_se), 4),
+  minutes         = round(mins, 2),
+  mirt_version    = as.character(packageVersion("mirt")),
+  r_version       = paste(R.version$major, R.version$minor, sep = ".")),
+  file.path(out, "irt_goal_level_run_log.csv"))
 
-msg("done. goal rows: ", nrow(scores_goal))
+cat("\n"); print(health)
+cat("\ngoals fitted:", nrow(health),
+    "| all converged:", all(health$converged),
+    "| median reliability:", median(health$reliability),
+    "| all above", REL_REF, ":", all(health$above_ref), "\n")
+msg("done. rows: ", nrow(scores))
