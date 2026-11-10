@@ -20,13 +20,21 @@ The headline measure is the **Visible States Index (VSI)**: one overall score pe
 
 ### How to cite
 
-> Sanchez, S. (2026). *Visible States: statistical reporting across countries, policy sectors, and time* (v1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23997606
+> Sanchez, S. (2026). *Visible States: statistical reporting across countries, policy sectors, and time* (v1.3.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23997606
 
 Use the **concept DOI** above when referring to the dataset generally — it always resolves to the newest version. Cite the **version DOI** for the release your analysis actually used, so your results stay reproducible after later versions change the scores:
 
-| Release | Version DOI |
-|---|---|
-| v1.0.0 | [10.5281/zenodo.23997607](https://doi.org/10.5281/zenodo.23997607) |
+| Release | Version DOI | Published as |
+|---|---|---|
+| v1.3.0 | [10.5281/zenodo.24100866](https://doi.org/10.5281/zenodo.24100866) | Visible States |
+| v1.2.1 | [10.5281/zenodo.24094834](https://doi.org/10.5281/zenodo.24094834) | The World on Record |
+| v1.2.0 | [10.5281/zenodo.24091914](https://doi.org/10.5281/zenodo.24091914) | The World on Record |
+| v1.0.0 | [10.5281/zenodo.23997607](https://doi.org/10.5281/zenodo.23997607) | The World on Record |
+
+Versions 1.0.0 to 1.2.1 were deposited under the name **The World on Record**
+and keep that title, so earlier citations still resolve. The scores in 1.2.1
+and 1.3.0 are identical; only the names changed. From 1.3.0 the columns are
+`vsi` and `vsi_se`, previously `twr` and `twr_se`.
 
 Machine-readable metadata is in [CITATION.cff](CITATION.cff). Code is MIT-licensed ([LICENSE](LICENSE)); the data are CC BY 4.0 ([LICENSE-DATA](LICENSE-DATA)).
 
