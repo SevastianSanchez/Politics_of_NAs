@@ -121,6 +121,7 @@ tbody tr:hover{background:var(--accent-soft)}
 .vbar.overlap{fill:var(--bar2);fill-opacity:1;stroke:var(--accent);stroke-width:1.2;
   stroke-opacity:.55}
 .vtrack{fill:var(--rule2)}
+.axttl{fill:var(--faint);font-size:11px;font-family:var(--sans);letter-spacing:.04em}
 .vlab{fill:var(--fg);font-size:12.5px;font-family:var(--sans)}
 .vlab.sub{fill:var(--muted);font-size:12px}
 .vgroup{stroke:var(--rule);stroke-width:1.5}
@@ -300,7 +301,11 @@ footer p{max-width:64ch}
 <section>
   <div class="wrap">
     <p class="eyebrow">Trend</p>
-    <h2>Mean score by year</h2>
+    <h2>Average reporting level, year by year</h2>
+    <p>The mean TWR score across all 197 countries in each year. The scale is
+      standard&ndash;normal across the whole period: <strong>0 is the average
+      country&ndash;year</strong>, 2015 to 2023, and one unit is one standard deviation.
+      A year above 0 is one in which the world reported more than that average.</p>
     <div class="chartbox"><div id="chart"></div></div>
     <div class="note">
       <h3>Read 2023 with care</h3>
@@ -780,7 +785,7 @@ function goalMetricsTable(){
 }
 
 function drawChart(){
-  const y = D.yearly, W = 720, H = 240, m = {t:14,r:16,b:30,l:44};
+  const y = D.yearly, W = 720, H = 256, m = {t:14,r:16,b:46,l:62};
   const iw = W-m.l-m.r, ih = H-m.t-m.b;
   const xs = y.map(d => d.yr), vs = y.map(d => d.mean);
   const lo = Math.min(...vs) - .06, hi = Math.max(...vs) + .06;
@@ -797,7 +802,7 @@ function drawChart(){
          '" text-anchor="end">' + t.toFixed(1) + '</text>';
   });
   xs.forEach(v => {
-    g += '<text class="axis" x="' + X(v).toFixed(1) + '" y="' + (H-10) +
+    g += '<text class="axis" x="' + X(v).toFixed(1) + '" y="' + (H-26) +
          '" text-anchor="middle">' + v + '</text>';
   });
 
@@ -810,9 +815,15 @@ function drawChart(){
          '</title></circle>';
   });
 
+  g += '<text class="axttl" x="' + (m.l + iw / 2).toFixed(1) + '" y="' + (H - 6) +
+       '" text-anchor="middle">year</text>';
+  g += '<text class="axttl" x="14" y="' + (m.t + ih / 2).toFixed(1) +
+       '" text-anchor="middle" transform="rotate(-90 14 ' + (m.t + ih / 2).toFixed(1) +
+       ')">mean TWR score</text>';
   document.getElementById("chart").innerHTML =
-    '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Mean reporting transparency score by year, 2015 to 2023">' +
-    g + '</svg>';
+    '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Mean reporting ' +
+    'transparency score across 197 countries by year, 2015 to 2023, on a standard-normal ' +
+    'scale where zero is the average country-year.">' + g + '</svg>';
 }
 
 function drawValidity(){
