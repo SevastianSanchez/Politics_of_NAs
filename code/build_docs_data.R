@@ -146,7 +146,8 @@ if (file.exists(gp) && file.exists(hp)) {
       series = N_SERIES_BY_GOAL[as.character(unscored)],
       status = "not_scored",
       reason = paste0(N_SERIES_BY_GOAL[as.character(unscored)],
-                      " series \u2014 a factor needs at least ", MIN_SERIES_DOC))
+                      " series clear the 2\u201398% filter \u2014 a factor needs ",
+                      MIN_SERIES_DOC))
   } else NULL
 
   gout <- list(
