@@ -42,7 +42,7 @@
 #
 # WHAT IS AND IS NOT RELEASED
 #   Every goal fitted here ships, each printed with its reliability and SE.
-#   Nothing is dropped for imprecision; 0.70 (Nunnally 1978) is a reference point,
+#   Nothing is dropped for imprecision; 0.70 (Nunnally & Bernstein 1994) is a reference point,
 #   not a cut. Goals 6 and 15 are fitted and written but flagged `hold`, on
 #   CONTENT grounds and for different reasons -- see CLAUDE.md. An error bar
 #   cannot warn a reader about either, so the flag travels with the data.
