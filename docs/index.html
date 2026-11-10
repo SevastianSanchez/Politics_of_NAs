@@ -122,6 +122,9 @@ tbody tr:hover{background:var(--accent-soft)}
   stroke-opacity:.55}
 .vtrack{fill:var(--rule2)}
 .vlab{fill:var(--fg);font-size:12.5px;font-family:var(--sans)}
+.vlab.sub{fill:var(--muted);font-size:12px}
+.vgroup{stroke:var(--rule);stroke-width:1.5}
+#vtbl td.name.sub{padding-left:1.5rem;color:var(--muted)}
 .vval{fill:var(--muted);font-size:11.5px;font-family:var(--mono)}
 .vkey{font-size:.78rem;color:var(--faint);margin-top:.2rem;display:flex;
   flex-wrap:wrap;gap:1.1rem;align-items:center}
@@ -424,7 +427,7 @@ footer p{max-width:64ch}
       scores how many SDG indicators a country has published, drawn from the same UN
       database used here, so some agreement there is mechanical rather than
       corroborating. If the headline 0.85 were an artifact of shared inputs, pillar 3
-      would sit at the top. It sits at the bottom, at 0.48, while the pillars built from
+      would sit at the top. It sits at the bottom, at 0.47, while the pillars built from
       wholly separate evidence &mdash; data sources and data infrastructure &mdash; are
       the ones near 0.82.</p>
     <div class="tablebox" style="margin-top:1.2rem">
@@ -818,9 +821,20 @@ function drawValidity(){
       g += '<text class="vval" x="' + X(t).toFixed(1) + '" y="' + (H - 4) +
            '" text-anchor="middle">' + t.toFixed(1) + '</text>';
     });
+    // The five pillars are components of SPI overall, so they are indented under
+    // it rather than each repeating the word SPI. HRV is not an SPI measure and
+    // stays flush left, which is the distinction the indent is carrying.
+    const isPillar = d => /^spi_p/.test(d.key);
+    const pIdx = rows.map((d, i) => isPillar(d) ? i : -1).filter(i => i >= 0);
+    if (pIdx.length) {
+      const yTop = pad + pIdx[0] * rh + 4;
+      const yBot = pad + pIdx[pIdx.length - 1] * rh + rh - 4;
+      g += '<line class="vgroup" x1="5" y1="' + yTop + '" x2="5" y2="' + yBot + '"/>';
+    }
     rows.forEach((d, i) => {
       const y = pad + i * rh, bh = 14, cy = y + (rh - bh) / 2;
-      g += '<text class="vlab" x="0" y="' + (cy + 11) + '">' + d.label +
+      g += '<text class="vlab' + (isPillar(d) ? ' sub' : '') + '" x="' +
+           (isPillar(d) ? 16 : 0) + '" y="' + (cy + 11) + '">' + d.label +
            (d.note ? ' <tspan class="vval">(' + d.note + ')</tspan>' : '') + '</text>';
       g += '<rect class="vtrack" x="' + barL + '" y="' + cy + '" width="' +
            (barR - barL) + '" height="' + bh + '" rx="2"/>';
@@ -835,11 +849,15 @@ function drawValidity(){
     document.getElementById("vchart").innerHTML =
       '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label=' +
       '"Correlation of this index with the World Bank Statistical Performance ' +
-      'Indicators, overall and by pillar. Overall 0.83; pillar 3, which shares ' +
-      'source data with this index, is lowest at 0.39.">' + g + '</svg>';
+      'Indicators, overall and by pillar. Overall ' +
+      (rows.find(d => d.is_total) || {pearson:0}).pearson.toFixed(2) +
+      '; pillar 3, which shares source data with this index, is lowest at ' +
+      ((rows.find(d => d.overlaps_source) || {pearson:0}).pearson).toFixed(2) +
+      '.">' + g + '</svg>';
 
     document.querySelector("#vtbl tbody").innerHTML = rows.map(d =>
-      '<tr' + (d.overlaps_source ? ' class="overlap"' : '') + '><td class="name">' +
+      '<tr' + (d.overlaps_source ? ' class="overlap"' : '') + '><td class="name' +
+      (/^spi_p/.test(d.key) ? ' sub' : '') + '">' +
       d.label + (d.overlaps_source ? " \u2020" : "") +
       (d.note ? ' <span class="se">(' + d.note + ')</span>' : '') + '</td><td class="num">' +
       d.n.toLocaleString() + '</td><td class="num">' + d.pearson.toFixed(3) +
