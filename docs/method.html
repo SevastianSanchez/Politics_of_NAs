@@ -89,6 +89,10 @@ dl.terms dd:last-child{margin-bottom:0}
 .formula{font-family:var(--mono);font-size:.88rem;background:var(--rule2);
   border-radius:6px;padding:.9rem 1.1rem;margin:0 0 1rem;overflow-x:auto;
   white-space:nowrap;line-height:1.8}
+.formula:has(math){padding:1rem 1.1rem;white-space:normal;line-height:1.4}
+math{font-family:var(--serif);font-size:1.15rem;color:var(--fg);white-space:normal}
+math[display="block"]{display:block;margin:0 auto;width:fit-content}
+dl.terms math{font-size:1rem;vertical-align:-.4em}
 .tbl{overflow-x:auto;margin:0 0 1rem;border:1px solid var(--rule);border-radius:6px;
   background:var(--panel)}
 table{border-collapse:collapse;width:100%;font-size:.88rem}
@@ -186,15 +190,19 @@ weaknesses attached.</p>
     <dl class="terms">
       <dt>The 2&ndash;98% filter <code>665 &rarr; 607</code></dt>
       <dd>Series reported in fewer than 2% or more than 98% of country&ndash;years are removed.
-      A series everyone reports, or nobody does, is the same for every country and carries no
-      information for separating them.</dd>
-      <dt>Variant collapse <code>607 &rarr; 524</code></dt>
+      If almost every country reports a series, learning that one particular country reported it
+      tells you nothing about that country &mdash; everyone did. The same is true in reverse when
+      almost nobody reports it. Either way the series cannot tell countries apart, so it is no
+      use for placing them.</dd>
+      <dt>Counting repeats once <code>607 &rarr; 524</code></dt>
       <dd>Some measurements are entered in the database more than once &mdash; children stunted
       appears as a percentage and, separately, as a count in thousands. Counting both pays a
-      country twice for one reporting decision. 59 such clusters contribute one series each.</dd>
+      country twice for one reporting decision. 59 such groups of repeats contribute one series
+      each.</dd>
     </dl>
-    <p><strong>Two conditions must both hold before a cluster collapses.</strong> The series
-    must be reported, and not reported, together in every one of the 1,773 country&ndash;years;
+    <p><strong>Two conditions must both hold before a group is counted as one.</strong> The
+    series must be reported, and not reported, together in every one of the 1,773
+    country&ndash;years;
     and their descriptions must show they measure the same thing a different way. The pattern
     alone is not enough, because at these reporting rates unrelated series coincide by chance:
     forest certification, electricity access and refugee counts all move together in 99.5% of
@@ -216,7 +224,24 @@ weaknesses attached.</p>
     questions are more informative than easy ones. Swap student for country&ndash;year and
     question for series. Hollyer, Rosendorff and Vreeland introduced this design for World
     Development Indicators; it is applied here to SDG data.</p>
-    <div class="formula">P(y = 1 | &theta;) = 1 / (1 + exp(&minus;(a<sub>j</sub> &middot; &theta; + d<sub>j</sub>)))</div>
+    <div class="formula"><math display="block">
+      <mrow>
+        <mi>P</mi><mo form="prefix" stretchy="false">(</mo><mi>y</mi><mo>=</mo><mn>1</mn>
+        <mo>&#x2223;</mo><mi>&#x3B8;</mi><mo form="postfix" stretchy="false">)</mo>
+        <mo>=</mo>
+        <mfrac>
+          <mn>1</mn>
+          <mrow>
+            <mn>1</mn><mo>+</mo>
+            <msup><mi>e</mi>
+              <mrow><mo>&#x2212;</mo><mo stretchy="false">(</mo>
+                <msub><mi>a</mi><mi>j</mi></msub><mi>&#x3B8;</mi><mo>+</mo>
+                <msub><mi>d</mi><mi>j</mi></msub><mo stretchy="false">)</mo></mrow>
+            </msup>
+          </mrow>
+        </mfrac>
+      </mrow>
+    </math></div>
     <dl class="terms">
       <dt>&theta; &mdash; the latent trait</dt>
       <dd>&ldquo;Latent&rdquo; means not directly observable. &theta; is a country&ndash;year's
@@ -315,7 +340,21 @@ weaknesses attached.</p>
     <h2>Score each country&ndash;year, with an error bar</h2>
     <p>With the series parameters fixed, a country&ndash;year's 524 bits imply a probability
     distribution over its &theta;. The score is the mean of that distribution.</p>
-    <div class="formula">&theta;&#770; = &int; &theta; &middot; L(y | &theta;) &middot; &phi;(&theta;) d&theta; &nbsp;&divide;&nbsp; &int; L(y | &theta;) &middot; &phi;(&theta;) d&theta;</div>
+    <div class="formula"><math display="block">
+      <mrow>
+        <mover accent="true"><mi>&#x3B8;</mi><mo>&#x5E;</mo></mover><mo>=</mo>
+        <mfrac>
+          <mrow><mo>&#x222B;</mo><mi>&#x3B8;</mi><mspace width="0.17em"/>
+            <mi>L</mi><mo stretchy="false">(</mo><mi>y</mi><mo>&#x2223;</mo><mi>&#x3B8;</mi><mo stretchy="false">)</mo>
+            <mi>&#x3C6;</mi><mo stretchy="false">(</mo><mi>&#x3B8;</mi><mo stretchy="false">)</mo>
+            <mspace width="0.17em"/><mi>d</mi><mi>&#x3B8;</mi></mrow>
+          <mrow><mo>&#x222B;</mo>
+            <mi>L</mi><mo stretchy="false">(</mo><mi>y</mi><mo>&#x2223;</mo><mi>&#x3B8;</mi><mo stretchy="false">)</mo>
+            <mi>&#x3C6;</mi><mo stretchy="false">(</mo><mi>&#x3B8;</mi><mo stretchy="false">)</mo>
+            <mspace width="0.17em"/><mi>d</mi><mi>&#x3B8;</mi></mrow>
+        </mfrac>
+      </mrow>
+    </math></div>
     <dl class="terms">
       <dt>EAP &mdash; expected a posteriori</dt>
       <dd>The posterior mean of &theta;. <code>L</code> is the likelihood of the observed
@@ -392,7 +431,11 @@ weaknesses attached.</p>
     covers only the first.</p>
     <dl class="terms">
       <dt>Reliability</dt>
-      <dd><code>var(score) / (var(score) + mean(SE&sup2;))</code> &mdash; the share of the spread
+      <dd><math><mrow><mfrac>
+        <mrow><mi>var</mi><mo stretchy="false">(</mo><mi>score</mi><mo stretchy="false">)</mo></mrow>
+        <mrow><mi>var</mi><mo stretchy="false">(</mo><mi>score</mi><mo stretchy="false">)</mo><mo>+</mo>
+          <mi>mean</mi><mo stretchy="false">(</mo><msup><mi>SE</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow>
+      </mfrac></mrow></math> &mdash; the share of the spread
       in scores that is signal rather than measurement noise. Overall index
       <strong>0.987</strong>. Goal level: median <strong>0.844</strong>, range
       0.772&ndash;0.953. 0.70 (Nunnally) is quoted as a reference point, never applied as a cut.</dd>

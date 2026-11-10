@@ -170,6 +170,7 @@ tr.overlap td{color:var(--muted)}
 .gzero{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--fg);opacity:.3}
 .gerr{position:absolute;top:50%;height:2px;transform:translateY(-50%);
   background:var(--fg);opacity:.3;border-radius:1px}
+.dlnote{margin:.8rem 0 0;font-size:.84rem;color:var(--muted);max-width:62ch}
 .walk{margin:1.1rem 0 0;font-size:.92rem}
 .walk a{font-weight:600}
 .gbadge{font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;
@@ -398,11 +399,18 @@ footer p{max-width:64ch}
       </table>
     </div>
     <div class="dl">
-      <a class="btn" href="twr_scores.csv" download>Download CSV</a>
-      <a class="btn" href="goal_scores.csv" download>Download goal scores</a>
-      <a class="btn" href="twr_scores.json">View JSON</a>
+      <a class="btn" href="twr_scores.csv" download>Download overall index (CSV)</a>
+      <a class="btn" href="goal_scores.csv" download>Download goal scores (CSV)</a>
+      <a class="btn" href="twr_scores.json">View overall index (JSON)</a>
       <a class="btn" href="data_dictionary.html">Data dictionary</a>
     </div>
+    <p class="dlnote">The two files are separate, not one master table. <strong>Overall
+      index</strong> is one row per country&ndash;year: 1,773 rows, 88&nbsp;KB.
+      <strong>Goal scores</strong> is one row per country&ndash;year&ndash;goal: 28,368 rows,
+      2.5&nbsp;MB. Both carry a standard error, and both are the scores in
+      <strong>release 1.2.0</strong>, archived at
+      <a href="https://doi.org/10.5281/zenodo.24091914">doi.org/10.5281/zenodo.24091914</a>.
+      Column definitions are in the <a href="data_dictionary.html">data dictionary</a>.</p>
   </div>
 </section>
 
