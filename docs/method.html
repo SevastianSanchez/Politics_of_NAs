@@ -91,6 +91,9 @@ dl.terms dd:last-child{margin-bottom:0}
   white-space:nowrap;line-height:1.8}
 .formula:has(math){padding:1rem 1.1rem;white-space:normal;line-height:1.4}
 math{font-family:var(--serif);font-size:1.15rem;color:var(--fg);white-space:normal}
+math .brace{font-size:2.1em;line-height:.55;padding-right:.08em}
+math mtable{vertical-align:middle}
+math mtd{text-align:left}
 .sym{font-family:var(--serif);font-style:italic;font-size:1.05em}
 dl.terms math[display="block"]{margin:.55rem auto .6rem;font-size:1.05rem}
 dl.terms math[display="block"]+span{display:block}
@@ -160,7 +163,21 @@ weaknesses attached.</p>
     <h2>The outcome is a single bit</h2>
     <p>Other SDG measures read the <em>values</em> countries report. This one reads
     <em>whether a value is there at all</em>:</p>
-    <div class="formula">y[country, year, series] = 1 if a value was reported, else 0</div>
+    <div class="formula"><math display="block">
+      <mrow>
+        <mi>y</mi><mo stretchy="false">(</mo>
+        <mtext>country</mtext><mo>,</mo><mspace width="0.25em"/>
+        <mtext>year</mtext><mo>,</mo><mspace width="0.25em"/>
+        <mtext>series</mtext><mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow><mo class="brace">{</mo>
+          <mtable columnalign="left left" columnspacing="1.1em" rowspacing="0.25em">
+            <mtr><mtd><mn>1</mn></mtd><mtd><mtext>if a value was reported</mtext></mtd></mtr>
+            <mtr><mtd><mn>0</mn></mtd><mtd><mtext>otherwise</mtext></mtd></mtr>
+          </mtable>
+        </mrow>
+      </mrow>
+    </math></div>
     <p>Nothing downstream looks at the magnitude of a reported figure. A country that
     publishes unflattering numbers scores high; a country that publishes nothing scores low.
     The unit of analysis is a country&ndash;year, and each carries 524 ones and zeros.</p>
