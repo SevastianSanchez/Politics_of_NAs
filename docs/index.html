@@ -779,13 +779,17 @@ function drawGoalTrends(){
     ((i ? "L" : "M") + X(yrs[i]).toFixed(1) + " " + Y(v).toFixed(1))).join(" ");
 
   let g = "";
-  for (let t = Math.ceil(lo * 2) / 2; t <= hi; t += 0.5) {
-    const yy = Y(t).toFixed(1);
+  // gridlines every half unit so the eye can still read between them, but a number
+  // only on the whole ones -- thirteen labels made the axis the loudest thing here
+  for (let h = Math.ceil(lo * 2); h <= hi * 2; h++) {
+    const t = h / 2, yy = Y(t).toFixed(1), whole = h % 2 === 0;
     g += '<line class="gridline" x1="' + m.l + '" y1="' + yy + '" x2="' + (W-m.r) +
          '" y2="' + yy + '"' + (Math.abs(t) < 1e-9 ? ' stroke-dasharray="0"' :
-         ' stroke-dasharray="2 3"') + '/>';
-    g += '<text class="axis" x="' + (m.l-8) + '" y="' + (Y(t)+4).toFixed(1) +
-         '" text-anchor="end">' + (t > 0 ? "+" : "") + t.toFixed(1) + '</text>';
+         ' stroke-dasharray="2 3"') + (whole ? '' : ' opacity="0.45"') + '/>';
+    if (whole) {
+      g += '<text class="axis" x="' + (m.l-8) + '" y="' + (Y(t)+4).toFixed(1) +
+           '" text-anchor="end">' + (t > 0 ? "+" : "") + t.toFixed(0) + '</text>';
+    }
   }
   yrs.forEach(v => {
     g += '<text class="axis" x="' + X(v).toFixed(1) + '" y="' + (H-26) +
