@@ -92,7 +92,7 @@ dl.terms dd:last-child{margin-bottom:0}
 .formula:has(math){padding:1rem 1.1rem;white-space:normal;line-height:1.4}
 math{font-family:var(--serif);font-size:1.15rem;color:var(--fg);white-space:normal}
 .sym{font-family:var(--serif);font-style:italic;font-size:1.05em}
-dl.terms math[display="block"]{margin:.1rem 0 .6rem}
+dl.terms math[display="block"]{margin:.55rem auto .6rem;font-size:1.05rem}
 dl.terms math[display="block"]+span{display:block}
 math[display="block"]{display:block;margin:0 auto;width:fit-content}
 dl.terms math{font-size:1rem;vertical-align:-.4em}
@@ -142,13 +142,16 @@ footer{border-top:1px solid var(--rule);padding-block:1.6rem 3rem;font-size:.86r
 <div class="wrap">
 
 <div class="flow">
-  <b>17 Goal*.xlsx</b><i>&rarr;</i><b>1,179,045 cells</b><i>&rarr;</i>
-  <b>665 series</b><i>&rarr;</i><b>607</b><i>&rarr;</i><b>524</b><i>&rarr;</i>
-  <b>fit</b><i>&rarr;</i><b>score</b><i>&rarr;</i><b>check</b><i>&rarr;</i>
-  <b>disclose</b><i>&rarr;</i><b>release</b>
+  <b>17 Goal*.xlsx</b><i>&rarr;</i>
+  <b>1,179,045 cells</b><i>&rarr;</i>
+  <b>665 series</b><i>&rarr;</i>
+  <b>607 after the 2&ndash;98% filter</b><i>&rarr;</i>
+  <b>524 after merging repeats</b><i>&rarr;</i>
+  <b>one score per country&ndash;year</b>
 </div>
-<p class="flownote">Steps 1&ndash;3 decide <em>what</em> is measured. Steps 4&ndash;7 are the
-estimator. Steps 8&ndash;9 try to break it. Steps 10&ndash;11 publish it with its own
+<p class="flownote">That is the funnel: what goes in, what is set aside and why, and what comes
+out. Below, steps 1&ndash;3 decide <em>what</em> is measured, steps 4&ndash;7 are the
+estimator, steps 8&ndash;9 try to break it, and steps 10&ndash;11 publish it with its own
 weaknesses attached.</p>
 
 <section class="step">
@@ -250,11 +253,11 @@ weaknesses attached.</p>
       <dd>&ldquo;Latent&rdquo; means not directly observable. <i class="sym">&theta;</i> is a country&ndash;year's
       <strong>propensity to report</strong>: never seen, inferred from 524 ones and zeros.
       <strong>This is the score.</strong></dd>
-      <dt><i class="sym">a</i><sub>j</sub> &mdash; discrimination</dt>
-      <dd>How sharply series <em>j</em> separates high&ndash;propensity country&ndash;years from
+      <dt><i class="sym">a</i><sub><i class="sym">j</i></sub> &mdash; discrimination</dt>
+      <dd>How sharply series <i class="sym">j</i> separates high&ndash;propensity country&ndash;years from
       low ones. This is the weight the series carries, and the model estimates it from the data.
       Nobody assigns it.</dd>
-      <dt><i class="sym">d</i><sub>j</sub> &mdash; intercept, or difficulty</dt>
+      <dt><i class="sym">d</i><sub><i class="sym">j</i></sub> &mdash; intercept, or difficulty</dt>
       <dd>How much propensity it takes before a country&ndash;year reports that series at all.</dd>
     </dl>
     <figure>
@@ -272,8 +275,8 @@ weaknesses attached.</p>
         <text x="13" y="95" text-anchor="middle" font-size="9.5" fill="var(--muted)" transform="rotate(-90 13 95)">P(reported)</text>
         <polyline fill="none" stroke="var(--faint)" stroke-width="2" points="44.0,161.1 47.0,160.7 50.0,160.4 53.0,160.0 56.0,159.6 59.0,159.2 62.0,158.8 65.0,158.4 68.0,157.9 71.0,157.4 74.0,156.9 77.0,156.4 80.0,155.9 83.0,155.3 86.0,154.7 89.0,154.1 92.0,153.4 95.0,152.8 98.0,152.1 101.0,151.3 104.0,150.6 107.0,149.8 110.0,149.0 113.0,148.2 116.0,147.3 119.0,146.4 122.0,145.4 125.0,144.5 128.0,143.5 131.0,142.4 134.0,141.4 137.0,140.3 140.0,139.1 143.0,137.9 146.0,136.7 149.0,135.5 152.0,134.2 155.0,132.9 158.0,131.5 161.0,130.2 164.0,128.7 167.0,127.3 170.0,125.8 173.0,124.3 176.0,122.7 179.0,121.2 182.0,119.6 185.0,117.9 188.0,116.3 191.0,114.6 194.0,112.9 197.0,111.2 200.0,109.4 203.0,107.6 206.0,105.9 209.0,104.1 212.0,102.3 215.0,100.5 218.0,98.6 221.0,96.8 224.0,95.0 227.0,93.2 230.0,91.4 233.0,89.5 236.0,87.7 239.0,85.9 242.0,84.1 245.0,82.4 248.0,80.6 251.0,78.8 254.0,77.1 257.0,75.4 260.0,73.7 263.0,72.1 266.0,70.4 269.0,68.8 272.0,67.3 275.0,65.7 278.0,64.2 281.0,62.7 284.0,61.3 287.0,59.8 290.0,58.5 293.0,57.1 296.0,55.8 299.0,54.5 302.0,53.3 305.0,52.1 308.0,50.9 311.0,49.7 314.0,48.6 317.0,47.6 320.0,46.5 323.0,45.5 326.0,44.6 329.0,43.6 332.0,42.7 335.0,41.8 338.0,41.0 341.0,40.2 344.0,39.4 347.0,38.7 350.0,37.9 353.0,37.2 356.0,36.6 359.0,35.9 362.0,35.3 365.0,34.7 368.0,34.1 371.0,33.6 374.0,33.1 377.0,32.6 380.0,32.1 383.0,31.6 386.0,31.2 389.0,30.8 392.0,30.4 395.0,30.0 398.0,29.6 401.0,29.3 404.0,28.9"/>
         <polyline fill="none" stroke="var(--accent)" stroke-width="2.4" points="44.0,168.0 47.0,168.0 50.0,168.0 53.0,168.0 56.0,168.0 59.0,168.0 62.0,168.0 65.0,168.0 68.0,168.0 71.0,168.0 74.0,168.0 77.0,168.0 80.0,168.0 83.0,167.9 86.0,167.9 89.0,167.9 92.0,167.9 95.0,167.9 98.0,167.9 101.0,167.9 104.0,167.9 107.0,167.8 110.0,167.8 113.0,167.8 116.0,167.8 119.0,167.7 122.0,167.7 125.0,167.7 128.0,167.6 131.0,167.6 134.0,167.5 137.0,167.4 140.0,167.4 143.0,167.3 146.0,167.2 149.0,167.1 152.0,166.9 155.0,166.8 158.0,166.6 161.0,166.4 164.0,166.2 167.0,166.0 170.0,165.7 173.0,165.4 176.0,165.0 179.0,164.6 182.0,164.2 185.0,163.7 188.0,163.1 191.0,162.4 194.0,161.7 197.0,160.9 200.0,159.9 203.0,158.9 206.0,157.7 209.0,156.4 212.0,154.9 215.0,153.3 218.0,151.5 221.0,149.5 224.0,147.3 227.0,144.9 230.0,142.2 233.0,139.3 236.0,136.2 239.0,132.9 242.0,129.3 245.0,125.5 248.0,121.5 251.0,117.3 254.0,112.9 257.0,108.4 260.0,103.7 263.0,99.0 266.0,94.3 269.0,89.5 272.0,84.8 275.0,80.2 278.0,75.8 281.0,71.4 284.0,67.3 287.0,63.3 290.0,59.6 293.0,56.1 296.0,52.8 299.0,49.7 302.0,46.9 305.0,44.4 308.0,42.0 311.0,39.9 314.0,37.9 317.0,36.2 320.0,34.6 323.0,33.2 326.0,31.9 329.0,30.8 332.0,29.8 335.0,28.9 338.0,28.1 341.0,27.3 344.0,26.7 347.0,26.2 350.0,25.7 353.0,25.2 356.0,24.8 359.0,24.5 362.0,24.2 365.0,23.9 368.0,23.7 371.0,23.5 374.0,23.3 377.0,23.2 380.0,23.0 383.0,22.9 386.0,22.8 389.0,22.7 392.0,22.6 395.0,22.5 398.0,22.5 401.0,22.4 404.0,22.4"/>
-        <text x="350" y="148" font-size="9.5" fill="var(--faint)">a = 1.0</text>
-        <text x="150" y="40" font-size="9.5" fill="var(--accent)" font-weight="600">a = 2.6</text>
+        <text x="350" y="148" font-size="9.5" fill="var(--faint)"><tspan font-family="Iowan Old Style, Palatino, Georgia, serif" font-style="italic">a</tspan> = 1.0</text>
+        <text x="150" y="40" font-size="9.5" fill="var(--accent)" font-weight="600"><tspan font-family="Iowan Old Style, Palatino, Georgia, serif" font-style="italic">a</tspan> = 2.6</text>
       </svg>
       <figcaption>Every series has a curve. The steep one is highly discriminating: almost no
       low&ndash;propensity country&ndash;year reports it and almost every high one does, so it
@@ -325,7 +328,7 @@ weaknesses attached.</p>
           ridge where the likelihood is flat. Checked rather than assumed &mdash; against the
           strict run, no score moves by more than <strong>0.0065</strong>, against standard
           errors of 0.3&ndash;0.5.</td></tr>
-        <tr><td class="c">prior on a</td><td class="c">norm(0, 2)</td>
+        <tr><td class="c">prior on <i class="sym">a</i></td><td class="c">norm(0, 2)</td>
           <td>Needed only for the 17&ndash;factor model. A few perfectly collinear series make a
           goal's factor an exact copy of them, so their slope has no finite value &mdash;
           discriminations ran past 80 and never settled. A normal prior bounds them. Not
@@ -434,13 +437,13 @@ weaknesses attached.</p>
     covers only the first.</p>
     <dl class="terms">
       <dt>Reliability</dt>
-      <dd><math display="block"><mrow><mfrac>
+      <dd>The share of the spread in scores that is signal rather than measurement noise:
+      <math display="block"><mrow><mfrac>
         <mrow><mi>var</mi><mo stretchy="false">(</mo><mi>score</mi><mo stretchy="false">)</mo></mrow>
         <mrow><mi>var</mi><mo stretchy="false">(</mo><mi>score</mi><mo stretchy="false">)</mo><mo>+</mo>
           <mi>mean</mi><mo stretchy="false">(</mo><msup><mi>SE</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow>
       </mfrac></mrow></math>
-      <span>The share of the spread
-      in scores that is signal rather than measurement noise. Overall index
+      <span>Overall index
       <strong>0.987</strong>. Goal level: median <strong>0.844</strong>, range
       0.772&ndash;0.953. 0.70 (Nunnally &amp; Bernstein 1994) is quoted as a reference point, never applied as a
       cut.</span></dd>
@@ -470,9 +473,24 @@ weaknesses attached.</p>
       <dd>Fit on 70% of a goal's series, then ask how well the resulting score predicts
       reporting on the <strong>30% it never saw</strong>. Scored by the <strong>area under the
       receiver operating characteristic curve (AUC)</strong>: the probability that a randomly
-      chosen reported case outranks a randomly chosen unreported one. 0.5 is a coin flip, 1.0 is perfect. Computed per held&ndash;out series, then the
+      chosen reported case outranks a randomly chosen unreported one.
+      <math display="block"><mrow>
+        <mi>AUC</mi><mo>=</mo>
+        <mfrac><mn>1</mn><mrow><msub><mi>n</mi><mn>1</mn></msub><msub><mi>n</mi><mn>0</mn></msub></mrow></mfrac>
+        <munder><mo>&#x2211;</mo><mrow><mi>i</mi><mo>&#x2208;</mo><mtext>reported</mtext></mrow></munder>
+        <munder><mo>&#x2211;</mo><mrow><mi>j</mi><mo>&#x2208;</mo><mtext>not reported</mtext></mrow></munder>
+        <mn>1</mn><mo stretchy="false">[</mo>
+        <msub><mover accent="true"><mi>&#x3B8;</mi><mo>&#x5E;</mo></mover><mi>i</mi></msub>
+        <mo>&gt;</mo>
+        <msub><mover accent="true"><mi>&#x3B8;</mi><mo>&#x5E;</mo></mover><mi>j</mi></msub>
+        <mo stretchy="false">]</mo>
+      </mrow></math>
+      <span>Pair every reported case with every unreported one and count how often the reported
+      one scored higher; <i class="sym">n</i><sub>1</sub> and <i class="sym">n</i><sub>0</sub>
+      are how many of each there are. 0.5 is a coin flip, 1.0 is perfect. Computed per
+      held&ndash;out series, then the
       median, against a <strong>permutation null</strong> drawn fresh for each series by
-      shuffling the scores.</dd>
+      shuffling the scores.</span></dd>
     </dl>
     <p>Median AUC <strong>0.725</strong> against a null sitting on <strong>0.500</strong>.
     Thirteen of sixteen goals reach 0.649 or better. The three weakest &mdash; goal 17 (0.618),
@@ -559,8 +577,8 @@ weaknesses attached.</p>
     <dt>Latent trait (<i class="sym">&theta;</i>)</dt><dd>The unobserved propensity to report, inferred from 524 ones and zeros. The score itself.</dd>
     <dt>Factor</dt><dd>One latent dimension in a model. The overall index has one; the bifactor has seventeen.</dd>
     <dt>2PL</dt><dd>Two&ndash;parameter logistic: each series gets a discrimination and an intercept.</dd>
-    <dt>Discrimination (a)</dt><dd>How sharply a series separates high from low propensity. The weight it earns.</dd>
-    <dt>Intercept (d)</dt><dd>How much propensity it takes to report that series at all. Its difficulty.</dd>
+    <dt>Discrimination (<i class="sym">a</i>)</dt><dd>How sharply a series separates high from low propensity. The weight it earns.</dd>
+    <dt>Intercept (<i class="sym">d</i>)</dt><dd>How much propensity it takes to report that series at all. Its difficulty.</dd>
     <dt>Local independence</dt><dd>The assumption that, given <i class="sym">&theta;</i>, series are independent. Tested in step 9, not asserted.</dd>
     <dt>EM algorithm</dt><dd>Alternating expectation and maximisation passes that estimate series parameters while <i class="sym">&theta;</i> is unobserved. One pass is a cycle.</dd>
     <dt>EAP</dt><dd>Expected a posteriori: the posterior mean of <i class="sym">&theta;</i>. The scoring rule; its posterior SD is the standard error.</dd>
