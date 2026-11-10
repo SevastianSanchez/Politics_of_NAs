@@ -172,6 +172,23 @@ tr.overlap td{color:var(--muted)}
 .gerr{position:absolute;top:50%;height:2px;transform:translateY(-50%);
   background:var(--fg);opacity:.3;border-radius:1px}
 .dlnote{margin:.8rem 0 0;font-size:.84rem;color:var(--muted);max-width:62ch}
+.gth{margin:2.2rem 0 .5rem;font-family:var(--serif);font-size:1.12rem}
+.gtwhy{font-size:.88rem;color:var(--muted);max-width:64ch}
+.gtnote{margin:.9rem 0 0;font-size:.84rem;color:var(--muted);max-width:66ch}
+.gtlegend{display:flex;flex-wrap:wrap;gap:.3rem;margin:.9rem 0 .7rem}
+.gtchip{font-family:var(--mono);font-size:.74rem;padding:.2em .5em;border-radius:3px;
+  border:1px solid var(--rule);background:var(--panel);color:var(--muted);cursor:pointer}
+.gtchip:hover{border-color:var(--accent);color:var(--fg)}
+.gtchip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.gtchip.held::after{content:"\00b7h";opacity:.75}
+.gtline{fill:none;stroke-width:1.6;opacity:.38;transition:opacity .12s,stroke-width .12s}
+.gtline.up{stroke:var(--pos)} .gtline.down{stroke:var(--neg)}
+.gtline.sel{opacity:1;stroke-width:3}
+.gtdim{opacity:.1}
+.gtref{fill:none;stroke:var(--faint);stroke-width:1.6;stroke-dasharray:4 3}
+.gtlab{font-family:var(--sans);font-size:10.5px;fill:var(--muted)}
+.gtlab.quiet{opacity:.45}
+.gtlab.sel{fill:var(--fg);font-weight:600}
 .walk{margin:1.1rem 0 0;font-size:.92rem}
 .walk a{font-weight:600}
 .gbadge{font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;
@@ -362,6 +379,22 @@ footer p{max-width:64ch}
       <span class="count" id="gnote"></span>
     </div>
     <div class="tablebox" style="padding:1.1rem"><div id="goals"></div></div>
+
+    <h3 class="gth">How each goal moved, 2015 to 2023</h3>
+    <p>The bars above are one country in one year. This is every country at once: each goal's
+      mean score across all 197, plotted as <strong>change since 2015</strong>. The overall
+      index is the dashed line.</p>
+    <p class="gtwhy">Change, not level, because each goal is a separate fit centred on its own
+      mean &mdash; so the gap between two goals' lines would say nothing, while the movement
+      within one is real. Select a goal to follow it.</p>
+    <div class="gtlegend" id="gtlegend"></div>
+    <div class="chartbox"><div id="gtrend"></div></div>
+    <p class="gtnote">Goals <strong>6</strong> and <strong>15</strong> move furthest and are
+      the two held on content grounds: goal 6 largely tracks when an agency published a
+      satellite dataset, goal 15 partly tracks treaty ratification. Read those two as
+      publication schedules rather than as countries changing behaviour. The 2023 fall affects
+      goals for the same reason it affects the overall index &mdash; the database was still
+      filling that year in when this snapshot was taken.</p>
   </div>
 </section>
 
@@ -678,9 +711,125 @@ function initGoals(){
     document.getElementById("gc").addEventListener("change", drawGoals);
     document.getElementById("gy").addEventListener("change", drawGoals);
     drawGoals();
+    buildGoalTrends();
   }).catch(() => {
     document.getElementById("goals").innerHTML =
       '<p style="color:var(--faint)">goal score data failed to load</p>';
+  });
+}
+
+// Each goal is its own fit, centred on its own mean, so the distance between two
+// goals' levels is an artefact of standardisation and would mislead. Movement within
+// a goal is real, so this plots change from 2015 and nothing else.
+let GT = null, gtSel = null;
+
+// Chart labels need a short form; the full SDG names run to 39 characters and
+// truncating them mid-word reads as broken. These are the conventional shorthands.
+const GOAL_SHORT = {1:"Poverty", 2:"Hunger", 3:"Health", 4:"Education", 5:"Gender",
+  6:"Water", 7:"Energy", 8:"Decent work", 9:"Industry", 10:"Inequality", 11:"Cities",
+  12:"Consumption", 13:"Climate", 14:"Oceans", 15:"Land", 16:"Peace", 17:"Partnerships"};
+
+function buildGoalTrends(){
+  const yrs = G.years;
+  const rows = G.goals.map((m, k) => {
+    const mean = yrs.map((_, yi) => {
+      let sum = 0, n = 0;
+      G.countries.forEach(c => {
+        const v = c.s[k][yi];
+        if (v !== null && isFinite(v)) { sum += v; n++; }
+      });
+      return n ? sum / n : null;
+    });
+    const base = mean[0];
+    return { g: m.g, name: m.name, held: m.status !== "release",
+             d: mean.map(v => (v === null || base === null) ? null : v - base) };
+  });
+  let ref = null;
+  if (D && D.yearly) {
+    const by = {}; D.yearly.forEach(r => { by[r.yr] = r.mean; });
+    const b0 = by[yrs[0]];
+    if (b0 !== undefined) ref = yrs.map(y => by[y] === undefined ? null : by[y] - b0);
+  }
+  GT = { yrs: yrs, rows: rows, ref: ref };
+
+  document.getElementById("gtlegend").innerHTML =
+    '<button class="gtchip on" data-g="all">all</button>' +
+    rows.map(r => '<button class="gtchip' + (r.held ? " held" : "") + '" data-g="' + r.g +
+      '" title="Goal ' + r.g + ': ' + r.name + (r.held ? " (held on content grounds)" : "") +
+      '">' + r.g + '</button>').join("");
+  document.getElementById("gtlegend").addEventListener("click", e => {
+    const b = e.target.closest(".gtchip"); if (!b) return;
+    gtSel = (b.dataset.g === "all" || +b.dataset.g === gtSel) ? null : +b.dataset.g;
+    drawGoalTrends();
+  });
+  drawGoalTrends();
+}
+
+function drawGoalTrends(){
+  if (!GT) return;
+  const W = 720, H = 320, m = {t:16, r:120, b:46, l:62};
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const yrs = GT.yrs;
+  const all = GT.rows.flatMap(r => r.d).concat(GT.ref || []).filter(v => v !== null);
+  const lo = Math.min(-0.2, Math.min(...all)) - 0.15;
+  const hi = Math.max(0.2, Math.max(...all)) + 0.15;
+  const X = v => m.l + (v - yrs[0]) / (yrs[yrs.length-1] - yrs[0]) * iw;
+  const Y = v => m.t + (hi - v) / (hi - lo) * ih;
+  const path = d => d.map((v, i) => v === null ? "" :
+    ((i ? "L" : "M") + X(yrs[i]).toFixed(1) + " " + Y(v).toFixed(1))).join(" ");
+
+  let g = "";
+  for (let t = Math.ceil(lo * 2) / 2; t <= hi; t += 0.5) {
+    const yy = Y(t).toFixed(1);
+    g += '<line class="gridline" x1="' + m.l + '" y1="' + yy + '" x2="' + (W-m.r) +
+         '" y2="' + yy + '"' + (Math.abs(t) < 1e-9 ? ' stroke-dasharray="0"' :
+         ' stroke-dasharray="2 3"') + '/>';
+    g += '<text class="axis" x="' + (m.l-8) + '" y="' + (Y(t)+4).toFixed(1) +
+         '" text-anchor="end">' + (t > 0 ? "+" : "") + t.toFixed(1) + '</text>';
+  }
+  yrs.forEach(v => {
+    g += '<text class="axis" x="' + X(v).toFixed(1) + '" y="' + (H-26) +
+         '" text-anchor="middle">' + v + '</text>';
+  });
+  if (GT.ref) g += '<path class="gtref' + (gtSel ? " gtdim" : "") + '" d="' + path(GT.ref) + '"/>';
+
+  // label the four biggest movers at rest, plus whichever goal is selected
+  const ranked = [...GT.rows].filter(r => r.d[r.d.length-1] !== null)
+    .sort((a, b) => Math.abs(b.d[b.d.length-1]) - Math.abs(a.d[a.d.length-1]));
+  const named = new Set(ranked.slice(0, 4).map(r => r.g));
+  if (gtSel) named.add(gtSel);
+
+  GT.rows.forEach(r => {
+    const last = r.d[r.d.length-1];
+    const dir = last >= 0 ? "up" : "down";
+    const sel = gtSel === r.g;
+    const cls = "gtline " + dir + (sel ? " sel" : (gtSel ? " gtdim" : ""));
+    g += '<path class="' + cls + '" d="' + path(r.d) + '"><title>Goal ' + r.g + ': ' +
+         r.name + ' \u2014 ' + (last >= 0 ? "+" : "") + last.toFixed(2) +
+         ' since ' + yrs[0] + '</title></path>';
+    if (named.has(r.g) && last !== null) {
+      g += '<text class="gtlab' + (sel ? " sel" : (gtSel ? " quiet" : "")) + '" x="' + (W - m.r + 8) +
+           '" y="' + (Y(last) + 3.5).toFixed(1) + '">' + r.g + '. ' +
+           (GOAL_SHORT[r.g] || r.name) + '</text>';
+    }
+  });
+  if (GT.ref && !gtSel) {
+    const lastRef = GT.ref[GT.ref.length-1];
+    g += '<text class="gtlab" x="' + (W - m.r + 8) + '" y="' + (Y(lastRef) + 3.5).toFixed(1) +
+         '">overall index</text>';
+  }
+  g += '<text class="axttl" x="' + (m.l + iw/2).toFixed(1) + '" y="' + (H-6) +
+       '" text-anchor="middle">year</text>';
+  g += '<text class="axttl" x="14" y="' + (m.t + ih/2).toFixed(1) +
+       '" text-anchor="middle" transform="rotate(-90 14 ' + (m.t + ih/2).toFixed(1) +
+       ')">change in mean score since ' + yrs[0] + '</text>';
+
+  document.getElementById("gtrend").innerHTML =
+    '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Change in each SDG goal' +
+    " 's mean reporting score since 2015, against the overall index.\">" + g + '</svg>';
+
+  document.querySelectorAll("#gtlegend .gtchip").forEach(b => {
+    b.classList.toggle("on", gtSel === null ? b.dataset.g === "all" : +b.dataset.g === gtSel);
   });
 }
 
