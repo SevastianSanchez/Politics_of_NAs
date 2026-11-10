@@ -26,7 +26,7 @@ ov  <- unique(ad[scope == "overall", .(iso3, year, income_level, gdp_pc, spi_ove
                                        dv_n_observations_pct_frontier,
                                        n_observations)])
 d <- merge(tw, ov, by = c("iso3", "year"), all.x = TRUE)
-nm <- unique(fread(here("docs/twr_scores.csv"))[, .(iso3, country_name)])
+nm <- unique(fread(here("docs/vsi_scores.csv"))[, .(iso3, country_name)])
 d  <- merge(d, nm, by = "iso3", all.x = TRUE)
 
 r <- function(x, y, m = "pearson") {
@@ -62,8 +62,8 @@ say("modified SPI (pillars 1,2,4,5)  spearman ", r(d$composite, d$spi_overall_mo
     " | n ", sum(complete.cases(d$composite, d$spi_overall_mod)))
 say("unmodified SPI                  pearson  ", r(d$composite, d$spi_overall),
     " | n ", sum(complete.cases(d$composite, d$spi_overall)))
-say("(the by-pillar table and HRV come from validate_twr_external.R ->")
-say(" output/measure/tables/twr_external_validity.csv)")
+say("(the by-pillar table and HRV come from validate_vsi_external.R ->")
+say(" output/measure/tables/vsi_external_validity.csv)")
 
 say("\n=== SECTION 7.2: known-groups ===")
 inc <- d[!is.na(income_level), .(mean = round(mean(composite), 2), n = .N), by = income_level]

@@ -1,4 +1,4 @@
-# The Politics of NAs / The World on Record
+# The Politics of NAs / Visible States Project
 
 ## Before running any model fit — mandatory, no exceptions
 
@@ -64,7 +64,7 @@ rather than reporting effort. An error bar cannot warn a reader about either.
 
 | Column | Meaning |
 |---|---|
-| `twr` | overall index: one factor, all 524 series |
+| `vsi` | overall index: one factor, all 524 series |
 | `goal_level` | reporting on that goal, overall level included |
 | `goal_relative` | that goal relative to the country's own overall level (bifactor specific factor) |
 

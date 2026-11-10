@@ -1,7 +1,7 @@
 # ==============================================================================
-# validate_twr_external.R
+# validate_vsi_external.R
 #
-# Convergent validity for the overall index (twr): does it agree with
+# Convergent validity for the overall index (vsi): does it agree with
 # independent measures of statistical capacity built by other people from
 # other data?
 #
@@ -17,7 +17,7 @@
 #
 # WHAT IT DELIBERATELY DOES NOT USE
 #   V-Dem. Autocratization is the TREATMENT in this project's causal design.
-#   Correlating twr with V-Dem is the hypothesis, not a validity check, and
+#   Correlating vsi with V-Dem is the hypothesis, not a validity check, and
 #   reporting it as one would be circular.
 #
 # CIRCULARITY WARNING on SPI pillar 3 (data products): part of it scores SDG
@@ -26,8 +26,8 @@
 #   (data sources: censuses, surveys, admin records) and 5 (data
 #   infrastructure) are the independent comparators.
 #
-# OUTPUT  output/measure/tables/twr_external_validity.csv
-#         output/measure/tables/twr_spi_disagreements.csv
+# OUTPUT  output/measure/tables/vsi_external_validity.csv
+#         output/measure/tables/vsi_spi_disagreements.csv
 #         docs/validity_spi.json   (read by the landing page)
 # ==============================================================================
 source(here::here("code/packages.R"))
@@ -37,10 +37,10 @@ suppressPackageStartupMessages(library(data.table))
 msg <- function(...) cat(format(Sys.time(), "[%H:%M:%S] "), ..., "\n", sep = "")
 
 # ---- A. THE INDEX -----------------------------------------------------------
-twr <- fread(here("data/02_measure/irt_composite_scores.csv"))
-setnames(twr, c("composite", "composite_se"), c("twr", "twr_se"), skip_absent = TRUE)
-msg("twr: ", nrow(twr), " country-years, ",
-    paste(range(twr$year), collapse = "-"))
+vsi <- fread(here("data/02_measure/irt_composite_scores.csv"))
+setnames(vsi, c("composite", "composite_se"), c("vsi", "vsi_se"), skip_absent = TRUE)
+msg("vsi: ", nrow(vsi), " country-years, ",
+    paste(range(vsi$year), collapse = "-"))
 
 # ---- B. SPI, OVERALL AND BY PILLAR ------------------------------------------
 spi <- fread(here("data/01_source/snapshots/spi__2026-11-04.csv"))
@@ -55,7 +55,7 @@ setnames(spi, c("iso3c", "year", names(pill)))
 setnames(spi, "iso3c", "iso3", skip_absent = TRUE)
 if (!"iso3" %in% names(spi)) setnames(spi, 1, "iso3")
 
-d <- merge(twr, spi, by = c("iso3", "year"))
+d <- merge(vsi, spi, by = c("iso3", "year"))
 msg("merged with SPI: ", nrow(d), " country-years")
 
 # ---- C. HRV, IF PRESENT -----------------------------------------------------
@@ -72,16 +72,16 @@ if (has_hrv) {
 }
 
 # ---- D. CORRELATIONS --------------------------------------------------------
-# Spearman as well as Pearson: twr is a latent scale with no claim to
+# Spearman as well as Pearson: vsi is a latent scale with no claim to
 # linearity against someone else's index, so rank agreement is the fairer test.
 benchmarks <- intersect(c(names(pill), if (has_hrv) "hrv"), names(d))
 
 cor_row <- function(v, lab, dat) {
-  ok <- complete.cases(dat$twr, dat[[v]])
+  ok <- complete.cases(dat$vsi, dat[[v]])
   if (sum(ok) < 30) return(NULL)
   data.table(benchmark = v, scope = lab, n = sum(ok),
-             pearson  = round(cor(dat$twr[ok], dat[[v]][ok]), 3),
-             spearman = round(cor(dat$twr[ok], dat[[v]][ok], method = "spearman"), 3))
+             pearson  = round(cor(dat$vsi[ok], dat[[v]][ok]), 3),
+             spearman = round(cor(dat$vsi[ok], dat[[v]][ok], method = "spearman"), 3))
 }
 res <- rbindlist(c(
   lapply(benchmarks, cor_row, lab = "all years", dat = d),
@@ -90,13 +90,13 @@ res <- rbindlist(c(
     recursive = FALSE)
 ), use.names = TRUE)
 
-# within-country: does twr track SPI over time inside a country, not just
+# within-country: does vsi track SPI over time inside a country, not just
 # across countries? Cross-sectional agreement can be entirely a rich/poor split.
 wc <- d[, {
-  ok <- complete.cases(twr, spi_overall)
-  if (sum(ok) >= 4) .(r = cor(twr[ok], spi_overall[ok])) else .(r = NA_real_)
+  ok <- complete.cases(vsi, spi_overall)
+  if (sum(ok) >= 4) .(r = cor(vsi[ok], spi_overall[ok])) else .(r = NA_real_)
 }, by = iso3]
-msg("within-country twr~SPI: median r = ", round(median(wc$r, na.rm = TRUE), 3),
+msg("within-country vsi~SPI: median r = ", round(median(wc$r, na.rm = TRUE), 3),
     " over ", sum(!is.na(wc$r)), " countries")
 
 res <- rbind(res, data.table(benchmark = "spi_overall",
@@ -104,7 +104,7 @@ res <- rbind(res, data.table(benchmark = "spi_overall",
   pearson = round(median(wc$r, na.rm = TRUE), 3), spearman = NA_real_))
 
 print(res[scope == "all years"])
-fwrite(res, here("output/measure/tables/twr_external_validity.csv"))
+fwrite(res, here("output/measure/tables/vsi_external_validity.csv"))
 
 # ---- E. WHERE THEY DISAGREE -------------------------------------------------
 # The substantively interesting cases, and a good figure: countries SPI rates
@@ -112,20 +112,20 @@ fwrite(res, here("output/measure/tables/twr_external_validity.csv"))
 # automatically a failure -- SPI scores statistical SYSTEMS, this index scores
 # what was actually reported -- but a country at the extreme of both needs an
 # explanation before publication.
-dis <- d[complete.cases(twr, spi_overall)]
-dis[, `:=`(z_twr = scale(twr)[, 1], z_spi = scale(spi_overall)[, 1])]
-dis[, gap := z_twr - z_spi]
+dis <- d[complete.cases(vsi, spi_overall)]
+dis[, `:=`(z_vsi = scale(vsi)[, 1], z_spi = scale(spi_overall)[, 1])]
+dis[, gap := z_vsi - z_spi]
 setorder(dis, -gap)
-disag <- rbind(head(dis[, .(iso3, year, twr, spi_overall, z_twr, z_spi, gap)], 15),
-               tail(dis[, .(iso3, year, twr, spi_overall, z_twr, z_spi, gap)], 15))
-disag[, (c("twr","spi_overall","z_twr","z_spi","gap")) :=
-        lapply(.SD, round, 2), .SDcols = c("twr","spi_overall","z_twr","z_spi","gap")]
+disag <- rbind(head(dis[, .(iso3, year, vsi, spi_overall, z_vsi, z_spi, gap)], 15),
+               tail(dis[, .(iso3, year, vsi, spi_overall, z_vsi, z_spi, gap)], 15))
+disag[, (c("vsi","spi_overall","z_vsi","z_spi","gap")) :=
+        lapply(.SD, round, 2), .SDcols = c("vsi","spi_overall","z_vsi","z_spi","gap")]
 cat("\n--- reports MORE than its statistical system predicts (top) / LESS (bottom) ---\n")
 print(disag)
-fwrite(disag, here("output/measure/tables/twr_spi_disagreements.csv"))
+fwrite(disag, here("output/measure/tables/vsi_spi_disagreements.csv"))
 # ---- F. FEED THE PUBLIC PAGE ------------------------------------------------
 # docs/index.html fetches this, the same pattern build_docs_data.R uses for
-# twr_scores.json. The `overlaps_source` flag is the point of the figure:
+# vsi_scores.json. The `overlaps_source` flag is the point of the figure:
 # SPI pillar 3 partly scores SDG indicator availability drawn from the same UN
 # database this index is built from, so its agreement is partly mechanical --
 # and it is the pillar that agrees LEAST, which is the evidence that the

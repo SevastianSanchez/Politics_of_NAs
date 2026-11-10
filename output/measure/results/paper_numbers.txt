@@ -13,8 +13,8 @@ largest increases: Andorra (+0.87), Somalia (+0.77), Seychelles (+0.70), Rwanda 
 === SECTION 7.1: convergent validity ===
 modified SPI (pillars 1,2,4,5)  spearman 0.88 | pearson 0.866 | n 1336
 unmodified SPI                  pearson  0.852 | n 1329
-(the by-pillar table and HRV come from validate_twr_external.R ->
- output/measure/tables/twr_external_validity.csv)
+(the by-pillar table and HRV come from validate_vsi_external.R ->
+ output/measure/tables/vsi_external_validity.csv)
 
 === SECTION 7.2: known-groups ===
   L: -0.9 (n 263)

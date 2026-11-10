@@ -10,17 +10,17 @@ Author: Sevastian Sanchez, Columbia University (SIPA and QMSS)
 
 ## The index
 
-**[The World on Record &rarr; sevastiansanchez.github.io/Politics_of_NAs](https://sevastiansanchez.github.io/Politics_of_NAs/)**
+**[Visible States Project &rarr; sevastiansanchez.github.io/Politics_of_NAs](https://sevastiansanchez.github.io/Politics_of_NAs/)**
 
 *Statistical reporting across countries, policy sectors, and time.*
 
-The first transparency measure covering the SDG era: latent reporting behaviour across 607 statistical series and 197 countries, 2015–2023, with uncertainty quantified for every country-year. Existing transparency indices stop in 2015; this one begins there, and resolves reporting by policy domain rather than returning a single national score.
+The first transparency measure covering the SDG era: latent reporting behaviour across 524 statistical series and 197 countries, 2015–2023, with uncertainty quantified for every country-year. Existing transparency indices stop in 2015; this one begins there, and resolves reporting by policy domain rather than returning a single national score.
 
-The headline measure is the **World on Record Index (TWR)**: one overall score per country-year, with sector-level scores to follow. The site carries the rankings, the yearly trend, the sector panel, a version roadmap and the downloadable scores. It is a preliminary release and not yet citable.
+The headline measure is the **Visible States Index (VSI)**: one overall score per country-year, with sector-level scores to follow. The site carries the rankings, the yearly trend, the sector panel, a version roadmap and the downloadable scores. It is a preliminary release and not yet citable.
 
 ### How to cite
 
-> Sanchez, S. (2026). *The World on Record: statistical reporting across countries, policy sectors, and time* (v1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23997606
+> Sanchez, S. (2026). *Visible States: statistical reporting across countries, policy sectors, and time* (v1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23997606
 
 Use the **concept DOI** above when referring to the dataset generally — it always resolves to the newest version. Cite the **version DOI** for the release your analysis actually used, so your results stay reproducible after later versions change the scores:
 
@@ -60,7 +60,7 @@ The cleaned outcome tables, their grain, keys and every column are documented in
 | `descriptive_stats/` | Descriptive analysis code (RQ1–RQ4) |
 | `causal_inference_mods/` | TWFE (`overall_twfe_analysis.Rmd`), Callaway–Sant'Anna DiD (`cs_did_analysis_v2.Rmd`), event studies, robustness checks |
 | `output/` | Everything the analysis produces, grouped by track then kind: `descriptive/{figures,tables,results}/` and `causal/{figures,tables,results}/`. See `output/README.md` for the rules |
-| `docs/` | The published site — [The World on Record](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the TWR score files they serve. GitHub Pages builds this folder from `main`; `code/build_docs_data.R` regenerates its data |
+| `docs/` | The published site — [Visible States Project](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the VSI score files they serve. GitHub Pages builds this folder from `main`; `code/build_docs_data.R` regenerates its data |
 
 Code folders hold code; `data/` holds sources and built tables; `output/` holds
 results. The numbers on the `data/` folders are the direction of travel: one

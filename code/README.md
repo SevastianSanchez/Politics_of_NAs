@@ -10,8 +10,8 @@ Run order. Anything not listed here is a helper or a one-off.
 | 4 | `data_prep/build_irt_composite.R` | `data/02_measure/irt_composite_*` — the published index |
 | 5 | `data_prep/build_irt_goals.R` | `data/02_measure/irt_goal_level_*` — the sector layer, one score per goal. Independent of step 4; either can run first. |
 | 6 | `data_prep/build_series_provenance.R` | `output/measure/tables/series_provenance_nature.csv` — who produced each series (country vs custodian agency). Read by step 5 for a disclosure column; absent is not fatal. |
-| 7 | `build_docs_data.R` | `docs/twr_scores.{json,csv}`, `docs/goal_scores.{json,csv}` |
-| 8 | `validate_twr_external.R` | `output/measure/tables/twr_external_validity.csv`, `docs/validity_spi.json` |
+| 7 | `build_docs_data.R` | `docs/vsi_scores.{json,csv}`, `docs/goal_scores.{json,csv}` |
+| 8 | `validate_vsi_external.R` | `output/measure/tables/vsi_external_validity.csv`, `docs/validity_spi.json` |
 | 9 | `paper_numbers.R` | `output/measure/results/paper_numbers.txt` — every figure the paper quotes |
 
 Supporting: `packages.R` · `data_prep/build_hrv_snapshot.R` (HRV2 snapshot) ·
@@ -23,7 +23,7 @@ collapsed) · `SDGCountryTrends_Function.R`
 **Not in the v1 run order:** `data_prep/build_irt_bifactor.R` builds
 `goal_relative` — a goal's reporting net of the country's own overall level —
 from a bifactor model. It is a long, checkpointed fit and is **not part of
-v1.2.0**, which ships `twr` and `goal_level` only. Safe to re-run: it resumes
+v1.2.0**, which ships `vsi` and `goal_level` only. Safe to re-run: it resumes
 from its checkpoint.
 
 **`superseded/` must not be run.** See `superseded/README.md` and `METHODS_LOG.md`.

@@ -4,9 +4,9 @@
 # Emits the JSON and CSV that the GitHub Pages landing page (docs/index.html)
 # reads. Run after the overall fit; the page is static otherwise.
 #
-# The published measure is the World on Record Index (TWR): one overall score
+# The published measure is the Visible States Index (VSI): one overall score
 # per country-year. Column names here are the PUBLIC ones and should match the
-# data dictionary -- `twr` and `twr_se`, not the internal `composite` /
+# data dictionary -- `vsi` and `vsi_se`, not the internal `composite` /
 # `composite_se` that build_irt_composite.R writes.
 #
 # The sector layer is also emitted here: `goal_level`, one score per country-
@@ -18,11 +18,11 @@
 # cut. Goals 6 and 15 are marked `hold_content` and goal 7 has no score at all
 # (3 series, too few to identify a factor). See CLAUDE.md.
 #
-# INPUT   data/02_measure/irt_composite_scores.rds   (the TWR scores)
+# INPUT   data/02_measure/irt_composite_scores.rds   (the VSI scores)
 #         data/02_measure/irt_goal_level_scores.rds  (the sector layer)
 #         data/02_measure/irt_goal_level_health.csv  (per-goal diagnostics)
 #         data/03_panels/analysis_data.rds    (country names, income groups)
-# OUTPUT  docs/twr_scores.json, docs/twr_scores.csv
+# OUTPUT  docs/vsi_scores.json, docs/vsi_scores.csv
 #         docs/goal_scores.json, docs/goal_scores.csv
 # ==============================================================================
 
@@ -65,16 +65,16 @@ out <- list(
   rows        = rows)
 
 writeLines(toJSON(out, auto_unbox = TRUE, dataframe = "rows", digits = NA),
-           here("docs/twr_scores.json"))
-cat("wrote docs/twr_scores.json |", nrow(rows), "rows |",
+           here("docs/vsi_scores.json"))
+cat("wrote docs/vsi_scores.json |", nrow(rows), "rows |",
     uniqueN(s$iso3), "countries\n")
 
 # the downloadable copy the page links to, so docs/ is self-contained
 fwrite(s[, .(iso3, country_name, income_level, year,
-             twr = round(composite, 4), twr_se = round(composite_se, 4))][
+             vsi = round(composite, 4), vsi_se = round(composite_se, 4))][
          order(iso3, year)],
-       here("docs/twr_scores.csv"))
-cat("wrote docs/twr_scores.csv\n")
+       here("docs/vsi_scores.csv"))
+cat("wrote docs/vsi_scores.csv\n")
 
 
 # ---- SECTOR LAYER ------------------------------------------------------------

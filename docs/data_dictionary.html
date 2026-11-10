@@ -176,7 +176,7 @@
 
 <header class="top">
   <div class="wrap">
-    <p class="eyebrow"><a href="./" style="color:var(--accent);text-decoration:none">← The World on Record</a> · data dictionary</p>
+    <p class="eyebrow"><a href="./" style="color:var(--accent);text-decoration:none">← Visible States Project</a> · data dictionary</p>
     <h1>SDG reporting data, mapped</h1>
     <p class="lede">Every dataset the prep pipeline writes to <code>data/02_measure/</code>, its grain and keys, and what each column means. One source table, six derived, plus the index scores built from them. Merge to the analysis panel on <code>iso3&nbsp;+&nbsp;year</code>.</p>
 
@@ -200,7 +200,7 @@
       <a href="./" style="display:inline-block;font-size:.86rem;padding:.5em .9em;
         border:1px solid var(--line);border-radius:3px;background:var(--surface);
         color:var(--ink);text-decoration:none">The index</a>
-      <a href="twr_scores.csv" download style="display:inline-block;font-size:.86rem;
+      <a href="vsi_scores.csv" download style="display:inline-block;font-size:.86rem;
         padding:.5em .9em;border:1px solid var(--line);border-radius:3px;
         background:var(--surface);color:var(--ink);text-decoration:none">Download CSV</a>
       <a href="https://github.com/SevastianSanchez/Politics_of_NAs" style="display:inline-block;
@@ -235,10 +235,10 @@
       <div class="ds-rail" style="background:var(--accent)"></div>
       <div class="ds-head">
         <div class="ds-title">
-          <span class="name">twr_scores</span>
+          <span class="name">vsi_scores</span>
           <span class="role primary">index</span>
         </div>
-        <p class="ds-desc">The published measure: the <strong>World on Record Index (TWR)</strong>. One reporting-transparency score per country-year, estimated by a two-parameter logistic item response model over 524 series drawn from <span class="mono">agg_series_depth</span> (665 series, less those reported in under 2% or over 98% of country-years, less redundant variants of the same measurement collapsed to one series each). Each series is treated as a test item and each country-year as a test-taker, so series difficulty is estimated rather than assumed &mdash; which is what removes the denominator choice every share-based measure has to make. Scores are expected a posteriori estimates, so <span class="mono">se</span> is a posterior standard deviation, not an asymptotic approximation. Published on the <a href="./">index site</a> as <span class="mono">twr_scores.csv</span>.</p>
+        <p class="ds-desc">The published measure: the <strong>Visible States Index (VSI)</strong>. One reporting-transparency score per country-year, estimated by a two-parameter logistic item response model over 524 series drawn from <span class="mono">agg_series_depth</span> (665 series, less those reported in under 2% or over 98% of country-years, less redundant variants of the same measurement collapsed to one series each). Each series is treated as a test item and each country-year as a test-taker, so series difficulty is estimated rather than assumed &mdash; which is what removes the denominator choice every share-based measure has to make. Scores are expected a posteriori estimates, so <span class="mono">se</span> is a posterior standard deviation, not an asymptotic approximation. Published on the <a href="./">index site</a> as <span class="mono">vsi_scores.csv</span>.</p>
         <div class="meta">
           <div class="m"><span class="ml">grain</span><span class="mv">country × year</span></div>
           <div class="m"><span class="ml">key</span><span class="mv"><span class="k">iso3</span> + year</span></div>
@@ -253,8 +253,8 @@
           <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to analysis_data <span class="badge merge">MERGE</span> <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015&ndash;2023 <span class="badge key">KEY</span></td></tr>
           <tr class="grp-row"><td colspan="3"><span class="gl">the measure</span></td></tr>
-          <tr><td class="col"><span class="cn">twr</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">The World on Record Index: latent reporting transparency on a standard-normal scale. 0 is the average country-year; positive is more complete reporting. Internally <code>theta</code> in the fit objects.</td></tr>
-          <tr><td class="col"><span class="cn">twr_se</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Posterior standard deviation of the TWR score. Median 0.115. Wider for country-years near the extremes, where fewer series discriminate.</td></tr>
+          <tr><td class="col"><span class="cn">vsi</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Visible States Index: latent reporting transparency on a standard-normal scale. 0 is the average country-year; positive is more complete reporting. Internally <code>theta</code> in the fit objects.</td></tr>
+          <tr><td class="col"><span class="cn">vsi_se</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Posterior standard deviation of the VSI score. Median 0.115. Wider for country-years near the extremes, where fewer series discriminate.</td></tr>
         </tbody>
       </table></div>
     </section>
@@ -278,12 +278,12 @@
         <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
         <tbody>
           <tr class="grp-row"><td colspan="3"><span class="gl">identity &amp; keys</span></td></tr>
-          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to analysis_data and to twr_scores <span class="badge merge">MERGE</span> <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to analysis_data and to vsi_scores <span class="badge merge">MERGE</span> <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015&ndash;2023 <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">goal</span></td><td class="type"><span class="ty">int</span></td><td class="desc">SDG goal number. 1&ndash;6 and 8&ndash;17; goal 7 is absent by construction <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">goal_name</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">The goal's official short title, e.g. "Good health and well-being"</td></tr>
           <tr class="grp-row"><td colspan="3"><span class="gl">the measure</span></td></tr>
-          <tr><td class="col"><span class="cn">goal_level</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Reporting on that goal, <strong>overall level included</strong>, on the same standard-normal scale as <code>twr</code>. 0 is the average country-year; positive is more complete reporting on that goal. Not a share and not comparable to one.</td></tr>
+          <tr><td class="col"><span class="cn">goal_level</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Reporting on that goal, <strong>overall level included</strong>, on the same standard-normal scale as <code>vsi</code>. 0 is the average country-year; positive is more complete reporting on that goal. Not a share and not comparable to one.</td></tr>
           <tr><td class="col"><span class="cn">goal_level_se</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Posterior standard deviation of <code>goal_level</code>. Median 0.338 &mdash; roughly three times the overall index's, because each goal is fitted on 17&ndash;75 series rather than 524. <strong>Report it.</strong> A nonparametric bootstrap (500 replicates, no failures) puts the sampling SD at 7&ndash;42% of this, so the published figure is conservative.</td></tr>
           <tr class="grp-row"><td colspan="3"><span class="gl">how to weigh a goal — disclosed, never used to filter</span></td></tr>
           <tr><td class="col"><span class="cn">goal_reliability</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Marginal reliability of that goal's score: 0.772&ndash;0.953, median 0.844. Every goal clears 0.70, which is printed as a reference point and <em>not</em> applied as a cut.</td></tr>

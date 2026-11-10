@@ -20,7 +20,7 @@ output/
     results/        Callaway-Sant'Anna ATTs (4 CSVs), multi-series event counts
 ```
 
-**The scores themselves are not here.** `twr` and `goal_level` live in
+**The scores themselves are not here.** `vsi` and `goal_level` live in
 `data/02_measure/`, because they are inputs to the descriptive and causal
 tracks (rule 1 below). `output/measure/` holds only what *checks* them.
 

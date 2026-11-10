@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The World on Record: From Blank Cells to a Score</title>
+<title>Visible States: From Blank Cells to a Score</title>
 <meta name="description" content="The eleven steps that turn the UN Global SDG Database into a reporting transparency score, with each method named and justified.">
 <style>
 :root{
@@ -132,7 +132,7 @@ footer{border-top:1px solid var(--rule);padding-block:1.6rem 3rem;font-size:.86r
 
 <header>
   <div class="wrap">
-    <p class="eyebrow"><a href="./">&larr; The World on Record</a> &middot; how it is built</p>
+    <p class="eyebrow"><a href="./">&larr; Visible States Project</a> &middot; how it is built</p>
     <h1>From blank cells to a score</h1>
     <p class="lede">The eleven steps that turn 17 spreadsheets of UN data into one number
       per country&ndash;year, what each step's method is called, and why that method and not
@@ -410,7 +410,7 @@ weaknesses attached.</p>
     <div class="tbl"><table>
       <thead><tr><th>Column</th><th>Model</th><th>Reads as</th></tr></thead>
       <tbody>
-        <tr><td class="c">twr</td><td><strong>One</strong> factor, all 524 series, one fit</td>
+        <tr><td class="c">vsi</td><td><strong>One</strong> factor, all 524 series, one fit</td>
           <td>How much this country&ndash;year reports overall</td></tr>
         <tr><td class="c">goal_level</td><td><strong>Sixteen separate</strong> one&ndash;factor
           fits, each on one goal's own series</td>
@@ -434,7 +434,7 @@ weaknesses attached.</p>
       the overall level does not explain.</dd>
     </dl>
     <div class="why"><b>Why a bifactor and not a subtraction</b>
-    <p><code>goal_level</code> minus <code>twr</code> looks like the same quantity and is not.
+    <p><code>goal_level</code> minus <code>vsi</code> looks like the same quantity and is not.
     Subtracting two correlated estimates gives a difference whose error is larger than either
     one's and whose scale means nothing in particular. The bifactor estimates the residual
     <em>directly, as a parameter</em>, so it arrives with its own standard error.</p></div>
@@ -616,7 +616,7 @@ weaknesses attached.</p>
     with the run that established it, including the runs that failed. Fitted with mirt 1.48 on
     R 4.5.3.</p>
     <p>Sevastian Sanchez &middot; Columbia University &middot;
-    <a href="./">The World on Record</a> &middot;
+    <a href="./">Visible States Project</a> &middot;
     <a href="data_dictionary.html">Data dictionary</a> &middot;
     <a href="https://github.com/SevastianSanchez/Politics_of_NAs">source repository</a></p>
   </div>

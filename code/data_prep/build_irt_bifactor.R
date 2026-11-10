@@ -250,8 +250,8 @@ fwrite(ip, file.path(out, "irt_goal_relative_item_params.csv"))
 # the bifactor's own general factor, kept for comparison with the published
 # 1-factor index: they answer the same question two ways
 fwrite(data.table(iso3 = keys$iso3, year = keys$year,
-                  twr_bifactor = round(mG$ev, 4),
-                  twr_bifactor_se = round(mG$sd, 4)),
+                  vsi_bifactor = round(mG$ev, 4),
+                  vsi_bifactor_se = round(mG$sd, 4)),
        file.path(out, "irt_goal_relative_general.csv"))
 
 fwrite(data.table(
