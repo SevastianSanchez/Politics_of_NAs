@@ -14,7 +14,7 @@
 # three numbers a reader needs to weigh it -- reliability, how concentrated the
 # score is in its heaviest series, and how much of its weight rests on series
 # the custodian agency produces rather than the country. Nothing is excluded for
-# imprecision: 0.70 (Nunnally) is printed as a reference point, not applied as a
+# imprecision: 0.70 (Nunnally 1978) is printed as a reference point, not applied as a
 # cut. Goals 6 and 15 are marked `hold_content` and goal 7 has no score at all
 # (3 series, too few to identify a factor). See CLAUDE.md.
 #

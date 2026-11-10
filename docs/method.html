@@ -91,6 +91,9 @@ dl.terms dd:last-child{margin-bottom:0}
   white-space:nowrap;line-height:1.8}
 .formula:has(math){padding:1rem 1.1rem;white-space:normal;line-height:1.4}
 math{font-family:var(--serif);font-size:1.15rem;color:var(--fg);white-space:normal}
+.sym{font-family:var(--serif);font-style:italic;font-size:1.05em}
+dl.terms math[display="block"]{margin:.1rem 0 .6rem}
+dl.terms math[display="block"]+span{display:block}
 math[display="block"]{display:block;margin:0 auto;width:fit-content}
 dl.terms math{font-size:1rem;vertical-align:-.4em}
 .tbl{overflow-x:auto;margin:0 0 1rem;border:1px solid var(--rule);border-radius:6px;
@@ -243,15 +246,15 @@ weaknesses attached.</p>
       </mrow>
     </math></div>
     <dl class="terms">
-      <dt>&theta; &mdash; the latent trait</dt>
-      <dd>&ldquo;Latent&rdquo; means not directly observable. &theta; is a country&ndash;year's
+      <dt><i class="sym">&theta;</i> &mdash; the latent trait</dt>
+      <dd>&ldquo;Latent&rdquo; means not directly observable. <i class="sym">&theta;</i> is a country&ndash;year's
       <strong>propensity to report</strong>: never seen, inferred from 524 ones and zeros.
       <strong>This is the score.</strong></dd>
-      <dt>a<sub>j</sub> &mdash; discrimination</dt>
+      <dt><i class="sym">a</i><sub>j</sub> &mdash; discrimination</dt>
       <dd>How sharply series <em>j</em> separates high&ndash;propensity country&ndash;years from
       low ones. This is the weight the series carries, and the model estimates it from the data.
       Nobody assigns it.</dd>
-      <dt>d<sub>j</sub> &mdash; intercept, or difficulty</dt>
+      <dt><i class="sym">d</i><sub>j</sub> &mdash; intercept, or difficulty</dt>
       <dd>How much propensity it takes before a country&ndash;year reports that series at all.</dd>
     </dl>
     <figure>
@@ -284,7 +287,7 @@ weaknesses attached.</p>
     call &mdash; and the index correlates only <strong>0.61&ndash;0.68</strong> with
     share&ndash;based measures, so the two are not interchangeable.</p></div>
     <div class="flagbox"><b>The assumption to know about</b>
-    <p><strong>Local independence:</strong> conditional on &theta;, the 524 series are
+    <p><strong>Local independence:</strong> conditional on <i class="sym">&theta;</i>, the 524 series are
     independent of one another. This is not exactly true, since related series are reported
     together. Step 9 is built to attack it rather than assert it.</p></div>
   </div>
@@ -294,15 +297,15 @@ weaknesses attached.</p>
   <div class="n">STEP<b>05</b></div>
   <div class="sbody">
     <h2>Fit the series parameters by EM</h2>
-    <p>Every <code>a</code> and <code>d</code> must be estimated before any country can be
-    scored, and &theta; is unobserved &mdash; so you cannot estimate the series from the
+    <p>Every <i class="sym">a</i> and <i class="sym">d</i> must be estimated before any country can be
+    scored, and <i class="sym">&theta;</i> is unobserved &mdash; so you cannot estimate the series from the
     countries or the countries from the series. The standard answer is to alternate.</p>
     <dl class="terms">
       <dt>Marginal maximum likelihood, via the EM algorithm</dt>
-      <dd>Guess the series parameters; work out the implied distribution of &theta; for every
+      <dd>Guess the series parameters; work out the implied distribution of <i class="sym">&theta;</i> for every
       country&ndash;year (<em>expectation</em>); re&ndash;estimate the series parameters as if
       that distribution were data (<em>maximisation</em>); repeat. Each pass is a
-      <strong>cycle</strong>. &ldquo;Marginal&rdquo; means &theta; is integrated out rather
+      <strong>cycle</strong>. &ldquo;Marginal&rdquo; means <i class="sym">&theta;</i> is integrated out rather
       than estimated alongside, so the parameter count does not grow with countries.</dd>
       <dt>Convergence tolerance</dt>
       <dd>Stop when no parameter moves by more than this in a cycle. Set to <strong>1e&minus;3</strong>.</dd>
@@ -339,7 +342,7 @@ weaknesses attached.</p>
   <div class="sbody">
     <h2>Score each country&ndash;year, with an error bar</h2>
     <p>With the series parameters fixed, a country&ndash;year's 524 bits imply a probability
-    distribution over its &theta;. The score is the mean of that distribution.</p>
+    distribution over its <i class="sym">&theta;</i>. The score is the mean of that distribution.</p>
     <div class="formula"><math display="block">
       <mrow>
         <mover accent="true"><mi>&#x3B8;</mi><mo>&#x5E;</mo></mover><mo>=</mo>
@@ -357,9 +360,9 @@ weaknesses attached.</p>
     </math></div>
     <dl class="terms">
       <dt>EAP &mdash; expected a posteriori</dt>
-      <dd>The posterior mean of &theta;. <code>L</code> is the likelihood of the observed
-      pattern of ones and zeros; <code>&phi;</code> is a standard normal prior, which is also
-      what fixes the scale at mean 0, SD 1. The integral is computed over a grid of &theta;
+      <dd>The posterior mean of <i class="sym">&theta;</i>. <i class="sym">L</i> is the likelihood of the observed
+      pattern of ones and zeros; <i class="sym">&phi;</i> is a standard normal prior, which is also
+      what fixes the scale at mean 0, SD 1. The integral is computed over a grid of <i class="sym">&theta;</i>
       values.</dd>
       <dt>The standard error</dt>
       <dd>The <em>standard deviation</em> of that same posterior. It falls out of the same
@@ -372,8 +375,8 @@ weaknesses attached.</p>
     estimate is &plusmn;infinity. EAP is always finite because the prior pulls it back, and it
     returns a standard error for free. The cost is slight shrinkage toward 0 at the extremes.</p></div>
     <p><strong>Orientation.</strong> The model identifies the factor only up to sign: flip every
-    <code>a</code> and every &theta; and the likelihood is identical. So after fitting, the sign
-    is set by correlating &theta; with the plain count of series reported, and flipped if needed.
+    <i class="sym">a</i> and every <i class="sym">&theta;</i> and the likelihood is identical. So after fitting, the sign
+    is set by correlating <i class="sym">&theta;</i> with the plain count of series reported, and flipped if needed.
     More reporting is always a higher score.</p>
   </div>
 </section>
@@ -431,14 +434,16 @@ weaknesses attached.</p>
     covers only the first.</p>
     <dl class="terms">
       <dt>Reliability</dt>
-      <dd><math><mrow><mfrac>
+      <dd><math display="block"><mrow><mfrac>
         <mrow><mi>var</mi><mo stretchy="false">(</mo><mi>score</mi><mo stretchy="false">)</mo></mrow>
         <mrow><mi>var</mi><mo stretchy="false">(</mo><mi>score</mi><mo stretchy="false">)</mo><mo>+</mo>
           <mi>mean</mi><mo stretchy="false">(</mo><msup><mi>SE</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow>
-      </mfrac></mrow></math> &mdash; the share of the spread
+      </mfrac></mrow></math>
+      <span>The share of the spread
       in scores that is signal rather than measurement noise. Overall index
       <strong>0.987</strong>. Goal level: median <strong>0.844</strong>, range
-      0.772&ndash;0.953. 0.70 (Nunnally) is quoted as a reference point, never applied as a cut.</dd>
+      0.772&ndash;0.953. 0.70 (Nunnally 1978) is quoted as a reference point, never applied as a
+      cut.</span></dd>
       <dt>The bootstrap</dt>
       <dd>Resample the 1,773 country&ndash;years with replacement, refit the whole model,
       re&ndash;score the original rows, repeat. The spread across replicates is how much the
@@ -463,9 +468,9 @@ weaknesses attached.</p>
     <dl class="terms">
       <dt>Held&ndash;out series validity</dt>
       <dd>Fit on 70% of a goal's series, then ask how well the resulting score predicts
-      reporting on the <strong>30% it never saw</strong>. Scored by <strong>AUC</strong>: the
-      probability that a randomly chosen reported case outranks a randomly chosen unreported
-      one. 0.5 is a coin flip, 1.0 is perfect. Computed per held&ndash;out series, then the
+      reporting on the <strong>30% it never saw</strong>. Scored by the <strong>area under the
+      receiver operating characteristic curve (AUC)</strong>: the probability that a randomly
+      chosen reported case outranks a randomly chosen unreported one. 0.5 is a coin flip, 1.0 is perfect. Computed per held&ndash;out series, then the
       median, against a <strong>permutation null</strong> drawn fresh for each series by
       shuffling the scores.</dd>
     </dl>
@@ -523,8 +528,8 @@ weaknesses attached.</p>
     flow, so &ldquo;reported&rdquo; there mostly records whether an agency published a dataset
     rather than a country's choice.</p>
     <p><strong>Goal 15</strong> is overwhelmingly country&ndash;produced, but a third of its
-    series are treaty and policy instruments &mdash; Nagoya Protocol, Aichi targets, NBSAP
-    &mdash; which may track commitment status rather than reporting effort.</p>
+    series are treaty and policy instruments (e.g. Nagoya Protocol, Aichi targets, NBSAP),
+    which may track commitment status rather than reporting effort.</p>
     <p>Neither is a precision problem, and no error bar can warn a reader about either, so the
     flag travels in the data. Both goals are published in full.</p></div>
   </div>
@@ -551,18 +556,18 @@ weaknesses attached.</p>
   <h2>Terms, one line each</h2>
   <dl>
     <dt>Series</dt><dd>One SDG data series &mdash; the thing a country either reports or does not. What the model treats as an item.</dd>
-    <dt>Latent trait (&theta;)</dt><dd>The unobserved propensity to report, inferred from 524 ones and zeros. The score itself.</dd>
+    <dt>Latent trait (<i class="sym">&theta;</i>)</dt><dd>The unobserved propensity to report, inferred from 524 ones and zeros. The score itself.</dd>
     <dt>Factor</dt><dd>One latent dimension in a model. The overall index has one; the bifactor has seventeen.</dd>
     <dt>2PL</dt><dd>Two&ndash;parameter logistic: each series gets a discrimination and an intercept.</dd>
     <dt>Discrimination (a)</dt><dd>How sharply a series separates high from low propensity. The weight it earns.</dd>
     <dt>Intercept (d)</dt><dd>How much propensity it takes to report that series at all. Its difficulty.</dd>
-    <dt>Local independence</dt><dd>The assumption that, given &theta;, series are independent. Tested in step 9, not asserted.</dd>
-    <dt>EM algorithm</dt><dd>Alternating expectation and maximisation passes that estimate series parameters while &theta; is unobserved. One pass is a cycle.</dd>
-    <dt>EAP</dt><dd>Expected a posteriori: the posterior mean of &theta;. The scoring rule; its posterior SD is the standard error.</dd>
+    <dt>Local independence</dt><dd>The assumption that, given <i class="sym">&theta;</i>, series are independent. Tested in step 9, not asserted.</dd>
+    <dt>EM algorithm</dt><dd>Alternating expectation and maximisation passes that estimate series parameters while <i class="sym">&theta;</i> is unobserved. One pass is a cycle.</dd>
+    <dt>EAP</dt><dd>Expected a posteriori: the posterior mean of <i class="sym">&theta;</i>. The scoring rule; its posterior SD is the standard error.</dd>
     <dt>Bifactor</dt><dd>A model where each series loads on exactly two factors: one general, one for its own goal.</dd>
     <dt>Reliability</dt><dd>Signal share of score variance: var(score) / (var(score) + mean SE&sup2;).</dd>
     <dt>Bootstrap</dt><dd>Resample country&ndash;years, refit, re&ndash;score, repeat. Measures uncertainty in the series parameters.</dd>
-    <dt>AUC</dt><dd>Chance that a reported case outranks an unreported one. 0.5 is a coin flip.</dd>
+    <dt>AUC</dt><dd>Area under the receiver operating characteristic curve: the chance that a reported case outranks an unreported one. 0.5 is a coin flip.</dd>
     <dt>Permutation null</dt><dd>The AUC from shuffled scores &mdash; the floor any real result must clear.</dd>
   </dl>
 </section>
