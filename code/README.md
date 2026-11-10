@@ -39,3 +39,32 @@ neither.
 Every setting in both fits comes from `METHODS_LOG.md`. **Read that file before
 changing one.** Each cost hours to establish, and the log records which
 configurations already failed.
+
+## What is running right now
+
+```
+bash code/runs.sh
+```
+
+Every R process on the machine, how long it has been there, and the last line
+of every log touched in the last six hours. `-v` widens that to a full day and
+prints eight lines per log. Each process is labelled:
+
+| Label | Meaning |
+|---|---|
+| `running` | normal |
+| `ORPHAN` | a parallel worker whose parent died. It will pin a core forever |
+| `STALE` | still running after more than six hours (`STALE_HOURS=12` to change) |
+
+`bash code/runs.sh --kill` kills everything labelled `ORPHAN` or `STALE`, after
+asking.
+
+Logs are matched to processes through `lsof`, by which file each process has on
+standard output, so a log named differently from its script is still reported
+as `LIVE` rather than guessed at.
+
+**Why this exists.** On 9 November two superseded bifactor fits were found still
+running after 26 hours, pinning two cores, while a third fit that replaced them
+had long since finished. `mclapply` workers do not die with their parent: kill
+the parent and the children are reparented to `init` and keep going. Check this
+before launching anything, and again after killing anything.

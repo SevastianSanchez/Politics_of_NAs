@@ -149,11 +149,16 @@ tr.overlap td{color:var(--muted)}
 .ver h3 em{font-style:normal;color:var(--accent);font-weight:500}
 .ver p{font-size:.9rem;color:var(--muted);margin:0;max-width:62ch}
 @media (max-width:30rem){.ver{flex-direction:column;gap:.4rem}}
-.grow{display:grid;grid-template-columns:13.5rem 1fr 6.4rem;gap:.7rem;align-items:center;
+.grow{display:grid;grid-template-columns:16rem 1fr 6.4rem;gap:.7rem;align-items:center;
   padding:.3rem 0;font-size:.88rem}
 .grow .gl{color:var(--fg);line-height:1.25;min-width:0}
-.grow .gl .gtop{display:flex;align-items:center;gap:.3rem;min-width:0}
-.grow .gl .gname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.grow .gl .gtop{display:flex;align-items:baseline;gap:.3rem;min-width:0}
+.grow .gl .gname{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+.grow .gl .gnm{flex:0 0 1.5rem;font-family:var(--mono);font-size:.74rem;color:var(--faint);
+  font-variant-numeric:tabular-nums}
+.grow.gnone{opacity:.72}
+.grow.gnone .gtrack{background:transparent;border:1px dashed var(--rule2)}
+.grow.gnone .gnum{color:var(--faint)}
 .grow .gl .gbadge{flex:0 0 auto;margin-left:0}
 .gtrack{position:relative;height:16px;background:var(--rule2);border-radius:2px}
 .gfill{position:absolute;left:0;top:0;bottom:0;background:var(--accent);
@@ -162,6 +167,8 @@ tr.overlap td{color:var(--muted)}
 .gzero{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--fg);opacity:.3}
 .gerr{position:absolute;top:50%;height:2px;transform:translateY(-50%);
   background:var(--fg);opacity:.3;border-radius:1px}
+.walk{margin:1.1rem 0 0;font-size:.92rem}
+.walk a{font-weight:600}
 .gbadge{font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;
   padding:.1rem .34rem;border-radius:3px;background:var(--accent-soft);
   color:var(--accent);margin-left:.4rem;white-space:nowrap}
@@ -207,13 +214,15 @@ footer p{max-width:64ch}
       behaviour across 524 statistical series and 197 countries, 2015&ndash;2023, with
       uncertainty quantified for every country&ndash;year.</p>
     <p class="sub"><strong>The World on Record Index (TWR)</strong> is the overall score
-      published here. Sector&ndash;level scores follow when the goal model finishes
-      estimating.</p>
+      published here, alongside <strong>goal&ndash;level scores</strong> for the 16 SDG
+      goals with enough series to support them.</p>
     <p class="sub">Existing transparency indices stop in 2015. This one begins there, and
       resolves reporting by policy domain rather than returning a single national score.
       Estimated by item response theory on the UN Global SDG Database.</p>
     <p class="byline">Sevastian Sanchez &middot; Columbia University &middot;
       <span id="gen"></span> &middot;
+      <a href="method.html">How it is built</a> &middot;
+      <a href="data_dictionary.html">Data dictionary</a> &middot;
       <a href="https://github.com/SevastianSanchez/Politics_of_NAs">source repository</a></p>
   </div>
 </header>
@@ -227,7 +236,7 @@ footer p{max-width:64ch}
 <section>
   <div class="wrap">
     <p class="eyebrow">What this measures</p>
-    <h2>Reporting is a choice, not just a capacity</h2>
+    <h2>Missing data isn&rsquo;t noise. It&rsquo;s behaviour.</h2>
     <p>For every country, series and year, the UN database either holds a published
       figure or it does not. Treat each of the 524 statistical series as an item on a
       test and each country&ndash;year as a test&ndash;taker: a country's underlying
@@ -488,6 +497,8 @@ footer p{max-width:64ch}
         years, as in the original transparency index, is deferred: nine years is a
         short series for a random walk to earn its place.</dd>
     </dl>
+    <p class="walk"><a href="method.html">The full walkthrough &mdash; eleven steps from the
+      UN export to a score &rarr;</a></p>
   </div>
 </section>
 
@@ -671,9 +682,10 @@ function drawGoals(){
     const cls  = Math.abs(d) < 0.005 ? "" : (d < 0 ? "gdown" : "gup");
     const x0 = pos(Math.min(0, r.v)), x1 = pos(Math.max(0, r.v));
     const e0 = pos(r.v - r.se), e1 = pos(r.v + r.se);
-    return '<div class="grow"><span class="gl" title="' + r.label + ' \u2014 ' +
-      r.n + ' series, reliability ' + r.rel.toFixed(2) + '">' +
-      '<span class="gtop"><span class="gname">' + r.label + '</span>' +
+    return '<div class="grow"><span class="gl" title="Goal ' + r.g + ': ' + r.label +
+      ' \u2014 ' + r.n + ' series, reliability ' + r.rel.toFixed(2) + '">' +
+      '<span class="gtop"><span class="gnm">' + r.g + '</span>' +
+      '<span class="gname">' + r.label + '</span>' +
       (r.held ? '<span class="gbadge">held</span>' : '') + '</span>' +
       '<span class="gsub">' + r.n + ' series &middot; rel ' + r.rel.toFixed(2) +
       '</span></span>' +
@@ -690,13 +702,27 @@ function drawGoals(){
         '<span class="gdelta ' + cls + '">' + sign + d.toFixed(2) + '</span>') +
       '</span></div>';
   }).join("") +
+  // Goals in the framework that carry too few series to identify a factor are
+  // listed, not dropped: an absent goal reads as an abandoned one.
+  (G.unscored || []).map(u =>
+    '<div class="grow gnone"><span class="gl" title="Goal ' + u.g + ': ' + u.name +
+      ' \u2014 ' + u.reason + '">' +
+      '<span class="gtop"><span class="gnm">' + u.g + '</span>' +
+      '<span class="gname">' + u.name + '</span>' +
+      '<span class="gbadge">not scored</span></span>' +
+      '<span class="gsub">' + u.series + ' series &middot; too few for a factor' +
+      '</span></span><span class="gtrack"></span>' +
+      '<span class="gnum">&mdash;</span></div>').join("") +
   '<div class="glegend"><span><i class="swatch"></i>goal score in ' + yr +
     '</span><span><i class="tick"></i>' + G.years[y0] + ' level</span>' +
     '<span>the pale bar is &plusmn;1 standard error</span></div>' +
   goalMetricsTable();
 
   document.getElementById("gnote").textContent =
-    c.iso + " \u00b7 " + G.goals.length + " goals \u00b7 goal 7 not scored";
+    c.iso + " \u00b7 " + G.goals.length + " goals scored" +
+    ((G.unscored || []).length
+      ? " \u00b7 " + G.unscored.map(u => "goal " + u.g).join(", ") + " not scored"
+      : "");
 }
 
 /* Per-goal diagnostics, published alongside the scores rather than used to
@@ -713,7 +739,12 @@ function goalMetricsTable(){
     '<td class="mono">' + m.rel.toFixed(3) + '</td>' +
     '<td class="mono">' + m.se_med.toFixed(2) + '</td>' +
     '<td class="mono">' + m.conc.toFixed(0) + '%</td>' +
-    '<td class="mono">' + m.agency.toFixed(0) + '%</td></tr>').join("");
+    '<td class="mono">' + m.agency.toFixed(0) + '%</td></tr>').join("") +
+    (G.unscored || []).map(u =>
+      '<tr class="held"><td>' + u.g + '. ' + u.name +
+      '<span class="gbadge">not scored</span></td>' +
+      '<td class="mono">' + u.series + '</td>' +
+      '<td class="mono" colspan="4">' + u.reason + '</td></tr>').join("");
   return '<div class="gmetrics"><div class="gmwrap"><table><thead><tr>' +
     '<th>Goal</th><th>Series</th><th>Reliability</th><th>Median SE</th>' +
     '<th title="share of the score carried by its five heaviest series">Top 5</th>' +

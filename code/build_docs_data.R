@@ -102,6 +102,13 @@ if (file.exists(gp) && file.exists(hp)) {
 
   h[, goal_name := SDG_NAME[as.character(goal)]]
 
+  # How many series each goal actually has, taken from the shared prep, so a
+  # goal that is not fitted can still state its size. MIN_SERIES_DOC mirrors
+  # MIN_SERIES in build_irt_goals.R.
+  MIN_SERIES_DOC <- 10L
+  if (!exists("item_goal")) source(here("code/data_prep/irt_prep.R"))
+  N_SERIES_BY_GOAL <- table(item_goal)
+
   g <- merge(g, meta, by = "iso3", all.x = TRUE)
   g[is.na(country_name), country_name := iso3]
   g[is.na(income_level) | income_level == "", income_level := "Unclassified"]
@@ -127,6 +134,21 @@ if (file.exists(gp) && file.exists(hp)) {
                  status = release)]
   setorder(gmeta, g)
 
+  # Goals that exist in the framework but carry too few series to identify a
+  # factor are DECLARED, not omitted. An absent goal reads as an abandoned goal;
+  # the site renders these as rows with no bar and the reason printed.
+  scored   <- sort(unique(h$goal))
+  unscored <- setdiff(1:17, scored)
+  umeta <- if (length(unscored)) {
+    data.table::data.table(
+      g      = unscored,
+      name   = SDG_NAME[as.character(unscored)],
+      series = N_SERIES_BY_GOAL[as.character(unscored)],
+      status = "not_scored",
+      reason = paste0(N_SERIES_BY_GOAL[as.character(unscored)],
+                      " series \u2014 a factor needs at least ", MIN_SERIES_DOC))
+  } else NULL
+
   gout <- list(
     generated = format(Sys.time(), "%Y-%m-%d"),
     note      = paste("One score per country-year per goal, on the same scale",
@@ -136,8 +158,10 @@ if (file.exists(gp) && file.exists(hp)) {
                       "content grounds. Goal 7 has too few series to score."),
     reliability_reference = 0.70,
     n_goals   = nrow(gmeta),
+    n_unscored = if (is.null(umeta)) 0L else nrow(umeta),
     years     = gyears,
     goals     = gmeta,
+    unscored  = umeta,
     countries = gcountries)
 
   writeLines(toJSON(gout, auto_unbox = TRUE, dataframe = "rows", digits = NA),

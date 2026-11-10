@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The World on Record: How It Is Built</title>
+<meta name="description" content="The eleven steps that turn the UN Global SDG Database into a reporting transparency score, with each method named and justified.">
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#fff; --fg:#1d1c1a; --muted:#6b6862; --faint:#8d8a84;
+  --rule:#e3dfd8; --rule2:#efece6;
+  --accent:#7a4b2a; --accent-soft:#f3ece5; --bar2:#c89355;
+  --warn:#8a5a12; --warn-bg:#fdf5e4; --warn-rule:#e8d5a8;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#15140f; --panel:#1d1c17; --fg:#eceae4; --muted:#a3a097; --faint:#857f74;
+  --rule:#332f27; --rule2:#262319;
+  --accent:#d09a6a; --accent-soft:#2a2118; --bar2:#b07c3d;
+  --warn:#e0b765; --warn-bg:#2a2317; --warn-rule:#4d4027;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#15140f; --panel:#1d1c17; --fg:#eceae4; --muted:#a3a097; --faint:#857f74;
+  --rule:#332f27; --rule2:#262319;
+  --accent:#d09a6a; --accent-soft:#2a2118; --bar2:#b07c3d;
+  --warn:#e0b765; --warn-bg:#2a2317; --warn-rule:#4d4027;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
+.wrap{max-width:52rem;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;line-height:1.2}
+h1{font-size:clamp(1.8rem,4.6vw,2.6rem);margin:0 0 .4rem}
+h2{font-size:clamp(1.18rem,2.8vw,1.45rem);margin:0 0 .6rem}
+h3{font-size:1rem;margin:1.5rem 0 .35rem;font-family:var(--sans);font-weight:600}
+p{margin:0 0 .9rem;max-width:64ch}
+ul,ol{margin:0 0 .9rem;padding-left:1.2rem;max-width:64ch}
+li{margin-bottom:.3rem}
+a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.86em;background:var(--accent-soft);
+  padding:.1em .35em;border-radius:3px;word-break:break-word}
+header{border-bottom:1px solid var(--rule);padding-block:2.6rem 1.8rem;background:var(--panel)}
+.eyebrow{font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 1rem}
+.eyebrow a{text-decoration:none}
+.lede{font-family:var(--serif);font-size:clamp(1.02rem,2.2vw,1.2rem);color:var(--muted);
+  max-width:58ch;margin:0 0 1.2rem}
+.meta{font-family:var(--mono);font-size:.74rem;color:var(--faint);
+  text-transform:uppercase;letter-spacing:.07em;margin:0}
+.flow{display:flex;flex-wrap:wrap;gap:.3rem .45rem;align-items:center;
+  font-family:var(--mono);font-size:.74rem;margin:1.6rem 0 .5rem}
+.flow b{font-weight:400;color:var(--fg);white-space:nowrap;background:var(--rule2);
+  padding:.2em .5em;border-radius:3px}
+.flow i{color:var(--accent);font-style:normal}
+.flownote{font-size:.86rem;color:var(--muted);margin:0 0 2rem;max-width:62ch}
+section.step{border-top:1px solid var(--rule);padding-block:1.9rem}
+.step{display:grid;grid-template-columns:4rem minmax(0,1fr);gap:0 1.3rem}
+.n{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.06em;
+  padding-top:.35em}
+.n b{display:block;font-family:var(--serif);font-size:1.5rem;color:var(--fg);
+  font-weight:600;line-height:1;margin-top:.15rem}
+.sbody{min-width:0}
+@media (max-width:40rem){
+  .step{grid-template-columns:1fr}
+  .n{display:flex;align-items:baseline;gap:.5rem;padding-top:0;margin-bottom:.6rem}
+  .n b{margin-top:0;font-size:1.1rem}
+}
+dl.terms{margin:0 0 1rem;background:var(--panel);border:1px solid var(--rule);
+  border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:.9rem 1.1rem}
+dl.terms dt{font-weight:600;font-size:.93rem;margin-bottom:.15rem}
+dl.terms dd{margin:0 0 .8rem;font-size:.95rem;color:var(--fg)}
+dl.terms dd:last-child{margin-bottom:0}
+.why{background:var(--accent-soft);border-radius:6px;padding:.85rem 1.1rem;
+  margin:0 0 1rem;font-size:.95rem}
+.why b{display:block;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.25rem}
+.why p:last-child,.flagbox p:last-child{margin-bottom:0}
+.flagbox{background:var(--warn-bg);border:1px solid var(--warn-rule);border-radius:6px;
+  padding:.85rem 1.1rem;margin:0 0 1rem;font-size:.94rem}
+.flagbox b{display:block;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--warn);margin-bottom:.25rem}
+.formula{font-family:var(--mono);font-size:.88rem;background:var(--rule2);
+  border-radius:6px;padding:.9rem 1.1rem;margin:0 0 1rem;overflow-x:auto;
+  white-space:nowrap;line-height:1.8}
+.tbl{overflow-x:auto;margin:0 0 1rem;border:1px solid var(--rule);border-radius:6px;
+  background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th{text-align:left;font-size:.69rem;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--faint);font-weight:600;padding:.6rem .8rem;border-bottom:1px solid var(--rule);
+  white-space:nowrap}
+td{padding:.55rem .8rem;border-bottom:1px solid var(--rule2);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.n2,th.n2{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.c{font-family:var(--mono);font-size:.84rem;color:var(--accent);white-space:nowrap}
+figure{margin:0 0 1rem}
+figure svg{display:block;width:100%;height:auto;max-width:100%;background:var(--panel);
+  border:1px solid var(--rule);border-radius:6px}
+figcaption{font-size:.84rem;color:var(--muted);margin-top:.45rem;max-width:60ch}
+.gloss{border-top:1px solid var(--rule);padding-block:1.9rem}
+.gloss dl{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:0 1.2rem;margin:0}
+.gloss dt{font-weight:600;font-size:.88rem;padding:.55rem 0;border-top:1px solid var(--rule2)}
+.gloss dd{margin:0;font-size:.93rem;padding:.55rem 0;border-top:1px solid var(--rule2)}
+.gloss dl>dt:first-of-type,.gloss dl>dt:first-of-type+dd{border-top:0}
+@media (max-width:40rem){
+  .gloss dl{grid-template-columns:1fr}
+  .gloss dt{padding-bottom:0}
+  .gloss dd{border-top:0;padding-top:.1rem;padding-bottom:.7rem}
+  .gloss dl>dt:first-of-type+dd{border-top:0}
+}
+footer{border-top:1px solid var(--rule);padding-block:1.6rem 3rem;font-size:.86rem;
+  color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow"><a href="./">&larr; The World on Record</a> &middot; how it is built</p>
+    <h1>From a UN spreadsheet to a score</h1>
+    <p class="lede">The eleven steps that turn 17 spreadsheets into one number per
+      country&ndash;year, what each step's method is called, and why that method and not a
+      simpler one.</p>
+    <p class="meta">197 countries &middot; 2015&ndash;2023 &middot; 524 series &middot;
+      1,773 country&ndash;years</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<div class="flow">
+  <b>17 Goal*.xlsx</b><i>&rarr;</i><b>1,179,045 cells</b><i>&rarr;</i>
+  <b>665 series</b><i>&rarr;</i><b>607</b><i>&rarr;</i><b>524</b><i>&rarr;</i>
+  <b>fit</b><i>&rarr;</i><b>score</b><i>&rarr;</i><b>check</b><i>&rarr;</i>
+  <b>disclose</b><i>&rarr;</i><b>release</b>
+</div>
+<p class="flownote">Steps 1&ndash;3 decide <em>what</em> is measured. Steps 4&ndash;7 are the
+estimator. Steps 8&ndash;9 try to break it. Steps 10&ndash;11 publish it with its own
+weaknesses attached.</p>
+
+<section class="step">
+  <div class="n">STEP<b>01</b></div>
+  <div class="sbody">
+    <h2>The outcome is a single bit</h2>
+    <p>Other SDG measures read the <em>values</em> countries report. This one reads
+    <em>whether a value is there at all</em>:</p>
+    <div class="formula">y[country, year, series] = 1 if a value was reported, else 0</div>
+    <p>Nothing downstream looks at the magnitude of a reported figure. A country that
+    publishes unflattering numbers scores high; a country that publishes nothing scores low.
+    The unit of analysis is a country&ndash;year, and each carries 524 ones and zeros.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">STEP<b>02</b></div>
+  <div class="sbody">
+    <h2>Complete the grid, so the zeros exist</h2>
+    <p>The UN export holds a row only where a country reported something. A missing report is
+    an <em>absent row</em>, not a zero. Load the export and count, and you count only
+    successes. So the first operation builds every cell that could exist &mdash; 197 countries
+    &times; 9 years &times; every series &mdash; and marks what the export does not reach as 0.</p>
+    <dl class="terms">
+      <dt>Completed grid</dt>
+      <dd>The full country &times; year &times; series rectangle with zeros filled in.
+      1,179,045 cells, of which <strong>38.2%</strong> are reported. Built once by
+      <code>irt_prep.R</code>, which every model sources, so no two fits can disagree about
+      what the data are.</dd>
+    </dl>
+    <div class="flagbox"><b>The failure this prevents</b>
+    <p>Skip it and &ldquo;reporting&rdquo; silently becomes &ldquo;reporting, among countries
+    that reported&rdquo; &mdash; the sample defined by the outcome. Everything downstream would
+    then be wrong in the same invisible direction.</p></div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">STEP<b>03</b></div>
+  <div class="sbody">
+    <h2>Choose the series: 665 &rarr; 607 &rarr; 524</h2>
+    <dl class="terms">
+      <dt>The 2&ndash;98% filter <code>665 &rarr; 607</code></dt>
+      <dd>Series reported in fewer than 2% or more than 98% of country&ndash;years are removed.
+      A series everyone reports, or nobody does, is the same for every country and carries no
+      information for separating them.</dd>
+      <dt>Variant collapse <code>607 &rarr; 524</code></dt>
+      <dd>Some measurements are entered in the database more than once &mdash; children stunted
+      appears as a percentage and, separately, as a count in thousands. Counting both pays a
+      country twice for one reporting decision. 59 such clusters contribute one series each.</dd>
+    </dl>
+    <p><strong>Two conditions must both hold before a cluster collapses.</strong> The series
+    must be reported, and not reported, together in every one of the 1,773 country&ndash;years;
+    and their descriptions must show they measure the same thing a different way. The pattern
+    alone is not enough, because at these reporting rates unrelated series coincide by chance:
+    forest certification, electricity access and refugee counts all move together in 99.5% of
+    country&ndash;years without measuring anything in common.</p>
+    <div class="why"><b>Where the line is drawn</b>
+    <p>Series that merely resemble one another are kept apart, because a country publishing one
+    and withholding the other has made a real reporting choice &mdash; exactly the thing being
+    measured. The cost of that decision is disclosed in step 10 as weight concentration. The
+    test re&ndash;runs on every fit and halts it if a future data release breaks it.</p></div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">STEP<b>04</b></div>
+  <div class="sbody">
+    <h2>The estimator: a two&ndash;parameter logistic item response model</h2>
+    <p>This is what makes the measure more than a tally. The design comes from testing: a
+    student's ability is unobserved, but you see which questions they answered, and hard
+    questions are more informative than easy ones. Swap student for country&ndash;year and
+    question for series. Hollyer, Rosendorff and Vreeland introduced this design for World
+    Development Indicators; it is applied here to SDG data.</p>
+    <div class="formula">P(y = 1 | &theta;) = 1 / (1 + exp(&minus;(a<sub>j</sub> &middot; &theta; + d<sub>j</sub>)))</div>
+    <dl class="terms">
+      <dt>&theta; &mdash; the latent trait</dt>
+      <dd>&ldquo;Latent&rdquo; means not directly observable. &theta; is a country&ndash;year's
+      <strong>propensity to report</strong>: never seen, inferred from 524 ones and zeros.
+      <strong>This is the score.</strong></dd>
+      <dt>a<sub>j</sub> &mdash; discrimination</dt>
+      <dd>How sharply series <em>j</em> separates high&ndash;propensity country&ndash;years from
+      low ones. This is the weight the series carries, and the model estimates it from the data.
+      Nobody assigns it.</dd>
+      <dt>d<sub>j</sub> &mdash; intercept, or difficulty</dt>
+      <dd>How much propensity it takes before a country&ndash;year reports that series at all.</dd>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 448 206" role="img" aria-label="Two item characteristic curves: a steep rarely-reported series and a shallower average one">
+        <line x1="44" y1="168" x2="408" y2="168" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="44" y1="22" x2="44" y2="168" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="44" y1="95" x2="408" y2="95" stroke="var(--rule2)" stroke-width="1" stroke-dasharray="2 4"/>
+        <text x="38" y="172" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="var(--faint)">0</text>
+        <text x="38" y="99" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="var(--faint)">.5</text>
+        <text x="38" y="26" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="var(--faint)">1</text>
+        <text x="104" y="183" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="var(--faint)">&minus;2</text>
+        <text x="224" y="183" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="var(--faint)">0</text>
+        <text x="344" y="183" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="var(--faint)">2</text>
+        <text x="226" y="200" text-anchor="middle" font-size="9.5" fill="var(--muted)">propensity to report (&theta;)</text>
+        <text x="13" y="95" text-anchor="middle" font-size="9.5" fill="var(--muted)" transform="rotate(-90 13 95)">P(reported)</text>
+        <polyline fill="none" stroke="var(--faint)" stroke-width="2" points="44.0,161.1 47.0,160.7 50.0,160.4 53.0,160.0 56.0,159.6 59.0,159.2 62.0,158.8 65.0,158.4 68.0,157.9 71.0,157.4 74.0,156.9 77.0,156.4 80.0,155.9 83.0,155.3 86.0,154.7 89.0,154.1 92.0,153.4 95.0,152.8 98.0,152.1 101.0,151.3 104.0,150.6 107.0,149.8 110.0,149.0 113.0,148.2 116.0,147.3 119.0,146.4 122.0,145.4 125.0,144.5 128.0,143.5 131.0,142.4 134.0,141.4 137.0,140.3 140.0,139.1 143.0,137.9 146.0,136.7 149.0,135.5 152.0,134.2 155.0,132.9 158.0,131.5 161.0,130.2 164.0,128.7 167.0,127.3 170.0,125.8 173.0,124.3 176.0,122.7 179.0,121.2 182.0,119.6 185.0,117.9 188.0,116.3 191.0,114.6 194.0,112.9 197.0,111.2 200.0,109.4 203.0,107.6 206.0,105.9 209.0,104.1 212.0,102.3 215.0,100.5 218.0,98.6 221.0,96.8 224.0,95.0 227.0,93.2 230.0,91.4 233.0,89.5 236.0,87.7 239.0,85.9 242.0,84.1 245.0,82.4 248.0,80.6 251.0,78.8 254.0,77.1 257.0,75.4 260.0,73.7 263.0,72.1 266.0,70.4 269.0,68.8 272.0,67.3 275.0,65.7 278.0,64.2 281.0,62.7 284.0,61.3 287.0,59.8 290.0,58.5 293.0,57.1 296.0,55.8 299.0,54.5 302.0,53.3 305.0,52.1 308.0,50.9 311.0,49.7 314.0,48.6 317.0,47.6 320.0,46.5 323.0,45.5 326.0,44.6 329.0,43.6 332.0,42.7 335.0,41.8 338.0,41.0 341.0,40.2 344.0,39.4 347.0,38.7 350.0,37.9 353.0,37.2 356.0,36.6 359.0,35.9 362.0,35.3 365.0,34.7 368.0,34.1 371.0,33.6 374.0,33.1 377.0,32.6 380.0,32.1 383.0,31.6 386.0,31.2 389.0,30.8 392.0,30.4 395.0,30.0 398.0,29.6 401.0,29.3 404.0,28.9"/>
+        <polyline fill="none" stroke="var(--accent)" stroke-width="2.4" points="44.0,168.0 47.0,168.0 50.0,168.0 53.0,168.0 56.0,168.0 59.0,168.0 62.0,168.0 65.0,168.0 68.0,168.0 71.0,168.0 74.0,168.0 77.0,168.0 80.0,168.0 83.0,167.9 86.0,167.9 89.0,167.9 92.0,167.9 95.0,167.9 98.0,167.9 101.0,167.9 104.0,167.9 107.0,167.8 110.0,167.8 113.0,167.8 116.0,167.8 119.0,167.7 122.0,167.7 125.0,167.7 128.0,167.6 131.0,167.6 134.0,167.5 137.0,167.4 140.0,167.4 143.0,167.3 146.0,167.2 149.0,167.1 152.0,166.9 155.0,166.8 158.0,166.6 161.0,166.4 164.0,166.2 167.0,166.0 170.0,165.7 173.0,165.4 176.0,165.0 179.0,164.6 182.0,164.2 185.0,163.7 188.0,163.1 191.0,162.4 194.0,161.7 197.0,160.9 200.0,159.9 203.0,158.9 206.0,157.7 209.0,156.4 212.0,154.9 215.0,153.3 218.0,151.5 221.0,149.5 224.0,147.3 227.0,144.9 230.0,142.2 233.0,139.3 236.0,136.2 239.0,132.9 242.0,129.3 245.0,125.5 248.0,121.5 251.0,117.3 254.0,112.9 257.0,108.4 260.0,103.7 263.0,99.0 266.0,94.3 269.0,89.5 272.0,84.8 275.0,80.2 278.0,75.8 281.0,71.4 284.0,67.3 287.0,63.3 290.0,59.6 293.0,56.1 296.0,52.8 299.0,49.7 302.0,46.9 305.0,44.4 308.0,42.0 311.0,39.9 314.0,37.9 317.0,36.2 320.0,34.6 323.0,33.2 326.0,31.9 329.0,30.8 332.0,29.8 335.0,28.9 338.0,28.1 341.0,27.3 344.0,26.7 347.0,26.2 350.0,25.7 353.0,25.2 356.0,24.8 359.0,24.5 362.0,24.2 365.0,23.9 368.0,23.7 371.0,23.5 374.0,23.3 377.0,23.2 380.0,23.0 383.0,22.9 386.0,22.8 389.0,22.7 392.0,22.6 395.0,22.5 398.0,22.5 401.0,22.4 404.0,22.4"/>
+        <text x="350" y="148" font-size="9.5" fill="var(--faint)">a = 1.0</text>
+        <text x="150" y="40" font-size="9.5" fill="var(--accent)" font-weight="600">a = 2.6</text>
+      </svg>
+      <figcaption>Every series has a curve. The steep one is highly discriminating: almost no
+      low&ndash;propensity country&ndash;year reports it and almost every high one does, so it
+      does much of the work of placing a country. The pale one slopes gently and settles far less.</figcaption>
+    </figure>
+    <div class="why"><b>Why this and not &ldquo;percent of series reported&rdquo;</b>
+    <p>A percentage gives every series equal weight and has no error bar. It also needs a
+    denominator chosen by hand: all series in the framework, or only those the UN opened a cell
+    for. Seven such measures built for this project disagreed badly, two correlating at only
+    <strong>0.36</strong>. Estimating each series' difficulty is what removes that judgement
+    call &mdash; and the index correlates only <strong>0.61&ndash;0.68</strong> with
+    share&ndash;based measures, so the two are not interchangeable.</p></div>
+    <div class="flagbox"><b>The assumption to know about</b>
+    <p><strong>Local independence:</strong> conditional on &theta;, the 524 series are
+    independent of one another. This is not exactly true, since related series are reported
+    together. Step 9 is built to attack it rather than assert it.</p></div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">STEP<b>05</b></div>
+  <div class="sbody">
+    <h2>Fit the series parameters by EM</h2>
+    <p>Every <code>a</code> and <code>d</code> must be estimated before any country can be
+    scored, and &theta; is unobserved &mdash; so you cannot estimate the series from the
+    countries or the countries from the series. The standard answer is to alternate.</p>
+    <dl class="terms">
+      <dt>Marginal maximum likelihood, via the EM algorithm</dt>
+      <dd>Guess the series parameters; work out the implied distribution of &theta; for every
+      country&ndash;year (<em>expectation</em>); re&ndash;estimate the series parameters as if
+      that distribution were data (<em>maximisation</em>); repeat. Each pass is a
+      <strong>cycle</strong>. &ldquo;Marginal&rdquo; means &theta; is integrated out rather
+      than estimated alongside, so the parameter count does not grow with countries.</dd>
+      <dt>Convergence tolerance</dt>
+      <dd>Stop when no parameter moves by more than this in a cycle. Set to <strong>1e&minus;3</strong>.</dd>
+    </dl>
+    <p>Three settings depart from the defaults, and each was forced by a failed run. All are
+    recorded, with the run that established them, in
+    <a href="https://github.com/SevastianSanchez/Politics_of_NAs/blob/main/METHODS_LOG.md">METHODS_LOG.md</a>
+    &mdash; including the attempts that did not work.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Setting</th><th>Value</th><th>Why not the default</th></tr></thead>
+      <tbody>
+        <tr><td class="c">accelerate</td><td class="c">squarem</td>
+          <td>Roughly 20&times; fewer cycles. On the default, the 17&ndash;factor model ran past
+          19 hours without finishing. Binary fits only: it breaks ordered thresholds.</td></tr>
+        <tr><td class="c">TOL</td><td class="c">1e&minus;3</td>
+          <td>The usual 1e&minus;4 is unreachable here: 13 of 1,569 parameters drift along a
+          ridge where the likelihood is flat. Checked rather than assumed &mdash; against the
+          strict run, no score moves by more than <strong>0.0065</strong>, against standard
+          errors of 0.3&ndash;0.5.</td></tr>
+        <tr><td class="c">prior on a</td><td class="c">norm(0, 2)</td>
+          <td>Needed only for the 17&ndash;factor model. A few perfectly collinear series make a
+          goal's factor an exact copy of them, so their slope has no finite value &mdash;
+          discriminations ran past 80 and never settled. A normal prior bounds them. Not
+          lognormal: 172 of 1,045 loadings are negative, which a lognormal forbids.</td></tr>
+      </tbody>
+    </table></div>
+    <p>The overall index converges in <strong>187 cycles, about 25 seconds</strong>, and
+    reproduces identically on an independent run.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">STEP<b>06</b></div>
+  <div class="sbody">
+    <h2>Score each country&ndash;year, with an error bar</h2>
+    <p>With the series parameters fixed, a country&ndash;year's 524 bits imply a probability
+    distribution over its &theta;. The score is the mean of that distribution.</p>
+    <div class="formula">&theta;&#770; = &int; &theta; &middot; L(y | &theta;) &middot; &phi;(&theta;) d&theta; &nbsp;&divide;&nbsp; &int; L(y | &theta;) &middot; &phi;(&theta;) d&theta;</div>
+    <dl class="terms">
+      <dt>EAP &mdash; expected a posteriori</dt>
+      <dd>The posterior mean of &theta;. <code>L</code> is the likelihood of the observed
+      pattern of ones and zeros; <code>&phi;</code> is a standard normal prior, which is also
+      what fixes the scale at mean 0, SD 1. The integral is computed over a grid of &theta;
+      values.</dd>
+      <dt>The standard error</dt>
+      <dd>The <em>standard deviation</em> of that same posterior. It falls out of the same
+      calculation, which is why every score here carries an error bar and none were added
+      afterwards. These are genuine posterior standard deviations, not asymptotic
+      approximations. Median on the overall index: <strong>0.114</strong>.</dd>
+    </dl>
+    <div class="why"><b>Why EAP and not maximum likelihood</b>
+    <p>For a country&ndash;year that reported everything, or nothing, the maximum likelihood
+    estimate is &plusmn;infinity. EAP is always finite because the prior pulls it back, and it
+    returns a standard error for free. The cost is slight shrinkage toward 0 at the extremes.</p></div>
+    <p><strong>Orientation.</strong> The model identifies the factor only up to sign: flip every
+    <code>a</code> and every &theta; and the likelihood is identical. So after fitting, the sign
+    is set by correlating &theta; with the plain count of series reported, and flipped if needed.
+    More reporting is always a higher score.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">STEP<b>07</b></div>
+  <div class="sbody">
+    <h2>Three scores from the same estimator</h2>
+    <p>Steps 4&ndash;6 are run more than once. Nothing about the method changes; only how many
+    factors the model has and which series load on them.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Column</th><th>Model</th><th>Reads as</th></tr></thead>
+      <tbody>
+        <tr><td class="c">twr</td><td><strong>One</strong> factor, all 524 series, one fit</td>
+          <td>How much this country&ndash;year reports overall</td></tr>
+        <tr><td class="c">goal_level</td><td><strong>Sixteen separate</strong> one&ndash;factor
+          fits, each on one goal's own series</td>
+          <td>How much it reports on that goal, overall level included</td></tr>
+        <tr><td class="c">goal_relative</td><td><strong>One bifactor</strong> fit: 17 factors,
+          general plus one per goal <em>&mdash; not in this release</em></td>
+          <td>That goal <em>net of</em> the country's own overall level</td></tr>
+      </tbody>
+    </table></div>
+    <p>Each carries a matching <code>_se</code>. Because a goal fit uses 17&ndash;75 series
+    rather than 524, goal&ndash;level error bars are about three times the overall index's,
+    which is why every goal is published with its own. <strong>Goal 7</strong> has three series,
+    too few to identify a factor, and is listed with no score rather than omitted.</p>
+    <dl class="terms">
+      <dt>Bifactor model</dt>
+      <dd>Every series loads on exactly <strong>two</strong> factors: the general one, shared by
+      all 524, and the specific one for its own goal. The general factor absorbs the country's
+      overall reporting; what remains on the specific factor is the part of that goal's reporting
+      the overall level does not explain.</dd>
+    </dl>
+    <div class="why"><b>Why a bifactor and not a subtraction</b>
+    <p><code>goal_level</code> minus <code>twr</code> looks like the same quantity and is not.
+    Subtracting two correlated estimates gives a difference whose error is larger than either
+    one's and whose scale means nothing in particular. The bifactor estimates the residual
+    <em>directly, as a parameter</em>, so it arrives with its own standard error.</p></div>
+    <div class="flagbox"><b>Divergence is the hypothesis, not a fault</b>
+    <p>Across the sixteen goals, a median <strong>64%</strong> of the variation in
+    goal&ndash;level reporting is not explained by the country's overall level &mdash; from 18%
+    for goal 17 to almost all of it for goals 6 and 15. Reporting is not one&ndash;dimensional,
+    so the goal layer is never checked against, or gated on, agreement with the overall index.</p></div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">STEP<b>08</b></div>
+  <div class="sbody">
+    <h2>First check: how precise is a score?</h2>
+    <p>Two different uncertainties, easily confused. The posterior standard error from step 6
+    covers only the first.</p>
+    <dl class="terms">
+      <dt>Reliability</dt>
+      <dd><code>var(score) / (var(score) + mean(SE&sup2;))</code> &mdash; the share of the spread
+      in scores that is signal rather than measurement noise. Overall index
+      <strong>0.987</strong>. Goal level: median <strong>0.844</strong>, range
+      0.772&ndash;0.953. 0.70 (Nunnally) is quoted as a reference point, never applied as a cut.</dd>
+      <dt>The bootstrap</dt>
+      <dd>Resample the 1,773 country&ndash;years with replacement, refit the whole model,
+      re&ndash;score the original rows, repeat. The spread across replicates is how much the
+      scores would move had a different sample been drawn &mdash; uncertainty in the
+      <em>series parameters</em>, which the posterior standard error does not include.</dd>
+    </dl>
+    <p>On the goal layer, 500 replicates: none failed, and the bootstrap standard deviation is
+    <strong>7&ndash;42%</strong> of the posterior standard error, median 13%. A ratio below 1
+    means the published standard error already covers parameter uncertainty with room to spare,
+    so the posterior standard error is the conservative one to report &mdash; and it is the one
+    published.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">STEP<b>09</b></div>
+  <div class="sbody">
+    <h2>Second check: is it measuring something real?</h2>
+    <p>Precision is not validity. A score can be measured very precisely and still be nothing
+    but a restatement of its own inputs. Three checks, each able to fail.</p>
+    <h3>Held&ndash;out series</h3>
+    <dl class="terms">
+      <dt>Held&ndash;out series validity</dt>
+      <dd>Fit on 70% of a goal's series, then ask how well the resulting score predicts
+      reporting on the <strong>30% it never saw</strong>. Scored by <strong>AUC</strong>: the
+      probability that a randomly chosen reported case outranks a randomly chosen unreported
+      one. 0.5 is a coin flip, 1.0 is perfect. Computed per held&ndash;out series, then the
+      median, against a <strong>permutation null</strong> drawn fresh for each series by
+      shuffling the scores.</dd>
+    </dl>
+    <p>Median AUC <strong>0.725</strong> against a null sitting on <strong>0.500</strong>.
+    Thirteen of sixteen goals reach 0.649 or better. The three weakest &mdash; goal 17 (0.618),
+    goal 15 (0.526) and goal 6 (0.479) &mdash; are exactly the ones already set apart on content
+    grounds in step 10, which the test knew nothing about.</p>
+    <div class="why"><b>Why this is the check that matters</b>
+    <p>It is the only one that can falsify the local independence assumption from step 4. If the
+    score were merely a summary of the series fed into it, it would have no purchase on series it
+    was never shown, and the AUC would fall to the null. Prediction is not the goal here;
+    prediction is being used as a test.</p></div>
+    <h3>Agreement with measures built by other people</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Benchmark</th><th class="n2">n</th><th class="n2">Pearson</th><th class="n2">Spearman</th></tr></thead>
+      <tbody>
+        <tr><td>World Bank Statistical Performance Indicators, overall</td><td class="n2">1,425</td><td class="n2">0.851</td><td class="n2">0.867</td></tr>
+        <tr><td>SPI pillar 5, infrastructure</td><td class="n2">1,519</td><td class="n2">0.828</td><td class="n2">0.796</td></tr>
+        <tr><td>SPI pillar 4, sources</td><td class="n2">1,560</td><td class="n2">0.807</td><td class="n2">0.833</td></tr>
+        <tr><td>HRV transparency index</td><td class="n2">149</td><td class="n2">0.851</td><td class="n2">0.850</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Known groups</h3>
+    <p>Mean score by World Bank income group runs in the expected order and spans two full
+    standard deviations: high <strong>+1.22</strong>, upper&ndash;middle +0.04,
+    lower&ndash;middle &minus;0.37, low <strong>&minus;0.90</strong>.</p>
+    <div class="flagbox"><b>What these checks do not settle</b>
+    <p>SPI and log GDP per capita together explain <strong>82%</strong> of the index, and only
+    4.8% of its total variance is within&ndash;country. This release therefore cannot separate
+    reporting withheld by choice from reporting absent through incapacity. That separation needs
+    the provenance layer on the roadmap. What this release claims is coverage of the SDG era and
+    resolution by domain, and no more.</p></div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">STEP<b>10</b></div>
+  <div class="sbody">
+    <h2>Disclose, do not gate</h2>
+    <p>Every goal that fits is published. Nothing is dropped for imprecision. Each goal instead
+    carries four numbers a reader can weigh it by, so the judgement stays with the reader.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Column</th><th>What it warns about</th></tr></thead>
+      <tbody>
+        <tr><td class="c">reliability</td><td>How much of the spread is signal (0.772&ndash;0.953)</td></tr>
+        <tr><td class="c">se_median</td><td>The typical error bar on that goal's scores</td></tr>
+        <tr><td class="c">weight_top5_pct</td><td>Share of the score carried by its five heaviest
+          series &mdash; the cost of the step&ndash;3 decision. Goal 10 is 80%, goal 17 only 23%</td></tr>
+        <tr><td class="c">weight_agency_pct</td><td>Share resting on series the custodian agency
+          produces rather than the country. Goal 3 is 94%, goal 2 91%, ten goals under 7%</td></tr>
+      </tbody>
+    </table></div>
+    <div class="flagbox"><b>Two goals are flagged on content, for different reasons</b>
+    <p><strong>Goal 6</strong> is largely satellite measurement of lakes, wetlands and river
+    flow, so &ldquo;reported&rdquo; there mostly records whether an agency published a dataset
+    rather than a country's choice.</p>
+    <p><strong>Goal 15</strong> is overwhelmingly country&ndash;produced, but a third of its
+    series are treaty and policy instruments &mdash; Nagoya Protocol, Aichi targets, NBSAP
+    &mdash; which may track commitment status rather than reporting effort.</p>
+    <p>Neither is a precision problem, and no error bar can warn a reader about either, so the
+    flag travels in the data. Both goals are published in full.</p></div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">STEP<b>11</b></div>
+  <div class="sbody">
+    <h2>Pin the version, then nothing moves</h2>
+    <p>The run order is fixed and documented in
+    <a href="https://github.com/SevastianSanchez/Politics_of_NAs/blob/main/code/README.md">code/README.md</a>:
+    build the variant map; fit the overall index and the sixteen goal fits, which are independent
+    of each other; characterise who produced each series; build this site's data; run the
+    external validity checks; print every number the paper quotes. Both fits source
+    <code>irt_prep.R</code>, which halts if the variant map is missing or stale, so the two
+    layers cannot drift apart.</p>
+    <p>A release copies the scores, the per&ndash;series parameters, the diagnostics, the run log
+    and the code into a versioned folder and deposits it at Zenodo, where each version keeps its
+    own DOI and the concept DOI always resolves to the latest.</p>
+  </div>
+</section>
+
+<section class="gloss">
+  <h2>Terms, one line each</h2>
+  <dl>
+    <dt>Series</dt><dd>One SDG data series &mdash; the thing a country either reports or does not. What the model treats as an item.</dd>
+    <dt>Latent trait (&theta;)</dt><dd>The unobserved propensity to report, inferred from 524 ones and zeros. The score itself.</dd>
+    <dt>Factor</dt><dd>One latent dimension in a model. The overall index has one; the bifactor has seventeen.</dd>
+    <dt>2PL</dt><dd>Two&ndash;parameter logistic: each series gets a discrimination and an intercept.</dd>
+    <dt>Discrimination (a)</dt><dd>How sharply a series separates high from low propensity. The weight it earns.</dd>
+    <dt>Intercept (d)</dt><dd>How much propensity it takes to report that series at all. Its difficulty.</dd>
+    <dt>Local independence</dt><dd>The assumption that, given &theta;, series are independent. Tested in step 9, not asserted.</dd>
+    <dt>EM algorithm</dt><dd>Alternating expectation and maximisation passes that estimate series parameters while &theta; is unobserved. One pass is a cycle.</dd>
+    <dt>EAP</dt><dd>Expected a posteriori: the posterior mean of &theta;. The scoring rule; its posterior SD is the standard error.</dd>
+    <dt>Bifactor</dt><dd>A model where each series loads on exactly two factors: one general, one for its own goal.</dd>
+    <dt>Reliability</dt><dd>Signal share of score variance: var(score) / (var(score) + mean SE&sup2;).</dd>
+    <dt>Bootstrap</dt><dd>Resample country&ndash;years, refit, re&ndash;score, repeat. Measures uncertainty in the series parameters.</dd>
+    <dt>AUC</dt><dd>Chance that a reported case outranks an unreported one. 0.5 is a coin flip.</dd>
+    <dt>Permutation null</dt><dd>The AUC from shuffled scores &mdash; the floor any real result must clear.</dd>
+  </dl>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Every setting named here is recorded in
+    <a href="https://github.com/SevastianSanchez/Politics_of_NAs/blob/main/METHODS_LOG.md">METHODS_LOG.md</a>
+    with the run that established it, including the runs that failed. Fitted with mirt 1.48 on
+    R 4.5.3.</p>
+    <p>Sevastian Sanchez &middot; Columbia University &middot;
+    <a href="./">The World on Record</a> &middot;
+    <a href="data_dictionary.html">Data dictionary</a> &middot;
+    <a href="https://github.com/SevastianSanchez/Politics_of_NAs">source repository</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -36,6 +36,13 @@ before any Bash command containing `Rscript`, `mirt`, `bfactor` or
   are still series; the redundant ones were dropped, not merged.
 - **Never put sev.sanchez02@gmail.com in a public file.** Use ss7257@columbia.edu.
 - **Do not kill a long-running process without asking.**
+- **Account for every running process.** Run `bash code/runs.sh` before
+  launching a fit and again after killing one, and say in the reply what it
+  found. Two superseded bifactor fits were found still running after 26 hours
+  on 9 Nov, pinning two cores while the fit that replaced them had long since
+  finished. `mclapply` workers are reparented to `init` when the parent dies,
+  so killing a parent is not killing the run. When a fit is superseded, stop
+  it then — not when a slow laptop finally gives it away.
 - **Goal scores diverging from the overall index is the research hypothesis**,
   not a validity failure. Never gate the sector layer on correlation with the
   overall index.
