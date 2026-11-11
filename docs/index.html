@@ -38,12 +38,12 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
   font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
-/* Two widths, one system. Text sits in a 40rem column -- about 68 characters, the
-   length a line can run before the eye loses its place. Figures, tables and charts
-   break out to the full 62rem, centred on the same axis so the wider edge reads as
-   deliberate. Nothing else sets a width. */
-.wrap{max-width:62rem;margin:0 auto;display:grid;
-  grid-template-columns:1fr min(40rem,100%) 1fr;
+/* Two widths, one system. Text sits in a 48rem column -- about 80 characters, wide
+   enough not to look like a phone column on a laptop. Figures, tables and charts
+   break out to the full 64rem, centred on the same axis, so the step out is a clear
+   128px on each side rather than a wide moat. Nothing else sets a width. */
+.wrap{max-width:64rem;margin:0 auto;display:grid;
+  grid-template-columns:1fr min(48rem,100%) 1fr;
   padding-left:max(16px,env(safe-area-inset-left,0px));
   padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
 .wrap > *{grid-column:2;min-width:0}
