@@ -179,12 +179,14 @@ tr.overlap td{color:var(--muted)}
 .gtwhy{font-size:.88rem;color:var(--muted);max-width:64ch}
 .gtnote{margin:.9rem 0 0;font-size:.84rem;color:var(--muted);max-width:66ch}
 .gtwrap{display:grid;grid-template-columns:minmax(0,1fr) 15.5rem;gap:1rem;
-  align-items:start;margin:.9rem 0 0}
+  align-items:stretch;margin:.9rem 0 0}
 @media (max-width:780px){.gtwrap{grid-template-columns:1fr}}
-.gtlist{border:1px solid var(--rule);border-radius:7px;overflow:hidden;background:var(--panel)}
-.gtrow{display:flex;align-items:baseline;gap:.4rem;width:100%;padding:.3rem .55rem;
+.gtlist{border:1px solid var(--rule);border-radius:7px;overflow:hidden;
+  background:var(--panel);display:flex;flex-direction:column}
+.gtrow{display:flex;align-items:center;gap:.4rem;width:100%;padding:.2rem .55rem;
   border:0;border-bottom:1px solid var(--rule2);background:none;cursor:pointer;
-  font:inherit;text-align:left}
+  font:inherit;text-align:left;flex:1 1 0;min-height:1rem}
+@media (max-width:780px){.gtrow{flex:0 0 auto;min-height:2rem}}
 .gtrow:last-child{border-bottom:0}
 .gtrow:hover{background:var(--accent-soft)}
 .gtrow.on{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
@@ -196,6 +198,9 @@ tr.overlap td{color:var(--muted)}
 .gtrow .dv{font-family:var(--mono);font-size:.74rem;font-variant-numeric:tabular-nums;
   flex:0 0 auto}
 .gtrow .dv.up{color:var(--pos)} .gtrow .dv.down{color:var(--neg)}
+.gtrow.none{cursor:default;opacity:.6}
+.gtrow.none:hover{background:none}
+.gtrow.none .dv{color:var(--faint)}
 .gtline{fill:none;stroke-width:1.6;opacity:.38;transition:opacity .12s,stroke-width .12s}
 .gtline.up{stroke:var(--pos)} .gtline.down{stroke:var(--neg)}
 .gtline.sel{opacity:1;stroke-width:3}
@@ -437,8 +442,8 @@ footer p{max-width:64ch}
       index is the dashed line.</p>
     <p class="gtwhy">Change, not level, because each goal is a separate fit centred on its own
       mean &mdash; so the gap between two goals' lines would say nothing, while the movement
-      within one is real. The list beside the chart is ordered the way the lines end, so a row and its
-      line are in the same place; point at either to light it up.</p>
+      within one is real. The list beside the chart runs 1 to 17 in goal order; point at a
+      row or a line to light up both, and click to keep it lit.</p>
     <div class="gtwrap">
       <div class="chartbox gtchart"><div id="gtrend"></div></div>
       <div class="gtlist" id="gtlist"></div>
@@ -826,7 +831,7 @@ function gtPath(d, yrs, X, Y){
 function drawGoalTrends(){
   if (!GT) return;
   const yrs = GT.yrs, lo = GT.lo, hi = GT.hi;
-  const W = 720, H = 330, m = {t:16, r:16, b:46, l:62};
+  const W = 720, H = 420, m = {t:18, r:16, b:48, l:62};
   const iw = W - m.l - m.r, ih = H - m.t - m.b;
   const X = v => m.l + (v - yrs[0]) / (yrs[yrs.length-1] - yrs[0]) * iw;
   const Y = v => m.t + (hi - v) / (hi - lo) * ih;
@@ -863,11 +868,16 @@ function drawGoalTrends(){
     '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Change in each SDG ' +
     'goal\u2019s mean reporting score since ' + yrs[0] + ', against the overall index.">' +
     g + '</svg>';
+  requestAnimationFrame(gtMatchHeights);
 
-  // the list is ordered the way the lines END, so a row sits where its line sits
-  const byEnd = [...GT.rows].sort((a, b) =>
-    b.d[b.d.length-1] - a.d[a.d.length-1]);
-  document.getElementById("gtlist").innerHTML = byEnd.map(r => {
+  // listed in goal order, 1 to 17, so a reader can find a goal by its number
+  const byNum = [...GT.rows].sort((a, b) => a.g - b.g);
+  const unscored = (G.unscored || []).map(u => ({ g: u.g, name: u.name, none: true }));
+  const listed = [...byNum, ...unscored].sort((a, b) => a.g - b.g);
+  document.getElementById("gtlist").innerHTML = listed.map(r => {
+    if (r.none) return '<span class="gtrow none"><span class="n">' + r.g + '</span>' +
+      '<span class="nm">' + (GOAL_SHORT[r.g] || r.name) + '</span>' +
+      '<span class="dv">not scored</span></span>';
     const last = r.d[r.d.length-1];
     return '<button class="gtrow' + (gtSel === r.g ? " on" : "") + '" data-g="' + r.g +
       '" aria-pressed="' + (gtSel === r.g) + '">' +
@@ -878,6 +888,16 @@ function drawGoalTrends(){
         (last >= 0 ? "+" : "") + last.toFixed(2) + '</span></button>';
   }).join("");
 }
+
+// The grid will not equalise these two: the chart box does not stretch, so the list
+// always ran ~38px past it. Match them directly, and re-match when the width changes.
+function gtMatchHeights(){
+  const c = document.querySelector(".gtchart"), l = document.getElementById("gtlist");
+  if (!c || !l) return;
+  if (window.matchMedia("(max-width:780px)").matches) { l.style.height = ""; return; }
+  l.style.height = Math.round(c.getBoundingClientRect().height) + "px";
+}
+addEventListener("resize", gtMatchHeights);
 
 function gtPick(v, sticky){
   if (sticky) gtSel = (v === gtSel) ? null : v; else gtSel = v;
