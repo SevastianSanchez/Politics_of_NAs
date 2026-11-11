@@ -172,6 +172,9 @@ tr.overlap td{color:var(--muted)}
 .gerr{position:absolute;top:50%;height:2px;transform:translateY(-50%);
   background:var(--fg);opacity:.3;border-radius:1px}
 .dlnote{margin:.8rem 0 0;font-size:.84rem;color:var(--muted);max-width:62ch}
+.note.read table.rdt{font-size:.86rem}
+.note.read table.rdt td,.note.read table.rdt th{vertical-align:top;padding:.5rem .7rem}
+.note.read .se{color:var(--faint);font-size:.78rem;font-family:var(--mono)}
 .gth{margin:2.2rem 0 .5rem;font-family:var(--serif);font-size:1.12rem}
 .gtwhy{font-size:.88rem;color:var(--muted);max-width:64ch}
 .gtnote{margin:.9rem 0 0;font-size:.84rem;color:var(--muted);max-width:66ch}
@@ -274,7 +277,9 @@ footer p{max-width:64ch}
       of assuming a denominator is what resolves that.</p>
     <p>Scores are on a standard&ndash;normal scale: 0 is the average country&ndash;year,
       positive is more complete reporting, and each estimate carries its own
-      uncertainty. They are posterior means, so the error bars are genuine posterior
+      uncertainty. Concretely, Germany in 2019 scores <strong>+1.68</strong>, sixteenth of
+      197 country&ndash;years that year; Sierra Leone scores <strong>&minus;0.90</strong>,
+      171st. They are posterior means, so the error bars are genuine posterior
       standard deviations rather than asymptotic approximations.</p>
 
     <div class="diff">
@@ -371,6 +376,40 @@ footer p{max-width:64ch}
         filter removes them as carrying no information for separating countries. Three
         remain, too few to identify a factor. It is listed with no score rather than
         dropped.</p>
+    </div>
+
+    <div class="note read">
+      <h3>Reading two scores together</h3>
+      <p>The overall score and a goal score answer different questions, and the
+        country&ndash;years worth looking at are the ones where they disagree. Two from 2019:</p>
+      <div class="tablebox" style="margin:.7rem 0"><table class="rdt">
+        <thead><tr><th>Country&ndash;year</th><th class="num">Overall</th>
+          <th class="num">Rank</th><th>Goal</th><th class="num">Goal score</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Germany 2019</strong></td>
+            <td class="num">+1.68 <span class="se">&plusmn;0.13</span></td>
+            <td class="num">16 of 197</td>
+            <td>10, reduced inequalities</td>
+            <td class="num">&minus;0.65 <span class="se">&plusmn;0.10</span></td></tr>
+          <tr><td><strong>Sierra Leone 2019</strong></td>
+            <td class="num">&minus;0.90 <span class="se">&plusmn;0.12</span></td>
+            <td class="num">171 of 197</td>
+            <td>5, gender equality</td>
+            <td class="num">+2.07 <span class="se">&plusmn;0.15</span></td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>Germany</strong> reports more than almost any country &mdash; sixteenth of
+        197 that year &mdash; and still sits <em>below</em> the average country&ndash;year on
+        inequality, where the world median is +0.34. The shortfall is seven standard errors
+        wide, so it is not noise.</p>
+      <p><strong>Sierra Leone</strong> is the mirror image: 171st overall, and near the top
+        of the scale on gender. Reporting little in general does not stop a country reporting
+        heavily on one goal.</p>
+      <p>Neither case is visible in the overall score alone, which is the argument for
+        publishing the layer. Both goals here are country&ndash;produced rather than
+        agency&ndash;produced, 5% and 1% agency weight, so the scores reflect what the
+        government published. Check that column before reading a goal score this way: on
+        goals 3 and 2 it is above 90%.</p>
     </div>
 
     <div class="controls">
