@@ -90,6 +90,16 @@ dl.terms dd:last-child{margin-bottom:0}
   border-radius:6px;padding:.9rem 1.1rem;margin:0 0 1rem;overflow-x:auto;
   white-space:nowrap;line-height:1.8}
 .formula:has(math){padding:1rem 1.1rem;white-space:normal;line-height:1.4}
+.pipe svg{background:var(--panel);border:1px solid var(--rule);border-radius:7px}
+.pbox{fill:var(--bg);stroke:var(--rule);stroke-width:1}
+.pbox.hi{fill:var(--accent-soft);stroke:var(--accent)}
+.pbox.out{fill:var(--panel);stroke:var(--accent);stroke-width:1.5}
+.pa{stroke:var(--faint);stroke-width:1.2;fill:none}
+.pt{font-family:var(--sans);font-size:12.5px;fill:var(--fg);text-anchor:middle}
+.pt.b{font-weight:600}
+.pt.code{font-family:var(--mono);font-size:12.5px;fill:var(--accent);font-weight:500}
+.ps{font-family:var(--sans);font-size:9.5px;fill:var(--muted);text-anchor:middle}
+.pl{font-family:var(--sans);font-size:9px;fill:var(--accent);letter-spacing:.1em}
 math{font-family:var(--serif);font-size:1.15rem;color:var(--fg);white-space:normal}
 math .brace{font-size:2.1em;line-height:.55;padding-right:.08em}
 math mtable{vertical-align:middle}
@@ -144,18 +154,93 @@ footer{border-top:1px solid var(--rule);padding-block:1.6rem 3rem;font-size:.86r
 
 <div class="wrap">
 
-<div class="flow">
-  <b>17 Goal*.xlsx</b><i>&rarr;</i>
-  <b>1,179,045 cells</b><i>&rarr;</i>
-  <b>665 series</b><i>&rarr;</i>
-  <b>607 after the 2&ndash;98% filter</b><i>&rarr;</i>
-  <b>524 after merging repeats</b><i>&rarr;</i>
-  <b>one score per country&ndash;year</b>
-</div>
-<p class="flownote">That is the funnel: what goes in, what is set aside and why, and what comes
-out. Below, steps 1&ndash;3 decide <em>what</em> is measured, steps 4&ndash;7 are the
-estimator, steps 8&ndash;9 try to break it, and steps 10&ndash;11 publish it with its own
-weaknesses attached.</p>
+<p class="flownote">Steps 1&ndash;3 below decide <em>what</em> is measured, steps 4&ndash;7
+are the estimator, steps 8&ndash;9 try to break it, and steps 10&ndash;11 publish it with its
+own weaknesses attached.</p>
+
+<figure class="pipe">
+  <svg viewBox="0 0 720 520" role="img" aria-label="The pipeline: 17 UN spreadsheets become 1,179,045 cells, then 665 series, 607 after the filter, 524 after merging repeats; the 524 then feed three different model shapes producing vsi, goal_level and goal_relative.">
+    <defs>
+      <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0 0 L8 4 L0 8 z" fill="var(--faint)"/>
+      </marker>
+    </defs>
+
+    <text class="pl" x="360" y="16" text-anchor="middle">SHARED &mdash; every score is built from the same 524</text>
+
+    <rect class="pbox" x="196" y="26" width="328" height="34" rx="4"/>
+    <text class="pt b" x="360" y="42">17 Goal*.xlsx</text>
+    <text class="ps" x="360" y="54">the UN Global SDG Database export</text>
+    <line class="pa" x1="360" y1="60" x2="360" y2="76" marker-end="url(#ar)"/>
+
+    <rect class="pbox" x="196" y="78" width="328" height="34" rx="4"/>
+    <text class="pt b" x="360" y="94">1,179,045 cells</text>
+    <text class="ps" x="360" y="106">every country &times; year &times; series that could exist &mdash; 38.2% filled</text>
+    <line class="pa" x1="360" y1="112" x2="360" y2="128" marker-end="url(#ar)"/>
+
+    <rect class="pbox" x="196" y="130" width="328" height="34" rx="4"/>
+    <text class="pt b" x="360" y="146">665 &rarr; 607 &rarr; 524 series</text>
+    <text class="ps" x="360" y="158">2&ndash;98% filter, then repeats merged</text>
+    <line class="pa" x1="360" y1="164" x2="360" y2="186"/>
+
+    <path class="pa" d="M360 186 H108 V206" marker-end="url(#ar)"/>
+    <path class="pa" d="M360 186 V206" marker-end="url(#ar)"/>
+    <path class="pa" d="M360 186 H612 V206" marker-end="url(#ar)"/>
+
+    <text class="pl" x="360" y="226" text-anchor="middle">SAME ESTIMATOR, THREE MODEL SHAPES</text>
+
+    <rect class="pbox hi" x="12" y="238" width="192" height="104" rx="4"/>
+    <text class="pt b" x="108" y="256">one factor</text>
+    <text class="ps" x="108" y="272">1 fit on all 524 series</text>
+    <text class="ps" x="108" y="286">187 cycles &middot; 0.4 min</text>
+    <text class="ps" x="108" y="306">every series loads on</text>
+    <text class="ps" x="108" y="318">the single factor</text>
+    <line class="pa" x1="108" y1="342" x2="108" y2="366" marker-end="url(#ar)"/>
+
+    <rect class="pbox hi" x="264" y="238" width="192" height="104" rx="4"/>
+    <text class="pt b" x="360" y="256">sixteen separate fits</text>
+    <text class="ps" x="360" y="272">one per goal, 17&ndash;75 series</text>
+    <text class="ps" x="360" y="286">19&ndash;73 cycles &middot; 0.3 min</text>
+    <text class="ps" x="360" y="306">a goal's score owes</text>
+    <text class="ps" x="360" y="318">nothing to the other 15</text>
+    <line class="pa" x1="360" y1="342" x2="360" y2="366" marker-end="url(#ar)"/>
+
+    <rect class="pbox hi" x="516" y="238" width="192" height="104" rx="4"/>
+    <text class="pt b" x="612" y="256">one bifactor fit</text>
+    <text class="ps" x="612" y="272">17 factors at once</text>
+    <text class="ps" x="612" y="286">215 cycles &middot; ~50 min</text>
+    <text class="ps" x="612" y="306">each series loads on two:</text>
+    <text class="ps" x="612" y="318">general + its own goal</text>
+    <line class="pa" x1="612" y1="342" x2="612" y2="366" marker-end="url(#ar)"/>
+
+    <rect class="pbox out" x="12" y="368" width="192" height="76" rx="4"/>
+    <text class="pt code" x="108" y="386">vsi</text>
+    <text class="ps" x="108" y="402">1,773 rows</text>
+    <text class="ps" x="108" y="416">iso3 &times; year</text>
+    <text class="ps" x="108" y="432">how much it reports overall</text>
+
+    <rect class="pbox out" x="264" y="368" width="192" height="76" rx="4"/>
+    <text class="pt code" x="360" y="386">goal_level</text>
+    <text class="ps" x="360" y="402">28,368 rows</text>
+    <text class="ps" x="360" y="416">iso3 &times; year &times; goal</text>
+    <text class="ps" x="360" y="432">that goal, overall level in</text>
+
+    <rect class="pbox out" x="516" y="368" width="192" height="76" rx="4"/>
+    <text class="pt code" x="612" y="386">goal_relative</text>
+    <text class="ps" x="612" y="402">28,368 rows</text>
+    <text class="ps" x="612" y="416">iso3 &times; year &times; goal</text>
+    <text class="ps" x="612" y="432">that goal, overall level out</text>
+
+    <text class="pl" x="360" y="470" text-anchor="middle">EVERY SCORE CARRIES ITS OWN STANDARD ERROR</text>
+    <text class="ps" x="108" y="490">median SE 0.11</text>
+    <text class="ps" x="360" y="490">median SE 0.34</text>
+    <text class="ps" x="612" y="490">median SE 0.41</text>
+    <text class="ps" x="360" y="508" style="fill:var(--faint)">goal fits use 17&ndash;75 series rather than 524, so their error bars are about three times wider</text>
+  </svg>
+  <figcaption>One shared preparation, three model shapes, three score columns. Only the number
+  of factors and which series load on them changes between the branches; steps 5 and 6 are
+  identical in all three. <code>goal_relative</code> is not in this release.</figcaption>
+</figure>
 
 <section class="step">
   <div class="n">STEP<b>01</b></div>
