@@ -38,8 +38,17 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
   font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
-.wrap{max-width:40rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));
+/* Two widths, one system. Text sits in a 40rem column -- about 68 characters, the
+   length a line can run before the eye loses its place. Figures, tables and charts
+   break out to the full 62rem, centred on the same axis so the wider edge reads as
+   deliberate. Nothing else sets a width. */
+.wrap{max-width:62rem;margin:0 auto;display:grid;
+  grid-template-columns:1fr min(40rem,100%) 1fr;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
   padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.wrap > *{grid-column:2;min-width:0}
+.wrap > .facts,.wrap > .diff,.wrap > .chartbox,.wrap > .tablebox,.wrap > .gtwrap,
+.wrap > .movers,.wrap > .vers,.wrap > .dl,.wrap > .controls{grid-column:1/-1}
 h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;line-height:1.2}
 h1{font-size:clamp(1.9rem,5vw,2.9rem);margin:0 0 .4rem}
 h2{font-size:clamp(1.25rem,3vw,1.6rem);margin:0 0 .6rem}
@@ -178,7 +187,8 @@ tr.overlap td{color:var(--muted)}
 .gth{margin:2.2rem 0 .5rem;font-family:var(--serif);font-size:1.12rem}
 .gtwhy{font-size:.88rem;color:var(--muted)}
 .gtnote{margin:.9rem 0 0;font-size:.84rem;color:var(--muted)}
-.gtwrap{display:grid;grid-template-columns:1fr;gap:.7rem;margin:.9rem 0 0}
+.gtwrap{display:grid;grid-template-columns:minmax(0,1fr) 15.5rem;gap:1rem;margin:.9rem 0 0}
+@media (max-width:780px){.gtwrap{grid-template-columns:1fr}}
 .gtlist{border:1px solid var(--rule);border-radius:7px;overflow:hidden;
   background:var(--panel);display:flex;flex-direction:column}
 .gtrow{display:flex;align-items:center;gap:.4rem;width:100%;padding:.2rem .55rem;
@@ -892,7 +902,8 @@ function drawGoalTrends(){
 function gtMatchHeights(){
   const c = document.querySelector(".gtchart"), l = document.getElementById("gtlist");
   if (!c || !l) return;
-  l.style.height = "";   // stacked now, so it takes its natural height
+  if (window.matchMedia("(max-width:780px)").matches) { l.style.height = ""; return; }
+  l.style.height = Math.round(c.getBoundingClientRect().height) + "px";
 }
 addEventListener("resize", gtMatchHeights);
 
