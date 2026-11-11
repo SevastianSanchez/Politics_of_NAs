@@ -178,30 +178,24 @@ tr.overlap td{color:var(--muted)}
 .gth{margin:2.2rem 0 .5rem;font-family:var(--serif);font-size:1.12rem}
 .gtwhy{font-size:.88rem;color:var(--muted);max-width:64ch}
 .gtnote{margin:.9rem 0 0;font-size:.84rem;color:var(--muted);max-width:66ch}
-.gtgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;
-  background:var(--rule);border:1px solid var(--rule);border-radius:7px;overflow:hidden;
-  margin:.9rem 0 0}
-@media (max-width:860px){.gtgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:560px){.gtgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.gtcell{background:var(--panel);padding:.45rem .5rem .3rem;cursor:pointer;border:0;
-  text-align:left;font:inherit;display:block;width:100%}
-.gtcell:hover{background:var(--accent-soft)}
-.gtcell.on{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
-.gtcell .ttl{display:flex;justify-content:space-between;align-items:baseline;gap:.3rem}
-.gtcell .nm{font-size:.76rem;color:var(--fg);overflow:hidden;text-overflow:ellipsis;
-  white-space:nowrap}
-.gtcell .nm b{font-family:var(--mono);color:var(--faint);font-weight:400;margin-right:.25em}
-.gtcell .dv{font-family:var(--mono);font-size:.74rem;font-variant-numeric:tabular-nums;
+.gtwrap{display:grid;grid-template-columns:minmax(0,1fr) 15.5rem;gap:1rem;
+  align-items:start;margin:.9rem 0 0}
+@media (max-width:780px){.gtwrap{grid-template-columns:1fr}}
+.gtlist{border:1px solid var(--rule);border-radius:7px;overflow:hidden;background:var(--panel)}
+.gtrow{display:flex;align-items:baseline;gap:.4rem;width:100%;padding:.3rem .55rem;
+  border:0;border-bottom:1px solid var(--rule2);background:none;cursor:pointer;
+  font:inherit;text-align:left}
+.gtrow:last-child{border-bottom:0}
+.gtrow:hover{background:var(--accent-soft)}
+.gtrow.on{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.gtrow .n{font-family:var(--mono);font-size:.72rem;color:var(--faint);flex:0 0 1.3rem;
+  font-variant-numeric:tabular-nums;text-align:right}
+.gtrow .nm{font-size:.78rem;color:var(--fg);flex:1 1 auto;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.gtrow .hld{font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;color:var(--warn)}
+.gtrow .dv{font-family:var(--mono);font-size:.74rem;font-variant-numeric:tabular-nums;
   flex:0 0 auto}
-.gtcell .dv.up{color:var(--pos)} .gtcell .dv.down{color:var(--neg)}
-.gtcell .hld{font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;color:var(--warn)}
-.gtcell svg{display:block;width:100%;height:auto;margin-top:.15rem}
-#gtdetail:not(:empty){margin:.9rem 0 0;border:1px solid var(--rule);border-radius:7px;
-  background:var(--panel);padding:.8rem .9rem}
-#gtdetail h4{margin:0 0 .1rem;font-family:var(--serif);font-size:1.02rem}
-#gtdetail .sub{font-size:.8rem;color:var(--muted);margin:0 0 .3rem}
-#gtdetail .close{float:right;font-size:.75rem;color:var(--accent);background:none;
-  border:0;cursor:pointer;padding:0}
+.gtrow .dv.up{color:var(--pos)} .gtrow .dv.down{color:var(--neg)}
 .gtline{fill:none;stroke-width:1.6;opacity:.38;transition:opacity .12s,stroke-width .12s}
 .gtline.up{stroke:var(--pos)} .gtline.down{stroke:var(--neg)}
 .gtline.sel{opacity:1;stroke-width:3}
@@ -439,14 +433,16 @@ footer p{max-width:64ch}
 
     <h3 class="gth">How each goal moved, 2015 to 2023</h3>
     <p>The bars above are one country in one year. This is every country at once: each goal's
-      mean score across all 197, plotted as <strong>change since 2015</strong>. The faint line
-      in each panel is the overall index, for comparison.</p>
+      mean score across all 197, plotted as <strong>change since 2015</strong>. The overall
+      index is the dashed line.</p>
     <p class="gtwhy">Change, not level, because each goal is a separate fit centred on its own
       mean &mdash; so the gap between two goals' lines would say nothing, while the movement
-      within one is real. All sixteen panels share one vertical scale, so their shapes compare
-      directly. Ordered by how far the goal moved; click a panel to open it.</p>
-    <div id="gtdetail"></div>
-    <div class="gtgrid" id="gtgrid"></div>
+      within one is real. The list beside the chart is ordered the way the lines end, so a row and its
+      line are in the same place; point at either to light it up.</p>
+    <div class="gtwrap">
+      <div class="chartbox gtchart"><div id="gtrend"></div></div>
+      <div class="gtlist" id="gtlist"></div>
+    </div>
     <p class="gtnote">Goal <strong>15</strong> moves furthest of all and goal <strong>6</strong>
       is third, behind goal 16. Both are held on content grounds: goal 6 largely tracks when an agency published a
       satellite dataset, goal 15 partly tracks treaty ratification. Read those two as
@@ -784,7 +780,7 @@ function initGoals(){
 // Each goal is its own fit, centred on its own mean, so the distance between two
 // goals' levels is an artefact of standardisation and would mislead. Movement within
 // a goal is real, so this plots change from 2015 and nothing else.
-let GT = null, gtSel = null;
+let GT = null, gtSel = null, gtPinned = false;
 
 // Chart labels need a short form; the full SDG names run to 39 characters and
 // truncating them mid-word reads as broken. These are the conventional shorthands.
@@ -821,6 +817,7 @@ function buildGoalTrends(){
 }
 
 // one path builder, shared by the grid panels and the detail chart, so they cannot disagree
+// one path builder, shared everywhere, so the chart and the list cannot disagree
 function gtPath(d, yrs, X, Y){
   return d.map((v, i) => v === null ? "" :
     ((i ? "L" : "M") + X(yrs[i]).toFixed(1) + " " + Y(v).toFixed(1))).join(" ");
@@ -829,75 +826,74 @@ function gtPath(d, yrs, X, Y){
 function drawGoalTrends(){
   if (!GT) return;
   const yrs = GT.yrs, lo = GT.lo, hi = GT.hi;
+  const W = 720, H = 330, m = {t:16, r:16, b:46, l:62};
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const X = v => m.l + (v - yrs[0]) / (yrs[yrs.length-1] - yrs[0]) * iw;
+  const Y = v => m.t + (hi - v) / (hi - lo) * ih;
 
-  // ---- the grid: every goal on ONE shared vertical scale, so shapes compare directly
-  const W = 170, H = 74, m = {t: 4, r: 6, b: 4, l: 6};
-  const X = v => m.l + (v - yrs[0]) / (yrs[yrs.length-1] - yrs[0]) * (W - m.l - m.r);
-  const Y = v => m.t + (hi - v) / (hi - lo) * (H - m.t - m.b);
-  document.getElementById("gtgrid").innerHTML = GT.rows.map(r => {
-    const last = r.d[r.d.length-1];
-    const dir  = last >= 0 ? "up" : "down";
-    const sign = last >= 0 ? "+" : "";
-    return '<button class="gtcell' + (gtSel === r.g ? " on" : "") + '" data-g="' + r.g +
-      '" aria-pressed="' + (gtSel === r.g) + '">' +
-      '<span class="ttl"><span class="nm"><b>' + r.g + '</b>' +
-        (GOAL_SHORT[r.g] || r.name) + (r.held ? ' <span class="hld">held</span>' : '') +
-      '</span><span class="dv ' + dir + '">' + sign + last.toFixed(2) + '</span></span>' +
-      '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Goal ' + r.g + ' ' +
-        r.name + ', change since ' + yrs[0] + ': ' + sign + last.toFixed(2) + '">' +
-        '<line class="gridline" x1="' + m.l + '" y1="' + Y(0).toFixed(1) + '" x2="' +
-          (W-m.r) + '" y2="' + Y(0).toFixed(1) + '" stroke-dasharray="2 3"/>' +
-        (GT.ref ? '<path class="gtref" d="' + gtPath(GT.ref, yrs, X, Y) + '"/>' : '') +
-        '<path class="gtline ' + dir + ' sel" d="' + gtPath(r.d, yrs, X, Y) + '"/>' +
-      '</svg></button>';
-  }).join("");
-
-  // ---- the detail chart, only when a panel is chosen
-  const box = document.getElementById("gtdetail");
-  const r = GT.rows.find(x => x.g === gtSel);
-  if (!r) { box.innerHTML = ""; return; }
-  const DW = 720, DH = 260, dm = {t: 16, r: 120, b: 44, l: 56};
-  const iw = DW - dm.l - dm.r, ih = DH - dm.t - dm.b;
-  const DX = v => dm.l + (v - yrs[0]) / (yrs[yrs.length-1] - yrs[0]) * iw;
-  const DY = v => dm.t + (hi - v) / (hi - lo) * ih;
   let g = "";
-  for (let h = Math.ceil(lo); h <= hi; h++) {
-    g += '<line class="gridline" x1="' + dm.l + '" y1="' + DY(h).toFixed(1) + '" x2="' +
-         (DW-dm.r) + '" y2="' + DY(h).toFixed(1) + '"' +
-         (h === 0 ? ' stroke-dasharray="0"' : ' stroke-dasharray="2 3"') + '/>' +
-         '<text class="axis" x="' + (dm.l-8) + '" y="' + (DY(h)+4).toFixed(1) +
-         '" text-anchor="end">' + (h > 0 ? "+" : "") + h + '</text>';
+  // gridlines every half unit, numbered only on the whole ones
+  for (let h = Math.ceil(lo * 2); h <= hi * 2; h++) {
+    const t = h / 2, yy = Y(t).toFixed(1), whole = h % 2 === 0;
+    g += '<line class="gridline" x1="' + m.l + '" y1="' + yy + '" x2="' + (W-m.r) +
+         '" y2="' + yy + '"' + (Math.abs(t) < 1e-9 ? ' stroke-dasharray="0"' :
+         ' stroke-dasharray="2 3"') + (whole ? '' : ' opacity="0.45"') + '/>';
+    if (whole) g += '<text class="axis" x="' + (m.l-8) + '" y="' + (Y(t)+4).toFixed(1) +
+         '" text-anchor="end">' + (t > 0 ? "+" : "") + t.toFixed(0) + '</text>';
   }
-  yrs.forEach(v => { g += '<text class="axis" x="' + DX(v).toFixed(1) + '" y="' + (DH-24) +
+  yrs.forEach(v => { g += '<text class="axis" x="' + X(v).toFixed(1) + '" y="' + (H-26) +
     '" text-anchor="middle">' + v + '</text>'; });
-  if (GT.ref) {
-    g += '<path class="gtref" d="' + gtPath(GT.ref, yrs, DX, DY) + '"/>';
-    g += '<text class="gtlab" x="' + (DW-dm.r+8) + '" y="' +
-         (DY(GT.ref[GT.ref.length-1])+3.5).toFixed(1) + '">overall index</text>';
-  }
-  const last = r.d[r.d.length-1];
-  g += '<path class="gtline ' + (last >= 0 ? "up" : "down") + ' sel" d="' +
-       gtPath(r.d, yrs, DX, DY) + '"/>';
-  g += '<text class="gtlab sel" x="' + (DW-dm.r+8) + '" y="' + (DY(last)+3.5).toFixed(1) +
-       '">' + r.g + '. ' + (GOAL_SHORT[r.g] || r.name) + '</text>';
-  g += '<text class="axttl" x="14" y="' + (dm.t + ih/2).toFixed(1) +
-       '" text-anchor="middle" transform="rotate(-90 14 ' + (dm.t + ih/2).toFixed(1) +
-       ')">change since ' + yrs[0] + '</text>';
-  box.innerHTML = '<button class="close" id="gtclose">close &times;</button>' +
-    '<h4>' + r.g + '. ' + r.name + (r.held ? ' &mdash; held on content grounds' : '') + '</h4>' +
-    '<p class="sub">Mean across all 197 countries, change since ' + yrs[0] + '. ' +
-    'Ends ' + (last >= 0 ? "+" : "") + last.toFixed(2) + '.</p>' +
-    '<svg viewBox="0 0 ' + DW + ' ' + DH + '" role="img" aria-label="Goal ' + r.g + ' ' +
-    r.name + ' against the overall index, change since ' + yrs[0] + '">' + g + '</svg>';
-  document.getElementById("gtclose").onclick = () => { gtSel = null; drawGoalTrends(); };
-  box.scrollIntoView({block: "nearest"});
+
+  if (GT.ref) g += '<path class="gtref' + (gtSel ? " gtdim" : "") + '" d="' +
+                   gtPath(GT.ref, yrs, X, Y) + '"/>';
+  GT.rows.forEach(r => {
+    const last = r.d[r.d.length-1];
+    const sel  = gtSel === r.g;
+    g += '<path class="gtline ' + (last >= 0 ? "up" : "down") +
+         (sel ? " sel" : (gtSel ? " gtdim" : "")) + '" data-g="' + r.g + '" d="' +
+         gtPath(r.d, yrs, X, Y) + '"><title>Goal ' + r.g + ': ' + r.name + ' \u2014 ' +
+         (last >= 0 ? "+" : "") + last.toFixed(2) + ' since ' + yrs[0] + '</title></path>';
+  });
+  g += '<text class="axttl" x="' + (m.l + iw/2).toFixed(1) + '" y="' + (H-6) +
+       '" text-anchor="middle">year</text>';
+  g += '<text class="axttl" x="14" y="' + (m.t + ih/2).toFixed(1) +
+       '" text-anchor="middle" transform="rotate(-90 14 ' + (m.t + ih/2).toFixed(1) +
+       ')">change in mean score since ' + yrs[0] + '</text>';
+  document.getElementById("gtrend").innerHTML =
+    '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Change in each SDG ' +
+    'goal\u2019s mean reporting score since ' + yrs[0] + ', against the overall index.">' +
+    g + '</svg>';
+
+  // the list is ordered the way the lines END, so a row sits where its line sits
+  const byEnd = [...GT.rows].sort((a, b) =>
+    b.d[b.d.length-1] - a.d[a.d.length-1]);
+  document.getElementById("gtlist").innerHTML = byEnd.map(r => {
+    const last = r.d[r.d.length-1];
+    return '<button class="gtrow' + (gtSel === r.g ? " on" : "") + '" data-g="' + r.g +
+      '" aria-pressed="' + (gtSel === r.g) + '">' +
+      '<span class="n">' + r.g + '</span>' +
+      '<span class="nm">' + (GOAL_SHORT[r.g] || r.name) +
+        (r.held ? ' <span class="hld">held</span>' : '') + '</span>' +
+      '<span class="dv ' + (last >= 0 ? "up" : "down") + '">' +
+        (last >= 0 ? "+" : "") + last.toFixed(2) + '</span></button>';
+  }).join("");
 }
 
-document.addEventListener("click", e => {
-  const b = e.target.closest && e.target.closest(".gtcell");
-  if (!b) return;
-  gtSel = (+b.dataset.g === gtSel) ? null : +b.dataset.g;
+function gtPick(v, sticky){
+  if (sticky) gtSel = (v === gtSel) ? null : v; else gtSel = v;
   drawGoalTrends();
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest(".gtrow");
+  if (b) { const v = +b.dataset.g; gtPinned = (v !== gtSel); gtPick(v, true); }
+});
+document.addEventListener("mouseover", e => {
+  const t = e.target.closest && (e.target.closest(".gtrow") || e.target.closest(".gtline"));
+  if (t && !gtPinned) gtPick(+t.dataset.g, false);
+});
+document.addEventListener("mouseout", e => {
+  const t = e.target.closest && (e.target.closest(".gtrow") || e.target.closest(".gtline"));
+  if (t && !gtPinned && !e.relatedTarget?.closest?.(".gtrow,.gtline")) gtPick(null, false);
 });
 
 function drawGoals(){
