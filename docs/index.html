@@ -282,8 +282,8 @@ footer p{}
 
 <section>
   <div class="wrap">
-    <p class="eyebrow">What it measures</p>
-    <h2>A score built from what is missing</h2>
+    <p class="eyebrow">What this measures</p>
+    <h2>Missing data isn&rsquo;t noise. It&rsquo;s behaviour.</h2>
     <p>For each country, year and statistical series, the UN database either holds a
       published figure or it doesn&rsquo;t. The VSI reads only that: whether a number is
       there, never what it says. A government that publishes bad news scores well; one
@@ -300,25 +300,30 @@ footer p{}
 
     <div class="diff">
       <div class="dcard"><span class="k">2015&ndash;23</span>
-        <h3>The years no index covers</h3>
+        <h3>The uncovered era</h3>
         <p>The standard transparency index stops in 2010 and its update in 2015. Nothing
           comparable covers the pandemic or the recent wave of democratic backsliding.</p></div>
       <div class="dcard"><span class="k">524</span>
-        <h3>Series, not a sample</h3>
+        <h3>The whole framework</h3>
         <p>Every usable series in the SDG framework. Comparable audits check a few dozen
           indicators.</p></div>
+      <div class="dcard"><span class="k">0</span>
+        <h3>Denominators assumed</h3>
+        <p>Simpler measures divide by a number of series chosen by hand. This one estimates
+          how hard each series is to report instead.</p></div>
       <div class="dcard"><span class="k">16</span>
-        <h3>Scores by goal</h3>
+        <h3>Domains resolved</h3>
         <p>Show which policy areas a country stopped reporting on, not only that its
           overall reporting fell.</p></div>
-      <div class="dcard"><span class="k">&plusmn;</span>
-        <h3>An error bar on every score</h3>
-        <p>Each country&ndash;year and each goal score comes with its own standard
-          error.</p></div>
+      <div class="dcard"><span class="k">&rarr;</span>
+        <h3>Silence attributed</h3>
+        <p>The SDG database records who produced each figure and why a cell is empty. The
+          World Development Indicators don&rsquo;t, which is why earlier measures can&rsquo;t
+          separate won&rsquo;t from can&rsquo;t.</p></div>
     </div>
 
     <div class="note">
-      <h3>Not in this release</h3>
+      <h3>What this release does and does not do</h3>
       <p>The SDG database records who produced each figure: the national statistics
         office or a UN agency. That is what will separate a government withholding data
         from one that can&rsquo;t produce it, and these scores don&rsquo;t use it yet. Until
@@ -345,7 +350,7 @@ footer p{}
 
 <section>
   <div class="wrap">
-    <p class="eyebrow">By policy area</p>
+    <p class="eyebrow">By policy domain</p>
     <h2>Which areas went quiet</h2>
     <p>Goal scores use the same scale as the overall index, and each comes from its own
       model fitted on that goal&rsquo;s series alone. They don&rsquo;t simply repeat the
@@ -353,8 +358,8 @@ footer p{}
       explained by a country&rsquo;s overall reporting level.</p>
 
     <div class="note">
-      <h3>Before reading a goal score</h3>
-      <p><strong>Every goal ships with its reliability and standard error.</strong> None is
+      <h3>Every goal ships with its own error bar</h3>
+      <p><strong>Reliability and standard error are printed for every goal.</strong> None is
         dropped for being imprecise; reliability 0.70 is marked as a reference, not a
         cut&ndash;off.</p>
       <p><strong>Goals 6 and 15 are held back</strong> because of what their series measure.
@@ -467,7 +472,7 @@ footer p{}
 <section>
   <div class="wrap">
     <p class="eyebrow">External validity</p>
-    <h2>Checked against indices built by others</h2>
+    <h2>Checked against an index built by someone else</h2>
     <p>The VSI agrees at <strong>0.85</strong> with the World Bank&rsquo;s
       <strong>Statistical Performance Indicators</strong> (SPI), which rate statistical
       systems from censuses, surveys and institutions. It agrees at <strong>0.85</strong>
@@ -493,7 +498,7 @@ footer p{}
     </div>
     <p class="vkey" style="margin-top:.6rem">&dagger; shares source data with this index.</p>
     <div class="note">
-      <h3>What this does not show</h3>
+      <h3>What this does not establish</h3>
       <p>These are comparisons between countries. Within one country over time, agreement
         with SPI is only <strong id="vwc">0.12</strong>, because SPI barely changes from
         year to year. Year&ndash;to&ndash;year movement in the VSI has not yet been checked
@@ -504,8 +509,8 @@ footer p{}
 
 <section>
   <div class="wrap">
-    <p class="eyebrow">Method</p>
-    <h2>How it is built</h2>
+    <p class="eyebrow">Method and status</p>
+    <h2>How it is built, and what is missing</h2>
     <dl>
       <dt>Model</dt>
       <dd>An item response model, the kind used to score standardised tests: series play
@@ -533,19 +538,19 @@ footer p{}
 <section>
   <div class="wrap">
     <p class="eyebrow">Roadmap</p>
-    <h2>What comes next</h2>
+    <h2>What each version measures</h2>
     <div class="vers">
       <div class="ver now">
         <span class="vn">v1</span>
         <div>
-          <h3>Coverage by goal &mdash; <em>this release</em></h3>
+          <h3>Domain &mdash; <em>this release</em></h3>
           <p>Whether each of 524 series was published, scored overall and for 16 goals.</p>
         </div>
       </div>
       <div class="ver">
         <span class="vn">v2</span>
         <div>
-          <h3>Who produced the data</h3>
+          <h3>Provenance</h3>
           <p>Whether a figure came from the national statistics office or a UN agency, and
             why a cell is empty. This is what separates withheld data from data a country
             cannot produce. The World Development Indicators record neither.</p>
@@ -554,7 +559,7 @@ footer p{}
       <div class="ver">
         <span class="vn">v3</span>
         <div>
-          <h3>How detailed</h3>
+          <h3>Depth</h3>
           <p>A national total and a full breakdown by sex, age and location currently count
             the same. About a third of series can be broken down this way.</p>
         </div>
