@@ -192,7 +192,7 @@ own weaknesses attached.</p>
     <rect class="pbox hi" x="12" y="238" width="192" height="104" rx="4"/>
     <text class="pt b" x="108" y="256">one factor</text>
     <text class="ps" x="108" y="272">1 fit on all 524 series</text>
-    <text class="ps" x="108" y="286">187 cycles &middot; 0.4 min</text>
+    <text class="ps" x="108" y="286">the overall index</text>
     <text class="ps" x="108" y="306">every series loads on</text>
     <text class="ps" x="108" y="318">the single factor</text>
     <line class="pa" x1="108" y1="342" x2="108" y2="366" marker-end="url(#ar)"/>
@@ -200,7 +200,7 @@ own weaknesses attached.</p>
     <rect class="pbox hi" x="264" y="238" width="192" height="104" rx="4"/>
     <text class="pt b" x="360" y="256">sixteen separate fits</text>
     <text class="ps" x="360" y="272">one per goal, 17&ndash;75 series</text>
-    <text class="ps" x="360" y="286">19&ndash;73 cycles &middot; 0.3 min</text>
+    <text class="ps" x="360" y="286">goal 7 too thin to fit</text>
     <text class="ps" x="360" y="306">a goal's score owes</text>
     <text class="ps" x="360" y="318">nothing to the other 15</text>
     <line class="pa" x1="360" y1="342" x2="360" y2="366" marker-end="url(#ar)"/>
@@ -208,7 +208,7 @@ own weaknesses attached.</p>
     <rect class="pbox hi" x="516" y="238" width="192" height="104" rx="4"/>
     <text class="pt b" x="612" y="256">one bifactor fit</text>
     <text class="ps" x="612" y="272">17 factors at once</text>
-    <text class="ps" x="612" y="286">215 cycles &middot; ~50 min</text>
+    <text class="ps" x="612" y="286">not in this release</text>
     <text class="ps" x="612" y="306">each series loads on two:</text>
     <text class="ps" x="612" y="318">general + its own goal</text>
     <line class="pa" x1="612" y1="342" x2="612" y2="366" marker-end="url(#ar)"/>
@@ -280,9 +280,8 @@ own weaknesses attached.</p>
     <dl class="terms">
       <dt>Completed grid</dt>
       <dd>The full country &times; year &times; series rectangle with zeros filled in.
-      1,179,045 cells, of which <strong>38.2%</strong> are reported. Built once by
-      <code>irt_prep.R</code>, which every model sources, so no two fits can disagree about
-      what the data are.</dd>
+      1,179,045 cells, of which <strong>38.2%</strong> are reported. Built once and shared by
+      every model, so no two fits can disagree about what the data are.</dd>
     </dl>
     <div class="flagbox"><b>The failure this prevents</b>
     <p>Skip it and &ldquo;reporting&rdquo; silently becomes &ldquo;reporting, among countries
@@ -391,6 +390,10 @@ own weaknesses attached.</p>
     <strong>0.36</strong>. Estimating each series' difficulty is what removes that judgement
     call &mdash; and the index correlates only <strong>0.61&ndash;0.68</strong> with
     share&ndash;based measures, so the two are not interchangeable.</p></div>
+    <div class="why"><b>What the model is not told</b>
+    <p>No democracy score, income group, population or region enters the model. Those are the
+    explanatory variables in the companion study, and building them into the score would make
+    any test of them circular. The model sees only which cells hold a number.</p></div>
     <div class="flagbox"><b>The assumption to know about</b>
     <p><strong>Local independence:</strong> conditional on <i class="sym">&theta;</i>, the 524 series are
     independent of one another. This is not exactly true, since related series are reported
@@ -423,8 +426,8 @@ own weaknesses attached.</p>
       <thead><tr><th>Setting</th><th>Value</th><th>Why not the default</th></tr></thead>
       <tbody>
         <tr><td class="c">accelerate</td><td class="c">squarem</td>
-          <td>Roughly 20&times; fewer cycles. On the default, the 17&ndash;factor model ran past
-          19 hours without finishing. Binary fits only: it breaks ordered thresholds.</td></tr>
+          <td>Roughly 20&times; fewer cycles. Without it the 17&ndash;factor model does not
+          finish in practical time.</td></tr>
         <tr><td class="c">TOL</td><td class="c">1e&minus;3</td>
           <td>The usual 1e&minus;4 is unreachable here: 13 of 1,569 parameters drift along a
           ridge where the likelihood is flat. Checked rather than assumed &mdash; against the
@@ -437,8 +440,8 @@ own weaknesses attached.</p>
           lognormal: 172 of 1,045 loadings are negative, which a lognormal forbids.</td></tr>
       </tbody>
     </table></div>
-    <p>The overall index converges in <strong>187 cycles, about 25 seconds</strong>, and
-    reproduces identically on an independent run.</p>
+    <p>The overall index converges well inside its iteration limit and reproduces identically
+    on an independent run.</p>
   </div>
 </section>
 
@@ -479,6 +482,13 @@ own weaknesses attached.</p>
     <p>For a country&ndash;year that reported everything, or nothing, the maximum likelihood
     estimate is &plusmn;infinity. EAP is always finite because the prior pulls it back, and it
     returns a standard error for free. The cost is slight shrinkage toward 0 at the extremes.</p></div>
+    <div class="flagbox"><b>Each year is scored on its own</b>
+    <p>Country&ndash;years are scored independently; nothing links a country's 2019 score to its
+    2018 one. The original transparency index smooths adjacent years with a dynamic prior. That
+    is deferred here, since nine years is a short series for a random walk to earn its place.</p>
+    <p>It also means 2023 is scored on whatever the database held when this snapshot was taken.
+    The UN fills recent years in gradually, so 2023 is incomplete, and its fall in the averages
+    is an archiving lag rather than a finding. Drop 2023 or absorb it with year effects.</p></div>
     <p><strong>Orientation.</strong> The model identifies the factor only up to sign: flip every
     <i class="sym">a</i> and every <i class="sym">&theta;</i> and the likelihood is identical. So after fitting, the sign
     is set by correlating <i class="sym">&theta;</i> with the plain count of series reported, and flipped if needed.
@@ -509,8 +519,9 @@ own weaknesses attached.</p>
     rather than 524, goal&ndash;level error bars are about three times the overall index's,
     which is why every goal is published with its own. <strong>Goal 7</strong> is listed with no score
     rather than omitted. Its framework has only six series, the fewest of any goal; three
-    of them are reported by more than 98% of country&ndash;years and are removed by the
-    step&ndash;3 filter, leaving too few to identify a factor.</p>
+    of them are reported by more than 98% of country&ndash;years (electricity access 99.5%,
+    energy intensity and renewable share 99.0% each) and are removed by the step&ndash;3 filter,
+    leaving too few to identify a factor.</p>
     <dl class="terms">
       <dt>Bifactor model</dt>
       <dd>Every series loads on exactly <strong>two</strong> factors: the general one, shared by
@@ -610,9 +621,16 @@ own weaknesses attached.</p>
         <tr><td>World Bank Statistical Performance Indicators, overall</td><td class="n2">1,425</td><td class="n2">0.851</td><td class="n2">0.867</td></tr>
         <tr><td>SPI pillar 5, infrastructure</td><td class="n2">1,519</td><td class="n2">0.828</td><td class="n2">0.796</td></tr>
         <tr><td>SPI pillar 4, sources</td><td class="n2">1,560</td><td class="n2">0.807</td><td class="n2">0.833</td></tr>
-        <tr><td>HRV transparency index</td><td class="n2">149</td><td class="n2">0.851</td><td class="n2">0.850</td></tr>
+        <tr><td>SPI pillar 2, services</td><td class="n2">1,436</td><td class="n2">0.680</td><td class="n2">0.720</td></tr>
+        <tr><td>SPI pillar 1, use</td><td class="n2">1,773</td><td class="n2">0.669</td><td class="n2">0.698</td></tr>
+        <tr><td>SPI pillar 3, products &dagger;</td><td class="n2">1,764</td><td class="n2">0.475</td><td class="n2">0.500</td></tr>
+        <tr><td>HRV transparency index, 2015 only</td><td class="n2">149</td><td class="n2">0.851</td><td class="n2">0.850</td></tr>
       </tbody>
     </table></div>
+    <p>&dagger; Pillar 3 partly scores how many SDG indicators a country has published, taken from
+    the same UN database, so agreement there is partly mechanical. It is the weakest pillar, not
+    the strongest, which is the opposite of what shared inputs would produce. The pillars built
+    from wholly separate evidence, sources and infrastructure, agree best.</p>
     <h3>Known groups</h3>
     <p>Mean score by World Bank income group runs in the expected order and spans two full
     standard deviations: high <strong>+1.22</strong>, upper&ndash;middle +0.04,
@@ -622,7 +640,12 @@ own weaknesses attached.</p>
     4.8% of its total variance is within&ndash;country. This release therefore cannot separate
     reporting withheld by choice from reporting absent through incapacity. That separation needs
     the provenance layer on the roadmap. What this release claims is coverage of the SDG era and
-    resolution by domain, and no more.</p></div>
+    resolution by domain, and no more.</p>
+    <p>All of the agreement above is <em>between</em> countries. Within one country over time,
+    the median correlation with SPI is <strong>0.12</strong> across 181 countries: SPI is a
+    slow&ndash;moving assessment of institutions and barely shifts year to year, so it cannot
+    corroborate annual movement. HRV ends in 2015, where this panel begins, so it speaks to one
+    year only. Year&ndash;to&ndash;year variation is not yet externally checked.</p></div>
   </div>
 </section>
 
@@ -631,7 +654,9 @@ own weaknesses attached.</p>
   <div class="sbody">
     <h2>Disclose, do not gate</h2>
     <p>Every goal that fits is published. Nothing is dropped for imprecision. Each goal instead
-    carries four numbers a reader can weigh it by, so the judgement stays with the reader.</p>
+    carries four numbers a reader can weigh it by, so the judgement stays with the reader. This
+    is the convention V&ndash;Dem, the World Bank's governance indicators and the HRV index all
+    follow.</p>
     <div class="tbl"><table>
       <thead><tr><th>Column</th><th>What it warns about</th></tr></thead>
       <tbody>
@@ -660,15 +685,34 @@ own weaknesses attached.</p>
   <div class="sbody">
     <h2>Pin the version, then nothing moves</h2>
     <p>The run order is fixed and documented in
-    <a href="https://github.com/SevastianSanchez/Politics_of_NAs/blob/main/code/README.md">code/README.md</a>:
-    build the variant map; fit the overall index and the sixteen goal fits, which are independent
-    of each other; characterise who produced each series; build this site's data; run the
-    external validity checks; print every number the paper quotes. Both fits source
-    <code>irt_prep.R</code>, which halts if the variant map is missing or stale, so the two
-    layers cannot drift apart.</p>
+    <a href="https://github.com/SevastianSanchez/Politics_of_NAs/blob/main/code/README.md">code/README.md</a>.
+    Every fit reads the same prepared data, and preparation stops if the list of repeated series
+    is missing or out of date, so the overall index and the goal scores cannot drift apart.</p>
     <p>A release copies the scores, the per&ndash;series parameters, the diagnostics, the run log
     and the code into a versioned folder and deposits it at Zenodo, where each version keeps its
     own DOI and the concept DOI always resolves to the latest.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="n">NEXT</div>
+  <div class="sbody">
+    <h2>Not in this release</h2>
+    <dl class="terms">
+      <dt>Who produced the figure</dt>
+      <dd>The SDG database records whether each figure came from a national statistics office or
+      an international agency, and why a cell is empty: suppressed, not applicable, or
+      unexplained. Splitting on that is what separates withheld data from data a country cannot
+      produce. The World Development Indicators record neither, which is why earlier measures
+      cannot draw the line.</dd>
+      <dt>How detailed the figure is</dt>
+      <dd>A national total and a full breakdown by sex, age and location currently score alike.
+      36% of series can be broken down, and depth correlates with the index at 0.57 once the
+      series set is held fixed, so it carries information the yes/no outcome discards. It will
+      enter as ordered responses the model estimates over, not as a ratio computed afterwards.</dd>
+      <dt><code>goal_relative</code></dt>
+      <dd>The bifactor score from step 7: each goal net of the country's overall level.</dd>
+    </dl>
   </div>
 </section>
 

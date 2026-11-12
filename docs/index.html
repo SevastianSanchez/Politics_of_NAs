@@ -260,15 +260,12 @@ footer p{}
   <div class="wrap">
     <span class="tag">Preliminary &middot; not for citation</span>
     <h1>Visible States Project</h1>
-    <p class="lede">The first transparency measure covering the SDG era: latent reporting
-      behaviour across 524 statistical series and 197 countries, 2015&ndash;2023, with
-      uncertainty quantified for every country&ndash;year.</p>
-    <p class="sub"><strong>Visible States Index (VSI)</strong> is the overall score
-      published here, alongside <strong>goal&ndash;level scores</strong> for the 16 SDG
-      goals with enough series to support them.</p>
-    <p class="sub">Existing transparency indices stop in 2015. This one begins there, and
-      resolves reporting by policy domain rather than returning a single national score.
-      Estimated by item response theory on the UN Global SDG Database.</p>
+    <p class="lede">How much of the UN&rsquo;s SDG data each government publishes: 197
+      countries, 2015&ndash;2023, scored overall and goal by goal, with an error bar on
+      every score.</p>
+    <p class="sub">The <strong>Visible States Index (VSI)</strong> is the overall score.
+      <strong>Goal scores</strong> cover 16 of the 17 SDGs. Existing transparency indices
+      end in 2015; this one starts there.</p>
     <p class="byline">Sevastian Sanchez &middot; Columbia University &middot;
       <span id="gen"></span> &middot;
       <a href="method.html">How it is built</a> &middot;
@@ -285,62 +282,48 @@ footer p{}
 
 <section>
   <div class="wrap">
-    <p class="eyebrow">What this measures</p>
-    <h2>Missing data isn&rsquo;t noise. It&rsquo;s behaviour.</h2>
-    <p>For every country, series and year, the UN database either holds a published
-      figure or it does not. Treat each of the 524 statistical series as an item on a
-      test and each country&ndash;year as a test&ndash;taker: a country's underlying
-      willingness and ability to report is then estimated jointly with how demanding
-      each series is. This is the design Hollyer, Rosendorff and Vreeland introduced
-      for World Development Indicators, applied here to SDG data.</p>
-    <p>The point of the model is that it removes a judgement call. Every simpler
-      measure of missing data has to divide by a denominator chosen by hand &mdash;
-      all series in the framework, or only those the UN opened a cell for. The first
-      assumes every country should report what the richest ones do; the second reacts
-      to reporting itself. Seven such measures built for this project disagreed badly,
-      two of them correlating at only 0.36. Estimating each series' difficulty instead
-      of assuming a denominator is what resolves that.</p>
-    <p>Scores are on a standard&ndash;normal scale: 0 is the average country&ndash;year,
-      positive is more complete reporting, and each estimate carries its own
-      uncertainty. Concretely, Germany in 2019 scores <strong>+1.68</strong>, sixteenth of
-      197 country&ndash;years that year; Sierra Leone scores <strong>&minus;0.90</strong>,
-      171st. They are posterior means, so the error bars are genuine posterior
-      standard deviations rather than asymptotic approximations.</p>
+    <p class="eyebrow">What it measures</p>
+    <h2>A score built from what is missing</h2>
+    <p>For each country, year and statistical series, the UN database either holds a
+      published figure or it doesn&rsquo;t. The VSI reads only that: whether a number is
+      there, never what it says. A government that publishes bad news scores well; one
+      that publishes nothing scores badly.</p>
+    <p>Some series are reported by nearly every country and some by very few, so a plain
+      count would treat a routine figure and a rare one alike. The model instead learns
+      from the data how hard each series is to report and weights it accordingly. The
+      approach is Hollyer, Rosendorff and Vreeland&rsquo;s, built for the World
+      Development Indicators and applied here to the SDGs.</p>
+    <p>Scores are in standard deviations: 0 is the average country&ndash;year over
+      2015&ndash;2023, and higher means more reporting. Germany in 2019 scores
+      <strong>+1.68</strong>, 16th of 197 that year; Sierra Leone scores
+      <strong>&minus;0.90</strong>, 171st.</p>
 
     <div class="diff">
       <div class="dcard"><span class="k">2015&ndash;23</span>
-        <h3>The uncovered era</h3>
-        <p>The established transparency index runs to 2010, its maintained extension to
-          2015. For the years that follow &mdash; the pandemic, the backsliding wave,
-          half the SDG monitoring window &mdash; no comparable measure exists.</p></div>
+        <h3>The years no index covers</h3>
+        <p>The standard transparency index stops in 2010 and its update in 2015. Nothing
+          comparable covers the pandemic or the recent wave of democratic backsliding.</p></div>
       <div class="dcard"><span class="k">524</span>
-        <h3>The whole framework</h3>
-        <p>Distinct series covered across 197 countries and nine years, estimated rather
-          than hand&ndash;coded. Comparable inventories audit a few dozen indicators.</p></div>
-      <div class="dcard"><span class="k">0</span>
-        <h3>Denominators assumed</h3>
-        <p>Every simpler measure divides by a figure chosen by hand. This one estimates
-          how demanding each series is instead.</p></div>
+        <h3>Series, not a sample</h3>
+        <p>Every usable series in the SDG framework. Comparable audits check a few dozen
+          indicators.</p></div>
       <div class="dcard"><span class="k">16</span>
-        <h3>Domains resolved</h3>
-        <p>Goal&ndash;level scores show <em>which</em> areas fell silent, not merely that
-          a country did. Existing transparency indices return one number.</p></div>
-      <div class="dcard"><span class="k">&rarr;</span>
-        <h3>Silence attributed</h3>
-        <p>The SDG database records who produced each figure and why a cell is empty.
-          The World Development Indicators do not &mdash; which is why earlier measures
-          cannot separate won't from can't.</p></div>
+        <h3>Scores by goal</h3>
+        <p>Show which policy areas a country stopped reporting on, not only that its
+          overall reporting fell.</p></div>
+      <div class="dcard"><span class="k">&plusmn;</span>
+        <h3>An error bar on every score</h3>
+        <p>Each country&ndash;year and each goal score comes with its own standard
+          error.</p></div>
     </div>
 
     <div class="note">
-      <h3>What this release does and does not do</h3>
-      <p>The attribution layer is the point of the project, and it is <em>not</em> in
-        the scores published here. This page carries the composite index only. Telling
-        withheld data from absent capacity requires the provenance split, which is in
-        progress.</p>
-      <p>The consequence is visible in the rankings: small island states with genuine
-        capacity constraints currently sit beside governments that are plainly
-        choosing silence. Separating those two is the work, not an oversight in it.</p>
+      <h3>Not in this release</h3>
+      <p>The SDG database records who produced each figure: the national statistics
+        office or a UN agency. That is what will separate a government withholding data
+        from one that can&rsquo;t produce it, and these scores don&rsquo;t use it yet. Until
+        they do, a small island state short of statisticians can rank next to a government
+        that is choosing silence.</p>
     </div>
   </div>
 </section>
@@ -349,64 +332,44 @@ footer p{}
   <div class="wrap">
     <p class="eyebrow">Trend</p>
     <h2>Average reporting level, year by year</h2>
-    <p>The mean VSI score across all 197 countries in each year. The scale is
-      standard&ndash;normal across the whole period: <strong>0 is the average
-      country&ndash;year</strong>, 2015 to 2023, and one unit is one standard deviation.
-      A year above 0 is one in which the world reported more than that average.</p>
+    <p>The mean VSI across all 197 countries in each year.</p>
     <div class="chartbox"><div id="chart"></div></div>
     <div class="note">
       <h3>Read 2023 with care</h3>
-      <p>The series rises steadily through 2020 and then falls sharply in 2023. That
-        last drop is very likely an artefact rather than a finding: the UN database
-        fills recent years in gradually, and this snapshot was taken before 2023 had
-        settled. Small states with genuine capacity constraints appear alongside
-        deliberate non&ndash;reporters at the bottom of that year for the same reason.</p>
-      <p>Any analysis using these scores should either drop 2023 or absorb the lag
-        through year effects. Treating it as a normal year would read an archival
-        delay as a collapse in global transparency.</p>
+      <p>The 2023 drop is mostly the database still filling in, not countries reporting
+        less. The UN adds figures for recent years gradually, and this snapshot was taken
+        before 2023 had settled. Drop 2023 or use year fixed effects in any analysis.</p>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <p class="eyebrow">By policy domain</p>
+    <p class="eyebrow">By policy area</p>
     <h2>Which areas went quiet</h2>
-    <p>A single national score says a government reports less. It cannot say what it
-      stopped reporting. Scores resolved to the 16 SDG goals with enough series to
-      support them can. And they are not a restatement of the overall index: across
-      the 16 goals, a median of <strong>64%</strong> of the variation in goal&ndash;level
-      reporting is not explained by a country's overall level, ranging from 18% for
-      goal 17 to almost all of it for goals 6 and 15. The domains move on their own,
-      which is the point of measuring them separately.</p>
+    <p>Goal scores use the same scale as the overall index, and each comes from its own
+      model fitted on that goal&rsquo;s series alone. They don&rsquo;t simply repeat the
+      overall score: for the typical goal, <strong>64%</strong> of the variation is not
+      explained by a country&rsquo;s overall reporting level.</p>
 
     <div class="note">
-      <h3>Every goal ships with its own error bar</h3>
-      <p>These are model scores, on the same scale as the overall index: positive
-        means a country reported more on that goal than the average country-year,
-        negative means less. Each is a separate fit on that goal's series alone,
-        so a goal's score owes nothing to the other fifteen.</p>
-      <p>Nothing is excluded for being imprecise. Reliability is printed for every
-        goal and <strong>0.70 is shown as a reference point, not applied as a
-        cut</strong>. Two goals are held back on content grounds rather than
-        precision: <strong>goal 6</strong> is largely satellite measurement, so
-        &ldquo;reported&rdquo; mostly records whether an agency published, and
-        <strong>goal 15</strong> carries treaty and policy instruments that may
-        track commitment status rather than reporting effort.</p>
-      <p><strong>Goal 7</strong> is a different case again, and not the one its score
-        count suggests. The framework gives it only <strong>six</strong> series, the
-        fewest of any goal and the only goal with no disaggregated series at all. Three
-        of those are reported by more than 98% of country&ndash;years &mdash; electricity
-        access 99.5%, energy intensity and renewable share 99.0% each &mdash; so the
-        filter removes them as carrying no information for separating countries. Three
-        remain, too few to identify a factor. It is listed with no score rather than
-        dropped.</p>
+      <h3>Before reading a goal score</h3>
+      <p><strong>Every goal ships with its reliability and standard error.</strong> None is
+        dropped for being imprecise; reliability 0.70 is marked as a reference, not a
+        cut&ndash;off.</p>
+      <p><strong>Goals 6 and 15 are held back</strong> because of what their series measure.
+        Goal 6 is mostly satellite data on lakes and rivers, so it tracks when an agency
+        published. A third of goal 15 is treaty and policy instruments, which may track
+        commitments rather than reporting.</p>
+      <p><strong>Goal 7 has no score.</strong> Only three usable series remain, too few to
+        fit a model.</p>
+      <p><strong>Check the Agency column.</strong> On goals 2 and 3, over 90% of the score
+        rests on figures a UN agency produces, so it says less about the government.</p>
     </div>
 
     <div class="note read">
       <h3>Reading two scores together</h3>
-      <p>The overall score and a goal score answer different questions, and the
-        country&ndash;years worth looking at are the ones where they disagree. Two from 2019:</p>
+      <p>The useful cases are where the overall and goal scores disagree. Two from 2019:</p>
       <div class="tablebox" style="margin:.7rem 0"><table class="rdt">
         <thead><tr><th>Country&ndash;year</th><th class="num">Overall</th>
           <th class="num">Rank</th><th>Goal</th><th class="num">Goal score</th></tr></thead>
@@ -423,18 +386,10 @@ footer p{}
             <td class="num">+2.07 <span class="se">&plusmn;0.15</span></td></tr>
         </tbody>
       </table></div>
-      <p><strong>Germany</strong> reports more than almost any country &mdash; sixteenth of
-        197 that year &mdash; and still sits <em>below</em> the average country&ndash;year on
-        inequality, where the world median is +0.34. The shortfall is seven standard errors
-        wide, so it is not noise.</p>
-      <p><strong>Sierra Leone</strong> is the mirror image: 171st overall, and near the top
-        of the scale on gender. Reporting little in general does not stop a country reporting
-        heavily on one goal.</p>
-      <p>Neither case is visible in the overall score alone, which is the argument for
-        publishing the layer. Both goals here are country&ndash;produced rather than
-        agency&ndash;produced, 5% and 1% agency weight, so the scores reflect what the
-        government published. Check that column before reading a goal score this way: on
-        goals 3 and 2 it is above 90%.</p>
+      <p><strong>Germany</strong> ranks 16th overall but sits below average on inequality,
+        where the world median is +0.34. The gap is about seven standard errors, so it is
+        not noise. <strong>Sierra Leone</strong> is the reverse: 171st overall and near the
+        top on gender equality. Neither shows up in the overall score.</p>
     </div>
 
     <div class="controls">
@@ -445,23 +400,17 @@ footer p{}
     <div class="tablebox" style="padding:1.1rem"><div id="goals"></div></div>
 
     <h3 class="gth">How each goal moved, 2015 to 2023</h3>
-    <p>The bars above are one country in one year. This is every country at once: each goal's
-      mean score across all 197, plotted as <strong>change since 2015</strong>. The overall
-      index is the dashed line.</p>
-    <p class="gtwhy">Change, not level, because each goal is a separate fit centred on its own
-      mean &mdash; so the gap between two goals' lines would say nothing, while the movement
-      within one is real. The list beside the chart runs 1 to 17 in goal order; point at a
-      row or a line to light up both, and click to keep it lit.</p>
+    <p>Each goal&rsquo;s average across all countries, shown as change since 2015; the dashed
+      line is the overall index. Change rather than level, because each goal has its own
+      scale and the gap between two lines means nothing. Hover or click a goal to pick it
+      out.</p>
     <div class="gtwrap">
       <div class="chartbox gtchart"><div id="gtrend"></div></div>
       <div class="gtlist" id="gtlist"></div>
     </div>
-    <p class="gtnote">Goal <strong>15</strong> moves furthest of all and goal <strong>6</strong>
-      is third, behind goal 16. Both are held on content grounds: goal 6 largely tracks when an agency published a
-      satellite dataset, goal 15 partly tracks treaty ratification. Read those two as
-      publication schedules rather than as countries changing behaviour. The 2023 fall affects
-      goals for the same reason it affects the overall index &mdash; the database was still
-      filling that year in when this snapshot was taken.</p>
+    <p class="gtnote">Goals 15 and 6 are among the largest movers. Read them as publication
+      schedules &mdash; treaty ratifications, satellite releases &mdash; rather than countries
+      changing behaviour.</p>
   </div>
 </section>
 
@@ -469,10 +418,9 @@ footer p{}
   <div class="wrap">
     <p class="eyebrow">Change over time</p>
     <h2>Largest movements, 2015 to 2023</h2>
-    <p>The steepest declines line up with events the measure was never told about &mdash;
-      the coup in Myanmar, war in Sudan, the Taliban's return in Afghanistan. Nothing
-      about regime type or conflict enters the model; it sees only whether numbers were
-      published.</p>
+    <p>The steepest declines match events the model knows nothing about: the coup in
+      Myanmar, war in Sudan, the Taliban&rsquo;s return in Afghanistan. Nothing about
+      politics or conflict goes into the model.</p>
     <div class="movers">
       <div class="mcard down"><h3>Steepest declines</h3><div id="down"></div></div>
       <div class="mcard up"><h3>Largest gains</h3><div id="up"></div></div>
@@ -509,40 +457,31 @@ footer p{}
       <a class="btn" href="vsi_scores.json">View overall index (JSON)</a>
       <a class="btn" href="data_dictionary.html">Data dictionary</a>
     </div>
-    <p class="dlnote">The two files are separate, not one master table. <strong>Overall
-      index</strong> is one row per country&ndash;year: 1,773 rows, 88&nbsp;KB.
-      <strong>Goal scores</strong> is one row per country&ndash;year&ndash;goal: 28,368 rows,
-      2.5&nbsp;MB. Both carry a standard error, and both are the scores in
-      <strong>release 1.3.0</strong>, archived at
-      <a href="https://doi.org/10.5281/zenodo.24100866">doi.org/10.5281/zenodo.24100866</a>.
-      Column definitions are in the <a href="data_dictionary.html">data dictionary</a>.</p>
+    <p class="dlnote"><strong>Overall index:</strong> one row per country&ndash;year, 1,773
+      rows. <strong>Goal scores:</strong> one row per country&ndash;year&ndash;goal, 28,368
+      rows. Both are release 1.3.0,
+      <a href="https://doi.org/10.5281/zenodo.24100866">doi.org/10.5281/zenodo.24100866</a>.</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
     <p class="eyebrow">External validity</p>
-    <h2>Checked against an index built by someone else</h2>
-    <p>A measure that only agrees with itself has proved nothing. These scores are
-      compared with two indices built by other researchers from other evidence. The World
-      Bank&rsquo;s <strong>Statistical Performance Indicators</strong> rate a
-      country&rsquo;s statistical system from censuses, surveys, administrative records and
-      institutional arrangements; agreement is <strong>0.85</strong> across 1,425 shared
-      country&ndash;years. The <strong>HRV transparency index</strong> &mdash; the
-      Bayesian latent&ndash;variable measure of reporting this method descends from &mdash;
-      agrees at <strong>0.85</strong> on the 149 countries where the two overlap.</p>
+    <h2>Checked against indices built by others</h2>
+    <p>The VSI agrees at <strong>0.85</strong> with the World Bank&rsquo;s
+      <strong>Statistical Performance Indicators</strong> (SPI), which rate statistical
+      systems from censuses, surveys and institutions. It agrees at <strong>0.85</strong>
+      with the <strong>HRV transparency index</strong>, the measure this method comes from,
+      in 2015, the one year the two overlap.</p>
     <div class="chartbox"><div id="vchart"></div></div>
     <div class="vkey">
       <span><i class="vsw"></i> independent of this index&rsquo;s inputs</span>
       <span><i class="vsw warn"></i> partly shares this index&rsquo;s source data</span>
     </div>
-    <p style="margin-top:1.3rem">The ordering is the real result. SPI&rsquo;s third pillar
-      scores how many SDG indicators a country has published, drawn from the same UN
-      database used here, so some agreement there is mechanical rather than
-      corroborating. If the headline 0.85 were an artifact of shared inputs, pillar 3
-      would sit at the top. It sits at the bottom, at 0.47, while the pillars built from
-      wholly separate evidence &mdash; data sources and data infrastructure &mdash; are
-      the ones near 0.82.</p>
+    <p style="margin-top:1.3rem">One SPI pillar counts SDG indicators published, from the
+      same UN database. If the agreement were just shared data, that pillar would match
+      best. It matches worst, at 0.47; the pillars built from separate evidence sit near
+      0.82.</p>
     <div class="tablebox" style="margin-top:1.2rem">
       <table id="vtbl">
         <thead><tr>
@@ -552,135 +491,77 @@ footer p{}
         <tbody></tbody>
       </table>
     </div>
-    <p class="vkey" style="margin-top:.6rem">&dagger; shares source data with this index:
-      part of SPI pillar 3 scores SDG indicator availability taken from the same UN
-      database.</p>
+    <p class="vkey" style="margin-top:.6rem">&dagger; shares source data with this index.</p>
     <div class="note">
-      <h3>What this does not establish</h3>
-      <p>The agreement above is <em>between</em> countries. Within a single country over
-        time, the median correlation with SPI is only <strong id="vwc">0.15</strong>.
-        SPI is a slow&ndash;moving assessment of statistical institutions and barely
-        shifts from year to year, so it cannot corroborate the annual movement in these
-        scores &mdash; and annual movement is what any analysis of reporting change
-        depends on. Cross&ndash;sectional validity is established here; the
-        year&ndash;to&ndash;year variation is not yet externally checked.</p>
-      <p>The HRV comparison carries the same limit for a different reason. HRV&rsquo;s
-        updated release ends in 2015 and this panel begins in 2015, so the two meet in one
-        year only. Its 0.83 is a strong cross&ndash;sectional agreement with the closest
-        prior measure of the same thing, and it says nothing about any later year.</p>
+      <h3>What this does not show</h3>
+      <p>These are comparisons between countries. Within one country over time, agreement
+        with SPI is only <strong id="vwc">0.12</strong>, because SPI barely changes from
+        year to year. Year&ndash;to&ndash;year movement in the VSI has not yet been checked
+        against an outside source.</p>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <p class="eyebrow">Method and status</p>
-    <h2>How it is built, and what is missing</h2>
+    <p class="eyebrow">Method</p>
+    <h2>How it is built</h2>
     <dl>
-      <dt>Estimation</dt>
-      <dd>Two&ndash;parameter logistic item response model, fitted by marginal maximum
-        likelihood with an EM algorithm; scores are expected a posteriori estimates.
-        The reported fit converged rather than exhausting its iteration cap, and
-        reproduced identically on an independent run.</dd>
-      <dt>Item set</dt>
-      <dd>Two steps, in order. A filter first removes series reported in fewer than 2%
-        or more than 98% of country&ndash;years, which carry no information for
-        separating countries: 665 series become 607. Redundant variants are then
-        collapsed, leaving <strong>524</strong>.</dd>
-      <dt>Why 524 and not 607</dt>
-      <dd>Some measurements are entered in the database more than once. Children stunted
-        appears as a percentage and, separately, as a count in thousands. A country that
-        publishes one always publishes the other, so counting both pays it twice for a
-        single reporting decision, while a country whose series has no twin is paid once.
-        Each such cluster therefore contributes one series. Two conditions must both hold
-        before a cluster is collapsed. The series must be reported, and not reported,
-        together in every one of the 1,773 country&ndash;years; and their descriptions
-        must show they measure the same thing a different way. The pattern alone is not
-        sufficient, because at these reporting rates unrelated series coincide by chance:
-        forest certification, electricity access and refugee counts all move together in
-        99.5% of country&ndash;years without measuring anything in common. Series that
-        merely resemble one another are kept apart, since a country publishing one and
-        withholding the other has made a real reporting choice. 59 clusters met both
-        conditions. The test is re&ndash;run every time the model is fitted and stops it
-        if a future data release breaks it.</dd>
-      <dt>Deliberately excluded</dt>
-      <dd>No democracy score, income group, population or region enters the model.
-        Those are explanatory variables in the accompanying study, and including them
-        would make any subsequent test circular.</dd>
-      <dt>Goal&ndash;level scores</dt>
-      <dd>Published above, as <span class="mono">goal_level</span>. Each goal is a
-        <em>separate</em> fit on its own series rather than one joint model, so a
-        goal's score owes nothing to the other fifteen. Sixteen goals are scored;
-        goal 7 keeps three, too few to identify one: its framework has six series,
-        the fewest of any goal, and half of those are reported by over 98% of
-        country&ndash;years and so are filtered out.
-        Fitting on 17&ndash;75 series instead of 524 makes these error bars about
-        three times the overall index's, which is why every goal is published with
-        its own.</dd>
-      <dt>Not yet smoothed</dt>
-      <dd>Scores are estimated independently by year. A dynamic prior linking adjacent
-        years, as in the original transparency index, is deferred: nine years is a
-        short series for a random walk to earn its place.</dd>
+      <dt>Model</dt>
+      <dd>An item response model, the kind used to score standardised tests: series play
+        the questions, country&ndash;years the test&ndash;takers. Fitted on all 524 series
+        at once.</dd>
+      <dt>Series</dt>
+      <dd>665 in the framework. Those reported by under 2% or over 98% of
+        country&ndash;years are dropped because they can&rsquo;t tell countries apart
+        (607). Series entered twice in different units, such as stunting as a percentage
+        and as a count, are counted once (524).</dd>
+      <dt>Left out on purpose</dt>
+      <dd>Democracy, income, population and region. They are what the companion study uses
+        to explain reporting, so putting them in the score would make that test
+        circular.</dd>
+      <dt>Goal scores</dt>
+      <dd>Sixteen separate fits of 17&ndash;75 series each, so their error bars are about
+        three times the overall index&rsquo;s.</dd>
+      <dt>Years</dt>
+      <dd>Each year is scored on its own; adjacent years are not smoothed together.</dd>
     </dl>
-    <p class="walk"><a href="method.html">The full walkthrough &mdash; eleven steps from
-      blank cells to a score &rarr;</a></p>
+    <p class="walk"><a href="method.html">The full method, step by step &rarr;</a></p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
     <p class="eyebrow">Roadmap</p>
-    <h2>What each version measures</h2>
-    <p>Three dimensions of reporting behaviour are separable in the SDG database and are
-      being added in sequence. Each is listed with what it covers, because a measure's
-      scope is a fact users need rather than a caveat to be buried.</p>
-
+    <h2>What comes next</h2>
     <div class="vers">
       <div class="ver now">
         <span class="vn">v1</span>
         <div>
-          <h3>Domain &mdash; <em>this release</em></h3>
-          <p>Whether a government published anything for each of 524 series, resolved
-            into an overall score and a score per SDG goal. Answers which policy areas
-            fell silent, not merely that a country did. No existing transparency index
-            disaggregates this way.</p>
-          <p style="margin-top:.6rem">Every goal score is released with its reliability
-            and standard error beside it, and none is withheld for being imprecise
-            &mdash; the convention V&ndash;Dem, the World Bank&rsquo;s governance
-            indicators and the HRV index all follow. Two goals are withheld on a
-            different basis: their series measure something other than a
-            country&rsquo;s reporting effort, and an interval cannot warn a reader
-            about that.</p>
+          <h3>Coverage by goal &mdash; <em>this release</em></h3>
+          <p>Whether each of 524 series was published, scored overall and for 16 goals.</p>
         </div>
       </div>
       <div class="ver">
         <span class="vn">v2</span>
         <div>
-          <h3>Provenance</h3>
-          <p>The database records who produced each figure &mdash; a national
-            statistical office or an international agency &mdash; and why a cell is
-            empty: suppressed, structurally inapplicable, or unexplained. Separating
-            those is what distinguishes a government withholding data from one that
-            cannot produce it. The World Development Indicators record neither, which
-            is why no earlier measure can draw the line.</p>
+          <h3>Who produced the data</h3>
+          <p>Whether a figure came from the national statistics office or a UN agency, and
+            why a cell is empty. This is what separates withheld data from data a country
+            cannot produce. The World Development Indicators record neither.</p>
         </div>
       </div>
       <div class="ver">
         <span class="vn">v3</span>
         <div>
-          <h3>Depth</h3>
-          <p>A national total and a full breakdown by sex, age and location currently
-            score alike. 36% of series admit disaggregation, and depth correlates with
-            the index at 0.57 once the series set is held constant &mdash; so it
-            carries signal the binary discards. It enters as ordered responses the
-            model estimates over, not as a ratio computed after the fact.</p>
+          <h3>How detailed</h3>
+          <p>A national total and a full breakdown by sex, age and location currently count
+            the same. About a third of series can be broken down this way.</p>
         </div>
       </div>
     </div>
-
-    <p style="margin-top:1.3rem">Taken together the three produce a measure that can
-      tell silence by choice from silence by incapacity, and locate it by domain. That
-      is the destination; this page documents how far along the way it currently is.</p>
+    <p style="margin-top:1.3rem">Together, the three aim to tell silence by choice from
+      silence by incapacity, policy area by policy area.</p>
   </div>
 </section>
 
@@ -690,18 +571,15 @@ footer p{}
       statistical reporting across countries, policy sectors, and time</em> (v1.3.0)
       [Data set]. Zenodo. <a href="https://doi.org/10.5281/zenodo.23997606">
       https://doi.org/10.5281/zenodo.23997606</a><br>
-      That is the concept DOI, which always resolves to the newest version. For
-      reproducibility, cite instead the <em>version</em> DOI of the release you
-      actually used, so your results stay fixed once a later version changes the
-      scores &mdash; v1.3.0 is
+      This DOI always points to the newest version. To tie your results to the scores
+      you used, cite the version DOI instead: v1.3.0
       <a href="https://doi.org/10.5281/zenodo.24100866">10.5281/zenodo.24100866</a>,
-      v1.2.0 is
+      v1.2.0
       <a href="https://doi.org/10.5281/zenodo.24091914">10.5281/zenodo.24091914</a>,
-      v1.0.0 is
+      v1.0.0
       <a href="https://doi.org/10.5281/zenodo.23997607">10.5281/zenodo.23997607</a>.
-      Versions 1.0.0 to 1.2.1 were published as <em>The World on Record</em>, and keep
-      that title on Zenodo; the scores in 1.2.1 and 1.3.0 are identical, so a 1.2.1
-      citation remains valid.</p>
+      Versions 1.0.0&ndash;1.2.1 were published as <em>The World on Record</em>; 1.2.1 and
+      1.3.0 have identical scores.</p>
 
     <p><strong>Licence.</strong> Scores and derived data are released under
       <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>: reuse and
@@ -736,7 +614,7 @@ function init(){
     [F(D.n_items), "statistical series"],
     [F(D.n_rows), "country–years"],
     [D.median_se.toFixed(3), "median standard error"],
-    [F(D.cycles), "iterations to converge"]
+    ["16", "SDG goals scored"]
   ];
   document.getElementById("facts").innerHTML = facts.map(
     f => '<div class="fact"><span class="n">' + f[0] + '</span><span class="l">' + f[1] + '</span></div>'
@@ -1016,11 +894,10 @@ function goalMetricsTable(){
     '<th title="share of the score resting on series produced by the custodian agency rather than the country">Agency</th>' +
     '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
     '<p style="font-size:.76rem;color:var(--faint);margin:.7rem 0 0">' +
-    'Reliability of ' + G.reliability_reference.toFixed(2) + ' (Nunnally &amp; Bernstein 1994) is a ' +
-    'reference point, not a cut: every goal fitted is published. <em>Top 5</em> is ' +
-    'how concentrated a score is in its heaviest series, and <em>Agency</em> how ' +
-    'much of it rests on series the custodian agency produces rather than the ' +
-    'country. Both are disclosed so a reader can weigh a goal, not to exclude it.' +
+    'Reliability ' + G.reliability_reference.toFixed(2) + ' (Nunnally &amp; Bernstein 1994) is a ' +
+    'reference, not a cut&ndash;off. <em>Top 5</em>: share of the score carried by its five ' +
+    'heaviest series. <em>Agency</em>: share resting on figures a UN agency produces ' +
+    'rather than the country.' +
     '</p></div>';
 }
 
