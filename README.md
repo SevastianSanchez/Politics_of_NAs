@@ -1,10 +1,8 @@
-# The Politics of NAs: Mapping Data Loss During Autocratization
+# Visible States: statistical reporting across countries, policy sectors, and time
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23997606.svg)](https://doi.org/10.5281/zenodo.23997606)
 
-**Status: work in progress.** Code and results change as the analysis develops.
-
-Which development data disappear when democracies backslide, and which disappear first? This project treats missing values in the UN Sustainable Development Goal (SDG) database as an outcome in their own right: a measure of how much a government reports, not a nuisance to impute away. It asks whether autocratization episodes reduce SDG reporting, and whether the losses concentrate in particular goals.
+This repository builds, validates and releases the **Visible States Index (VSI)**, a measure of how much each government reports to the UN Sustainable Development Goal (SDG) database. It treats a missing value as information about the government, not a gap to impute.
 
 Author: Sevastian Sanchez, Columbia University (SIPA and QMSS)
 
@@ -16,7 +14,7 @@ Author: Sevastian Sanchez, Columbia University (SIPA and QMSS)
 
 The first transparency measure covering the SDG era: latent reporting behaviour across 524 statistical series and 197 countries, 2015–2023, with uncertainty quantified for every country-year. Existing transparency indices stop in 2015; this one begins there, and resolves reporting by policy domain rather than returning a single national score.
 
-The headline measure is the **Visible States Index (VSI)**: one overall score per country-year, with sector-level scores to follow. The site carries the rankings, the yearly trend, the sector panel, a version roadmap and the downloadable scores. It is a preliminary release and not yet citable.
+The headline measure is the **Visible States Index (VSI)**: one overall score per country-year, plus one score per SDG goal. The site carries the rankings, the yearly trend, the goal scores, a version roadmap and the downloadable scores. It is a preliminary release, and citable.
 
 ### How to cite
 
@@ -43,16 +41,16 @@ Machine-readable metadata is in [CITATION.cff](CITATION.cff). Code is MIT-licens
 | Source | Use |
 |---|---|
 | UN SDG Global Database, 2015–2023 (665 series, 197 geographies, ~1.3M observations) | The measure: reported vs. missing observations by country, year and series |
-| World Bank Statistical Performance Indicators (SPI); HRV Transparency Index | External validation (dated snapshots in `data/01_source/snapshots/`) |
+| World Bank Statistical Performance Indicators (SPI); HRV Transparency Index | External validation (dated snapshots in `01_data/raw/snapshots/`) |
 
-The cleaned outcome tables, their grain, keys and every column are documented in the **[interactive data dictionary](https://sevastiansanchez.github.io/Politics_of_NAs/data_dictionary.html)** (also available as [markdown](data/02_measure/README.md)).
+The cleaned tables, their grain, keys and every column are documented in the **[interactive data dictionary](https://sevastiansanchez.github.io/Politics_of_NAs/data_dictionary.html)** (also available as [markdown](01_data/processed/README.md)).
 
 ## The Politics of NAs paper
 
 The analysis that uses the index — whether autocratization episodes reduce SDG
 reporting, and which goals lose data first (TWFE and Callaway–Sant'Anna) — lives
 in its own repository, `politics-of-nas-paper`, which reads a pinned release of
-the VSI scores. This repository builds, validates and releases the index.
+the VSI scores.
 
 ## Repository layout
 
@@ -120,4 +118,4 @@ Di Gennaro Splendore, L., and Sanchez, S. (2025). *Untangling the relationship b
 
 ## License
 
-Code is MIT; see [LICENSE](LICENSE). The data this code produces — `data/02_measure/` and the files published in `docs/` — are CC BY 4.0; see [LICENSE-DATA](LICENSE-DATA). Third-party source data in `data/01_source/` remains under its own terms.
+Code is MIT; see [LICENSE](LICENSE). The data this code produces — `01_data/processed/`, `01_data/vsi_scores/` and the files published in `docs/` — are CC BY 4.0; see [LICENSE-DATA](LICENSE-DATA). Third-party source data in `01_data/raw/` remains under its own terms.

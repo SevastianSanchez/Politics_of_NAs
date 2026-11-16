@@ -1,11 +1,16 @@
 # =============================================================================
-# Politics of NAs — UN SDG Global Database export prep
+# Visible States — UN SDG Global Database export prep
 # =============================================================================
 #
 # WHAT THIS DOES
 # Reads the 17 goal-level Excel exports of the UN SDG database, cleans them to
-# a 2015-2023 country panel, and writes the datasets used to study how
-# democratic backsliding affects a country's SDG data reporting.
+# a 2015-2023 country panel, and writes the cleaned data the Visible States
+# Index is built from.
+#
+# HISTORY: this script was written when the index and the Politics of NAs
+# paper shared one repo. Comments that mention MAIN_panel_data, the treatment
+# or V-Dem/ERT explain choices made for that paper's design (e.g. sovereign
+# states only). The paper now lives in its own repo, politics-of-nas-paper.
 #
 # WHY 2015-2023 (not 2025): the exports run to 2025, but 2024-2025 are still
 # being filled in by the UN (2025 has ~20% of a normal year). Keeping them would
@@ -23,9 +28,10 @@
 #                    unknown. NA when value is present. (is.na(value) and
 #                    is.na(missing_reason) are opposites on every row.)
 #     nature         who produced the value (country vs agency); see C1
-#     iso3           merge key to MAIN_panel_data (added in C4)
+#     iso3           country key (added in C4)
 #
-# goal_lvl_dv_data.csv (+ .rds twin with column labels) — PRIMARY OUTCOME.
+# goal_lvl_dv_data.csv (+ .rds twin with column labels) — COUNT-BASED MEASURES,
+#   the Politics of NAs paper's outcome; not used by the index.
 #   One row per country x year x goal. Outcome columns, side by side:
 #     n_observations           count of reported observations
 #     n_observations_country   of those, produced by the country (nature C/CA)

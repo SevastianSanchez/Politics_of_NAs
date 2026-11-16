@@ -4,7 +4,7 @@ Outputs of [`02_processing/extract_SDG_series_data_2015_2023.R`](../../02_proces
 One source table, six derived. UN SDG Global Database, **2015–2023**, **197 geographies**,
 **665 series**. Downloaded Aug 16 2026.
 
-**Merge to the treatment panel (`MAIN_panel_data`) on `iso3` + `year`.**
+Every table keys on `iso3` + `year`.
 
 📊 **[Interactive version](https://sevastiansanchez.github.io/Politics_of_NAs/data_dictionary.html)**: the same schema as a browsable, color-coded page.
 
@@ -38,11 +38,11 @@ raw_data  (1 row = 1 observation)
 
 ---
 
-## `goal_lvl_dv_data` — primary outcome
+## `goal_lvl_dv_data` — count-based measures
 
-The dependent variable. One row per country-year-goal, every outcome measure side by
-side. Use **raw counts with fixed effects** for causal work; the `_pct_` columns for
-cross-goal descriptive comparison. Two scopes stacked (see `scope`): the 17-goal panel
+Count-based reporting measures, kept for comparison with the index and used as an
+outcome by the Politics of NAs paper (its own repo). One row per country-year-goal,
+every count measure side by side; the `_pct_` columns compare across goals. Two scopes stacked (see `scope`): the 17-goal panel
 plus an aggregated country-year total.
 
 **Grain:** country × year × scope (goal 1–17 or overall) &nbsp;·&nbsp; **Key:** `iso3` + `year` + `scope` + `goal` &nbsp;·&nbsp; **Rows:** 31,914
@@ -52,7 +52,7 @@ plus an aggregated country-year total.
 |---|---|---|
 | `geo_area_code` | chr | UN M49 numeric code. **KEY** |
 | `geo_area_name` | chr | Country / territory name |
-| `iso3` | chr | ISO-3166 alpha-3. Joins to `MAIN_panel_data`. **MERGE** |
+| `iso3` | chr | ISO-3166 alpha-3. **KEY** |
 | `year` | int | 2015–2023. **KEY** |
 | `scope` | chr | `goal` = per country-year-goal · `overall` = per country-year (all goals aggregated). **KEY** |
 | `goal` | int | SDG 1–17; **NA** on `overall` rows. **KEY** |
@@ -212,8 +212,7 @@ Built by [`build_series_stability.R`](../../02_processing/build_series_stability
 ## `geo_exclusions` — reference (audit)
 
 Every geography that left its own code, and why. Generated from the same config that
-drives the filter, so it can't drift from what actually happened. 197 geographies survive
-into the panel.
+drives the filter, so it can't drift from what actually happened. 197 geographies remain.
 
 **Grain:** one geography &nbsp;·&nbsp; **Key:** `geo_area_code` &nbsp;·&nbsp; **Rows:** 63
 

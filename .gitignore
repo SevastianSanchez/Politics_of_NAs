@@ -19,13 +19,6 @@
 .claude/
 _private_archive/
 
-# Large local-only working material (kept on disk, never pushed).
-# gis_related holds ~200 MB of geopackages, one of them 133 MB — over GitHub's
-# 100 MB per-file hard limit, so a `git add -A` that catches it fails the push.
-# If the dashboard needs map geometry, generate a simplified iso3-keyed file
-# small enough to track rather than tracking these.
-gis_related/
-
 # Build artifacts: knitr caches and R workspace dumps. Regenerated on knit,
 # and every rerun writes a new multi-MB blob into history if tracked.
 **/*_cache/

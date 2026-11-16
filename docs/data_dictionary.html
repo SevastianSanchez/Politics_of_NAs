@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Politics of NAs: Data Dictionary</title>
+<title>Visible States: Data Dictionary</title>
 <style>
   :root{
     --bg:#fbfaf8; --surface:#ffffff; --surface-2:#f6f4f0; --surface-3:#efece6;
@@ -178,7 +178,7 @@
   <div class="wrap">
     <p class="eyebrow"><a href="./" style="color:var(--accent);text-decoration:none">← Visible States Project</a> · data dictionary</p>
     <h1>SDG reporting data, mapped</h1>
-    <p class="lede">Every dataset the prep pipeline writes to <code>01_data/processed/</code>, its grain and keys, and what each column means. One source table, six derived, plus the index scores built from them (in <code>01_data/vsi_scores/vsi/</code>). Merge to the analysis panel on <code>iso3&nbsp;+&nbsp;year</code>.</p>
+    <p class="lede">Every dataset the prep pipeline writes to <code>01_data/processed/</code>, its grain and keys, and what each column means. One source table, six derived, plus the index scores built from them (in <code>01_data/vsi_scores/vsi/</code>). Every table keys on <code>iso3&nbsp;+&nbsp;year</code>.</p>
 
     <div class="legend">
       <div class="grp">
@@ -300,7 +300,7 @@
           <span class="name">goal_lvl_dv_data</span>
           <span class="role primary">primary</span>
         </div>
-        <p class="ds-desc">The dependent variable. One row per country-year-goal, carrying every outcome measure side by side so you switch measures without switching datasets. Use raw counts with fixed effects for causal work; the <span class="mono">_pct_</span> columns for cross-goal descriptive comparison. Two scopes stacked (see <span class="mono">scope</span>): the 17-goal panel plus a country-year total.</p>
+        <p class="ds-desc">Count-based reporting measures, kept for comparison with the index and used as an outcome by the Politics of NAs paper. One row per country-year-goal, every count measure side by side. The <span class="mono">_pct_</span> columns compare across goals. Two scopes stacked (see <span class="mono">scope</span>): the 17-goal panel plus a country-year total.</p>
         <div class="meta">
           <div class="m"><span class="ml">grain</span><span class="mv">country × year × scope</span></div>
           <div class="m"><span class="ml">key</span><span class="mv"><span class="k">iso3</span> + year + scope + goal</span></div>
@@ -521,7 +521,7 @@
           <span class="name">geo_exclusions</span>
           <span class="role ref">reference</span>
         </div>
-        <p class="ds-desc">The audit trail: every geography that left its own code, and why. Generated from the same config that drives the filter, so it can't drift from what actually happened. 197 geographies survive into the panel.</p>
+        <p class="ds-desc">The audit trail: every geography that left its own code, and why. Generated from the same config that drives the filter, so it can't drift from what actually happened. 197 geographies remain.</p>
         <div class="meta">
           <div class="m"><span class="ml">grain</span><span class="mv">one geography</span></div>
           <div class="m"><span class="ml">key</span><span class="mv"><span class="k">geo_area_code</span></span></div>

@@ -1,5 +1,5 @@
 # =============================================================================
-# Politics of NAs — Series stability / framework-drift table
+# Visible States — Series stability / framework-drift table
 # =============================================================================
 #
 # HOW THIS IS USED

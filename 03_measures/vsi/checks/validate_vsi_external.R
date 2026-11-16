@@ -7,16 +7,13 @@
 #
 # WHAT IT USES
 #   SPI  -- World Bank Statistical Performance Indicators, in the repo at
-#           01_data/raw/snapshots/spi__2026-11-04.csv, and already merged
-#           into analysis_data as spi_overall.
-#   HRV  -- Hollyer/Rosendorff/Vreeland transparency index. NOT in the repo.
-#           If you add it, drop it at 01_data/raw/snapshots/hrv.csv with
-#           columns iso3, year, hrv, and this script picks it up automatically.
-#           Coverage warning: the published HRV runs 1980-2010, so it may not
-#           overlap the 2015-2023 panel at all. Check before drawing anything.
+#           01_data/raw/snapshots/spi__2026-11-04.csv.
+#   HRV  -- Hollyer/Rosendorff/Vreeland transparency index, at
+#           01_data/raw/snapshots/hrv.csv (built by
+#           02_processing/build_hrv_snapshot.R). It overlaps 2015 only.
 #
 # WHAT IT DELIBERATELY DOES NOT USE
-#   V-Dem. Autocratization is the TREATMENT in this project's causal design.
+#   V-Dem. Autocratization is the TREATMENT in the Politics of NAs paper.
 #   Correlating vsi with V-Dem is the hypothesis, not a validity check, and
 #   reporting it as one would be circular.
 #
