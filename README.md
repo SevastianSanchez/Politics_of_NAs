@@ -56,45 +56,52 @@ the VSI scores. This repository builds, validates and releases the index.
 
 ## Repository layout
 
-| Folder | Contents |
-|---|---|
-| `code/data_prep/` | Building the index: extraction and cleaning of the UN SDG exports (`extract_SDG_series_data_2015_2023.R`), series stability, and the fits — `irt_prep.R` (shared response matrix, sourced by every fit), `build_irt_composite.R`, `build_irt_goals.R` and `build_irt_bifactor.R` |
-| `code/` | Validation (`validate_*.R`), site data (`build_docs_data.R`), the measurement paper's figures (`paper_numbers.R`). Run order in `code/README.md` |
-| `data/01_source/` | Nothing here is ours. The UN SDG goal exports (310 MB, untracked — see Reproducing), `sdg_update_info.xlsx`, the dated SPI and HRV snapshots used for validation, and `analysis_data__2026-11-15.{csv,rds}`, a frozen copy of the paper's panel that `paper_numbers.R` and `build_docs_data.R` read for income groups, GDP and country names |
-| `data/02_measure/` | Computed from `01_source/` alone — the measure, including the fitted index scores and series parameters (`irt_*`). See the data dictionary |
-| `output/measure/` | Everything that checks the index. See `output/README.md` |
-| `docs/` | The published site — [Visible States Project](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the VSI score files they serve. GitHub Pages builds this folder from `main`; `code/build_docs_data.R` regenerates its data |
+One numbered folder per stage, in the order they run. Inside each stage:
 
-Code folders hold code; `data/` holds sources and built tables; `output/` holds
-results. The numbers on the `data/` folders are the direction of travel:
-`01_source ──→ 02_measure`.
+- scripts at the top **build** something,
+- `checks/` holds scripts that **validate** it,
+- `data/` holds tables a later stage reads,
+- `results/` holds check outputs. **Nothing in a `results/` folder is ever read as an input.**
 
-All paths in the scripts go through `here()`, so any file runs whatever the
-working directory is.
+| Folder | What it does | Run order |
+|---|---|---|
+| `01_sources/` | Raw inputs, never edited: the UN SDG goal exports (310 MB, untracked; see Reproducing), `sdg_update_info.xlsx`, dated SPI and HRV snapshots for validation, and `analysis_data__2026-11-15.{csv,rds}`, a frozen copy of the Politics of NAs panel that `paper_numbers.R` and `build_docs_data.R` read for income groups, GDP and country names | |
+| `02_prepare/` | UN exports → the 524-series response matrix | 1 `extract_SDG_series_data_2015_2023.R` · 2 `build_variant_map.R` (**must run before any fit**) · 3 `build_series_provenance.R` · `build_series_stability.R`, `build_hrv_snapshot.R` as needed |
+| `03_vsi/` | The overall index, `vsi` | 4 `build_irt_composite.R` · check: `validate_vsi_external.R` |
+| `04_vsi_goal/` | One score per goal (currently `goal_level`) | 5 `build_irt_goals.R` · checks: `validate_goal_level_heldout.R` (~13 min), `validate_goal_level_bootstrap.R` (~98 min on 8 cores) |
+| `05_vsi_goal_relative/` | A goal net of the country's own overall level (currently `goal_relative`). Not part of v1.3.0 | `build_irt_bifactor.R` (long, checkpointed, resumes) · checks: `validate_goal_relative_heldout.R` (~2.5 h), `validate_goal_relative_bootstrap.R` (~4.7 h, checkpointed) |
+| `06_publish/` | What leaves the repo | `build_docs_data.R` → `docs/` · `paper_numbers.R` → every figure the measurement paper quotes |
+| `functions/` | Sourced by other scripts, never run alone: `packages.R`, `irt_prep.R` (builds the one 524-series response matrix every fit uses, and halts if the variant map is missing or stale), `bifactor_scorer.R` | |
+| `superseded/` | Old fits. **Do not run.** See `superseded/README.md` and `METHODS_LOG.md` | |
+| `docs/` | The published site: [Visible States Project](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the score files they serve. GitHub Pages builds it from `main` | |
+| `releases/` | What was deposited at Zenodo, one folder per version. Never edited | |
+
+Stages 4 and 5 are independent of each other; both read only `02_prepare/data/`.
+Every fit setting comes from `METHODS_LOG.md`: **read it before changing one.**
+One script writes each file. All paths go through `here()`, so any script runs
+whatever the working directory is.
+
+**What is running right now:** `bash runs.sh` lists every R process, how long it
+has run, and the last line of recent logs, and flags `ORPHAN` workers (whose
+parent died) and `STALE` runs (over six hours). `bash runs.sh --kill` stops those,
+after asking. Parallel workers do not die with their parent, so check before
+launching anything and again after stopping anything.
 
 ## Reproducing
 
-Dependencies are handled by `code/packages.R`, which installs anything missing
-(including `vdemdata` and `ERT` from GitHub, which are not on CRAN) and then
-loads everything. Scripts source it directly.
+Dependencies are handled by `functions/packages.R`, which installs anything
+missing and then loads everything. Scripts source it directly.
 
-**Everything runs from a fresh clone except the extract.** Every input the
-other scripts need is tracked, including the built measure itself
-(`data/02_measure/raw_data.csv.gz`), so you do not have to rebuild the measure
-to use it or to run anything downstream of it:
+**Everything runs from a fresh clone except the extract.** Every input the other
+scripts need is tracked, including the cleaned UN data
+(`02_prepare/data/raw_data.csv.gz`), so you do not have to rebuild it to run
+anything downstream.
 
-| Script | From a clone |
-|---|---|
-| `build_series_stability.R` | runs |
-| `..._diagnostics/check_series_coverage.R` | runs |
-| `extract_SDG_series_data_2015_2023.R` | **needs the download below** |
-
-The UN SDG goal exports are 310 MB, too large to track. To rebuild the measure
-from source, download them from the
-[UN SDG Global Database](https://unstats.un.org/sdgs/dataportal) into
-`data/01_source/un_sdg_exports/`, then run
-`code/data_prep/extract_SDG_series_data_2015_2023.R` to regenerate
-`data/02_measure/`. Nothing else requires that download.
+The UN SDG goal exports are 310 MB, too large to track. To rebuild from source,
+download them from the [UN SDG Global Database](https://unstats.un.org/sdgs/dataportal)
+into `01_sources/un_sdg_exports/`, then run
+`02_prepare/extract_SDG_series_data_2015_2023.R`. Nothing else requires that
+download.
 
 ## Related work
 

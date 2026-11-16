@@ -5,10 +5,10 @@
 .Rproj.user
 
 # The bulk UN SDG goal exports only (310 MB). Too large to track; the README
-# documents re-downloading them. Everything else in data/01_source/ is small
+# documents re-downloading them. Everything else in 01_sources/ is small
 # and IS tracked, including sdg_update_info.xlsx, so a fresh clone can run
 # build_series_stability.R without re-downloading anything.
-data/01_source/un_sdg_exports/
+01_sources/un_sdg_exports/
 
 # Local R session files
 .RData
@@ -41,8 +41,8 @@ misc/compIndexBuilder_*.tar.gz
 
 # Bifactor fit checkpoint: an intermediate the script writes every 50 cycles so
 # a long run survives a closed laptop. Rebuilt by build_irt_bifactor.R.
-data/02_measure/irt_goal_relative_ckpt.rds
+05_vsi_goal_relative/data/irt_goal_relative_ckpt.rds
 
 # Per-replicate checkpoints of validate_goal_relative_bootstrap.R; regenerated on a run.
-data/02_measure/goal_relative_boot_ck/
-data/02_measure/goal_level_boot_ck/
+05_vsi_goal_relative/results/boot_ck/
+04_vsi_goal/results/boot_ck/

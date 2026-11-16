@@ -178,7 +178,7 @@
   <div class="wrap">
     <p class="eyebrow"><a href="./" style="color:var(--accent);text-decoration:none">← Visible States Project</a> · data dictionary</p>
     <h1>SDG reporting data, mapped</h1>
-    <p class="lede">Every dataset the prep pipeline writes to <code>data/02_measure/</code>, its grain and keys, and what each column means. One source table, six derived, plus the index scores built from them. Merge to the analysis panel on <code>iso3&nbsp;+&nbsp;year</code>.</p>
+    <p class="lede">Every dataset the prep pipeline writes to <code>02_prepare/data/</code>, its grain and keys, and what each column means. One source table, six derived, plus the index scores built from them (in <code>03_vsi/data/</code>). Merge to the analysis panel on <code>iso3&nbsp;+&nbsp;year</code>.</p>
 
     <div class="legend">
       <div class="grp">
@@ -545,7 +545,7 @@
 
 <footer>
   <div class="wrap">
-    <p><span class="mono">extract_SDG_series_data_2015_2023.R</span> → <span class="mono">data/02_measure/</span> · index fitted by <span class="mono">build_irt_composite.R</span>, which also writes <span class="mono">irt_composite_item_params.csv</span> (per-series difficulty and discrimination), <span class="mono">irt_response_matrix.rds</span> and <span class="mono">irt_series_goal_assignment.csv</span> · UN SDG Global Database, 2015–2023 · 197 geographies · 665 series · downloaded Aug 16 2026.</p>
+    <p><span class="mono">extract_SDG_series_data_2015_2023.R</span> → <span class="mono">02_prepare/data/</span> · index fitted by <span class="mono">build_irt_composite.R</span> → <span class="mono">03_vsi/data/</span>, which also writes <span class="mono">irt_composite_item_params.csv</span> (per-series difficulty and discrimination), <span class="mono">irt_response_matrix.rds</span> and <span class="mono">irt_series_goal_assignment.csv</span> · UN SDG Global Database, 2015–2023 · 197 geographies · 665 series · downloaded Aug 16 2026.</p>
     <p style="margin-top:6px;color:var(--ink-3)">Repository: <a href="https://github.com/SevastianSanchez/Politics_of_NAs" style="color:var(--accent-ink)">github.com/SevastianSanchez/Politics_of_NAs</a></p>
     <p style="margin-top:6px;color:var(--ink-3)">CSV re-reads guess column types; the <span class="mono">.rds</span> twins preserve exact types and the column labels quoted here.</p>
   </div>
