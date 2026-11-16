@@ -41,3 +41,6 @@ gis_related/
 # Per-replicate checkpoints of validate_goal_relative_bootstrap.R; regenerated on a run.
 01_data/vsi_scores/vsi_goal_relative/boot_ck/
 01_data/vsi_scores/vsi_goal/boot_ck/
+
+# Claude Code instructions: local only, never pushed
+CLAUDE.md
