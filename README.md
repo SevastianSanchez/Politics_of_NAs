@@ -82,7 +82,6 @@ folder and you see how it is built, how it is tested, and what the tests found.
 | `03_measures/vsi_goal_relative/` | A goal net of the country's own overall level | `build_irt_bifactor.R` (long, checkpointed, resumes) · checks: `validate_goal_relative_heldout.R` (~2.5 h), `validate_goal_relative_bootstrap.R` (~4.7 h, checkpointed) |
 | `04_publish/` | | `build_docs_data.R` → `docs/` · `paper_numbers.R` → `paper_numbers.txt`, every figure the measurement paper quotes |
 | `functions/` | `packages.R`, `irt_prep.R` (builds the one 524-series response matrix every fit uses, and halts if the variant map is missing or stale), `bifactor_scorer.R` | |
-| `superseded/` | Old fits. **Do not run.** See `superseded/README.md` and `METHODS_LOG.md` | |
 | `docs/` | The published site: [Visible States Project](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the published copy of the scores. GitHub Pages builds it from `main` | |
 | `releases/` | What was deposited at Zenodo, one folder per version. Never edited | |
 
