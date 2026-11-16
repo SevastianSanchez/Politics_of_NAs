@@ -6,7 +6,6 @@ WHAT THIS COVERS
   The data this repository produces, and the files published from it:
 
     data/02_measure/   the measure and the fitted index scores
-    data/03_panels/    the assembled analysis panels
     docs/              the score files served by the project website
 
   The code that builds them is licensed separately under the MIT License;

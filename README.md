@@ -42,42 +42,32 @@ Machine-readable metadata is in [CITATION.cff](CITATION.cff). Code is MIT-licens
 
 | Source | Use |
 |---|---|
-| UN SDG Global Database, 2015–2023 (665 series, 197 geographies, ~1.3M observations) | Outcome: reported vs. missing observations by country, year and goal |
-| V-Dem and Episodes of Regime Transformation (ERT) | Democracy measures and autocratization episodes (treatment) |
-| World Bank Statistical Performance Indicators (SPI) | Statistical capacity control |
-| World Development Indicators; nighttime lights (Beyer, Hu and Yao, 2026) | Controls: population, rural share, electricity access, GDP per capita, luminosity |
-
-The Sustainable Development Report (SDSN) was used earlier and is no longer a source. Its missingness measure is biased in ways that make it unsuitable as an outcome here, so it is retained only as an external comparison (`prop_sdg_missing_sdr`) and the descriptive work that rested on it is being rebuilt on the measure above.
+| UN SDG Global Database, 2015–2023 (665 series, 197 geographies, ~1.3M observations) | The measure: reported vs. missing observations by country, year and series |
+| World Bank Statistical Performance Indicators (SPI); HRV Transparency Index | External validation (dated snapshots in `data/01_source/snapshots/`) |
 
 The cleaned outcome tables, their grain, keys and every column are documented in the **[interactive data dictionary](https://sevastiansanchez.github.io/Politics_of_NAs/data_dictionary.html)** (also available as [markdown](data/02_measure/README.md)).
 
-## Methods
+## The Politics of NAs paper
 
-1. **Two-way fixed effects** (country and year), with statistical capacity (SPI) and economic controls, estimated for overall and goal-level missingness.
-2. **Staggered difference-in-differences** (Callaway and Sant'Anna, 2021) to handle autocratization episodes that begin in different years, with event-study plots of dynamic effects.
-3. Robustness checks on alternative outcome definitions: series counts vs. observation counts, country-produced vs. agency-produced data, and a framework-stable core of 409 series.
+The analysis that uses the index — whether autocratization episodes reduce SDG
+reporting, and which goals lose data first (TWFE and Callaway–Sant'Anna) — lives
+in its own repository, `politics-of-nas-paper`, which reads a pinned release of
+the VSI scores. This repository builds, validates and releases the index.
 
 ## Repository layout
 
 | Folder | Contents |
 |---|---|
-| `code/data_prep/` | The whole pipeline: extraction and cleaning of the UN SDG exports (`extract_SDG_series_data_2015_2023.R`), series stability, predictor sourcing (`build_predictor_panel.R`), panel construction (`causal_inf_data_prep.R`), the merge (`build_analysis_frame.Rmd`), and the index — `irt_prep.R` (shared response matrix, sourced by both fits), `build_irt_composite.R` and `build_irt_goals.R` |
-| `data/01_source/` | Nothing here is ours. The UN SDG goal exports (310 MB, untracked — see Reproducing), the covariate sources, and `snapshots/` holding the dated V-Dem and WDI pulls the pipeline is pinned to |
-| `data/02_measure/` | Computed from `01_source/` alone — the measure, including the fitted index scores and item parameters (`irt_*`). See the data dictionary |
-| `data/03_panels/` | Assembled from `01` and `02` — what the models read. `analysis_data` is the panel current work builds on; `MAIN_panel_data` and `panel_es_data` were built against the earlier outcome definition and are superseded as that work moves across |
-| `descriptive_stats/` | Descriptive analysis code (RQ1–RQ4) |
-| `causal_inference_mods/` | TWFE (`overall_twfe_analysis.Rmd`), Callaway–Sant'Anna DiD (`cs_did_analysis_v2.Rmd`), event studies, robustness checks |
-| `output/` | Everything the analysis produces, grouped by track then kind: `descriptive/{figures,tables,results}/` and `causal/{figures,tables,results}/`. See `output/README.md` for the rules |
+| `code/data_prep/` | Building the index: extraction and cleaning of the UN SDG exports (`extract_SDG_series_data_2015_2023.R`), series stability, and the fits — `irt_prep.R` (shared response matrix, sourced by every fit), `build_irt_composite.R`, `build_irt_goals.R` and `build_irt_bifactor.R` |
+| `code/` | Validation (`validate_*.R`), site data (`build_docs_data.R`), the measurement paper's figures (`paper_numbers.R`). Run order in `code/README.md` |
+| `data/01_source/` | Nothing here is ours. The UN SDG goal exports (310 MB, untracked — see Reproducing), `sdg_update_info.xlsx`, the dated SPI and HRV snapshots used for validation, and `analysis_data__2026-11-15.{csv,rds}`, a frozen copy of the paper's panel that `paper_numbers.R` and `build_docs_data.R` read for income groups, GDP and country names |
+| `data/02_measure/` | Computed from `01_source/` alone — the measure, including the fitted index scores and series parameters (`irt_*`). See the data dictionary |
+| `output/measure/` | Everything that checks the index. See `output/README.md` |
 | `docs/` | The published site — [Visible States Project](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the VSI score files they serve. GitHub Pages builds this folder from `main`; `code/build_docs_data.R` regenerates its data |
 
 Code folders hold code; `data/` holds sources and built tables; `output/` holds
-results. The numbers on the `data/` folders are the direction of travel: one
-rule places every file, and nothing in `02` ever reads from `03`.
-
-```
-01_source ──→ 02_measure ──→ 03_panels
-     └──────────────────────────↗
-```
+results. The numbers on the `data/` folders are the direction of travel:
+`01_source ──→ 02_measure`.
 
 All paths in the scripts go through `here()`, so any file runs whatever the
 working directory is.
@@ -97,9 +87,6 @@ to use it or to run anything downstream of it:
 |---|---|
 | `build_series_stability.R` | runs |
 | `..._diagnostics/check_series_coverage.R` | runs |
-| `build_predictor_panel.R` | runs — V-Dem and WDI read from the pinned snapshots; set `refresh_sources <- TRUE` to re-pull |
-| `causal_inf_data_prep.R` | runs, needs network — pulls the World Bank SPI index live |
-| `build_analysis_frame.Rmd` | runs |
 | `extract_SDG_series_data_2015_2023.R` | **needs the download below** |
 
 The UN SDG goal exports are 310 MB, too large to track. To rebuild the measure
@@ -115,4 +102,4 @@ Di Gennaro Splendore, L., and Sanchez, S. (2025). *Untangling the relationship b
 
 ## License
 
-Code is MIT; see [LICENSE](LICENSE). The data this code produces — `data/02_measure/`, `data/03_panels/` and the files published in `docs/` — are CC BY 4.0; see [LICENSE-DATA](LICENSE-DATA). Third-party source data in `data/01_source/` remains under its own terms.
+Code is MIT; see [LICENSE](LICENSE). The data this code produces — `data/02_measure/` and the files published in `docs/` — are CC BY 4.0; see [LICENSE-DATA](LICENSE-DATA). Third-party source data in `data/01_source/` remains under its own terms.

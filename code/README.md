@@ -17,10 +17,12 @@ Run order. Anything not listed here is a helper or a one-off.
 | 11 | `paper_numbers.R` | `output/measure/results/paper_numbers.txt` — every figure the paper quotes |
 
 Supporting: `packages.R` · `data_prep/build_hrv_snapshot.R` (HRV2 snapshot) ·
-`data_prep/build_predictor_panel.R` · `data_prep/build_series_stability.R` ·
-`data_prep/causal_inf_data_prep.R` · `collinear_series_report.R` (which series
+`data_prep/build_series_stability.R` · `collinear_series_report.R` (which series
 agree so closely they might be duplicates, and why each was or was not
-collapsed) · `SDGCountryTrends_Function.R`
+collapsed)
+
+The Politics of NAs paper's scripts (panel builders, causal and descriptive
+work) moved to the `politics-of-nas-paper` repo on 15 Nov 2026.
 
 **Not in the v1 run order:** `data_prep/build_irt_bifactor.R` builds
 `goal_relative` — a goal's reporting net of the country's own overall level —

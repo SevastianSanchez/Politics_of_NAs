@@ -79,7 +79,9 @@ Each has a matching `_se`. `sector_tilt` is retired.
 
 ## Layout
 
-`code/data_prep/` builds · `data/01_source` → `data/02_measure` → `data/03_panels`
-· `output/{measure,descriptive,causal}/{figures,results,tables}` · `docs/` is the
+`code/data_prep/` builds · `data/01_source` → `data/02_measure`
+· `output/measure/{figures,results,tables}` · `docs/` is the
 public site · `releases/<version>/` is what gets deposited at Zenodo.
 One writer per file; paths via `here()`.
+The Politics of NAs paper (causal and descriptive work) lives in its own repo,
+`~/Documents/GitHub/politics-of-nas-paper`, split out on 15 Nov 2026.

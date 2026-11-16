@@ -16,7 +16,7 @@ say <- function(...) { cat(..., "\n", sep = ""); cat(..., "\n", sep = "", file =
 
 tw  <- fread(here("data/02_measure/irt_composite_scores.csv"))
 lg  <- fread(here("data/02_measure/irt_composite_run_log.csv"))
-ad  <- fread(here("data/03_panels/analysis_data.csv"))
+ad  <- fread(here("data/01_source/analysis_data__2026-11-15.csv"))  # frozen copy of the Politics of NAs panel (now in politics-of-nas-paper)
 ov  <- unique(ad[scope == "overall", .(iso3, year, income_level, gdp_pc, spi_overall,
                                        spi_overall_mod, prop_sdg_missing_sdr,
                                        dv_n_observations_pct_baseline,

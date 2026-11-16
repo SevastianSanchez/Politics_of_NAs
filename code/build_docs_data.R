@@ -21,7 +21,7 @@
 # INPUT   data/02_measure/irt_composite_scores.rds   (the VSI scores)
 #         data/02_measure/irt_goal_level_scores.rds  (the sector layer)
 #         data/02_measure/irt_goal_level_health.csv  (per-goal diagnostics)
-#         data/03_panels/analysis_data.rds    (country names, income groups)
+#         data/01_source/analysis_data__2026-11-15.rds  (country names, income groups; frozen copy)
 # OUTPUT  docs/vsi_scores.json, docs/vsi_scores.csv
 #         docs/goal_scores.json, docs/goal_scores.csv
 # ==============================================================================
@@ -29,7 +29,7 @@
 suppressPackageStartupMessages({library(data.table); library(here); library(jsonlite)})
 
 s <- as.data.table(readRDS(here("data/02_measure/irt_composite_scores.rds")))
-a <- as.data.table(readRDS(here("data/03_panels/analysis_data.rds")))
+a <- as.data.table(readRDS(here("data/01_source/analysis_data__2026-11-15.rds")))  # frozen copy of the Politics of NAs panel
 
 meta <- unique(a[, .(iso3, country_name, income_level)])
 meta <- meta[!is.na(iso3)][, .SD[1], by = iso3]
