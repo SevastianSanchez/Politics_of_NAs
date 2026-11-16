@@ -34,7 +34,7 @@ before any Bash command containing `Rscript`, `mirt`, `bfactor` or
   lost to a sleeping laptop because mirt writes nothing until it converges.
 - **Say series, not items. Say factor, not dial.** After the collapse the 524
   are still series; the redundant ones were dropped, not merged.
-- **Never put sev.sanchez02@gmail.com in a public file.** Use ss7257@columbia.edu.
+- **Only ss7257@columbia.edu appears in any file.** Never the personal email.
 - **Do not kill a long-running process without asking.**
 - **Account for every running process.** Run `bash code/runs.sh` before
   launching a fit and again after killing one, and say in the reply what it
