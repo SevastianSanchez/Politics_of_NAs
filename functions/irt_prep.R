@@ -5,7 +5,7 @@
 # it writes nothing -- the fit scripts own their output files.
 #
 # WHY THIS FILE EXISTS
-#   build_irt_composite.R and build_irt_goals.R must be fed the IDENTICAL
+#   build_irt_vsi.R and build_irt_vsi_goal.R must be fed the IDENTICAL
 #   response matrix, or their scores are not comparable and the model
 #   comparison between them is meaningless. Keeping the matrix build and the
 #   item filter in one shared file is what guarantees that. The alternative --
@@ -45,7 +45,7 @@ set.seed(20261105)
 # see the same matrix. Each fit script copies them into its own run log.
 item_lo     <- 0.02    # drop series reported in <2% or >98% of country-years:
 item_hi     <- 0.98    #   near-constant items carry no information and slow EM
-max_cycles  <- 30000   # EM cycle cap. The composite fit needed 13,561.
+max_cycles  <- 30000   # EM cycle cap. The overall-index fit needed 13,561.
 goal_general_only <- 7L  # SDG 7 has only 3 usable series -- too few to support
                          # its own factor. Its series still feed the general
                          # factor; it simply gets no sub-score. Set to NA to

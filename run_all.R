@@ -22,11 +22,11 @@ on <- function(v) identical(Sys.getenv(v), "1")
 
 if (on("FITS")) {
   step("02_processing/build_variant_map.R")
-  step("03_measures/vsi/build_irt_composite.R")
-  step("03_measures/vsi_goal/build_irt_goals.R")
+  step("03_measures/vsi/build_irt_vsi.R")
+  step("03_measures/vsi_goal/build_irt_vsi_goal.R")
 }
 step("03_measures/vsi/checks/validate_vsi_external.R")
-if (on("CHECKS")) step("03_measures/vsi_goal/checks/validate_goal_level_heldout.R")
+if (on("CHECKS")) step("03_measures/vsi_goal/checks/validate_vsi_goal_heldout.R")
 step("02_processing/checks/collinear_series_report.R")
 step("04_publish/build_docs_data.R")
 step("04_publish/paper_numbers.R")

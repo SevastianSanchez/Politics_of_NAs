@@ -34,8 +34,7 @@ suppressPackageStartupMessages(library(data.table))
 msg <- function(...) cat(format(Sys.time(), "[%H:%M:%S] "), ..., "\n", sep = "")
 
 # ---- A. THE INDEX -----------------------------------------------------------
-vsi <- fread(here("01_data/vsi_scores/vsi/irt_composite_scores.csv"))
-setnames(vsi, c("composite", "composite_se"), c("vsi", "vsi_se"), skip_absent = TRUE)
+vsi <- fread(here("01_data/vsi_scores/vsi/irt_vsi_scores.csv"))
 msg("vsi: ", nrow(vsi), " country-years, ",
     paste(range(vsi$year), collapse = "-"))
 

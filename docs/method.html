@@ -159,7 +159,7 @@ are the estimator, steps 8&ndash;9 try to break it, and steps 10&ndash;11 publis
 own weaknesses attached.</p>
 
 <figure class="pipe">
-  <svg viewBox="0 0 720 520" role="img" aria-label="The pipeline: 17 UN spreadsheets become 1,179,045 cells, then 665 series, 607 after the filter, 524 after merging repeats; the 524 then feed three different model shapes producing vsi, goal_level and goal_relative.">
+  <svg viewBox="0 0 720 520" role="img" aria-label="The pipeline: 17 UN spreadsheets become 1,179,045 cells, then 665 series, 607 after the filter, 524 after merging repeats; the 524 then feed three different model shapes producing vsi, vsi_goal and vsi_goal_relative.">
     <defs>
       <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
         <path d="M0 0 L8 4 L0 8 z" fill="var(--faint)"/>
@@ -220,13 +220,13 @@ own weaknesses attached.</p>
     <text class="ps" x="108" y="432">how much it reports overall</text>
 
     <rect class="pbox out" x="264" y="368" width="192" height="76" rx="4"/>
-    <text class="pt code" x="360" y="386">goal_level</text>
+    <text class="pt code" x="360" y="386">vsi_goal</text>
     <text class="ps" x="360" y="402">28,368 rows</text>
     <text class="ps" x="360" y="416">iso3 &times; year &times; goal</text>
     <text class="ps" x="360" y="432">that goal, overall level in</text>
 
     <rect class="pbox out" x="516" y="368" width="192" height="76" rx="4"/>
-    <text class="pt code" x="612" y="386">goal_relative</text>
+    <text class="pt code" x="612" y="386">vsi_goal_relative</text>
     <text class="ps" x="612" y="402">28,368 rows</text>
     <text class="ps" x="612" y="416">iso3 &times; year &times; goal</text>
     <text class="ps" x="612" y="432">that goal, overall level out</text>
@@ -239,7 +239,7 @@ own weaknesses attached.</p>
   </svg>
   <figcaption>One shared preparation, three model shapes, three score columns. Only the number
   of factors and which series load on them changes between the branches; steps 5 and 6 are
-  identical in all three. <code>goal_relative</code> is not in this release.</figcaption>
+  identical in all three. <code>vsi_goal_relative</code> is not in this release.</figcaption>
 </figure>
 
 <section class="step">
@@ -507,10 +507,10 @@ own weaknesses attached.</p>
       <tbody>
         <tr><td class="c">vsi</td><td><strong>One</strong> factor, all 524 series, one fit</td>
           <td>How much this country&ndash;year reports overall</td></tr>
-        <tr><td class="c">goal_level</td><td><strong>Sixteen separate</strong> one&ndash;factor
+        <tr><td class="c">vsi_goal</td><td><strong>Sixteen separate</strong> one&ndash;factor
           fits, each on one goal's own series</td>
           <td>How much it reports on that goal, overall level included</td></tr>
-        <tr><td class="c">goal_relative</td><td><strong>One bifactor</strong> fit: 17 factors,
+        <tr><td class="c">vsi_goal_relative</td><td><strong>One bifactor</strong> fit: 17 factors,
           general plus one per goal <em>&mdash; not in this release</em></td>
           <td>That goal <em>net of</em> the country's own overall level</td></tr>
       </tbody>
@@ -530,7 +530,7 @@ own weaknesses attached.</p>
       the overall level does not explain.</dd>
     </dl>
     <div class="why"><b>Why a bifactor and not a subtraction</b>
-    <p><code>goal_level</code> minus <code>vsi</code> looks like the same quantity and is not.
+    <p><code>vsi_goal</code> minus <code>vsi</code> looks like the same quantity and is not.
     Subtracting two correlated estimates gives a difference whose error is larger than either
     one's and whose scale means nothing in particular. The bifactor estimates the residual
     <em>directly, as a parameter</em>, so it arrives with its own standard error.</p></div>
@@ -710,7 +710,7 @@ own weaknesses attached.</p>
       36% of series can be broken down, and depth correlates with the index at 0.57 once the
       series set is held fixed, so it carries information the yes/no outcome discards. It will
       enter as ordered responses the model estimates over, not as a ratio computed afterwards.</dd>
-      <dt><code>goal_relative</code></dt>
+      <dt><code>vsi_goal_relative</code></dt>
       <dd>The bifactor score from step 7: each goal net of the country's overall level.</dd>
     </dl>
   </div>

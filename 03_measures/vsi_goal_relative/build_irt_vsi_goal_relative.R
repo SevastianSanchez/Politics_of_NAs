@@ -1,13 +1,13 @@
 # ==============================================================================
-# build_irt_bifactor.R
+# build_irt_vsi_goal_relative.R
 #
-# Fit 3 of 3: `goal_relative` — reporting on a goal RELATIVE to the country's
-# own overall level. The companion to `goal_level`, which leaves the overall
+# Fit 3 of 3: `vsi_goal_relative` — reporting on a goal RELATIVE to the country's
+# own overall level. The companion to `vsi_goal`, which leaves the overall
 # level in. Both are wanted; they answer different questions.
 #
-#   goal_level     "how much did this country report on goal g"
-#   goal_relative  "did it report MORE or LESS on goal g than its own overall
-#                   level would lead you to expect"
+#   vsi_goal           "how much did this country report on goal g"
+#   vsi_goal_relative  "did it report MORE or LESS on goal g than its own overall
+#                      level would lead you to expect"
 #
 # WHY A BIFACTOR
 #   One general factor (a country's overall reporting) plus one factor per
@@ -18,7 +18,7 @@
 #   level" means.
 #
 # WHY THIS IS THE SLOW ONE
-#   The composite converges in 187 cycles and all 16 goal fits take 20 seconds
+#   The overall index (vsi) converges in 187 cycles and all 16 goal fits take 20 seconds
 #   together. This one has 1,569 parameters and took hundreds of cycles to
 #   settle. Hence the chunking below.
 #
@@ -57,9 +57,9 @@
 # RESUMING   safe to re-run. Picks up from the checkpoint and keeps going.
 #
 # INPUT   via functions/irt_prep.R
-# OUTPUT  01_data/vsi_scores/vsi_goal_relative/irt_goal_relative_{scores.csv,scores.rds,
+# OUTPUT  01_data/vsi_scores/vsi_goal_relative/irt_vsi_goal_relative_{scores.csv,scores.rds,
 #         item_params.csv,health.csv,run_log.csv,fit.rds}
-#         plus irt_goal_relative_ckpt.rds, the resume point.
+#         plus irt_vsi_goal_relative_ckpt.rds, the resume point.
 # ==============================================================================
 
 suppressMessages({library(mirt); library(data.table); library(here)})
@@ -73,7 +73,7 @@ K         <- 61L      # quadrature nodes per dimension, as mirt uses for 2 facto
 LIM       <- 6
 
 out  <- here("01_data/vsi_scores/vsi_goal_relative")
-ckpt <- file.path(out, "irt_goal_relative_ckpt.rds")
+ckpt <- file.path(out, "irt_vsi_goal_relative_ckpt.rds")
 
 # ---- FIT ---------------------------------------------------------------------
 set_prior <- function(v) {
@@ -115,7 +115,7 @@ repeat {
          call. = FALSE)
   }
 }
-saveRDS(fit, file.path(out, "irt_goal_relative_fit.rds"))
+saveRDS(fit, file.path(out, "irt_vsi_goal_relative_fit.rds"))
 
 # ---- EXACT SCORER ------------------------------------------------------------
 # Given the general factor, a series depends on only ONE goal factor, so
@@ -198,8 +198,8 @@ for (g in seq_len(G)) {
   mg <- post_moments(jm, tt)
   rel[[g]] <- data.table(iso3 = keys$iso3, year = keys$year,
                          goal = spec_levels[g],
-                         goal_relative    = round(mg$ev, 4),
-                         goal_relative_se = round(mg$sd, 4))
+                         vsi_goal_relative    = round(mg$ev, 4),
+                         vsi_goal_relative_se = round(mg$sd, 4))
 }
 rel <- rbindlist(rel)
 setorder(rel, iso3, year, goal)
@@ -224,35 +224,35 @@ if (val_cor < 0.9999 || val_diff > 0.01)
 n_by_goal <- table(item_goal[!is.na(spec_idx)])
 
 health <- rel[, .(series = as.integer(n_by_goal[as.character(goal[1])]),
-                  sd_score    = round(sd(goal_relative), 3),
-                  se_median   = round(median(goal_relative_se), 3),
-                  reliability = round(var(goal_relative) /
-                                (var(goal_relative) + mean(goal_relative_se^2)), 3),
-                  pct_nan = round(100 * mean(!is.finite(goal_relative)), 2)),
+                  sd_score    = round(sd(vsi_goal_relative), 3),
+                  se_median   = round(median(vsi_goal_relative_se), 3),
+                  reliability = round(var(vsi_goal_relative) /
+                                (var(vsi_goal_relative) + mean(vsi_goal_relative_se^2)), 3),
+                  pct_nan = round(100 * mean(!is.finite(vsi_goal_relative)), 2)),
                 by = goal]
 setorder(health, goal)
 HOLD_CONTENT <- c(6L, 15L)
 health[, release := fifelse(goal %in% HOLD_CONTENT, "hold_content", "release")]
 
-stopifnot(nrow(rel) == N * G, !any(is.na(rel$goal_relative)),
-          !any(is.na(rel$goal_relative_se)), all(health$pct_nan == 0))
+stopifnot(nrow(rel) == N * G, !any(is.na(rel$vsi_goal_relative)),
+          !any(is.na(rel$vsi_goal_relative_se)), all(health$pct_nan == 0))
 
 # ---- WRITE -------------------------------------------------------------------
 msg("writing")
-fwrite(rel,  file.path(out, "irt_goal_relative_scores.csv"))
-saveRDS(rel, file.path(out, "irt_goal_relative_scores.rds"))
-fwrite(health, file.path(out, "irt_goal_relative_health.csv"))
+fwrite(rel,  file.path(out, "irt_vsi_goal_relative_scores.csv"))
+saveRDS(rel, file.path(out, "irt_vsi_goal_relative_scores.rds"))
+fwrite(health, file.path(out, "irt_vsi_goal_relative_health.csv"))
 
 ip <- as.data.table(cf, keep.rownames = "series_code")
 ip[, goal := spec_levels[spec]]
-fwrite(ip, file.path(out, "irt_goal_relative_item_params.csv"))
+fwrite(ip, file.path(out, "irt_vsi_goal_relative_item_params.csv"))
 
 # the bifactor's own general factor, kept for comparison with the published
 # 1-factor index: they answer the same question two ways
 fwrite(data.table(iso3 = keys$iso3, year = keys$year,
                   vsi_bifactor = round(mG$ev, 4),
                   vsi_bifactor_se = round(mG$sd, 4)),
-       file.path(out, "irt_goal_relative_general.csv"))
+       file.path(out, "irt_vsi_goal_relative_general.csv"))
 
 fwrite(data.table(
   run_date       = as.character(Sys.Date()),
@@ -265,11 +265,11 @@ fwrite(data.table(
   scorer         = "exact, bifactor property, 61 nodes",
   scorer_cor_vs_mirt_eap_general = round(val_cor, 6),
   scorer_max_abs_diff            = round(val_diff, 6),
-  median_se      = round(median(rel$goal_relative_se), 4),
+  median_se      = round(median(rel$vsi_goal_relative_se), 4),
   median_reliability = median(health$reliability),
   mirt_version   = as.character(packageVersion("mirt")),
   r_version      = paste(R.version$major, R.version$minor, sep = ".")),
-  file.path(out, "irt_goal_relative_run_log.csv"))
+  file.path(out, "irt_vsi_goal_relative_run_log.csv"))
 
 cat("\n"); print(health)
 msg("done. rows: ", nrow(rel))

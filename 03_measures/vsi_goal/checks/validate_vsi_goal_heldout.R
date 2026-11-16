@@ -1,9 +1,9 @@
 # ==============================================================================
-# validate_goal_level_heldout.R
+# validate_vsi_goal_heldout.R
 #
 # Held-out-series validity for the goal scores.
 #
-# THE CLAIM BEING TESTED  "goal_level for goal g measures this country's
+# THE CLAIM BEING TESTED  "vsi_goal for goal g measures this country's
 # reporting on goal g." Not "it resembles the overall index" -- a goal score
 # diverging from the overall index is this project's hypothesis, not a fault
 # (see CLAUDE.md), so leave-one-goal-out correlation is the wrong test.
@@ -21,10 +21,10 @@
 # came from a higher-scoring country-year than a randomly chosen unreported
 # one. 0.5 is chance. Reported per goal, averaged over splits, against the null.
 #
-# OUTPUT  03_measures/vsi_goal/checks/output/goal_level_heldout_raw.csv (one row per goal x
-#         split x real/null) and goal_level_heldout_validity.csv (per goal).
+# OUTPUT  03_measures/vsi_goal/checks/output/vsi_goal_heldout_raw.csv (one row per goal x
+#         split x real/null) and vsi_goal_heldout_validity.csv (per goal).
 #
-# RUN     SPLITS=20 CORES=4 Rscript 03_measures/vsi_goal/checks/validate_goal_level_heldout.R   (~13 min)
+# RUN     SPLITS=20 CORES=4 Rscript 03_measures/vsi_goal/checks/validate_vsi_goal_heldout.R   (~13 min)
 #
 # PROVENANCE  Recovered 14 Nov 2026 from the session that ran it (9 Nov 2026, 20 splits on 4 cores, 12.8 min; results in METHODS_LOG.md).
 # The logic is exactly as run. Changed for the repo: file paths only. Its raw output survived and reproduces the logged
@@ -112,6 +112,6 @@ print(tab)
 cat("\nAUC 0.5 = chance. 'null' is the same test with country labels shuffled.\n")
 cat("median real:", round(median(tab$real, na.rm=TRUE),3),
     "| median null:", round(median(tab$null, na.rm=TRUE),3), "\n")
-fwrite(res, here("03_measures/vsi_goal/checks/output/goal_level_heldout_raw.csv"))
-fwrite(tab, here("03_measures/vsi_goal/checks/output/goal_level_heldout_validity.csv"))
+fwrite(res, here("03_measures/vsi_goal/checks/output/vsi_goal_heldout_raw.csv"))
+fwrite(tab, here("03_measures/vsi_goal/checks/output/vsi_goal_heldout_validity.csv"))
 msg("done.")

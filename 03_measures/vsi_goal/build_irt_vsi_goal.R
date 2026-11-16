@@ -1,16 +1,16 @@
 # ==============================================================================
-# build_irt_goals.R
+# build_irt_vsi_goal.R
 #
 # Fit 2 of 2: the SECTOR layer. One reporting score per country-year PER GOAL.
-# Independent of build_irt_composite.R -- neither can delay or break the other.
+# Independent of build_irt_vsi.R -- neither can delay or break the other.
 #
 # WHAT THIS IS
-#   The composite answers "how much did this country report". This answers
+#   The overall index (vsi) answers "how much did this country report". This answers
 #   "how much did it report ON GOAL g". One separate unidimensional 2PL per
 #   goal, fitted on that goal's own series only.
 #
-#   The column is `goal_level`: reporting on that goal with the country's
-#   overall level INCLUDED. Its companion `goal_relative` -- the same quantity
+#   The column is `vsi_goal`: reporting on that goal with the country's
+#   overall level INCLUDED. Its companion `vsi_goal_relative` -- the same quantity
 #   with the overall level stripped out -- comes from a bifactor model and is
 #   built by its own script, because that fit takes hours and must not be able
 #   to hold this one up.
@@ -64,9 +64,9 @@
 # RUNTIME  under a minute for all 16 goals. No checkpointing needed.
 #
 # INPUT   via functions/irt_prep.R
-# OUTPUT  01_data/vsi_scores/vsi_goal/irt_goal_level_{scores.csv,scores.rds,
+# OUTPUT  01_data/vsi_scores/vsi_goal/irt_vsi_goal_{scores.csv,scores.rds,
 #         item_params.csv,health.csv,run_log.csv,fits.rds}
-#         This script writes no file that build_irt_composite.R writes.
+#         This script writes no file that build_irt_vsi.R writes.
 # ==============================================================================
 
 source(here::here("functions/irt_prep.R"))
@@ -160,8 +160,8 @@ fit_goal <- function(g) {
   list(
     goal   = g,
     scores = data.table(iso3 = keys$iso3, year = keys$year, goal = g,
-                        goal_level    = round(s, 4),
-                        goal_level_se = round(th[, 2], 4)),
+                        vsi_goal    = round(s, 4),
+                        vsi_goal_se = round(th[, 2], 4)),
     params = co,
     health = data.table(goal = g, series = ncol(M), cycles = cyc,
                         converged = conv, clean = ok,
@@ -181,7 +181,7 @@ fit_goal <- function(g) {
 }
 
 # ---- ALL GOALS ---------------------------------------------------------------
-msg("goal_level: one 1-factor 2PL per goal | squarem | prior norm(0, ", PRIOR_SD,
+msg("vsi_goal: one 1-factor 2PL per goal | squarem | prior norm(0, ", PRIOR_SD,
     ") | TOL ", TOL)
 
 t_all <- Sys.time()
@@ -200,8 +200,8 @@ setorder(health, goal)
 stopifnot(
   nrow(health) >= 15L,
   nrow(scores) == nrow(health) * nrow(resp),
-  !any(is.na(scores$goal_level)),
-  !any(is.na(scores$goal_level_se))
+  !any(is.na(scores$vsi_goal)),
+  !any(is.na(scores$vsi_goal_se))
 )
 if (!all(health$clean)) {
   print(health[clean == FALSE])
@@ -215,11 +215,11 @@ msg("writing")
 out <- here("01_data/vsi_scores/vsi_goal")
 
 saveRDS(setNames(lapply(res, `[[`, "fit"), sapply(res, `[[`, "goal")),
-        file.path(out, "irt_goal_level_fits.rds"))
-fwrite(scores,  file.path(out, "irt_goal_level_scores.csv"))
-saveRDS(scores, file.path(out, "irt_goal_level_scores.rds"))
-fwrite(params,  file.path(out, "irt_goal_level_item_params.csv"))
-fwrite(health,  file.path(out, "irt_goal_level_health.csv"))
+        file.path(out, "irt_vsi_goal_fits.rds"))
+fwrite(scores,  file.path(out, "irt_vsi_goal_scores.csv"))
+saveRDS(scores, file.path(out, "irt_vsi_goal_scores.rds"))
+fwrite(params,  file.path(out, "irt_vsi_goal_item_params.csv"))
+fwrite(health,  file.path(out, "irt_vsi_goal_health.csv"))
 
 fwrite(data.table(
   run_date        = as.character(Sys.Date()),
@@ -236,11 +236,11 @@ fwrite(data.table(
   all_converged   = all(health$converged),
   median_reliability = median(health$reliability),
   min_reliability    = min(health$reliability),
-  median_se       = round(median(scores$goal_level_se), 4),
+  median_se       = round(median(scores$vsi_goal_se), 4),
   minutes         = round(mins, 2),
   mirt_version    = as.character(packageVersion("mirt")),
   r_version       = paste(R.version$major, R.version$minor, sep = ".")),
-  file.path(out, "irt_goal_level_run_log.csv"))
+  file.path(out, "irt_vsi_goal_run_log.csv"))
 
 cat("\n"); print(health)
 cat("\ngoals fitted:", nrow(health),

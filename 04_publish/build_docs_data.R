@@ -5,11 +5,10 @@
 # reads. Run after the overall fit; the page is static otherwise.
 #
 # The published measure is the Visible States Index (VSI): one overall score
-# per country-year. Column names here are the PUBLIC ones and should match the
-# data dictionary -- `vsi` and `vsi_se`, not the internal `composite` /
-# `composite_se` that build_irt_composite.R writes.
+# per country-year, as `vsi` and `vsi_se`. Column names here should match the
+# data dictionary.
 #
-# The sector layer is also emitted here: `goal_level`, one score per country-
+# The sector layer is also emitted here: `vsi_goal`, one score per country-
 # year per goal, with its standard error. Each goal additionally carries the
 # three numbers a reader needs to weigh it -- reliability, how concentrated the
 # score is in its heaviest series, and how much of its weight rests on series
@@ -18,9 +17,9 @@
 # cut. Goals 6 and 15 are marked `hold_content` and goal 7 has no score at all
 # (3 series, too few to identify a factor). See CLAUDE.md.
 #
-# INPUT   01_data/vsi_scores/vsi/irt_composite_scores.rds   (the VSI scores)
-#         01_data/vsi_scores/vsi_goal/irt_goal_level_scores.rds  (the sector layer)
-#         01_data/vsi_scores/vsi_goal/irt_goal_level_health.csv  (per-goal diagnostics)
+# INPUT   01_data/vsi_scores/vsi/irt_vsi_scores.rds   (the VSI scores)
+#         01_data/vsi_scores/vsi_goal/irt_vsi_goal_scores.rds  (the sector layer)
+#         01_data/vsi_scores/vsi_goal/irt_vsi_goal_health.csv  (per-goal diagnostics)
 #         01_data/raw/analysis_data__2026-11-15.rds  (country names, income groups; frozen copy)
 # OUTPUT  docs/vsi_scores.json, docs/vsi_scores.csv
 #         docs/goal_scores.json, docs/goal_scores.csv
@@ -28,7 +27,7 @@
 
 suppressPackageStartupMessages({library(data.table); library(here); library(jsonlite)})
 
-s <- as.data.table(readRDS(here("01_data/vsi_scores/vsi/irt_composite_scores.rds")))
+s <- as.data.table(readRDS(here("01_data/vsi_scores/vsi/irt_vsi_scores.rds")))
 a <- as.data.table(readRDS(here("01_data/raw/analysis_data__2026-11-15.rds")))  # frozen copy of the Politics of NAs panel
 
 meta <- unique(a[, .(iso3, country_name, income_level)])
@@ -44,13 +43,13 @@ inc_lab <- c(H = "High income", UM = "Upper-middle income",
 s[income_level %in% names(inc_lab), income_level := inc_lab[income_level]]
 
 rows <- s[, .(iso = iso3, name = country_name, inc = income_level, yr = year,
-              sc = round(composite, 3), se = round(composite_se, 3))]
+              sc = round(vsi, 3), se = round(vsi_se, 3))]
 setorder(rows, iso, yr)
 
-yearly <- s[, .(yr = year[1], mean = round(mean(composite), 4), n = .N), by = year][, -1]
+yearly <- s[, .(yr = year[1], mean = round(mean(vsi), 4), n = .N), by = year][, -1]
 setorder(yearly, yr)
 
-log1 <- fread(here("01_data/vsi_scores/vsi/irt_composite_run_log.csv"))
+log1 <- fread(here("01_data/vsi_scores/vsi/irt_vsi_run_log.csv"))
 
 out <- list(
   generated   = format(Sys.time(), "%Y-%m-%d"),
@@ -71,7 +70,7 @@ cat("wrote docs/vsi_scores.json |", nrow(rows), "rows |",
 
 # the downloadable copy the page links to, so docs/ is self-contained
 fwrite(s[, .(iso3, country_name, income_level, year,
-             vsi = round(composite, 4), vsi_se = round(composite_se, 4))][
+             vsi = round(vsi, 4), vsi_se = round(vsi_se, 4))][
          order(iso3, year)],
        here("docs/vsi_scores.csv"))
 cat("wrote docs/vsi_scores.csv\n")
@@ -81,8 +80,8 @@ cat("wrote docs/vsi_scores.csv\n")
 # Written only if the goal-level fit has been run; the overall index does not
 # depend on it, so a missing sector layer is not an error here.
 
-gp <- here("01_data/vsi_scores/vsi_goal/irt_goal_level_scores.rds")
-hp <- here("01_data/vsi_scores/vsi_goal/irt_goal_level_health.csv")
+gp <- here("01_data/vsi_scores/vsi_goal/irt_vsi_goal_scores.rds")
+hp <- here("01_data/vsi_scores/vsi_goal/irt_vsi_goal_health.csv")
 
 if (file.exists(gp) && file.exists(hp)) {
   g <- as.data.table(readRDS(gp))
@@ -104,7 +103,7 @@ if (file.exists(gp) && file.exists(hp)) {
 
   # How many series each goal actually has, taken from the shared prep, so a
   # goal that is not fitted can still state its size. MIN_SERIES_DOC mirrors
-  # MIN_SERIES in build_irt_goals.R.
+  # MIN_SERIES in build_irt_vsi_goal.R.
   MIN_SERIES_DOC <- 10L
   if (!exists("item_goal")) source(here("functions/irt_prep.R"))
   N_SERIES_BY_GOAL <- table(item_goal)
@@ -121,8 +120,8 @@ if (file.exists(gp) && file.exists(hp)) {
   ggoals <- sort(unique(g$goal))
   setorder(g, iso3, goal, year)
   gcountries <- g[, {
-    sc <- matrix(round(goal_level, 3), nrow = length(ggoals), byrow = TRUE)
-    se <- matrix(round(goal_level_se, 3), nrow = length(ggoals), byrow = TRUE)
+    sc <- matrix(round(vsi_goal, 3), nrow = length(ggoals), byrow = TRUE)
+    se <- matrix(round(vsi_goal_se, 3), nrow = length(ggoals), byrow = TRUE)
     .(name = country_name[1],
       s  = list(lapply(seq_len(nrow(sc)), function(i) sc[i, ])),
       se = list(lapply(seq_len(nrow(se)), function(i) se[i, ])))
@@ -171,15 +170,15 @@ if (file.exists(gp) && file.exists(hp)) {
       nrow(gmeta), "goals x", length(gyears), "years\n")
 
   dl <- merge(g[, .(iso3, country_name, income_level, year, goal,
-                    goal_level = round(goal_level, 4),
-                    goal_level_se = round(goal_level_se, 4))],
+                    vsi_goal = round(vsi_goal, 4),
+                    vsi_goal_se = round(vsi_goal_se, 4))],
               h[, .(goal, goal_name, goal_reliability = reliability,
                     goal_status = release)],
               by = "goal", all.x = TRUE)
   setcolorder(dl, c("iso3","country_name","income_level","year","goal","goal_name",
-                    "goal_level","goal_level_se","goal_reliability","goal_status"))
+                    "vsi_goal","vsi_goal_se","goal_reliability","goal_status"))
   fwrite(dl[order(iso3, year, goal)], here("docs/goal_scores.csv"))
   cat("wrote docs/goal_scores.csv\n")
 } else {
-  cat("sector layer not found -- run 03_measures/vsi_goal/build_irt_goals.R first\n")
+  cat("sector layer not found -- run 03_measures/vsi_goal/build_irt_vsi_goal.R first\n")
 }

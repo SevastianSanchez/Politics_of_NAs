@@ -1,13 +1,13 @@
 # ==============================================================================
-# bifactor_scorer.R -- helper, sourced by the two goal_relative validation scripts
+# bifactor_scorer.R -- helper, sourced by the two vsi_goal_relative validation scripts
 #
 # The exact bifactor scorer, factored out so the bootstrap and the held-out
-# test use the SAME code path as build_irt_bifactor.R. Given the general
+# test use the SAME code path as build_irt_vsi_goal_relative.R. Given the general
 # factor, each series depends on one goal factor only, so no integral exceeds
 # two dimensions. plogis(., log.p=TRUE) is required: -log1p(exp(-z)) overflows
 # at |z| ~ 770 and turns every country-year into NaN.
 #
-# PROVENANCE  Recovered 14 Nov 2026 from the session that ran it (10 Nov 2026, as used by the goal_relative bootstrap attempt 3 and held-out runs).
+# PROVENANCE  Recovered 14 Nov 2026 from the session that ran it (10 Nov 2026, as used by the vsi_goal_relative bootstrap attempt 3 and held-out runs).
 # The logic is exactly as run. Changed for the repo: nothing but this header.
 # ==============================================================================
 score_bifactor <- function(fit, X = NULL, K = 61L, LIM = 6) {

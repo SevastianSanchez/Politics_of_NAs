@@ -28,10 +28,10 @@ _private_archive/
 *.rdx
 
 # Bifactor fit checkpoint: an intermediate the script writes every 50 cycles so
-# a long run survives a closed laptop. Rebuilt by build_irt_bifactor.R.
-01_data/vsi_scores/vsi_goal_relative/irt_goal_relative_ckpt.rds
+# a long run survives a closed laptop. Rebuilt by build_irt_vsi_goal_relative.R.
+01_data/vsi_scores/vsi_goal_relative/irt_vsi_goal_relative_ckpt.rds
 
-# Per-replicate checkpoints of validate_goal_relative_bootstrap.R; regenerated on a run.
+# Per-replicate checkpoints of validate_vsi_goal_relative_bootstrap.R; regenerated on a run.
 01_data/vsi_scores/vsi_goal_relative/boot_ck/
 01_data/vsi_scores/vsi_goal/boot_ck/
 

@@ -1,5 +1,5 @@
 # ==============================================================================
-# build_irt_composite.R
+# build_irt_vsi.R
 #
 # Fit 1 of 2: the COMPOSITE index. One reporting-transparency score per
 # country-year. Runs in roughly half an hour and is independent of the
@@ -19,7 +19,7 @@
 #   itself). IRT learns how hard each series is instead of assuming it.
 #
 #   Unidimensional means ONE latent trait: a single number per country-year.
-#   The goal-level breakdown is a separate model in build_irt_goals.R.
+#   The goal-level breakdown is a separate model in build_irt_vsi_goal.R.
 #
 # ESTIMATION
 #   Marginal maximum likelihood (mirt, EM) for the item parameters; Bayesian
@@ -33,7 +33,7 @@
 #           script says so loudly rather than writing quietly.
 #
 # INPUT   via functions/irt_prep.R
-# OUTPUT  01_data/vsi_scores/vsi/irt_composite_*  plus the two shared provenance
+# OUTPUT  01_data/vsi_scores/vsi/irt_vsi_*  plus the two shared provenance
 #         artifacts this script owns (response matrix, goal assignment)
 # ==============================================================================
 
@@ -41,7 +41,7 @@ source(here::here("functions/irt_prep.R"))
 
 # ---- FIT ---------------------------------------------------------------------
 
-msg("fitting unidimensional 2PL (composite)")
+msg("fitting unidimensional 2PL (vsi)")
 t0 <- Sys.time()
 fit <- mirt(resp, 1, itemtype = "2PL", verbose = FALSE,
             technical = list(NCYCLES = max_cycles))
@@ -56,7 +56,7 @@ if (!conv)
 # EAP posterior means, with posterior SDs as the error bars.
 
 th     <- fscores(fit, method = "EAP", full.scores.SE = TRUE)
-scores <- data.table(keys, composite = th[, 1], composite_se = th[, 2])
+scores <- data.table(keys, vsi = th[, 1], vsi_se = th[, 2])
 setorder(scores, iso3, year)
 
 # ---- ITEM PARAMETERS ---------------------------------------------------------
@@ -71,7 +71,7 @@ co[, p_reported := as.numeric(p_rep[keep][match(series_code, names(p_rep[keep]))
 # ---- WRITE -------------------------------------------------------------------
 # This script owns irt_response_matrix.rds and irt_series_goal_assignment.csv:
 # both are produced by the shared prep step, and having a single writer keeps
-# to the repo's one-writer-per-file rule. build_irt_goals.R writes neither.
+# to the repo's one-writer-per-file rule. build_irt_vsi_goal.R writes neither.
 
 msg("writing")
 out <- here("01_data/vsi_scores/vsi")
@@ -79,10 +79,10 @@ out <- here("01_data/vsi_scores/vsi")
 saveRDS(wide, file.path(out, "irt_response_matrix.rds"))
 fwrite(shared_log, file.path(out, "irt_series_goal_assignment.csv"))
 
-saveRDS(fit,    file.path(out, "irt_composite_fit.rds"))
-fwrite(scores,  file.path(out, "irt_composite_scores.csv"))
-saveRDS(scores, file.path(out, "irt_composite_scores.rds"))
-fwrite(co,      file.path(out, "irt_composite_item_params.csv"))
+saveRDS(fit,    file.path(out, "irt_vsi_fit.rds"))
+fwrite(scores,  file.path(out, "irt_vsi_scores.csv"))
+saveRDS(scores, file.path(out, "irt_vsi_scores.rds"))
+fwrite(co,      file.path(out, "irt_vsi_item_params.csv"))
 
 fwrite(data.table(
   run_date        = as.character(Sys.Date()),
@@ -94,13 +94,13 @@ fwrite(data.table(
   converged       = conv,
   cycles          = cycles,
   minutes         = mins,
-  median_se       = round(median(scores$composite_se), 4)),
-  file.path(out, "irt_composite_run_log.csv"))
+  median_se       = round(median(scores$vsi_se), 4)),
+  file.path(out, "irt_vsi_run_log.csv"))
 
 msg("done. rows: ", nrow(scores))
 
 cat("\n--- 2023 extremes ---\n")
-print(scores[year == 2023][order(-composite)][1:6,
-      .(iso3, composite = round(composite, 2), se = round(composite_se, 3))])
-print(scores[year == 2023][order(composite)][1:6,
-      .(iso3, composite = round(composite, 2), se = round(composite_se, 3))])
+print(scores[year == 2023][order(-vsi)][1:6,
+      .(iso3, vsi = round(vsi, 2), se = round(vsi_se, 3))])
+print(scores[year == 2023][order(vsi)][1:6,
+      .(iso3, vsi = round(vsi, 2), se = round(vsi_se, 3))])

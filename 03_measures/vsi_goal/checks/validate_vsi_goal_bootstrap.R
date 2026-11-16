@@ -1,7 +1,7 @@
 # ==============================================================================
-# validate_goal_level_bootstrap.R
+# validate_vsi_goal_bootstrap.R
 #
-# Bootstrap stability of goal_level.
+# Bootstrap stability of vsi_goal.
 #
 # The model's posterior SE says how uncertain a score is GIVEN the estimated
 # item parameters. It does not account for the item parameters themselves being
@@ -14,10 +14,10 @@
 # comparable: the same 1,773 people are scored every time, by different rulers.
 #
 # Settings per METHODS_LOG.md: squarem, prior norm(0,2) on slopes, TOL 1e-3.
-# OUTPUT  03_measures/vsi_goal/checks/output/goal_level_bootstrap.csv -- per country-year per
+# OUTPUT  03_measures/vsi_goal/checks/output/vsi_goal_bootstrap.csv -- per country-year per
 #         goal: bootstrap SD, and the model SE beside it.
 #
-# RUN     B=500 CORES=8 Rscript 03_measures/vsi_goal/checks/validate_goal_level_bootstrap.R   (~98 min)
+# RUN     B=500 CORES=8 Rscript 03_measures/vsi_goal/checks/validate_vsi_goal_bootstrap.R   (~98 min)
 #
 # PROVENANCE  Recovered 14 Nov 2026 from the session that ran it (9 Nov 2026, B = 500 on 8 cores, 98.1 min; results in METHODS_LOG.md).
 # The logic is exactly as run. Changed for the repo: file paths only, and the default B set from 400 to the 500 actually run.
@@ -75,19 +75,19 @@ t0 <- Sys.time()
 reps <- mclapply(seq_len(B), one_rep, mc.cores = CORES)
 msg("replicates done in ", round(as.numeric(difftime(Sys.time(), t0, units="mins")),1), " min")
 
-base <- as.data.table(readRDS(here("01_data/vsi_scores/vsi_goal/irt_goal_level_scores.rds")))
+base <- as.data.table(readRDS(here("01_data/vsi_scores/vsi_goal/irt_vsi_goal_scores.rds")))
 res <- rbindlist(lapply(as.character(goals), function(g) {
   Mx <- do.call(cbind, lapply(reps, function(r) r[[g]]))
   data.table(iso3 = keys$iso3, year = keys$year, goal = as.integer(g),
              boot_sd = round(apply(Mx, 1, sd, na.rm = TRUE), 4),
              n_ok = rowSums(!is.na(Mx))) }))
 res <- merge(base, res, by = c("iso3", "year", "goal"))
-fwrite(res, here("03_measures/vsi_goal/checks/output/goal_level_bootstrap.csv"))
+fwrite(res, here("03_measures/vsi_goal/checks/output/vsi_goal_bootstrap.csv"))
 
 cat("\n=== bootstrap SD vs the model's posterior SE, by goal ===\n")
 print(res[, .(boot_sd_median = round(median(boot_sd, na.rm=TRUE), 3),
-              model_se_median = round(median(goal_level_se), 3),
-              ratio = round(median(boot_sd, na.rm=TRUE)/median(goal_level_se), 2),
+              model_se_median = round(median(vsi_goal_se), 3),
+              ratio = round(median(boot_sd, na.rm=TRUE)/median(vsi_goal_se), 2),
               failed_reps = B - min(n_ok)), by = goal][order(-ratio)])
 cat("\nA ratio near or below 1 means the published SE already covers the\n")
 cat("parameter uncertainty. Well above 1 means the SE is optimistic.\n")

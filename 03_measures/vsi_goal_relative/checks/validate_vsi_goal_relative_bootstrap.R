@@ -1,7 +1,7 @@
 # ==============================================================================
-# validate_goal_relative_bootstrap.R
+# validate_vsi_goal_relative_bootstrap.R
 #
-# Bootstrap for goal_relative, second attempt.
+# Bootstrap for vsi_goal_relative, second attempt.
 #
 # The first attempt failed on every replicate and could not say why: the handler
 # was `error = function(e) NULL`, and a non-converged fit returned NULL too, so a
@@ -12,11 +12,11 @@
 # sleeping laptop costs one replicate instead of the whole run, and a re-run
 # picks up where it stopped.
 #
-# OUTPUT  03_measures/vsi_goal_relative/checks/output/goal_relative_bootstrap.csv (per goal). Per-
+# OUTPUT  03_measures/vsi_goal_relative/checks/output/vsi_goal_relative_bootstrap.csv (per goal). Per-
 #         replicate checkpoints go to 01_data/vsi_scores/vsi_goal_relative/boot_ck/,
 #         which is not tracked.
 #
-# RUN     B=100 DIAG_N=4 C_DIAG=4 C_FULL=10 Rscript 03_measures/vsi_goal_relative/checks/validate_goal_relative_bootstrap.R  (~4.7 h)
+# RUN     B=100 DIAG_N=4 C_DIAG=4 C_FULL=10 Rscript 03_measures/vsi_goal_relative/checks/validate_vsi_goal_relative_bootstrap.R  (~4.7 h)
 #
 # PROVENANCE  Recovered 14 Nov 2026 from the session that ran it (10 Nov 2026, attempt 3, B = 100 on 10 cores, 282.8 min; results in METHODS_LOG.md).
 # The logic is exactly as run. Changed for the repo: file paths only.
@@ -32,7 +32,7 @@ DIAG_N <- as.integer(Sys.getenv("DIAG_N", "4"))
 C_DIAG <- as.integer(Sys.getenv("C_DIAG", "4"))
 C_FULL <- as.integer(Sys.getenv("C_FULL", "10"))
 
-full  <- readRDS(here("01_data/vsi_scores/vsi_goal_relative/irt_goal_relative_fit.rds"))
+full  <- readRDS(here("01_data/vsi_scores/vsi_goal_relative/irt_vsi_goal_relative_fit.rds"))
 start <- as.data.frame(mod2values(full))
 
 one <- function(b) {
@@ -100,16 +100,16 @@ if (length(ok) < 20) { msg("too few usable replicates to estimate a spread"); qu
 
 A  <- simplify2array(lapply(ok, function(x) x$score))   # rows x goals x reps
 bs <- apply(A, c(1, 2), sd)
-pub <- as.data.table(readRDS(here("01_data/vsi_scores/vsi_goal_relative/irt_goal_relative_scores.rds")))
+pub <- as.data.table(readRDS(here("01_data/vsi_scores/vsi_goal_relative/irt_vsi_goal_relative_scores.rds")))
 setorder(pub, iso3, year, goal)
 goals <- sort(unique(pub$goal))
 out <- rbindlist(lapply(seq_along(goals), function(k)
   data.table(goal = goals[k], boot_sd = bs[, k],
-             se = pub[goal == goals[k]][order(iso3, year)]$goal_relative_se)))
+             se = pub[goal == goals[k]][order(iso3, year)]$vsi_goal_relative_se)))
 tab <- out[, .(boot_sd = round(median(boot_sd), 4), se = round(median(se), 4),
                ratio_pct = round(100 * median(boot_sd / se))), by = goal][order(goal)]
 print(tab)
 msg("ratio of bootstrap SD to posterior SE: median ", round(100 * median(out$boot_sd / out$se)),
     "% | range ", round(100 * min(tab$ratio_pct / 100 * 100) / 100), "-", max(tab$ratio_pct), "%")
-fwrite(tab, here("03_measures/vsi_goal_relative/checks/output/goal_relative_bootstrap.csv"))
-msg("done. wrote 03_measures/vsi_goal_relative/checks/output/goal_relative_bootstrap.csv")
+fwrite(tab, here("03_measures/vsi_goal_relative/checks/output/vsi_goal_relative_bootstrap.csv"))
+msg("done. wrote 03_measures/vsi_goal_relative/checks/output/vsi_goal_relative_bootstrap.csv")

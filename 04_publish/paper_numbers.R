@@ -14,8 +14,8 @@ library(here); suppressPackageStartupMessages(library(data.table))
 con <- file(here("04_publish/paper_numbers.txt"), open = "wt")
 say <- function(...) { cat(..., "\n", sep = ""); cat(..., "\n", sep = "", file = con) }
 
-tw  <- fread(here("01_data/vsi_scores/vsi/irt_composite_scores.csv"))
-lg  <- fread(here("01_data/vsi_scores/vsi/irt_composite_run_log.csv"))
+tw  <- fread(here("01_data/vsi_scores/vsi/irt_vsi_scores.csv"))
+lg  <- fread(here("01_data/vsi_scores/vsi/irt_vsi_run_log.csv"))
 ad  <- fread(here("01_data/raw/analysis_data__2026-11-15.csv"))  # frozen copy of the Politics of NAs panel (now in politics-of-nas-paper)
 ov  <- unique(ad[scope == "overall", .(iso3, year, income_level, gdp_pc, spi_overall,
                                        spi_overall_mod, prop_sdg_missing_sdr,
@@ -41,14 +41,14 @@ say("EM cycles to converge         : ", format(lg$cycles[1], big.mark = ","),
 say("converged                     : ", lg$converged[1])
 
 say("\n=== SECTION 6: the index ===")
-top <- d[year == 2023][order(-composite)][1:6]
-bot <- d[year == 2023][order(composite)][1:6]
-say("2023 highest: ", paste0(top$country_name, " (", sprintf("%.2f", top$composite), ")",
+top <- d[year == 2023][order(-vsi)][1:6]
+bot <- d[year == 2023][order(vsi)][1:6]
+say("2023 highest: ", paste0(top$country_name, " (", sprintf("%.2f", top$vsi), ")",
                              collapse = ", "))
-say("2023 lowest : ", paste0(bot$country_name, " (", sprintf("%.2f", bot$composite), ")",
+say("2023 lowest : ", paste0(bot$country_name, " (", sprintf("%.2f", bot$vsi), ")",
                              collapse = ", "))
 ch <- dcast(d[year %in% c(2015, 2023)], iso3 + country_name ~ year,
-            value.var = "composite")
+            value.var = "vsi")
 setnames(ch, c("2015", "2023"), c("y15", "y23"))
 ch <- ch[!is.na(y15) & !is.na(y23)][, delta := y23 - y15]
 say("steepest declines: ", paste0(head(ch[order(delta)], 7)$country_name, " (",
@@ -57,16 +57,16 @@ say("largest increases: ", paste0(head(ch[order(-delta)], 5)$country_name, " (",
       sprintf("%+.2f", head(ch[order(-delta)], 5)$delta), ")", collapse = ", "))
 
 say("\n=== SECTION 7.1: convergent validity ===")
-say("modified SPI (pillars 1,2,4,5)  spearman ", r(d$composite, d$spi_overall_mod, "spearman"),
-    " | pearson ", r(d$composite, d$spi_overall_mod),
-    " | n ", sum(complete.cases(d$composite, d$spi_overall_mod)))
-say("unmodified SPI                  pearson  ", r(d$composite, d$spi_overall),
-    " | n ", sum(complete.cases(d$composite, d$spi_overall)))
+say("modified SPI (pillars 1,2,4,5)  spearman ", r(d$vsi, d$spi_overall_mod, "spearman"),
+    " | pearson ", r(d$vsi, d$spi_overall_mod),
+    " | n ", sum(complete.cases(d$vsi, d$spi_overall_mod)))
+say("unmodified SPI                  pearson  ", r(d$vsi, d$spi_overall),
+    " | n ", sum(complete.cases(d$vsi, d$spi_overall)))
 say("(the by-pillar table and HRV come from validate_vsi_external.R ->")
 say(" 03_measures/vsi/checks/output/vsi_external_validity.csv)")
 
 say("\n=== SECTION 7.2: known-groups ===")
-inc <- d[!is.na(income_level), .(mean = round(mean(composite), 2), n = .N), by = income_level]
+inc <- d[!is.na(income_level), .(mean = round(mean(vsi), 2), n = .N), by = income_level]
 for (i in seq_len(nrow(inc))) say("  ", inc$income_level[i], ": ", inc$mean[i],
                                   " (n ", inc$n[i], ")")
 
@@ -75,9 +75,9 @@ d[, framework_share := n_observations]   # raw count; the share needs its denomi
 for (v in c("dv_n_observations_pct_frontier", "dv_n_observations_pct_goalbase",
             "dv_n_observations_stable_pct_goalbase", "dv_n_observations_pct_baseline",
             "dv_n_observations_stable_pct_baseline"))
-  say("  ", sub("dv_n_observations_", "", v), ": ", r(d$composite, d[[v]]),
-      " (n ", sum(complete.cases(d$composite, d[[v]])), ")")
-say("  raw reported count            : ", r(d$composite, d$n_observations))
+  say("  ", sub("dv_n_observations_", "", v), ": ", r(d$vsi, d[[v]]),
+      " (n ", sum(complete.cases(d$vsi, d[[v]])), ")")
+say("  raw reported count            : ", r(d$vsi, d$n_observations))
 
 # The old 7.4, a discriminant check against the Sustainable Development Report
 # missingness measure, was cut from the paper on 8 Nov 2026: the SDR source was
@@ -89,28 +89,28 @@ say("  raw reported count            : ", r(d$composite, d$n_observations))
 
 say("\n=== SECTION 7.4: reliability and precision ===")
 say("empirical reliability : ",
-    round(var(tw$composite) / (var(tw$composite) + mean(tw$composite_se^2)), 3))
-say("median SE             : ", round(median(tw$composite_se), 4))
-say("95th percentile SE    : ", round(quantile(tw$composite_se, .95), 4))
-say("maximum SE            : ", round(max(tw$composite_se), 4))
+    round(var(tw$vsi) / (var(tw$vsi) + mean(tw$vsi_se^2)), 3))
+say("median SE             : ", round(median(tw$vsi_se), 4))
+say("95th percentile SE    : ", round(quantile(tw$vsi_se, .95), 4))
+say("maximum SE            : ", round(max(tw$vsi_se), 4))
 
 say("\n=== SECTION 7.5: is it a capacity index? ===")
-m <- lm(composite ~ spi_overall_mod + log(gdp_pc), data = d)
+m <- lm(vsi ~ spi_overall_mod + log(gdp_pc), data = d)
 say("R2 of SPI(mod) + log GDP pc : ", round(summary(m)$r.squared, 3),
     " (n ", nobs(m), ")")
 dm <- d[!is.na(spi_overall_mod)]
-dm[, `:=`(c_dm = composite - mean(composite), s_dm = spi_overall_mod - mean(spi_overall_mod)),
+dm[, `:=`(c_dm = vsi - mean(vsi), s_dm = spi_overall_mod - mean(spi_overall_mod)),
    by = iso3]
 say("within-country corr with SPI(mod), demeaned : ", round(cor(dm$c_dm, dm$s_dm), 3))
-wv <- d[, .(v = var(composite)), by = iso3]
+wv <- d[, .(v = var(vsi)), by = iso3]
 say("share of total variance that is within-country : ",
-    round(100 * mean(wv$v, na.rm = TRUE) / var(d$composite), 1), "%")
+    round(100 * mean(wv$v, na.rm = TRUE) / var(d$vsi), 1), "%")
 say("countries with no SPI at all : ",
     d[, .(any = any(!is.na(spi_overall_mod))), by = iso3][any == FALSE, .N])
 
 say("\n=== SECTION 9: the sector layer ===")
-gp <- here("01_data/vsi_scores/vsi_goal/irt_goal_level_scores.rds")
-hp <- here("01_data/vsi_scores/vsi_goal/irt_goal_level_health.csv")
+gp <- here("01_data/vsi_scores/vsi_goal/irt_vsi_goal_scores.rds")
+hp <- here("01_data/vsi_scores/vsi_goal/irt_vsi_goal_health.csv")
 if (file.exists(gp) && file.exists(hp)) {
   gl <- as.data.table(readRDS(gp)); gh <- fread(hp)
   say("goals scored            : ", nrow(gh), " of 17 (goal 7 has 3 series, too few)")
@@ -121,13 +121,13 @@ if (file.exists(gp) && file.exists(hp)) {
       "  max ", round(max(gh$reliability), 3))
   say("goals at or above 0.70  : ", sum(gh$reliability >= 0.70), " of ", nrow(gh),
       "   (reference point, not a cut)")
-  say("median SE               : ", round(median(gl$goal_level_se), 4),
-      "  (overall index: ", round(median(tw$composite_se), 4), ")")
+  say("median SE               : ", round(median(gl$vsi_goal_se), 4),
+      "  (overall index: ", round(median(tw$vsi_se), 4), ")")
   say("held on content grounds : ", paste(gh[release != "release"]$goal, collapse = ", "))
 
   # the reason the layer exists: goals are not a restatement of the index
-  gm <- merge(gl, tw[, .(iso3, year, composite)], by = c("iso3", "year"))
-  r2 <- gm[, .(r2 = summary(lm(goal_level ~ composite))$r.squared), by = goal]
+  gm <- merge(gl, tw[, .(iso3, year, vsi)], by = c("iso3", "year"))
+  r2 <- gm[, .(r2 = summary(lm(vsi_goal ~ vsi))$r.squared), by = goal]
   say("variation NOT explained by the overall index, median : ",
       round(100 * median(1 - r2$r2), 1), "%")
   say("  least independent : goal ", r2[which.min(1 - r2)]$goal, " at ",
@@ -140,11 +140,11 @@ if (file.exists(gp) && file.exists(hp)) {
     say("  goal ", gh$goal[i], ": ", round(gh$weight_top5_pct[i], 1), "%",
         "   agency-produced weight ", round(gh$weight_agency_pct[i], 1), "%")
 } else {
-  say("sector layer not built -- run 03_measures/vsi_goal/build_irt_goals.R")
+  say("sector layer not built -- run 03_measures/vsi_goal/build_irt_vsi_goal.R")
 }
 
 say("\n=== SECTION 8: limitations ===")
-yr <- tw[, .(mean = round(mean(composite), 2), med_se = round(median(composite_se), 3)),
+yr <- tw[, .(mean = round(mean(vsi), 2), med_se = round(median(vsi_se), 3)),
          by = year][order(year)]
 for (i in seq_len(nrow(yr))) say("  ", yr$year[i], ": mean ", yr$mean[i],
                                  " | median SE ", yr$med_se[i])
