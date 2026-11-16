@@ -25,9 +25,9 @@
 #   variant_map  the series -> cluster map that was applied, for audit
 #   variant_reps the surviving representative series after variant collapse
 #
-# INPUT  02_prepare/data/agg_series_depth.rds   (reported flag per cell)
-#        02_prepare/data/series_list.csv        (series -> goal mapping)
-#        02_prepare/data/series_variant_map.csv (redundant-variant clusters --
+# INPUT  01_data/processed/agg_series_depth.rds   (reported flag per cell)
+#        01_data/processed/series_list.csv        (series -> goal mapping)
+#        01_data/processed/series_variant_map.csv (redundant-variant clusters --
 #                                                built by build_variant_map.R,
 #                                                which must be run first)
 # ==============================================================================
@@ -64,7 +64,7 @@ msg <- function(...) cat(format(Sys.time(), "[%H:%M:%S] "), ..., "\n", sep = "")
 
 msg("prep: building response matrix")
 
-depth <- as.data.table(readRDS(here("02_prepare/data/agg_series_depth.rds")))
+depth <- as.data.table(readRDS(here("01_data/processed/agg_series_depth.rds")))
 depth <- depth[, .(iso3, series_code, year, reported)]
 # a series can sit under several goals, which duplicates its rows here
 depth <- depth[, .(reported = any(reported)), by = .(iso3, series_code, year)]
@@ -115,10 +115,10 @@ resp  <- resp[, keep]
 # variant family plus genuinely different series, and collapsing it would erase
 # the latter. The index stays at goal x series granularity.
 
-vmap_path <- here("02_prepare/data/series_variant_map.csv")
+vmap_path <- here("01_data/processed/series_variant_map.csv")
 if (!file.exists(vmap_path))
   stop("series_variant_map.csv is missing. Run ",
-       "02_prepare/build_variant_map.R first -- the IRT fits must not run ",
+       "02_processing/build_variant_map.R first -- the IRT fits must not run ",
        "on an unchecked item set.", call. = FALSE)
 
 vmap <- fread(vmap_path)[, .(series_code, cluster, verdict)]
@@ -127,7 +127,7 @@ vmap <- vmap[series_code %in% colnames(resp)]
 if (nrow(vmap) != ncol(resp))
   stop("series_variant_map.csv covers ", nrow(vmap), " of the ", ncol(resp),
        " series in the filtered matrix. It is stale -- re-run ",
-       "02_prepare/build_variant_map.R against the current export.",
+       "02_processing/build_variant_map.R against the current export.",
        call. = FALSE)
 
 # UNIT TEST, re-asserted at fit time so a refreshed export cannot slip through.
@@ -145,7 +145,7 @@ if (nrow(bad)) {
   print(bad)
   stop("VARIANT COLLAPSE TEST FAILED. The clusters above contain series that ",
        "do NOT always move together in this data, so they are not redundant ",
-       "variants. Re-run 02_prepare/build_variant_map.R and inspect them ",
+       "variants. Re-run 02_processing/build_variant_map.R and inspect them ",
        "before fitting.", call. = FALSE)
 }
 
@@ -170,7 +170,7 @@ msg("   variant collapse: ", n_before, " -> ", ncol(resp),
 # choice. Taking the lowest goal number instead would strip goal 13 (climate
 # action) from 24 items to 2, because every VC_DSR_* series would land in
 # goal 1. The reassignments are written out so the choice is auditable.
-series_goal <- unique(fread(here("02_prepare/data/series_list.csv"))[
+series_goal <- unique(fread(here("01_data/processed/series_list.csv"))[
   , .(series_code, goal)])
 series_goal <- series_goal[series_code %in% colnames(resp)]
 

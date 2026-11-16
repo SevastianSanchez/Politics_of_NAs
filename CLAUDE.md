@@ -44,8 +44,8 @@ before any Bash command containing `Rscript`, `mirt`, `bfactor` or
   so killing a parent is not killing the run. When a fit is superseded, stop
   it then — not when a slow laptop finally gives it away.
 - **Cited work lives in the repo.** Any script or output whose result is cited
-  — a `METHODS_LOG.md` row, the site, the paper, a release — goes into its stage
-  folder *before* the result is recorded. The session
+  — a `METHODS_LOG.md` row, the site, the paper, a release — goes into the repo's stage
+  folders *before* the result is recorded. The session
   scratchpad is for throwaway diagnostics only, and macOS clears it: the
   `goal_level` bootstrap output (500 replicates, ~98 min) and the original
   validation scripts were lost that way between 9 and 14 Nov 2026, after
@@ -79,9 +79,9 @@ Each has a matching `_se`. `sector_tilt` is retired.
 
 ## Layout
 
-`01_sources` → `02_prepare` → `03_vsi` → `04_vsi_goal` → `05_vsi_goal_relative`
-→ `06_publish`. In each stage: build scripts at the top, `checks/` validates,
-`data/` is read by later stages, `results/` is never read as input.
+`01_data` (raw/ · processed/ · vsi_scores/) → `02_processing` → `03_measures`
+(vsi/ · vsi_goal/ · vsi_goal_relative/, each with checks/) → `04_publish` →
+`05_results`. Data lives only in `01_data/`; `05_results/` is never read as input.
 `functions/` is sourced, never run. `docs/` is the
 public site · `releases/<version>/` is what gets deposited at Zenodo.
 One writer per file; paths via `here()`.
