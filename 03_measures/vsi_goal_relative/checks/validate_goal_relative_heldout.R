@@ -8,7 +8,7 @@
 # FRESH permutation per series -- reusing one permutation across series leaves
 # structure that makes the null look non-random.
 #
-# OUTPUT  05_results/vsi_goal_relative/goal_relative_heldout_raw.csv (one row per
+# OUTPUT  03_measures/vsi_goal_relative/checks/output/goal_relative_heldout_raw.csv (one row per
 #         held-out series per split) and goal_relative_heldout_validity.csv.
 #
 # RUN     SPLITS=20 CORES=4 Rscript 03_measures/vsi_goal_relative/checks/validate_goal_relative_heldout.R  (~2.5 h)
@@ -66,7 +66,7 @@ res <- rbindlist(Filter(Negate(is.null), mclapply(seq_len(SPLITS), one, mc.cores
 msg("done in ", round(as.numeric(difftime(Sys.time(), t0, units="mins")),1), " min | ",
     nrow(res), " series-splits from ", uniqueN(res$split), " splits")
 if (!nrow(res)) stop("no usable splits")
-fwrite(res, here("05_results/vsi_goal_relative/goal_relative_heldout_raw.csv"))
+fwrite(res, here("03_measures/vsi_goal_relative/checks/output/goal_relative_heldout_raw.csv"))
 
 # median across series within a goal, then report
 tab <- res[, .(train = NA_integer_, test = uniqueN(series),
@@ -74,7 +74,7 @@ tab <- res[, .(train = NA_integer_, test = uniqueN(series),
                pct_right_way = round(100*mean(auc > 0.5))), by = goal]
 tab[, lift := round(real - null, 3)]
 setorder(tab, -real)
-fwrite(tab, here("05_results/vsi_goal_relative/goal_relative_heldout_validity.csv"))
+fwrite(tab, here("03_measures/vsi_goal_relative/checks/output/goal_relative_heldout_validity.csv"))
 print(tab)
 cat("\nAUC 0.5 = chance. 'null' is the same test with country labels shuffled.\n")
 cat("median real:", median(tab$real), "| median null:", median(tab$null), "\n")

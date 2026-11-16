@@ -78,7 +78,7 @@ for lp in $(awk '{print $1}' "$TMP"); do
 "
 done
 found=0
-for f in $(ls -t $LOGGLOB/*.log "$REPO"/05_results/*/*.log 2>/dev/null); do
+for f in $(ls -t $LOGGLOB/*.log "$REPO"/0*/checks/output/*.log "$REPO"/03_measures/*/checks/output/*.log 2>/dev/null); do
   age=$(( ($(date +%s) - $(stat -f %m "$f")) / 60 ))
   [ "$age" -gt "$LOG_MINS" ] && continue
   found=1

@@ -26,8 +26,8 @@
 #   (data sources: censuses, surveys, admin records) and 5 (data
 #   infrastructure) are the independent comparators.
 #
-# OUTPUT  05_results/vsi/vsi_external_validity.csv
-#         05_results/vsi/vsi_spi_disagreements.csv
+# OUTPUT  03_measures/vsi/checks/output/vsi_external_validity.csv
+#         03_measures/vsi/checks/output/vsi_spi_disagreements.csv
 #         docs/validity_spi.json   (read by the landing page)
 # ==============================================================================
 source(here::here("functions/packages.R"))
@@ -104,7 +104,7 @@ res <- rbind(res, data.table(benchmark = "spi_overall",
   pearson = round(median(wc$r, na.rm = TRUE), 3), spearman = NA_real_))
 
 print(res[scope == "all years"])
-fwrite(res, here("05_results/vsi/vsi_external_validity.csv"))
+fwrite(res, here("03_measures/vsi/checks/output/vsi_external_validity.csv"))
 
 # ---- E. WHERE THEY DISAGREE -------------------------------------------------
 # The substantively interesting cases, and a good figure: countries SPI rates
@@ -122,7 +122,7 @@ disag[, (c("vsi","spi_overall","z_vsi","z_spi","gap")) :=
         lapply(.SD, round, 2), .SDcols = c("vsi","spi_overall","z_vsi","z_spi","gap")]
 cat("\n--- reports MORE than its statistical system predicts (top) / LESS (bottom) ---\n")
 print(disag)
-fwrite(disag, here("05_results/vsi/vsi_spi_disagreements.csv"))
+fwrite(disag, here("03_measures/vsi/checks/output/vsi_spi_disagreements.csv"))
 # ---- F. FEED THE PUBLIC PAGE ------------------------------------------------
 # docs/index.html fetches this, the same pattern build_docs_data.R uses for
 # vsi_scores.json. The `overlaps_source` flag is the point of the figure:
@@ -166,4 +166,4 @@ jsonlite::write_json(list(
 ), here("docs/validity_spi.json"), auto_unbox = TRUE, digits = NA)
 cat("wrote docs/validity_spi.json\n")
 
-msg("done. tables in 05_results/vsi/, page data in docs/")
+msg("done. tables in 03_measures/vsi/checks/output/, page data in docs/")

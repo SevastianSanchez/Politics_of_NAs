@@ -14,7 +14,7 @@
 # comparable: the same 1,773 people are scored every time, by different rulers.
 #
 # Settings per METHODS_LOG.md: squarem, prior norm(0,2) on slopes, TOL 1e-3.
-# OUTPUT  05_results/vsi_goal/goal_level_bootstrap.csv -- per country-year per
+# OUTPUT  03_measures/vsi_goal/checks/output/goal_level_bootstrap.csv -- per country-year per
 #         goal: bootstrap SD, and the model SE beside it.
 #
 # RUN     B=500 CORES=8 Rscript 03_measures/vsi_goal/checks/validate_goal_level_bootstrap.R   (~98 min)
@@ -82,7 +82,7 @@ res <- rbindlist(lapply(as.character(goals), function(g) {
              boot_sd = round(apply(Mx, 1, sd, na.rm = TRUE), 4),
              n_ok = rowSums(!is.na(Mx))) }))
 res <- merge(base, res, by = c("iso3", "year", "goal"))
-fwrite(res, here("05_results/vsi_goal/goal_level_bootstrap.csv"))
+fwrite(res, here("03_measures/vsi_goal/checks/output/goal_level_bootstrap.csv"))
 
 cat("\n=== bootstrap SD vs the model's posterior SE, by goal ===\n")
 print(res[, .(boot_sd_median = round(median(boot_sd, na.rm=TRUE), 3),

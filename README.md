@@ -56,19 +56,20 @@ the VSI scores. This repository builds, validates and releases the index.
 
 ## Repository layout
 
-The top level reads in run order: data → processing → measures → publish → results.
+The top level reads in run order: data → processing → measures → publish.
 
 ```
 01_data/        raw/ (never edited) · processed/ (written by 02) · vsi_scores/ (written by 03)
 02_processing/  UN exports → the 524-series response matrix
 03_measures/    vsi/ · vsi_goal/ · vsi_goal_relative/ — each score's build script and its checks/
 04_publish/     the site's data files and the measurement paper's numbers
-05_results/     check outputs, sorted by measure. Never read as input
 functions/      sourced by other scripts, never run alone
 ```
 
-**Data lives only in `01_data/`. Nothing in `05_results/` is ever read as an input.**
-Scripts that validate something sit in a `checks/` folder beside what they validate.
+**Data lives only in `01_data/`.** Scripts that validate something sit in a `checks/`
+folder beside what they validate, and write what they find to `checks/output/`.
+**Nothing in a `checks/output/` folder is ever read as an input.** Open a measure's
+folder and you see how it is built, how it is tested, and what the tests found.
 
 | Folder | What | Run order |
 |---|---|---|
@@ -79,7 +80,7 @@ Scripts that validate something sit in a `checks/` folder beside what they valid
 | `03_measures/vsi/` | The overall index | 4 `build_irt_composite.R` · check: `validate_vsi_external.R` |
 | `03_measures/vsi_goal/` | One score per goal | 5 `build_irt_goals.R` · checks: `validate_goal_level_heldout.R` (~13 min), `validate_goal_level_bootstrap.R` (~98 min on 8 cores) |
 | `03_measures/vsi_goal_relative/` | A goal net of the country's own overall level | `build_irt_bifactor.R` (long, checkpointed, resumes) · checks: `validate_goal_relative_heldout.R` (~2.5 h), `validate_goal_relative_bootstrap.R` (~4.7 h, checkpointed) |
-| `04_publish/` | | `build_docs_data.R` → `docs/` · `paper_numbers.R` → every figure the measurement paper quotes |
+| `04_publish/` | | `build_docs_data.R` → `docs/` · `paper_numbers.R` → `paper_numbers.txt`, every figure the measurement paper quotes |
 | `functions/` | `packages.R`, `irt_prep.R` (builds the one 524-series response matrix every fit uses, and halts if the variant map is missing or stale), `bifactor_scorer.R` | |
 | `superseded/` | Old fits. **Do not run.** See `superseded/README.md` and `METHODS_LOG.md` | |
 | `docs/` | The published site: [Visible States Project](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the published copy of the scores. GitHub Pages builds it from `main` | |

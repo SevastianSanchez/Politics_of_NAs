@@ -80,8 +80,9 @@ Each has a matching `_se`. `sector_tilt` is retired.
 ## Layout
 
 `01_data` (raw/ · processed/ · vsi_scores/) → `02_processing` → `03_measures`
-(vsi/ · vsi_goal/ · vsi_goal_relative/, each with checks/) → `04_publish` →
-`05_results`. Data lives only in `01_data/`; `05_results/` is never read as input.
+(vsi/ · vsi_goal/ · vsi_goal_relative/, each with checks/) → `04_publish`.
+Data lives only in `01_data/`. Check outputs go in `checks/output/` beside the
+check script and are never read as input.
 `functions/` is sourced, never run. `docs/` is the
 public site · `releases/<version>/` is what gets deposited at Zenodo.
 One writer per file; paths via `here()`.

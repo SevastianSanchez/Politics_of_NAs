@@ -6,12 +6,12 @@
 # reconcile the draft against the output; a number in the paper that this script
 # does not produce is one nobody is checking.
 #
-# OUTPUT  05_results/publish/paper_numbers.txt (and the console)
+# OUTPUT  04_publish/paper_numbers.txt (and the console)
 # ==============================================================================
 source(here::here("functions/packages.R"))
 library(here); suppressPackageStartupMessages(library(data.table))
 
-con <- file(here("05_results/publish/paper_numbers.txt"), open = "wt")
+con <- file(here("04_publish/paper_numbers.txt"), open = "wt")
 say <- function(...) { cat(..., "\n", sep = ""); cat(..., "\n", sep = "", file = con) }
 
 tw  <- fread(here("01_data/vsi_scores/vsi/irt_composite_scores.csv"))
@@ -63,7 +63,7 @@ say("modified SPI (pillars 1,2,4,5)  spearman ", r(d$composite, d$spi_overall_mo
 say("unmodified SPI                  pearson  ", r(d$composite, d$spi_overall),
     " | n ", sum(complete.cases(d$composite, d$spi_overall)))
 say("(the by-pillar table and HRV come from validate_vsi_external.R ->")
-say(" 05_results/vsi/vsi_external_validity.csv)")
+say(" 03_measures/vsi/checks/output/vsi_external_validity.csv)")
 
 say("\n=== SECTION 7.2: known-groups ===")
 inc <- d[!is.na(income_level), .(mean = round(mean(composite), 2), n = .N), by = income_level]
@@ -151,4 +151,4 @@ for (i in seq_len(nrow(yr))) say("  ", yr$year[i], ": mean ", yr$mean[i],
 say("  2022->2023 change: ", round(yr[year == 2023]$mean - yr[year == 2022]$mean, 2))
 
 close(con)
-cat("\nwritten to 05_results/publish/paper_numbers.txt\n")
+cat("\nwritten to 04_publish/paper_numbers.txt\n")

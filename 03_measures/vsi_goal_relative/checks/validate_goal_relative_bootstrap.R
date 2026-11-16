@@ -12,7 +12,7 @@
 # sleeping laptop costs one replicate instead of the whole run, and a re-run
 # picks up where it stopped.
 #
-# OUTPUT  05_results/vsi_goal_relative/goal_relative_bootstrap.csv (per goal). Per-
+# OUTPUT  03_measures/vsi_goal_relative/checks/output/goal_relative_bootstrap.csv (per goal). Per-
 #         replicate checkpoints go to 01_data/vsi_scores/vsi_goal_relative/boot_ck/,
 #         which is not tracked.
 #
@@ -111,5 +111,5 @@ tab <- out[, .(boot_sd = round(median(boot_sd), 4), se = round(median(se), 4),
 print(tab)
 msg("ratio of bootstrap SD to posterior SE: median ", round(100 * median(out$boot_sd / out$se)),
     "% | range ", round(100 * min(tab$ratio_pct / 100 * 100) / 100), "-", max(tab$ratio_pct), "%")
-fwrite(tab, here("05_results/vsi_goal_relative/goal_relative_bootstrap.csv"))
-msg("done. wrote 05_results/vsi_goal_relative/goal_relative_bootstrap.csv")
+fwrite(tab, here("03_measures/vsi_goal_relative/checks/output/goal_relative_bootstrap.csv"))
+msg("done. wrote 03_measures/vsi_goal_relative/checks/output/goal_relative_bootstrap.csv")

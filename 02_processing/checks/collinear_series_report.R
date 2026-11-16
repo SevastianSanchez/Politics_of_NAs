@@ -13,7 +13,7 @@
 #     clustered, because the rule requires exact identity).
 # Both produce the same numerical symptom: a discrimination running to infinity.
 #
-# OUTPUT  05_results/processing/collinear_series.csv
+# OUTPUT  02_processing/checks/output/collinear_series.csv
 # ==============================================================================
 source(here::here("functions/packages.R"))
 library(here); suppressPackageStartupMessages(library(data.table))
@@ -91,6 +91,6 @@ for (gg in unique(out$group)) {
   for (i in seq_len(nrow(s)))
     cat("   ", s$series_code[i], " [", s$units[i], "] ", s$series_description[i], "\n", sep = "")
 }
-fwrite(out, here("05_results/processing/collinear_series.csv"))
-cat("\nwrote 05_results/processing/collinear_series.csv |", uniqueN(out$group),
+fwrite(out, here("02_processing/checks/output/collinear_series.csv"))
+cat("\nwrote 02_processing/checks/output/collinear_series.csv |", uniqueN(out$group),
     "groups,", nrow(out), "series\n")

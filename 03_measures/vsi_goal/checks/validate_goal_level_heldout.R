@@ -21,7 +21,7 @@
 # came from a higher-scoring country-year than a randomly chosen unreported
 # one. 0.5 is chance. Reported per goal, averaged over splits, against the null.
 #
-# OUTPUT  05_results/vsi_goal/goal_level_heldout_raw.csv (one row per goal x
+# OUTPUT  03_measures/vsi_goal/checks/output/goal_level_heldout_raw.csv (one row per goal x
 #         split x real/null) and goal_level_heldout_validity.csv (per goal).
 #
 # RUN     SPLITS=20 CORES=4 Rscript 03_measures/vsi_goal/checks/validate_goal_level_heldout.R   (~13 min)
@@ -112,6 +112,6 @@ print(tab)
 cat("\nAUC 0.5 = chance. 'null' is the same test with country labels shuffled.\n")
 cat("median real:", round(median(tab$real, na.rm=TRUE),3),
     "| median null:", round(median(tab$null, na.rm=TRUE),3), "\n")
-fwrite(res, here("05_results/vsi_goal/goal_level_heldout_raw.csv"))
-fwrite(tab, here("05_results/vsi_goal/goal_level_heldout_validity.csv"))
+fwrite(res, here("03_measures/vsi_goal/checks/output/goal_level_heldout_raw.csv"))
+fwrite(tab, here("03_measures/vsi_goal/checks/output/goal_level_heldout_validity.csv"))
 msg("done.")
