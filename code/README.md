@@ -12,7 +12,9 @@ Run order. Anything not listed here is a helper or a one-off.
 | 6 | `data_prep/build_series_provenance.R` | `output/measure/tables/series_provenance_nature.csv` — who produced each series (country vs custodian agency). Read by step 5 for a disclosure column; absent is not fatal. |
 | 7 | `build_docs_data.R` | `docs/vsi_scores.{json,csv}`, `docs/goal_scores.{json,csv}` |
 | 8 | `validate_vsi_external.R` | `output/measure/tables/vsi_external_validity.csv`, `docs/validity_spi.json` |
-| 9 | `paper_numbers.R` | `output/measure/results/paper_numbers.txt` — every figure the paper quotes |
+| 9 | `validate_goal_level_heldout.R` | `output/measure/tables/goal_level_heldout_{raw,validity}.csv` — does each goal score predict reporting on series it never saw (~13 min) |
+| 10 | `validate_goal_level_bootstrap.R` | `output/measure/tables/goal_level_bootstrap.csv` — uncertainty from the series parameters, against the posterior SE (~98 min on 8 cores) |
+| 11 | `paper_numbers.R` | `output/measure/results/paper_numbers.txt` — every figure the paper quotes |
 
 Supporting: `packages.R` · `data_prep/build_hrv_snapshot.R` (HRV2 snapshot) ·
 `data_prep/build_predictor_panel.R` · `data_prep/build_series_stability.R` ·
@@ -23,8 +25,11 @@ collapsed) · `SDGCountryTrends_Function.R`
 **Not in the v1 run order:** `data_prep/build_irt_bifactor.R` builds
 `goal_relative` — a goal's reporting net of the country's own overall level —
 from a bifactor model. It is a long, checkpointed fit and is **not part of
-v1.2.0**, which ships `vsi` and `goal_level` only. Safe to re-run: it resumes
-from its checkpoint.
+v1.3.0**, which ships `vsi` and `goal_level` only. Safe to re-run: it resumes
+from its checkpoint. Its two checks are `validate_goal_relative_heldout.R`
+(~2.5 h) and `validate_goal_relative_bootstrap.R` (~4.7 h, checkpointed), both
+writing to `output/measure/tables/goal_relative_*`; they share the exact scorer
+in `bifactor_scorer.R`.
 
 **`superseded/` must not be run.** See `superseded/README.md` and `METHODS_LOG.md`.
 

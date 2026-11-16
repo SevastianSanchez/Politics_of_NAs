@@ -43,6 +43,13 @@ before any Bash command containing `Rscript`, `mirt`, `bfactor` or
   finished. `mclapply` workers are reparented to `init` when the parent dies,
   so killing a parent is not killing the run. When a fit is superseded, stop
   it then — not when a slow laptop finally gives it away.
+- **Cited work lives in the repo.** Any script or output whose result is cited
+  — a `METHODS_LOG.md` row, the site, the paper, a release — goes into `code/`
+  and the repo's output folders *before* the result is recorded. The session
+  scratchpad is for throwaway diagnostics only, and macOS clears it: the
+  `goal_level` bootstrap output (500 replicates, ~98 min) and the original
+  validation scripts were lost that way between 9 and 14 Nov 2026, after
+  their results had already been logged and published.
 - **Goal scores diverging from the overall index is the research hypothesis**,
   not a validity failure. Never gate the sector layer on correlation with the
   overall index.
