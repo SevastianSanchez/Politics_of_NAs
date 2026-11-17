@@ -8,7 +8,7 @@ Author: Sevastian Sanchez, Columbia University (SIPA and QMSS)
 
 ## The index
 
-**[Visible States Project &rarr; sevastiansanchez.github.io/Politics_of_NAs](https://sevastiansanchez.github.io/Politics_of_NAs/)**
+**[Visible States Project &rarr; sevastiansanchez.github.io/visible-states-project](https://sevastiansanchez.github.io/visible-states-project/)**
 
 *Statistical reporting across countries, policy sectors, and time.*
 
@@ -50,7 +50,7 @@ Machine-readable metadata is in [CITATION.cff](CITATION.cff). Code is MIT-licens
 | UN SDG Global Database, 2015–2023 (665 series, 197 geographies, ~1.3M observations) | The measure: reported vs. missing observations by country, year and series |
 | World Bank Statistical Performance Indicators (SPI); HRV Transparency Index | External validation (dated snapshots in `01_data/raw/snapshots/`) |
 
-The cleaned tables, their grain, keys and every column are documented in the **[interactive data dictionary](https://sevastiansanchez.github.io/Politics_of_NAs/data_dictionary.html)** (also available as [markdown](01_data/processed/README.md)).
+The cleaned tables, their grain, keys and every column are documented in the **[interactive data dictionary](https://sevastiansanchez.github.io/visible-states-project/data_dictionary.html)** (also available as [markdown](01_data/processed/README.md)).
 
 ## The Politics of NAs paper
 
@@ -87,7 +87,7 @@ folder and you see how it is built, how it is tested, and what the tests found.
 | `03_measures/vsi_goal_relative/` | A goal net of the country's own overall level | `build_irt_vsi_goal_relative.R` (long, checkpointed, resumes) · checks: `validate_vsi_goal_relative_heldout.R` (~2.5 h), `validate_vsi_goal_relative_bootstrap.R` (~4.7 h, checkpointed) |
 | `04_publish/` | | `build_docs_data.R` → `docs/` · `paper_numbers.R` → `paper_numbers.txt`, every figure the measurement paper quotes |
 | `functions/` | `packages.R`, `irt_prep.R` (builds the one 524-series response matrix every fit uses, and halts if the variant map is missing or stale), `bifactor_scorer.R` | |
-| `docs/` | The published site: [Visible States Project](https://sevastiansanchez.github.io/Politics_of_NAs/), the interactive data dictionary, and the published copy of the scores. GitHub Pages builds it from `main` | |
+| `docs/` | The published site: [Visible States Project](https://sevastiansanchez.github.io/visible-states-project/), the interactive data dictionary, and the published copy of the scores. GitHub Pages builds it from `main` | |
 | `releases/` | What was deposited at Zenodo, one folder per version. Never edited | |
 
 `run_all.R` runs the quick stages in order; refits and checks only on request.
