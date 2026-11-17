@@ -400,8 +400,15 @@ footer p{}
     <div class="controls">
       <select id="gc" aria-label="Country"></select>
       <select id="gy" aria-label="Year"></select>
+      <select id="gm" aria-label="Which goal score">
+        <option value="s">Goal score (vsi_goal)</option>
+        <option value="r">Relative to the country's overall level (vsi_goal_relative)</option>
+      </select>
       <span class="count" id="gnote"></span>
     </div>
+    <p class="dlnote"><strong>New in v1.4.0:</strong> <code>vsi_goal_relative</code> has been
+      added to the dataset: each goal score net of the country's own overall level. Use the
+      menu above to switch to it. The rest of the site will be updated to explain it later.</p>
     <div class="tablebox" style="padding:1.1rem"><div id="goals"></div></div>
 
     <h3 class="gth">How each goal moved, 2015 to 2023</h3>
@@ -665,6 +672,8 @@ function initGoals(){
       y + '</option>').join("");
     document.getElementById("gc").addEventListener("change", drawGoals);
     document.getElementById("gy").addEventListener("change", drawGoals);
+    if (!(g.countries[0] && g.countries[0].r)) document.getElementById("gm").hidden = true;
+    document.getElementById("gm").addEventListener("change", drawGoals);
     drawGoals();
     buildGoalTrends();
   }).catch(() => {
@@ -812,11 +821,14 @@ function drawGoals(){
   const yr = +document.getElementById("gy").value;
   const yi = G.years.indexOf(yr), y0 = 0;
   const c  = G.countries[ci];
+  // which score to draw: vsi_goal (s/se) or vsi_goal_relative (r/rse)
+  const relMode = document.getElementById("gm").value === "r" && c.r;
+  const S = relMode ? c.r : c.s, SE = relMode ? c.rse : c.se;
 
   const rows = G.goals.map((m,k) => ({
-    g: m.g, label: m.name, n: m.series, rel: m.rel,
+    g: m.g, label: m.name, n: m.series, rel: relMode ? m.rrel : m.rel,
     held: m.status !== "release",
-    v: c.s[k][yi], se: c.se[k][yi], base: c.s[k][y0]
+    v: S[k][yi], se: SE[k][yi], base: S[k][y0]
   })).sort((a,b) => b.v - a.v);
 
   // diverging track: scores are on the index scale and go either side of zero

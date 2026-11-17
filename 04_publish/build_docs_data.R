@@ -88,6 +88,17 @@ if (file.exists(gp) && file.exists(hp)) {
   g <- as.data.table(readRDS(gp))
   h <- fread(hp)
 
+  # vsi_goal_relative (added in v1.4.0): the goal score net of the country's own
+  # overall level. Joined on so the site can switch between the two; optional,
+  # so the page still builds if the bifactor has not been run.
+  rp  <- here("01_data/vsi_scores/vsi_goal_relative/irt_vsi_goal_relative_scores.rds")
+  rhp <- here("01_data/vsi_scores/vsi_goal_relative/irt_vsi_goal_relative_health.csv")
+  HAS_REL <- file.exists(rp) && file.exists(rhp)
+  if (HAS_REL) {
+    g  <- merge(g, as.data.table(readRDS(rp)), by = c("iso3", "year", "goal"), all.x = TRUE)
+    rh <- fread(rhp)
+  }
+
   SDG_NAME <- c(
     "1" = "No poverty", "2" = "Zero hunger", "3" = "Good health and well-being",
     "4" = "Quality education", "5" = "Gender equality",
@@ -123,9 +134,16 @@ if (file.exists(gp) && file.exists(hp)) {
   gcountries <- g[, {
     sc <- matrix(round(vsi_goal, 3), nrow = length(ggoals), byrow = TRUE)
     se <- matrix(round(vsi_goal_se, 3), nrow = length(ggoals), byrow = TRUE)
-    .(name = country_name[1],
+    out <- list(name = country_name[1],
       s  = list(lapply(seq_len(nrow(sc)), function(i) sc[i, ])),
       se = list(lapply(seq_len(nrow(se)), function(i) se[i, ])))
+    if (HAS_REL) {
+      rs  <- matrix(round(vsi_goal_relative, 3),    nrow = length(ggoals), byrow = TRUE)
+      rse <- matrix(round(vsi_goal_relative_se, 3), nrow = length(ggoals), byrow = TRUE)
+      out$r   <- list(lapply(seq_len(nrow(rs)),  function(i) rs[i, ]))
+      out$rse <- list(lapply(seq_len(nrow(rse)), function(i) rse[i, ]))
+    }
+    out
   }, by = .(iso = iso3)]
 
   gmeta <- h[, .(g = goal, name = goal_name, series,
@@ -133,6 +151,7 @@ if (file.exists(gp) && file.exists(hp)) {
                  conc = weight_top5_pct, agency = weight_agency_pct,
                  status = release)]
   setorder(gmeta, g)
+  if (HAS_REL) gmeta <- merge(gmeta, rh[, .(g = goal, rrel = reliability)], by = "g", all.x = TRUE)
 
   # Goals that exist in the framework but carry too few series to identify a
   # factor are DECLARED, not omitted. An absent goal reads as an abandoned goal;
@@ -177,8 +196,16 @@ if (file.exists(gp) && file.exists(hp)) {
               h[, .(goal, goal_name, goal_reliability = reliability,
                     goal_status = release)],
               by = "goal", all.x = TRUE)
-  setcolorder(dl, c("iso3","country_name","income_level","year","goal","goal_name",
-                    "vsi_goal","vsi_goal_se","goal_reliability","goal_status"))
+  cols <- c("iso3","country_name","income_level","year","goal","goal_name",
+            "vsi_goal","vsi_goal_se","goal_reliability","goal_status")
+  if (HAS_REL) {
+    dl <- merge(dl, g[, .(iso3, year, goal,
+                          vsi_goal_relative    = round(vsi_goal_relative, 4),
+                          vsi_goal_relative_se = round(vsi_goal_relative_se, 4))],
+                by = c("iso3", "year", "goal"), all.x = TRUE)
+    cols <- c(cols, "vsi_goal_relative", "vsi_goal_relative_se")
+  }
+  setcolorder(dl, cols)
   fwrite(dl[order(iso3, year, goal)], here("docs/goal_scores.csv"))
   cat("wrote docs/goal_scores.csv\n")
 } else {
