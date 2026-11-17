@@ -73,6 +73,10 @@ K         <- 61L      # quadrature nodes per dimension, as mirt uses for 2 facto
 LIM       <- 6
 
 out  <- here("01_data/vsi_scores/vsi_goal_relative")
+# REUSE_FIT=1 skips fitting: loads the saved fit and only re-scores and rewrites
+# the scores and the goal diagnostics (health). Scoring is deterministic, so the
+# scores come out identical. The run log is left as it is, since no fit was run.
+REUSE_FIT <- identical(Sys.getenv("REUSE_FIT"), "1")
 ckpt <- file.path(out, "irt_vsi_goal_relative_ckpt.rds")
 
 # ---- FIT ---------------------------------------------------------------------
@@ -83,7 +87,12 @@ set_prior <- function(v) {
   v
 }
 
-if (file.exists(ckpt)) {
+if (REUSE_FIT) {
+  fit_path <- file.path(out, "irt_vsi_goal_relative_fit.rds")
+  if (!file.exists(fit_path)) stop("REUSE_FIT=1 but no saved fit at ", fit_path, call. = FALSE)
+  msg("REUSE_FIT=1: loading the saved fit, no EM cycles run")
+  state <- list(done = NA_integer_)
+} else if (file.exists(ckpt)) {
   state <- readRDS(ckpt)
   msg("resuming from checkpoint at cycle ", state$done)
 } else {
@@ -94,8 +103,8 @@ if (file.exists(ckpt)) {
 msg("bifactor | ", ncol(resp), " series | ", length(spec_levels), " goal factors | ",
     "squarem | prior norm(0,", PRIOR_SD, ") | TOL ", TOL, " | chunk ", CHUNK)
 
-fit <- NULL
-repeat {
+fit <- if (REUSE_FIT) readRDS(fit_path) else NULL
+if (!REUSE_FIT) repeat {
   t0  <- Sys.time()
   fit <- bfactor(resp, spec_idx, pars = state$pars, verbose = FALSE,
                  accelerate = "squarem", TOL = TOL,
@@ -115,7 +124,7 @@ repeat {
          call. = FALSE)
   }
 }
-saveRDS(fit, file.path(out, "irt_vsi_goal_relative_fit.rds"))
+if (!REUSE_FIT) saveRDS(fit, file.path(out, "irt_vsi_goal_relative_fit.rds"))
 
 # ---- EXACT SCORER ------------------------------------------------------------
 # Given the general factor, a series depends on only ONE goal factor, so
@@ -231,6 +240,24 @@ health <- rel[, .(series = as.integer(n_by_goal[as.character(goal[1])]),
                   pct_nan = round(100 * mean(!is.finite(vsi_goal_relative)), 2)),
                 by = goal]
 setorder(health, goal)
+
+# How much each goal score leans on a few series, and on agency-produced data,
+# computed exactly as for vsi_goal (build_irt_vsi_goal.R): a series' weight is its
+# share of the goal's total absolute discrimination -- here the discrimination on
+# that goal's own factor (aS), which is what the goal score is built from.
+prov_path <- here("01_data/processed/series_provenance_nature.csv")
+prov <- if (file.exists(prov_path)) fread(prov_path) else NULL
+wt <- rbindlist(lapply(seq_len(G), function(g) {
+  idx <- which(spec == g); w <- abs(aS[idx])
+  if (sum(w) == 0) return(NULL)
+  w_pct <- 100 * w / sum(w)
+  pc <- if (!is.null(prov)) prov$pct_C[match(colnames(X)[idx], prov$SeriesCode)] else NA
+  data.table(goal = spec_levels[g],
+             weight_top5_pct   = round(sum(sort(w_pct, decreasing = TRUE)[1:min(5, length(w_pct))]), 1),
+             weight_agency_pct = if (is.null(prov)) NA_real_ else round(sum(w_pct[!is.na(pc) & pc < 50]), 1))
+}))
+health <- merge(health, wt, by = "goal", all.x = TRUE)
+setorder(health, goal)
 HOLD_CONTENT <- c(6L, 15L)
 health[, release := fifelse(goal %in% HOLD_CONTENT, "hold_content", "release")]
 
@@ -254,7 +281,7 @@ fwrite(data.table(iso3 = keys$iso3, year = keys$year,
                   vsi_bifactor_se = round(mG$sd, 4)),
        file.path(out, "irt_vsi_goal_relative_general.csv"))
 
-fwrite(data.table(
+if (!REUSE_FIT) fwrite(data.table(
   run_date       = as.character(Sys.Date()),
   fit            = "bifactor 2PL, 1 general + 16 goal factors",
   n_country_years = N, n_series = J, n_goal_factors = G,
