@@ -1,6 +1,6 @@
 # Visible States Index (VSI) — version 1.4.0
 
-Released [DATE]. Version DOI [VERSION DOI]. Concept DOI
+Released 17 November 2026. Version DOI [10.5281/zenodo.24301441](https://doi.org/10.5281/zenodo.24301441). Concept DOI
 [10.5281/zenodo.23997606](https://doi.org/10.5281/zenodo.23997606) resolves to the
 latest version.
 
@@ -103,6 +103,6 @@ site is at
 
 Sanchez, S. (2026). *Visible States: statistical reporting across countries,
 policy sectors, and time* (Version 1.4.0) [Data set]. Zenodo.
-[VERSION DOI]
+https://doi.org/10.5281/zenodo.24301441
 
 Previously published as *The World on Record* (versions 1.0.0–1.2.1).

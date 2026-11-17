@@ -18,12 +18,13 @@ The headline measure is the **Visible States Index (VSI)**: one overall score pe
 
 ### How to cite
 
-> Sanchez, S. (2026). *Visible States: statistical reporting across countries, policy sectors, and time* (v1.3.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23997606
+> Sanchez, S. (2026). *Visible States: statistical reporting across countries, policy sectors, and time* (v1.4.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23997606
 
 Use the **concept DOI** above when referring to the dataset generally — it always resolves to the newest version. Cite the **version DOI** for the release your analysis actually used, so your results stay reproducible after later versions change the scores:
 
 | Release | Version DOI | Published as |
 |---|---|---|
+| v1.4.0 | [10.5281/zenodo.24301441](https://doi.org/10.5281/zenodo.24301441) | Visible States |
 | v1.3.0 | [10.5281/zenodo.24100866](https://doi.org/10.5281/zenodo.24100866) | Visible States |
 | v1.2.1 | [10.5281/zenodo.24094834](https://doi.org/10.5281/zenodo.24094834) | The World on Record |
 | v1.2.0 | [10.5281/zenodo.24091914](https://doi.org/10.5281/zenodo.24091914) | The World on Record |
@@ -34,12 +35,10 @@ and keep that title, so earlier citations still resolve. The scores in 1.2.1
 and 1.3.0 are identical; only the names changed. From 1.3.0 the columns are
 `vsi` and `vsi_se`, previously `twr` and `twr_se`.
 
-**Names after v1.3.0.** The repository and the site now use `vsi_goal` for the
-goal scores (`goal_level` in v1.3.0) and `vsi_goal_relative` for the scores net
-of a country's overall level (`goal_relative`, not yet released). Internally,
-the overall score's file column is `vsi` (it was `composite`). Deposited
-releases keep the names they were published with; the next release carries
-the new ones.
+**Names from v1.4.0.** The goal scores are `vsi_goal` (`goal_level` in v1.3.0),
+and v1.4.0 adds `vsi_goal_relative`, each goal net of the country's own overall
+level. The overall score stays `vsi`. Deposited releases keep the names they were
+published with; `releases/README.md` explains how each version is packaged.
 
 Machine-readable metadata is in [CITATION.cff](CITATION.cff). Code is MIT-licensed ([LICENSE](LICENSE)); the data are CC BY 4.0 ([LICENSE-DATA](LICENSE-DATA)).
 
@@ -80,7 +79,7 @@ folder and you see how it is built, how it is tested, and what the tests found.
 |---|---|---|
 | `01_data/raw/` | The UN SDG goal exports (310 MB, untracked; see Reproducing), `sdg_update_info.xlsx`, dated SPI and HRV snapshots for validation, and `analysis_data__2026-11-15.{csv,rds}`, a frozen copy of the Politics of NAs panel that `paper_numbers.R` and `build_docs_data.R` read for income groups, GDP and country names | |
 | `01_data/processed/` | Cleaned UN data, series list, variant map, stability, provenance. Data dictionary in its `README.md` | |
-| `01_data/vsi_scores/` | Scores, fits and series parameters: `vsi/` (`vsi`), `vsi_goal/` (`vsi_goal`), `vsi_goal_relative/` (`vsi_goal_relative`, not part of v1.3.0) | |
+| `01_data/vsi_scores/` | Scores, fits and series parameters: `vsi/` (`vsi`), `vsi_goal/` (`vsi_goal`), `vsi_goal_relative/` (`vsi_goal_relative`, new in v1.4.0) | |
 | `02_processing/` | | 1 `extract_SDG_series_data_2015_2023.R` · 2 `build_variant_map.R` (**must run before any fit**) · 3 `build_series_provenance.R` · `build_series_stability.R`, `build_hrv_snapshot.R` as needed · checks: `check_series_coverage.R`, `collinear_series_report.R` |
 | `03_measures/vsi/` | The overall index | 4 `build_irt_vsi.R` · check: `validate_vsi_external.R` |
 | `03_measures/vsi_goal/` | One score per goal | 5 `build_irt_vsi_goal.R` · checks: `validate_vsi_goal_heldout.R` (~13 min), `validate_vsi_goal_bootstrap.R` (~98 min on 8 cores) |
