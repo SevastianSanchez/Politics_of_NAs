@@ -37,3 +37,6 @@ _private_archive/
 
 # Claude Code instructions: local only, never pushed
 CLAUDE.md
+
+# Release upload folders, built by 04_publish/build_release_bundle.R; uploaded to Zenodo, never committed
+_release/
