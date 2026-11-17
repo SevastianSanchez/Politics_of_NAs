@@ -17,6 +17,11 @@
 #                                5 pillars); spi_overall_mod drops pillar 3, which
 #                                scores SDG availability from the same UN database
 #                                as the index, and averages pillars 1, 2, 4, 5
+#   hrv, hrv_sd                  HRV2 transparency index (Hollyer, Ge, Rosendorff &
+#                                Vreeland 2024), from its snapshot. HRV2 ends in
+#                                2015, so only the 2015 rows have a value. The
+#                                snapshot is made by build_hrv_snapshot.R from the
+#                                authors' 360 MB release; there is no API.
 #
 # SNAPSHOTS (the technique from the paper repo's build_predictor_panel.R):
 # each live source is written once to 01_data/raw/snapshots/<name>__<date>.csv
@@ -93,6 +98,12 @@ spi <- fread(spi_file)[, .(iso3 = iso3c, year = as.integer(date),
                            spi_overall_mod = rowMeans(cbind(SPI.INDEX.PIL1, SPI.INDEX.PIL2,
                                                             SPI.INDEX.PIL4, SPI.INDEX.PIL5)))]
 
+# ---- HRV2: newest snapshot (made by build_hrv_snapshot.R) ------------------------
+hrv_file <- sort(list.files(snap_dir, pattern = "^hrv__\\d{4}-\\d{2}-\\d{2}\\.csv$", full.names = TRUE),
+                 decreasing = TRUE)[1]
+say("[snapshot] hrv <- ", basename(hrv_file))
+hrv <- fread(hrv_file)[, .(iso3, year = as.integer(year), hrv, hrv_sd)]
+
 # ---- assemble on the index's own country-years -----------------------------------
 cy  <- unique(fread(here("01_data/vsi_scores/vsi/irt_vsi_scores.csv"))[, .(iso3, year)])
 lab <- c(L = "Low income", LM = "Lower-middle income", UM = "Upper-middle income", H = "High income")
@@ -109,12 +120,14 @@ cov <- merge(cy, nm, by = "iso3", all.x = TRUE)
 cov <- merge(cov, inc[, .(iso3, year, income_level)], by = c("iso3", "year"), all.x = TRUE)
 cov <- merge(cov, gdp, by = c("iso3", "year"), all.x = TRUE)
 cov <- merge(cov, spi, by = c("iso3", "year"), all.x = TRUE)
+cov <- merge(cov, hrv, by = c("iso3", "year"), all.x = TRUE)
 cov[is.na(country_name), country_name := countrycode::countrycode(iso3, "iso3c", "country.name", warn = FALSE)]
 cov[is.na(country_name), country_name := iso3]
 cov[is.na(income_level), income_level := "Unclassified"]
-setcolorder(cov, c("iso3", "year", "country_name", "income_level", "gdp_pc", "spi_overall", "spi_overall_mod"))
+setcolorder(cov, c("iso3", "year", "country_name", "income_level", "gdp_pc",
+                   "spi_overall", "spi_overall_mod", "hrv", "hrv_sd"))
 fwrite(cov[order(iso3, year)], here("01_data/processed/country_covariates.csv"))
 
 say("wrote 01_data/processed/country_covariates.csv | ", nrow(cov), " country-years | ",
     "unclassified ", cov[income_level == "Unclassified", .N], " | gdp missing ", cov[is.na(gdp_pc), .N],
-    " | spi missing ", cov[is.na(spi_overall), .N])
+    " | spi missing ", cov[is.na(spi_overall), .N], " | hrv present ", cov[!is.na(hrv), .N])

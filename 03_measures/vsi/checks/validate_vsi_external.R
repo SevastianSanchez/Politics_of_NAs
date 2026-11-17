@@ -8,9 +8,9 @@
 # WHAT IT USES
 #   SPI  -- World Bank Statistical Performance Indicators, in the repo at
 #           01_data/raw/snapshots/spi__2026-11-04.csv.
-#   HRV  -- Hollyer/Rosendorff/Vreeland transparency index, at
-#           01_data/raw/snapshots/hrv.csv (built by
-#           02_processing/build_hrv_snapshot.R). It overlaps 2015 only.
+#   HRV  -- Hollyer/Rosendorff/Vreeland transparency index (HRV2), the `hrv`
+#           column of 01_data/processed/country_covariates.csv
+#           (02_processing/build_country_covariates.R). It overlaps 2015 only.
 #
 # WHAT IT DELIBERATELY DOES NOT USE
 #   V-Dem. Autocratization is the TREATMENT in the Politics of NAs paper.
@@ -55,10 +55,10 @@ d <- merge(vsi, spi, by = c("iso3", "year"))
 msg("merged with SPI: ", nrow(d), " country-years")
 
 # ---- C. HRV, IF PRESENT -----------------------------------------------------
-hrv_path <- here("01_data/raw/snapshots/hrv.csv")
-has_hrv <- file.exists(hrv_path)
+cov_path <- here("01_data/processed/country_covariates.csv")
+has_hrv <- file.exists(cov_path)
 if (has_hrv) {
-  hrv <- fread(hrv_path)[, .(iso3, year, hrv)]
+  hrv <- fread(cov_path)[!is.na(hrv), .(iso3, year, hrv)]
   d <- merge(d, hrv, by = c("iso3", "year"), all.x = TRUE)
   msg("HRV merged: ", sum(!is.na(d$hrv)), " overlapping country-years")
   if (sum(!is.na(d$hrv)) == 0)

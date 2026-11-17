@@ -69,9 +69,8 @@ out   <- here(paste0("01_data/raw/snapshots/hrv__", stamp, ".csv"))
 fwrite(hrv, out)
 cat("wrote ", basename(out), "\n", sep = "")
 
-# a stable filename for downstream code, so nothing has to track the date
-fwrite(hrv, here("01_data/raw/snapshots/hrv.csv"))
-cat("wrote hrv.csv (stable alias)\n")
+# Downstream code reads the newest hrv__<date>.csv (build_country_covariates.R),
+# so no undated copy is written.
 
 man <- here("01_data/raw/snapshots/_manifest.csv")
 m <- fread(man)
