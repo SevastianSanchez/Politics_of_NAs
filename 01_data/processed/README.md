@@ -6,7 +6,7 @@ One source table, six derived. UN SDG Global Database, **2015–2023**, **197 ge
 
 Every table keys on `iso3` + `year`.
 
-📊 **[Interactive version](https://sevastiansanchez.github.io/Politics_of_NAs/data_dictionary.html)**: the same schema as a browsable, color-coded page.
+📊 **[Interactive version](https://sevastiansanchez.github.io/visible-states-project/data_dictionary.html)**: the same schema as a browsable, color-coded page.
 
 ## Lineage
 
@@ -226,4 +226,4 @@ drives the filter, so it can't drift from what actually happened. 197 geographie
 
 ---
 
-📊 **[Interactive version](https://sevastiansanchez.github.io/Politics_of_NAs/data_dictionary.html)**: the same schema as a browsable, color-coded page.
+📊 **[Interactive version](https://sevastiansanchez.github.io/visible-states-project/data_dictionary.html)**: the same schema as a browsable, color-coded page.
