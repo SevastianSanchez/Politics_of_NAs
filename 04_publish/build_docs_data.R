@@ -15,7 +15,8 @@
 # the custodian agency produces rather than the country. Nothing is excluded for
 # imprecision: 0.70 (Nunnally & Bernstein 1994) is printed as a reference point, not applied as a
 # cut. Goals 6 and 15 are marked `hold_content` and goal 7 has no score at all
-# (3 series, too few to identify a factor). See CLAUDE.md.
+# (3 series, too few to identify a factor, and all three agency estimates;
+# Sevastian, 17 Nov 2026: unscored in both goal layers). See METHODS_LOG.md.
 #
 # INPUT   01_data/vsi_scores/vsi/irt_vsi_scores.rds   (the VSI scores)
 #         01_data/vsi_scores/vsi_goal/irt_vsi_goal_scores.rds  (the sector layer)
@@ -146,7 +147,8 @@ if (file.exists(gp) && file.exists(hp)) {
       status = "not_scored",
       reason = paste0(N_SERIES_BY_GOAL[as.character(unscored)],
                       " series clear the 2\u201398% filter \u2014 a factor needs ",
-                      MIN_SERIES_DOC))
+                      MIN_SERIES_DOC,
+                      ifelse(unscored == 7L, "; all 3 are UN agency estimates, not country data", "")))
   } else NULL
 
   gout <- list(
