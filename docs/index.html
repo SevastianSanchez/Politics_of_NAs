@@ -246,7 +246,17 @@ tr.overlap td{color:var(--muted)}
 dl{margin:0} dt{font-weight:600;margin-top:.9rem;font-size:.95rem}
 dd{margin:.2rem 0 0;color:var(--muted);font-size:.94rem}
 ul{padding-left:1.2rem} li{margin-bottom:.4rem}
-.dl{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+.dl{margin-top:1.6rem}
+.dlhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem;margin:0 0 .6rem}
+.dlhead h3{margin:0}
+.dllist{border:1px solid var(--rule);border-radius:6px;background:var(--panel);overflow:hidden}
+.dlrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:center;padding:.7rem 1rem;border-top:1px solid var(--rule2);color:var(--fg);text-decoration:none}
+.dlrow:first-child{border-top:none}
+.dlrow:hover{background:var(--accent-soft)}
+.dlname{font-size:.92rem}
+.dlname small{display:block;color:var(--muted);font-size:.8rem;margin-top:.1rem}
+.dlact{font-family:var(--sans);font-size:.82rem;color:var(--accent);white-space:nowrap}
+.dlfoot{margin:.6rem .1rem 0;font-size:.82rem;color:var(--muted)}
 .btn{display:inline-block;font-size:.86rem;padding:.5em .9em;border:1px solid var(--rule);
   border-radius:3px;background:var(--panel);color:var(--fg);text-decoration:none}
 .btn:hover{border-color:var(--accent);color:var(--accent)}
@@ -464,16 +474,16 @@ footer p{}
       </table>
     </div>
     <div class="dl">
-      <a class="btn" href="vsi_scores.csv" download>Download Visible States Index (CSV)</a>
-      <a class="btn" href="vsi_goal_scores.csv" download>Download Goal-level VSI (CSV)</a>
-      <a class="btn" href="vsi_goal_relative_scores.csv" download>Download Goal-relative VSI (CSV)</a>
-      <a class="btn" href="data_dictionary.html">Data dictionary</a>
+      <div class="dlhead"><h3>Download VSI data</h3></div>
+      <div class="dllist">
+        <a class="dlrow" href="vsi_scores.csv" download><span class="dlname">Visible States Index<small>v1.4.0 &middot; overall reporting &middot; one row per country&ndash;year &middot; 1,773 rows</small></span><span class="dlact">CSV &darr;</span></a>
+        <a class="dlrow" href="vsi_goal_scores.csv" download><span class="dlname">Goal-level VSI<small>v1.4.0 &middot; reporting on each SDG goal &middot; one row per country&ndash;year&ndash;goal &middot; 28,368 rows</small></span><span class="dlact">CSV &darr;</span></a>
+        <a class="dlrow" href="vsi_goal_relative_scores.csv" download><span class="dlname">Goal-relative VSI<small>v1.4.0 &middot; each goal relative to the country&rsquo;s overall level &middot; 28,368 rows</small></span><span class="dlact">CSV &darr;</span></a>
+        <a class="dlrow" href="data_dictionary.html"><span class="dlname">Data dictionary<small>Every column, explained</small></span><span class="dlact">Open &rarr;</span></a>
+      </div>
+      <p class="dlfoot">Permanent, citable copy of release 1.4.0, with the code, on Zenodo:
+        <a href="https://doi.org/10.5281/zenodo.24301441">doi.org/10.5281/zenodo.24301441</a> &nearr;</p>
     </div>
-    <p class="dlnote"><strong>Visible States Index (VSI)</strong>, the overall index: one row per
-      country&ndash;year, 1,773 rows. <strong>Goal-level VSI</strong>, reporting on each goal, and
-      <strong>Goal-relative VSI</strong>, each goal relative to the country's overall level: one row per
-      country&ndash;year&ndash;goal, 28,368 rows each. The same files as release 1.4.0,
-      <a href="https://doi.org/10.5281/zenodo.24301441">doi.org/10.5281/zenodo.24301441</a>.</p>
   </div>
 </section>
 
