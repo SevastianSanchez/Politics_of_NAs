@@ -22,12 +22,15 @@
 #         01_data/vsi_scores/vsi_goal/irt_vsi_goal_scores.rds  (the sector layer)
 #         01_data/vsi_scores/vsi_goal/irt_vsi_goal_health.csv  (per-goal diagnostics)
 #         01_data/processed/country_covariates.csv  (country names, income groups)
-# OUTPUT  docs/vsi_scores.json, docs/vsi_scores.csv
-#         docs/goal_panel.json (the goal panel's data), docs/vsi_goal_scores.csv,
+# OUTPUT  docs/site_data/vsi_scores.json, docs/vsi_scores.csv
+#         docs/site_data/goals.json, docs/vsi_goal_scores.csv,
 #         docs/vsi_goal_relative_scores.csv (downloads, same as the release bundle)
 # ==============================================================================
 
 suppressPackageStartupMessages({library(data.table); library(here); library(jsonlite)})
+# docs/site_data/ holds the page's own data (JSON the charts read); the CSVs in
+# docs/ are the downloads.
+dir.create(here("docs/site_data"), showWarnings = FALSE)
 
 s <- as.data.table(readRDS(here("01_data/vsi_scores/vsi/irt_vsi_scores.rds")))
 # Country names and income groups: built from their original sources by
@@ -67,8 +70,8 @@ out <- list(
   rows        = rows)
 
 writeLines(toJSON(out, auto_unbox = TRUE, dataframe = "rows", digits = NA),
-           here("docs/vsi_scores.json"))
-cat("wrote docs/vsi_scores.json |", nrow(rows), "rows |",
+           here("docs/site_data/vsi_scores.json"))
+cat("wrote docs/site_data/vsi_scores.json |", nrow(rows), "rows |",
     uniqueN(s$iso3), "countries\n")
 
 # the downloadable copy the page links to, so docs/ is self-contained
@@ -188,8 +191,8 @@ if (file.exists(gp) && file.exists(hp)) {
     countries = gcountries)
 
   writeLines(toJSON(gout, auto_unbox = TRUE, dataframe = "rows", digits = NA),
-             here("docs/goal_panel.json"))
-  cat("wrote docs/goal_panel.json |", nrow(gcountries), "countries x",
+             here("docs/site_data/goals.json"))
+  cat("wrote docs/site_data/goals.json |", nrow(gcountries), "countries x",
       nrow(gmeta), "goals x", length(gyears), "years\n")
 
   # Downloads: the same files, names and columns as the release bundle

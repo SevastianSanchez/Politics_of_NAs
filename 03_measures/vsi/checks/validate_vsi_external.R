@@ -25,7 +25,7 @@
 #
 # OUTPUT  03_measures/vsi/checks/output/vsi_external_validity.csv
 #         03_measures/vsi/checks/output/vsi_spi_disagreements.csv
-#         docs/validity_spi.json   (read by the landing page)
+#         docs/site_data/validity_spi.json   (read by the landing page)
 # ==============================================================================
 source(here::here("functions/packages.R"))
 library(here)
@@ -159,7 +159,7 @@ jsonlite::write_json(list(
   hrv_available         = has_hrv,
   years                 = paste(range(d$year), collapse = "-"),
   generated             = format(Sys.Date())
-), here("docs/validity_spi.json"), auto_unbox = TRUE, digits = NA)
-cat("wrote docs/validity_spi.json\n")
+), here("docs/site_data/validity_spi.json"), auto_unbox = TRUE, digits = NA)
+cat("wrote docs/site_data/validity_spi.json\n")
 
 msg("done. tables in 03_measures/vsi/checks/output/, page data in docs/")

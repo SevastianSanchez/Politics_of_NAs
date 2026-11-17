@@ -467,7 +467,6 @@ footer p{}
       <a class="btn" href="vsi_scores.csv" download>Download overall index (CSV)</a>
       <a class="btn" href="vsi_goal_scores.csv" download>Download goal scores (CSV)</a>
       <a class="btn" href="vsi_goal_relative_scores.csv" download>Download relative goal scores (CSV)</a>
-      <a class="btn" href="vsi_scores.json">View overall index (JSON)</a>
       <a class="btn" href="data_dictionary.html">Data dictionary</a>
     </div>
     <p class="dlnote"><strong>Overall index:</strong> one row per country&ndash;year, 1,773
@@ -616,7 +615,7 @@ let D = null, sortK = "sc", sortDir = -1;
 
 drawValidity();
 
-fetch("vsi_scores.json", {cache:"no-cache"}).then(r => r.json()).then(d => { D = d; init(); })
+fetch("site_data/vsi_scores.json", {cache:"no-cache"}).then(r => r.json()).then(d => { D = d; init(); })
   .catch(() => { document.getElementById("facts").innerHTML =
     '<div class="fact"><span class="n">&mdash;</span><span class="l">data failed to load</span></div>'; });
 
@@ -663,7 +662,7 @@ function init(){
 let G = null;
 
 function initGoals(){
-  fetch("goal_panel.json", {cache:"no-cache"}).then(r => r.json()).then(g => {
+  fetch("site_data/goals.json", {cache:"no-cache"}).then(r => r.json()).then(g => {
     G = g;
     const cs = [...g.countries].sort((a,b) => a.name.localeCompare(b.name));
     G.countries = cs;
@@ -964,7 +963,7 @@ function drawChart(){
 }
 
 function drawValidity(){
-  fetch("validity_spi.json", {cache:"no-cache"}).then(r => r.json()).then(V => {
+  fetch("site_data/validity_spi.json", {cache:"no-cache"}).then(r => r.json()).then(V => {
     const rows = V.pillars, W = 720, rh = 30, pad = 10;
     const H = rows.length * rh + pad * 2 + 18;
     const labW = 232, barL = labW + 12, barR = W - 54;
