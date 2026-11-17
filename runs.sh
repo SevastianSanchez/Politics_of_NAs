@@ -21,7 +21,7 @@ done
 
 STALE_HOURS=${STALE_HOURS:-6}
 REPO=$(cd "$(dirname "$0")" && pwd)
-LOGGLOB="/private/tmp/claude-501/-Users-sevastiansanchez-Documents-GitHub-Politics-of-NAs/*/scratchpad"
+LOGGLOB="/private/tmp/claude-501/-Users-sevastiansanchez-Documents-GitHub-*/*/scratchpad"
 
 # elapsed as [[dd-]hh:]mm:ss -> seconds
 secs() {
