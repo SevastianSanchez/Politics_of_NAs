@@ -23,7 +23,8 @@
 #         01_data/vsi_scores/vsi_goal/irt_vsi_goal_health.csv  (per-goal diagnostics)
 #         01_data/processed/country_covariates.csv  (country names, income groups)
 # OUTPUT  docs/vsi_scores.json, docs/vsi_scores.csv
-#         docs/goal_scores.json, docs/goal_scores.csv
+#         docs/goal_panel.json (the goal panel's data), docs/vsi_goal_scores.csv,
+#         docs/vsi_goal_relative_scores.csv (downloads, same as the release bundle)
 # ==============================================================================
 
 suppressPackageStartupMessages({library(data.table); library(here); library(jsonlite)})
@@ -72,7 +73,7 @@ cat("wrote docs/vsi_scores.json |", nrow(rows), "rows |",
 
 # the downloadable copy the page links to, so docs/ is self-contained
 fwrite(s[, .(iso3, country_name, income_level, year,
-             vsi = round(vsi, 4), vsi_se = round(vsi_se, 4))][
+             vsi, vsi_se)][
          order(iso3, year)],
        here("docs/vsi_scores.csv"))
 cat("wrote docs/vsi_scores.csv\n")
@@ -128,7 +129,7 @@ if (file.exists(gp) && file.exists(hp)) {
 
   # Compact shape, so the landing page downloads ~0.4 MB instead of ~2 MB: one
   # entry per country holding a goal x year grid, rather than 28,368 objects
-  # repeating their own keys. The long form is in goal_scores.csv for download.
+  # repeating their own keys. The long form is in the vsi_goal*_scores.csv downloads.
   gyears <- sort(unique(g$year))
   ggoals <- sort(unique(g$goal))
   setorder(g, iso3, goal, year)
@@ -187,28 +188,22 @@ if (file.exists(gp) && file.exists(hp)) {
     countries = gcountries)
 
   writeLines(toJSON(gout, auto_unbox = TRUE, dataframe = "rows", digits = NA),
-             here("docs/goal_scores.json"))
-  cat("wrote docs/goal_scores.json |", nrow(gcountries), "countries x",
+             here("docs/goal_panel.json"))
+  cat("wrote docs/goal_panel.json |", nrow(gcountries), "countries x",
       nrow(gmeta), "goals x", length(gyears), "years\n")
 
-  dl <- merge(g[, .(iso3, country_name, income_level, year, goal,
-                    vsi_goal = round(vsi_goal, 4),
-                    vsi_goal_se = round(vsi_goal_se, 4))],
-              h[, .(goal, goal_name, goal_reliability = reliability,
-                    goal_status = release)],
-              by = "goal", all.x = TRUE)
-  cols <- c("iso3","country_name","income_level","year","goal","goal_name",
-            "vsi_goal","vsi_goal_se","goal_reliability","goal_status")
-  if (HAS_REL) {
-    dl <- merge(dl, g[, .(iso3, year, goal,
-                          vsi_goal_relative    = round(vsi_goal_relative, 4),
-                          vsi_goal_relative_se = round(vsi_goal_relative_se, 4))],
-                by = c("iso3", "year", "goal"), all.x = TRUE)
-    cols <- c(cols, "vsi_goal_relative", "vsi_goal_relative_se")
+  # Downloads: the same files, names and columns as the release bundle
+  # (04_publish/build_release_bundle.R), at full precision.
+  dl_layer <- function(val, se, hh, out) {
+    x <- merge(g[, c("iso3", "country_name", "income_level", "year", "goal", val, se), with = FALSE],
+               hh[, .(goal, goal_name = SDG_NAME[as.character(goal)], status = release)],
+               by = "goal", all.x = TRUE)
+    setcolorder(x, c("iso3", "country_name", "income_level", "year", "goal", "goal_name", val, se, "status"))
+    fwrite(x[order(iso3, year, goal)], here("docs", out))
+    cat("wrote docs/", out, "\n", sep = "")
   }
-  setcolorder(dl, cols)
-  fwrite(dl[order(iso3, year, goal)], here("docs/goal_scores.csv"))
-  cat("wrote docs/goal_scores.csv\n")
+  dl_layer("vsi_goal", "vsi_goal_se", h, "vsi_goal_scores.csv")
+  if (HAS_REL) dl_layer("vsi_goal_relative", "vsi_goal_relative_se", rh, "vsi_goal_relative_scores.csv")
 } else {
   cat("sector layer not found -- run 03_measures/vsi_goal/build_irt_vsi_goal.R first\n")
 }

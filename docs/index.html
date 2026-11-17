@@ -465,13 +465,14 @@ footer p{}
     </div>
     <div class="dl">
       <a class="btn" href="vsi_scores.csv" download>Download overall index (CSV)</a>
-      <a class="btn" href="goal_scores.csv" download>Download goal scores (CSV)</a>
+      <a class="btn" href="vsi_goal_scores.csv" download>Download goal scores (CSV)</a>
+      <a class="btn" href="vsi_goal_relative_scores.csv" download>Download relative goal scores (CSV)</a>
       <a class="btn" href="vsi_scores.json">View overall index (JSON)</a>
       <a class="btn" href="data_dictionary.html">Data dictionary</a>
     </div>
     <p class="dlnote"><strong>Overall index:</strong> one row per country&ndash;year, 1,773
-      rows. <strong>Goal scores:</strong> one row per country&ndash;year&ndash;goal, 28,368
-      rows. Both are release 1.4.0,
+      rows. <strong>Goal scores</strong> and <strong>relative goal scores:</strong> one row per
+      country&ndash;year&ndash;goal, 28,368 rows each. The same files as release 1.4.0,
       <a href="https://doi.org/10.5281/zenodo.24301441">doi.org/10.5281/zenodo.24301441</a>.</p>
   </div>
 </section>
@@ -662,7 +663,7 @@ function init(){
 let G = null;
 
 function initGoals(){
-  fetch("goal_scores.json", {cache:"no-cache"}).then(r => r.json()).then(g => {
+  fetch("goal_panel.json", {cache:"no-cache"}).then(r => r.json()).then(g => {
     G = g;
     const cs = [...g.countries].sort((a,b) => a.name.localeCompare(b.name));
     G.countries = cs;

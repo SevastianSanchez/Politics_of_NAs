@@ -29,7 +29,7 @@ dir.create(out, recursive = TRUE, showWarnings = FALSE)
 say <- function(...) cat(sprintf("[%s] ", format(Sys.time(), "%H:%M:%S")), ..., "\n", sep = "")
 
 lab <- unique(fread(here("docs/vsi_scores.csv"))[, .(iso3, country_name, income_level)])
-SDG <- unique(fread(here("docs/goal_scores.csv"))[, .(goal, goal_name)])
+SDG <- unique(fread(here("docs/vsi_goal_scores.csv"))[, .(goal, goal_name)])
 
 # ---- scores ------------------------------------------------------------------
 v <- merge(fread(here("01_data/vsi_scores/vsi/irt_vsi_scores.csv")), lab, by = "iso3", all.x = TRUE)
