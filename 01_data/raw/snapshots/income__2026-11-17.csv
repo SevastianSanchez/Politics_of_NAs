@@ -1,0 +1,8252 @@
+iso3,country_name,year,income_code
+AFG,Afghanistan,1987,L
+ALB,Albania,1987,..
+DZA,Algeria,1987,UM
+ASM,American Samoa,1987,H
+AND,Andorra,1987,..
+AGO,Angola,1987,..
+ATG,Antigua and Barbuda,1987,UM
+ARG,Argentina,1987,UM
+ARM,Armenia,1987,..
+ABW,Aruba,1987,H
+AUS,Australia,1987,H
+AUT,Austria,1987,H
+AZE,Azerbaijan,1987,..
+BHS,"Bahamas, The",1987,H
+BHR,Bahrain,1987,H
+BGD,Bangladesh,1987,L
+BRB,Barbados,1987,UM
+BLR,Belarus,1987,..
+BEL,Belgium,1987,H
+BLZ,Belize,1987,LM
+BEN,Benin,1987,L
+BMU,Bermuda,1987,H
+BTN,Bhutan,1987,L
+BOL,Bolivia,1987,LM
+BIH,Bosnia and Herzegovina,1987,..
+BWA,Botswana,1987,LM
+BRA,Brazil,1987,UM
+VGB,British Virgin Islands,1987,..
+BRN,Brunei Darussalam,1987,H
+BGR,Bulgaria,1987,..
+BFA,Burkina Faso,1987,L
+BDI,Burundi,1987,L
+CPV,Cabo Verde,1987,..
+KHM,Cambodia,1987,L
+CMR,Cameroon,1987,LM
+CAN,Canada,1987,H
+CYM,Cayman Islands,1987,..
+CAF,Central African Republic,1987,L
+TCD,Chad,1987,L
+CHI,Channel Islands,1987,H
+CHL,Chile,1987,LM
+CHN,China,1987,L
+COL,Colombia,1987,LM
+COM,Comoros,1987,L
+COD,"Congo, Dem. Rep.",1987,L
+COG,"Congo, Rep.",1987,LM
+CRI,Costa Rica,1987,LM
+CIV,Côte d'Ivoire,1987,LM
+HRV,Croatia,1987,..
+CUB,Cuba,1987,..
+CUW,Curaçao,1987,..
+CYP,Cyprus,1987,UM
+CZE,Czechia,1987,..
+DNK,Denmark,1987,H
+DJI,Djibouti,1987,..
+DMA,Dominica,1987,LM
+DOM,Dominican Republic,1987,LM
+ECU,Ecuador,1987,LM
+EGY,"Egypt, Arab Rep.",1987,LM
+SLV,El Salvador,1987,LM
+GNQ,Equatorial Guinea,1987,L
+ERI,Eritrea,1987,..
+EST,Estonia,1987,..
+SWZ,Eswatini,1987,LM
+ETH,Ethiopia,1987,L
+FRO,Faeroe Islands,1987,H
+FJI,Fiji,1987,LM
+FIN,Finland,1987,H
+FRA,France,1987,H
+PYF,French Polynesia,1987,..
+GAB,Gabon,1987,UM
+GMB,"Gambia, The",1987,L
+GEO,Georgia,1987,..
+DEU,Germany,1987,H
+GHA,Ghana,1987,L
+GIB,Gibraltar,1987,UM
+GRC,Greece,1987,UM
+GRL,Greenland,1987,H
+GRD,Grenada,1987,LM
+GUM,Guam,1987,H
+GTM,Guatemala,1987,LM
+GIN,Guinea,1987,L
+GNB,Guinea-Bissau,1987,L
+GUY,Guyana,1987,L
+HTI,Haiti,1987,L
+HND,Honduras,1987,LM
+HKG,"Hong Kong SAR, China",1987,H
+HUN,Hungary,1987,UM
+ISL,Iceland,1987,H
+IND,India,1987,L
+IDN,Indonesia,1987,L
+IRN,"Iran, Islamic Rep.",1987,UM
+IRQ,Iraq,1987,UM
+IRL,Ireland,1987,H
+IMN,Isle of Man,1987,H
+ISR,Israel,1987,H
+ITA,Italy,1987,H
+JAM,Jamaica,1987,LM
+JPN,Japan,1987,H
+JOR,Jordan,1987,LM
+KAZ,Kazakhstan,1987,..
+KEN,Kenya,1987,L
+KIR,Kiribati,1987,LM
+PRK,"Korea, Dem. Rep.",1987,..
+KOR,"Korea, Rep.",1987,UM
+XKX,Kosovo,1987,..
+KWT,Kuwait,1987,H
+KGZ,Kyrgyz Republic,1987,..
+LAO,Lao PDR,1987,L
+LVA,Latvia,1987,..
+LBN,Lebanon,1987,LM
+LSO,Lesotho,1987,L
+LBR,Liberia,1987,L
+LBY,Libya,1987,UM
+LIE,Liechtenstein,1987,..
+LTU,Lithuania,1987,..
+LUX,Luxembourg,1987,H
+MAC,"Macao SAR, China",1987,UM
+MDG,Madagascar,1987,L
+MWI,Malawi,1987,L
+MYS,Malaysia,1987,LM
+MDV,Maldives,1987,L
+MLI,Mali,1987,L
+MLT,Malta,1987,UM
+MHL,Marshall Islands,1987,..
+MRT,Mauritania,1987,L
+MUS,Mauritius,1987,LM
+MEX,Mexico,1987,LM
+FSM,"Micronesia, Fed. Sts.",1987,..
+MDA,Moldova,1987,..
+MCO,Monaco,1987,..
+MNG,Mongolia,1987,..
+MNE,Montenegro,1987,..
+MAR,Morocco,1987,LM
+MOZ,Mozambique,1987,L
+MMR,Myanmar,1987,L
+NAM,Namibia,1987,..
+NRU,Nauru,1987,..
+NPL,Nepal,1987,L
+NLD,Netherlands,1987,H
+NCL,New Caledonia,1987,UM
+NZL,New Zealand,1987,H
+NIC,Nicaragua,1987,LM
+NER,Niger,1987,L
+NGA,Nigeria,1987,L
+MKD,North Macedonia,1987,..
+MNP,Northern Mariana Islands,1987,..
+NOR,Norway,1987,H
+OMN,Oman,1987,UM
+PAK,Pakistan,1987,L
+PLW,Palau,1987,..
+PAN,Panama,1987,UM
+PNG,Papua New Guinea,1987,LM
+PRY,Paraguay,1987,LM
+PER,Peru,1987,LM
+PHL,Philippines,1987,LM
+POL,Poland,1987,LM
+PRT,Portugal,1987,UM
+PRI,Puerto Rico,1987,UM
+QAT,Qatar,1987,H
+ROU,Romania,1987,UM
+RUS,Russian Federation,1987,..
+RWA,Rwanda,1987,L
+WSM,Samoa,1987,LM
+SMR,San Marino,1987,..
+STP,São Tomé and Príncipe,1987,L
+SAU,Saudi Arabia,1987,H
+SEN,Senegal,1987,LM
+SRB,Serbia,1987,..
+SYC,Seychelles,1987,UM
+SLE,Sierra Leone,1987,L
+SGP,Singapore,1987,H
+SXM,Sint Maarten (Dutch part),1987,..
+SVK,Slovak Republic,1987,..
+SVN,Slovenia,1987,..
+SLB,Solomon Islands,1987,L
+SOM,Somalia,1987,L
+ZAF,South Africa,1987,LM
+SSD,South Sudan,1987,..
+ESP,Spain,1987,H
+LKA,Sri Lanka,1987,L
+KNA,St. Kitts and Nevis,1987,UM
+LCA,St. Lucia,1987,LM
+MAF,St. Martin (French part),1987,..
+VCT,St. Vincent and the Grenadines,1987,LM
+SDN,Sudan,1987,L
+SUR,Suriname,1987,UM
+SWE,Sweden,1987,H
+CHE,Switzerland,1987,H
+SYR,Syrian Arab Republic,1987,LM
+TWN,"Taiwan, China",1987,H
+TJK,Tajikistan,1987,..
+TZA,Tanzania,1987,L
+THA,Thailand,1987,LM
+TLS,Timor-Leste,1987,..
+TGO,Togo,1987,L
+TON,Tonga,1987,LM
+TTO,Trinidad and Tobago,1987,UM
+TUN,Tunisia,1987,LM
+TUR,Türkiye,1987,LM
+TKM,Turkmenistan,1987,..
+TCA,Turks and Caicos Islands,1987,..
+TUV,Tuvalu,1987,..
+UGA,Uganda,1987,L
+UKR,Ukraine,1987,..
+ARE,United Arab Emirates,1987,H
+GBR,United Kingdom,1987,H
+USA,United States,1987,H
+URY,Uruguay,1987,UM
+UZB,Uzbekistan,1987,..
+VUT,Vanuatu,1987,LM
+VEN,"Venezuela, RB",1987,UM
+VNM,Viet Nam,1987,L
+VIR,Virgin Islands (U.S.),1987,H
+PSE,West Bank and Gaza,1987,..
+YEM,"Yemen, Rep.",1987,LM*
+ZMB,Zambia,1987,L
+ZWE,Zimbabwe,1987,LM
+CSK,Czechoslovakia (former),1987,..
+MYT,Mayotte,1987,..
+ANT,Netherlands Antilles (former),1987,UM
+YUG,Serbia and Montenegro (former),1987,..
+SUN,USSR (former),1987,..
+AFG,Afghanistan,1988,L
+ALB,Albania,1988,..
+DZA,Algeria,1988,UM
+ASM,American Samoa,1988,H
+AND,Andorra,1988,..
+AGO,Angola,1988,LM
+ATG,Antigua and Barbuda,1988,UM
+ARG,Argentina,1988,UM
+ARM,Armenia,1988,..
+ABW,Aruba,1988,H
+AUS,Australia,1988,H
+AUT,Austria,1988,H
+AZE,Azerbaijan,1988,..
+BHS,"Bahamas, The",1988,H
+BHR,Bahrain,1988,H
+BGD,Bangladesh,1988,L
+BRB,Barbados,1988,UM
+BLR,Belarus,1988,..
+BEL,Belgium,1988,H
+BLZ,Belize,1988,LM
+BEN,Benin,1988,L
+BMU,Bermuda,1988,H
+BTN,Bhutan,1988,L
+BOL,Bolivia,1988,LM
+BIH,Bosnia and Herzegovina,1988,..
+BWA,Botswana,1988,LM
+BRA,Brazil,1988,LM
+VGB,British Virgin Islands,1988,..
+BRN,Brunei Darussalam,1988,..
+BGR,Bulgaria,1988,..
+BFA,Burkina Faso,1988,L
+BDI,Burundi,1988,L
+CPV,Cabo Verde,1988,LM
+KHM,Cambodia,1988,L
+CMR,Cameroon,1988,LM
+CAN,Canada,1988,H
+CYM,Cayman Islands,1988,..
+CAF,Central African Republic,1988,L
+TCD,Chad,1988,L
+CHI,Channel Islands,1988,H
+CHL,Chile,1988,LM
+CHN,China,1988,L
+COL,Colombia,1988,LM
+COM,Comoros,1988,L
+COD,"Congo, Dem. Rep.",1988,L
+COG,"Congo, Rep.",1988,LM
+CRI,Costa Rica,1988,LM
+CIV,Côte d'Ivoire,1988,LM
+HRV,Croatia,1988,..
+CUB,Cuba,1988,..
+CUW,Curaçao,1988,..
+CYP,Cyprus,1988,H
+CZE,Czechia,1988,..
+DNK,Denmark,1988,H
+DJI,Djibouti,1988,..
+DMA,Dominica,1988,LM
+DOM,Dominican Republic,1988,LM
+ECU,Ecuador,1988,LM
+EGY,"Egypt, Arab Rep.",1988,LM
+SLV,El Salvador,1988,LM
+GNQ,Equatorial Guinea,1988,L
+ERI,Eritrea,1988,..
+EST,Estonia,1988,..
+SWZ,Eswatini,1988,LM
+ETH,Ethiopia,1988,L
+FRO,Faeroe Islands,1988,H
+FJI,Fiji,1988,LM
+FIN,Finland,1988,H
+FRA,France,1988,H
+PYF,French Polynesia,1988,..
+GAB,Gabon,1988,UM
+GMB,"Gambia, The",1988,L
+GEO,Georgia,1988,..
+DEU,Germany,1988,H
+GHA,Ghana,1988,L
+GIB,Gibraltar,1988,UM
+GRC,Greece,1988,UM
+GRL,Greenland,1988,H
+GRD,Grenada,1988,LM
+GUM,Guam,1988,H
+GTM,Guatemala,1988,LM
+GIN,Guinea,1988,L
+GNB,Guinea-Bissau,1988,L
+GUY,Guyana,1988,L
+HTI,Haiti,1988,L
+HND,Honduras,1988,LM
+HKG,"Hong Kong SAR, China",1988,H
+HUN,Hungary,1988,UM
+ISL,Iceland,1988,H
+IND,India,1988,L
+IDN,Indonesia,1988,L
+IRN,"Iran, Islamic Rep.",1988,UM
+IRQ,Iraq,1988,UM
+IRL,Ireland,1988,H
+IMN,Isle of Man,1988,H
+ISR,Israel,1988,H
+ITA,Italy,1988,H
+JAM,Jamaica,1988,LM
+JPN,Japan,1988,H
+JOR,Jordan,1988,LM
+KAZ,Kazakhstan,1988,..
+KEN,Kenya,1988,L
+KIR,Kiribati,1988,LM
+PRK,"Korea, Dem. Rep.",1988,..
+KOR,"Korea, Rep.",1988,UM
+XKX,Kosovo,1988,..
+KWT,Kuwait,1988,H
+KGZ,Kyrgyz Republic,1988,..
+LAO,Lao PDR,1988,L
+LVA,Latvia,1988,..
+LBN,Lebanon,1988,LM
+LSO,Lesotho,1988,L
+LBR,Liberia,1988,L
+LBY,Libya,1988,UM
+LIE,Liechtenstein,1988,..
+LTU,Lithuania,1988,..
+LUX,Luxembourg,1988,H
+MAC,"Macao SAR, China",1988,UM
+MDG,Madagascar,1988,L
+MWI,Malawi,1988,L
+MYS,Malaysia,1988,LM
+MDV,Maldives,1988,L
+MLI,Mali,1988,L
+MLT,Malta,1988,UM
+MHL,Marshall Islands,1988,..
+MRT,Mauritania,1988,L
+MUS,Mauritius,1988,LM
+MEX,Mexico,1988,LM
+FSM,"Micronesia, Fed. Sts.",1988,..
+MDA,Moldova,1988,..
+MCO,Monaco,1988,..
+MNG,Mongolia,1988,..
+MNE,Montenegro,1988,..
+MAR,Morocco,1988,LM
+MOZ,Mozambique,1988,L
+MMR,Myanmar,1988,L
+NAM,Namibia,1988,..
+NRU,Nauru,1988,..
+NPL,Nepal,1988,L
+NLD,Netherlands,1988,H
+NCL,New Caledonia,1988,UM
+NZL,New Zealand,1988,H
+NIC,Nicaragua,1988,LM
+NER,Niger,1988,L
+NGA,Nigeria,1988,L
+MKD,North Macedonia,1988,..
+MNP,Northern Mariana Islands,1988,..
+NOR,Norway,1988,H
+OMN,Oman,1988,UM
+PAK,Pakistan,1988,L
+PLW,Palau,1988,..
+PAN,Panama,1988,LM
+PNG,Papua New Guinea,1988,LM
+PRY,Paraguay,1988,LM
+PER,Peru,1988,LM
+PHL,Philippines,1988,LM
+POL,Poland,1988,LM
+PRT,Portugal,1988,UM
+PRI,Puerto Rico,1988,UM
+QAT,Qatar,1988,H
+ROU,Romania,1988,UM
+RUS,Russian Federation,1988,..
+RWA,Rwanda,1988,L
+WSM,Samoa,1988,LM
+SMR,San Marino,1988,..
+STP,São Tomé and Príncipe,1988,L
+SAU,Saudi Arabia,1988,H
+SEN,Senegal,1988,LM
+SRB,Serbia,1988,..
+SYC,Seychelles,1988,UM
+SLE,Sierra Leone,1988,L
+SGP,Singapore,1988,H
+SXM,Sint Maarten (Dutch part),1988,..
+SVK,Slovak Republic,1988,..
+SVN,Slovenia,1988,..
+SLB,Solomon Islands,1988,LM
+SOM,Somalia,1988,L
+ZAF,South Africa,1988,UM
+SSD,South Sudan,1988,..
+ESP,Spain,1988,H
+LKA,Sri Lanka,1988,L
+KNA,St. Kitts and Nevis,1988,UM
+LCA,St. Lucia,1988,LM
+MAF,St. Martin (French part),1988,..
+VCT,St. Vincent and the Grenadines,1988,LM
+SDN,Sudan,1988,L
+SUR,Suriname,1988,UM
+SWE,Sweden,1988,H
+CHE,Switzerland,1988,H
+SYR,Syrian Arab Republic,1988,LM
+TWN,"Taiwan, China",1988,H
+TJK,Tajikistan,1988,..
+TZA,Tanzania,1988,L
+THA,Thailand,1988,LM
+TLS,Timor-Leste,1988,..
+TGO,Togo,1988,L
+TON,Tonga,1988,LM
+TTO,Trinidad and Tobago,1988,UM
+TUN,Tunisia,1988,LM
+TUR,Türkiye,1988,LM
+TKM,Turkmenistan,1988,..
+TCA,Turks and Caicos Islands,1988,..
+TUV,Tuvalu,1988,..
+UGA,Uganda,1988,L
+UKR,Ukraine,1988,..
+ARE,United Arab Emirates,1988,H
+GBR,United Kingdom,1988,H
+USA,United States,1988,H
+URY,Uruguay,1988,UM
+UZB,Uzbekistan,1988,..
+VUT,Vanuatu,1988,LM
+VEN,"Venezuela, RB",1988,UM
+VNM,Viet Nam,1988,L
+VIR,Virgin Islands (U.S.),1988,H
+PSE,West Bank and Gaza,1988,..
+YEM,"Yemen, Rep.",1988,LM*
+ZMB,Zambia,1988,L
+ZWE,Zimbabwe,1988,LM
+CSK,Czechoslovakia (former),1988,..
+MYT,Mayotte,1988,..
+ANT,Netherlands Antilles (former),1988,UM
+YUG,Serbia and Montenegro (former),1988,..
+SUN,USSR (former),1988,..
+AFG,Afghanistan,1989,L
+ALB,Albania,1989,..
+DZA,Algeria,1989,LM
+ASM,American Samoa,1989,H
+AND,Andorra,1989,..
+AGO,Angola,1989,LM
+ATG,Antigua and Barbuda,1989,UM
+ARG,Argentina,1989,LM
+ARM,Armenia,1989,..
+ABW,Aruba,1989,H
+AUS,Australia,1989,H
+AUT,Austria,1989,H
+AZE,Azerbaijan,1989,..
+BHS,"Bahamas, The",1989,H
+BHR,Bahrain,1989,H
+BGD,Bangladesh,1989,L
+BRB,Barbados,1989,H
+BLR,Belarus,1989,..
+BEL,Belgium,1989,H
+BLZ,Belize,1989,LM
+BEN,Benin,1989,L
+BMU,Bermuda,1989,H
+BTN,Bhutan,1989,L
+BOL,Bolivia,1989,LM
+BIH,Bosnia and Herzegovina,1989,..
+BWA,Botswana,1989,LM
+BRA,Brazil,1989,UM
+VGB,British Virgin Islands,1989,..
+BRN,Brunei Darussalam,1989,..
+BGR,Bulgaria,1989,LM
+BFA,Burkina Faso,1989,L
+BDI,Burundi,1989,L
+CPV,Cabo Verde,1989,LM
+KHM,Cambodia,1989,L
+CMR,Cameroon,1989,LM
+CAN,Canada,1989,H
+CYM,Cayman Islands,1989,..
+CAF,Central African Republic,1989,L
+TCD,Chad,1989,L
+CHI,Channel Islands,1989,H
+CHL,Chile,1989,LM
+CHN,China,1989,L
+COL,Colombia,1989,LM
+COM,Comoros,1989,L
+COD,"Congo, Dem. Rep.",1989,L
+COG,"Congo, Rep.",1989,LM
+CRI,Costa Rica,1989,LM
+CIV,Côte d'Ivoire,1989,LM
+HRV,Croatia,1989,..
+CUB,Cuba,1989,..
+CUW,Curaçao,1989,..
+CYP,Cyprus,1989,H
+CZE,Czechia,1989,..
+DNK,Denmark,1989,H
+DJI,Djibouti,1989,..
+DMA,Dominica,1989,LM
+DOM,Dominican Republic,1989,LM
+ECU,Ecuador,1989,LM
+EGY,"Egypt, Arab Rep.",1989,LM
+SLV,El Salvador,1989,LM
+GNQ,Equatorial Guinea,1989,L
+ERI,Eritrea,1989,..
+EST,Estonia,1989,..
+SWZ,Eswatini,1989,LM
+ETH,Ethiopia,1989,L
+FRO,Faeroe Islands,1989,H
+FJI,Fiji,1989,LM
+FIN,Finland,1989,H
+FRA,France,1989,H
+PYF,French Polynesia,1989,..
+GAB,Gabon,1989,UM
+GMB,"Gambia, The",1989,L
+GEO,Georgia,1989,..
+DEU,Germany,1989,H
+GHA,Ghana,1989,L
+GIB,Gibraltar,1989,UM
+GRC,Greece,1989,UM
+GRL,Greenland,1989,H
+GRD,Grenada,1989,LM
+GUM,Guam,1989,H
+GTM,Guatemala,1989,LM
+GIN,Guinea,1989,L
+GNB,Guinea-Bissau,1989,L
+GUY,Guyana,1989,L
+HTI,Haiti,1989,L
+HND,Honduras,1989,LM
+HKG,"Hong Kong SAR, China",1989,H
+HUN,Hungary,1989,UM
+ISL,Iceland,1989,H
+IND,India,1989,L
+IDN,Indonesia,1989,L
+IRN,"Iran, Islamic Rep.",1989,UM
+IRQ,Iraq,1989,UM
+IRL,Ireland,1989,H
+IMN,Isle of Man,1989,H
+ISR,Israel,1989,H
+ITA,Italy,1989,H
+JAM,Jamaica,1989,LM
+JPN,Japan,1989,H
+JOR,Jordan,1989,LM
+KAZ,Kazakhstan,1989,..
+KEN,Kenya,1989,L
+KIR,Kiribati,1989,LM
+PRK,"Korea, Dem. Rep.",1989,..
+KOR,"Korea, Rep.",1989,UM
+XKX,Kosovo,1989,..
+KWT,Kuwait,1989,H
+KGZ,Kyrgyz Republic,1989,..
+LAO,Lao PDR,1989,L
+LVA,Latvia,1989,..
+LBN,Lebanon,1989,LM
+LSO,Lesotho,1989,L
+LBR,Liberia,1989,L
+LBY,Libya,1989,UM
+LIE,Liechtenstein,1989,..
+LTU,Lithuania,1989,..
+LUX,Luxembourg,1989,H
+MAC,"Macao SAR, China",1989,UM
+MDG,Madagascar,1989,L
+MWI,Malawi,1989,L
+MYS,Malaysia,1989,LM
+MDV,Maldives,1989,L
+MLI,Mali,1989,L
+MLT,Malta,1989,H
+MHL,Marshall Islands,1989,..
+MRT,Mauritania,1989,L
+MUS,Mauritius,1989,LM
+MEX,Mexico,1989,LM
+FSM,"Micronesia, Fed. Sts.",1989,..
+MDA,Moldova,1989,..
+MCO,Monaco,1989,..
+MNG,Mongolia,1989,LM
+MNE,Montenegro,1989,..
+MAR,Morocco,1989,LM
+MOZ,Mozambique,1989,L
+MMR,Myanmar,1989,L
+NAM,Namibia,1989,LM
+NRU,Nauru,1989,..
+NPL,Nepal,1989,L
+NLD,Netherlands,1989,H
+NCL,New Caledonia,1989,UM
+NZL,New Zealand,1989,H
+NIC,Nicaragua,1989,LM
+NER,Niger,1989,L
+NGA,Nigeria,1989,L
+MKD,North Macedonia,1989,..
+MNP,Northern Mariana Islands,1989,..
+NOR,Norway,1989,H
+OMN,Oman,1989,UM
+PAK,Pakistan,1989,L
+PLW,Palau,1989,..
+PAN,Panama,1989,LM
+PNG,Papua New Guinea,1989,LM
+PRY,Paraguay,1989,LM
+PER,Peru,1989,LM
+PHL,Philippines,1989,LM
+POL,Poland,1989,LM
+PRT,Portugal,1989,UM
+PRI,Puerto Rico,1989,H
+QAT,Qatar,1989,H
+ROU,Romania,1989,UM
+RUS,Russian Federation,1989,..
+RWA,Rwanda,1989,L
+WSM,Samoa,1989,LM
+SMR,San Marino,1989,..
+STP,São Tomé and Príncipe,1989,L
+SAU,Saudi Arabia,1989,H
+SEN,Senegal,1989,LM
+SRB,Serbia,1989,..
+SYC,Seychelles,1989,UM
+SLE,Sierra Leone,1989,L
+SGP,Singapore,1989,H
+SXM,Sint Maarten (Dutch part),1989,..
+SVK,Slovak Republic,1989,..
+SVN,Slovenia,1989,..
+SLB,Solomon Islands,1989,L
+SOM,Somalia,1989,L
+ZAF,South Africa,1989,UM
+SSD,South Sudan,1989,..
+ESP,Spain,1989,H
+LKA,Sri Lanka,1989,L
+KNA,St. Kitts and Nevis,1989,UM
+LCA,St. Lucia,1989,LM
+MAF,St. Martin (French part),1989,..
+VCT,St. Vincent and the Grenadines,1989,LM
+SDN,Sudan,1989,L
+SUR,Suriname,1989,UM
+SWE,Sweden,1989,H
+CHE,Switzerland,1989,H
+SYR,Syrian Arab Republic,1989,LM
+TWN,"Taiwan, China",1989,H
+TJK,Tajikistan,1989,..
+TZA,Tanzania,1989,L
+THA,Thailand,1989,LM
+TLS,Timor-Leste,1989,..
+TGO,Togo,1989,L
+TON,Tonga,1989,LM
+TTO,Trinidad and Tobago,1989,UM
+TUN,Tunisia,1989,LM
+TUR,Türkiye,1989,LM
+TKM,Turkmenistan,1989,..
+TCA,Turks and Caicos Islands,1989,..
+TUV,Tuvalu,1989,..
+UGA,Uganda,1989,L
+UKR,Ukraine,1989,..
+ARE,United Arab Emirates,1989,H
+GBR,United Kingdom,1989,H
+USA,United States,1989,H
+URY,Uruguay,1989,UM
+UZB,Uzbekistan,1989,..
+VUT,Vanuatu,1989,LM
+VEN,"Venezuela, RB",1989,UM
+VNM,Viet Nam,1989,L
+VIR,Virgin Islands (U.S.),1989,H
+PSE,West Bank and Gaza,1989,..
+YEM,"Yemen, Rep.",1989,LM
+ZMB,Zambia,1989,L
+ZWE,Zimbabwe,1989,LM
+CSK,Czechoslovakia (former),1989,..
+MYT,Mayotte,1989,..
+ANT,Netherlands Antilles (former),1989,UM
+YUG,Serbia and Montenegro (former),1989,..
+SUN,USSR (former),1989,..
+AFG,Afghanistan,1990,L
+ALB,Albania,1990,LM
+DZA,Algeria,1990,LM
+ASM,American Samoa,1990,UM
+AND,Andorra,1990,H
+AGO,Angola,1990,LM
+ATG,Antigua and Barbuda,1990,UM
+ARG,Argentina,1990,LM
+ARM,Armenia,1990,..
+ABW,Aruba,1990,H
+AUS,Australia,1990,H
+AUT,Austria,1990,H
+AZE,Azerbaijan,1990,..
+BHS,"Bahamas, The",1990,H
+BHR,Bahrain,1990,UM
+BGD,Bangladesh,1990,L
+BRB,Barbados,1990,UM
+BLR,Belarus,1990,..
+BEL,Belgium,1990,H
+BLZ,Belize,1990,LM
+BEN,Benin,1990,L
+BMU,Bermuda,1990,H
+BTN,Bhutan,1990,L
+BOL,Bolivia,1990,LM
+BIH,Bosnia and Herzegovina,1990,..
+BWA,Botswana,1990,LM
+BRA,Brazil,1990,UM
+VGB,British Virgin Islands,1990,..
+BRN,Brunei Darussalam,1990,H
+BGR,Bulgaria,1990,LM
+BFA,Burkina Faso,1990,L
+BDI,Burundi,1990,L
+CPV,Cabo Verde,1990,LM
+KHM,Cambodia,1990,L
+CMR,Cameroon,1990,LM
+CAN,Canada,1990,H
+CYM,Cayman Islands,1990,..
+CAF,Central African Republic,1990,L
+TCD,Chad,1990,L
+CHI,Channel Islands,1990,H
+CHL,Chile,1990,LM
+CHN,China,1990,L
+COL,Colombia,1990,LM
+COM,Comoros,1990,L
+COD,"Congo, Dem. Rep.",1990,L
+COG,"Congo, Rep.",1990,LM
+CRI,Costa Rica,1990,LM
+CIV,Côte d'Ivoire,1990,LM
+HRV,Croatia,1990,..
+CUB,Cuba,1990,LM
+CUW,Curaçao,1990,..
+CYP,Cyprus,1990,H
+CZE,Czechia,1990,..
+DNK,Denmark,1990,H
+DJI,Djibouti,1990,LM
+DMA,Dominica,1990,LM
+DOM,Dominican Republic,1990,LM
+ECU,Ecuador,1990,LM
+EGY,"Egypt, Arab Rep.",1990,L
+SLV,El Salvador,1990,LM
+GNQ,Equatorial Guinea,1990,L
+ERI,Eritrea,1990,..
+EST,Estonia,1990,..
+SWZ,Eswatini,1990,LM
+ETH,Ethiopia,1990,L
+FRO,Faeroe Islands,1990,H
+FJI,Fiji,1990,LM
+FIN,Finland,1990,H
+FRA,France,1990,H
+PYF,French Polynesia,1990,H
+GAB,Gabon,1990,UM
+GMB,"Gambia, The",1990,L
+GEO,Georgia,1990,..
+DEU,Germany,1990,H
+GHA,Ghana,1990,L
+GIB,Gibraltar,1990,UM
+GRC,Greece,1990,UM
+GRL,Greenland,1990,H
+GRD,Grenada,1990,LM
+GUM,Guam,1990,UM
+GTM,Guatemala,1990,LM
+GIN,Guinea,1990,L
+GNB,Guinea-Bissau,1990,L
+GUY,Guyana,1990,L
+HTI,Haiti,1990,L
+HND,Honduras,1990,L
+HKG,"Hong Kong SAR, China",1990,H
+HUN,Hungary,1990,UM
+ISL,Iceland,1990,H
+IND,India,1990,L
+IDN,Indonesia,1990,L
+IRN,"Iran, Islamic Rep.",1990,LM
+IRQ,Iraq,1990,UM
+IRL,Ireland,1990,H
+IMN,Isle of Man,1990,UM
+ISR,Israel,1990,H
+ITA,Italy,1990,H
+JAM,Jamaica,1990,LM
+JPN,Japan,1990,H
+JOR,Jordan,1990,LM
+KAZ,Kazakhstan,1990,..
+KEN,Kenya,1990,L
+KIR,Kiribati,1990,LM
+PRK,"Korea, Dem. Rep.",1990,LM
+KOR,"Korea, Rep.",1990,UM
+XKX,Kosovo,1990,..
+KWT,Kuwait,1990,H
+KGZ,Kyrgyz Republic,1990,..
+LAO,Lao PDR,1990,L
+LVA,Latvia,1990,..
+LBN,Lebanon,1990,LM
+LSO,Lesotho,1990,L
+LBR,Liberia,1990,L
+LBY,Libya,1990,UM
+LIE,Liechtenstein,1990,..
+LTU,Lithuania,1990,..
+LUX,Luxembourg,1990,H
+MAC,"Macao SAR, China",1990,UM
+MDG,Madagascar,1990,L
+MWI,Malawi,1990,L
+MYS,Malaysia,1990,LM
+MDV,Maldives,1990,L
+MLI,Mali,1990,L
+MLT,Malta,1990,UM
+MHL,Marshall Islands,1990,..
+MRT,Mauritania,1990,L
+MUS,Mauritius,1990,LM
+MEX,Mexico,1990,UM
+FSM,"Micronesia, Fed. Sts.",1990,..
+MDA,Moldova,1990,..
+MCO,Monaco,1990,..
+MNG,Mongolia,1990,LM
+MNE,Montenegro,1990,..
+MAR,Morocco,1990,LM
+MOZ,Mozambique,1990,L
+MMR,Myanmar,1990,L
+NAM,Namibia,1990,LM
+NRU,Nauru,1990,..
+NPL,Nepal,1990,L
+NLD,Netherlands,1990,H
+NCL,New Caledonia,1990,UM
+NZL,New Zealand,1990,H
+NIC,Nicaragua,1990,LM
+NER,Niger,1990,L
+NGA,Nigeria,1990,L
+MKD,North Macedonia,1990,..
+MNP,Northern Mariana Islands,1990,..
+NOR,Norway,1990,H
+OMN,Oman,1990,UM
+PAK,Pakistan,1990,L
+PLW,Palau,1990,..
+PAN,Panama,1990,LM
+PNG,Papua New Guinea,1990,LM
+PRY,Paraguay,1990,LM
+PER,Peru,1990,LM
+PHL,Philippines,1990,LM
+POL,Poland,1990,LM
+PRT,Portugal,1990,UM
+PRI,Puerto Rico,1990,UM
+QAT,Qatar,1990,H
+ROU,Romania,1990,LM
+RUS,Russian Federation,1990,..
+RWA,Rwanda,1990,L
+WSM,Samoa,1990,LM
+SMR,San Marino,1990,..
+STP,São Tomé and Príncipe,1990,L
+SAU,Saudi Arabia,1990,UM
+SEN,Senegal,1990,LM
+SRB,Serbia,1990,..
+SYC,Seychelles,1990,UM
+SLE,Sierra Leone,1990,L
+SGP,Singapore,1990,H
+SXM,Sint Maarten (Dutch part),1990,..
+SVK,Slovak Republic,1990,..
+SVN,Slovenia,1990,..
+SLB,Solomon Islands,1990,L
+SOM,Somalia,1990,L
+ZAF,South Africa,1990,UM
+SSD,South Sudan,1990,..
+ESP,Spain,1990,H
+LKA,Sri Lanka,1990,L
+KNA,St. Kitts and Nevis,1990,UM
+LCA,St. Lucia,1990,LM
+MAF,St. Martin (French part),1990,..
+VCT,St. Vincent and the Grenadines,1990,LM
+SDN,Sudan,1990,L
+SUR,Suriname,1990,UM
+SWE,Sweden,1990,H
+CHE,Switzerland,1990,H
+SYR,Syrian Arab Republic,1990,LM
+TWN,"Taiwan, China",1990,H
+TJK,Tajikistan,1990,..
+TZA,Tanzania,1990,L
+THA,Thailand,1990,LM
+TLS,Timor-Leste,1990,..
+TGO,Togo,1990,L
+TON,Tonga,1990,LM
+TTO,Trinidad and Tobago,1990,UM
+TUN,Tunisia,1990,LM
+TUR,Türkiye,1990,LM
+TKM,Turkmenistan,1990,..
+TCA,Turks and Caicos Islands,1990,..
+TUV,Tuvalu,1990,..
+UGA,Uganda,1990,L
+UKR,Ukraine,1990,..
+ARE,United Arab Emirates,1990,H
+GBR,United Kingdom,1990,H
+USA,United States,1990,H
+URY,Uruguay,1990,UM
+UZB,Uzbekistan,1990,..
+VUT,Vanuatu,1990,LM
+VEN,"Venezuela, RB",1990,UM
+VNM,Viet Nam,1990,L
+VIR,Virgin Islands (U.S.),1990,H
+PSE,West Bank and Gaza,1990,..
+YEM,"Yemen, Rep.",1990,LM
+ZMB,Zambia,1990,L
+ZWE,Zimbabwe,1990,LM
+CSK,Czechoslovakia (former),1990,UM
+MYT,Mayotte,1990,H
+ANT,Netherlands Antilles (former),1990,UM
+YUG,Serbia and Montenegro (former),1990,..
+SUN,USSR (former),1990,UM
+AFG,Afghanistan,1991,L
+ALB,Albania,1991,LM
+DZA,Algeria,1991,LM
+ASM,American Samoa,1991,UM
+AND,Andorra,1991,H
+AGO,Angola,1991,LM
+ATG,Antigua and Barbuda,1991,UM
+ARG,Argentina,1991,UM
+ARM,Armenia,1991,LM
+ABW,Aruba,1991,UM
+AUS,Australia,1991,H
+AUT,Austria,1991,H
+AZE,Azerbaijan,1991,LM
+BHS,"Bahamas, The",1991,H
+BHR,Bahrain,1991,UM
+BGD,Bangladesh,1991,L
+BRB,Barbados,1991,UM
+BLR,Belarus,1991,UM
+BEL,Belgium,1991,H
+BLZ,Belize,1991,LM
+BEN,Benin,1991,L
+BMU,Bermuda,1991,H
+BTN,Bhutan,1991,L
+BOL,Bolivia,1991,LM
+BIH,Bosnia and Herzegovina,1991,..
+BWA,Botswana,1991,UM
+BRA,Brazil,1991,UM
+VGB,British Virgin Islands,1991,..
+BRN,Brunei Darussalam,1991,H
+BGR,Bulgaria,1991,LM
+BFA,Burkina Faso,1991,L
+BDI,Burundi,1991,L
+CPV,Cabo Verde,1991,LM
+KHM,Cambodia,1991,L
+CMR,Cameroon,1991,LM
+CAN,Canada,1991,H
+CYM,Cayman Islands,1991,..
+CAF,Central African Republic,1991,L
+TCD,Chad,1991,L
+CHI,Channel Islands,1991,H
+CHL,Chile,1991,LM
+CHN,China,1991,L
+COL,Colombia,1991,LM
+COM,Comoros,1991,L
+COD,"Congo, Dem. Rep.",1991,L
+COG,"Congo, Rep.",1991,LM
+CRI,Costa Rica,1991,LM
+CIV,Côte d'Ivoire,1991,LM
+HRV,Croatia,1991,..
+CUB,Cuba,1991,LM
+CUW,Curaçao,1991,..
+CYP,Cyprus,1991,H
+CZE,Czechia,1991,..
+DNK,Denmark,1991,H
+DJI,Djibouti,1991,LM
+DMA,Dominica,1991,LM
+DOM,Dominican Republic,1991,LM
+ECU,Ecuador,1991,LM
+EGY,"Egypt, Arab Rep.",1991,L
+SLV,El Salvador,1991,LM
+GNQ,Equatorial Guinea,1991,L
+ERI,Eritrea,1991,..
+EST,Estonia,1991,UM
+SWZ,Eswatini,1991,LM
+ETH,Ethiopia,1991,L
+FRO,Faeroe Islands,1991,H
+FJI,Fiji,1991,LM
+FIN,Finland,1991,H
+FRA,France,1991,H
+PYF,French Polynesia,1991,H
+GAB,Gabon,1991,UM
+GMB,"Gambia, The",1991,L
+GEO,Georgia,1991,LM
+DEU,Germany,1991,H
+GHA,Ghana,1991,L
+GIB,Gibraltar,1991,UM
+GRC,Greece,1991,UM
+GRL,Greenland,1991,H
+GRD,Grenada,1991,LM
+GUM,Guam,1991,UM
+GTM,Guatemala,1991,LM
+GIN,Guinea,1991,L
+GNB,Guinea-Bissau,1991,L
+GUY,Guyana,1991,L
+HTI,Haiti,1991,L
+HND,Honduras,1991,L
+HKG,"Hong Kong SAR, China",1991,H
+HUN,Hungary,1991,UM
+ISL,Iceland,1991,H
+IND,India,1991,L
+IDN,Indonesia,1991,L
+IRN,"Iran, Islamic Rep.",1991,LM
+IRQ,Iraq,1991,LM
+IRL,Ireland,1991,H
+IMN,Isle of Man,1991,UM
+ISR,Israel,1991,H
+ITA,Italy,1991,H
+JAM,Jamaica,1991,LM
+JPN,Japan,1991,H
+JOR,Jordan,1991,LM
+KAZ,Kazakhstan,1991,LM
+KEN,Kenya,1991,L
+KIR,Kiribati,1991,LM
+PRK,"Korea, Dem. Rep.",1991,LM
+KOR,"Korea, Rep.",1991,UM
+XKX,Kosovo,1991,..
+KWT,Kuwait,1991,H
+KGZ,Kyrgyz Republic,1991,LM
+LAO,Lao PDR,1991,L
+LVA,Latvia,1991,UM
+LBN,Lebanon,1991,LM
+LSO,Lesotho,1991,L
+LBR,Liberia,1991,L
+LBY,Libya,1991,UM
+LIE,Liechtenstein,1991,..
+LTU,Lithuania,1991,UM
+LUX,Luxembourg,1991,H
+MAC,"Macao SAR, China",1991,UM
+MDG,Madagascar,1991,L
+MWI,Malawi,1991,L
+MYS,Malaysia,1991,LM
+MDV,Maldives,1991,L
+MLI,Mali,1991,L
+MLT,Malta,1991,UM
+MHL,Marshall Islands,1991,LM
+MRT,Mauritania,1991,L
+MUS,Mauritius,1991,LM
+MEX,Mexico,1991,UM
+FSM,"Micronesia, Fed. Sts.",1991,LM
+MDA,Moldova,1991,LM
+MCO,Monaco,1991,..
+MNG,Mongolia,1991,LM
+MNE,Montenegro,1991,..
+MAR,Morocco,1991,LM
+MOZ,Mozambique,1991,L
+MMR,Myanmar,1991,L
+NAM,Namibia,1991,LM
+NRU,Nauru,1991,..
+NPL,Nepal,1991,L
+NLD,Netherlands,1991,H
+NCL,New Caledonia,1991,UM
+NZL,New Zealand,1991,H
+NIC,Nicaragua,1991,L
+NER,Niger,1991,L
+NGA,Nigeria,1991,L
+MKD,North Macedonia,1991,..
+MNP,Northern Mariana Islands,1991,..
+NOR,Norway,1991,H
+OMN,Oman,1991,UM
+PAK,Pakistan,1991,L
+PLW,Palau,1991,..
+PAN,Panama,1991,LM
+PNG,Papua New Guinea,1991,LM
+PRY,Paraguay,1991,LM
+PER,Peru,1991,LM
+PHL,Philippines,1991,LM
+POL,Poland,1991,LM
+PRT,Portugal,1991,UM
+PRI,Puerto Rico,1991,UM
+QAT,Qatar,1991,H
+ROU,Romania,1991,LM
+RUS,Russian Federation,1991,UM
+RWA,Rwanda,1991,L
+WSM,Samoa,1991,LM
+SMR,San Marino,1991,H
+STP,São Tomé and Príncipe,1991,L
+SAU,Saudi Arabia,1991,UM
+SEN,Senegal,1991,LM
+SRB,Serbia,1991,..
+SYC,Seychelles,1991,UM
+SLE,Sierra Leone,1991,L
+SGP,Singapore,1991,H
+SXM,Sint Maarten (Dutch part),1991,..
+SVK,Slovak Republic,1991,..
+SVN,Slovenia,1991,..
+SLB,Solomon Islands,1991,L
+SOM,Somalia,1991,L
+ZAF,South Africa,1991,UM
+SSD,South Sudan,1991,..
+ESP,Spain,1991,H
+LKA,Sri Lanka,1991,L
+KNA,St. Kitts and Nevis,1991,UM
+LCA,St. Lucia,1991,LM
+MAF,St. Martin (French part),1991,..
+VCT,St. Vincent and the Grenadines,1991,LM
+SDN,Sudan,1991,L
+SUR,Suriname,1991,UM
+SWE,Sweden,1991,H
+CHE,Switzerland,1991,H
+SYR,Syrian Arab Republic,1991,LM
+TWN,"Taiwan, China",1991,H
+TJK,Tajikistan,1991,LM
+TZA,Tanzania,1991,L
+THA,Thailand,1991,LM
+TLS,Timor-Leste,1991,..
+TGO,Togo,1991,L
+TON,Tonga,1991,LM
+TTO,Trinidad and Tobago,1991,UM
+TUN,Tunisia,1991,LM
+TUR,Türkiye,1991,LM
+TKM,Turkmenistan,1991,LM
+TCA,Turks and Caicos Islands,1991,..
+TUV,Tuvalu,1991,..
+UGA,Uganda,1991,L
+UKR,Ukraine,1991,LM
+ARE,United Arab Emirates,1991,H
+GBR,United Kingdom,1991,H
+USA,United States,1991,H
+URY,Uruguay,1991,UM
+UZB,Uzbekistan,1991,LM
+VUT,Vanuatu,1991,LM
+VEN,"Venezuela, RB",1991,UM
+VNM,Viet Nam,1991,L
+VIR,Virgin Islands (U.S.),1991,H
+PSE,West Bank and Gaza,1991,..
+YEM,"Yemen, Rep.",1991,L
+ZMB,Zambia,1991,L
+ZWE,Zimbabwe,1991,L
+CSK,Czechoslovakia (former),1991,UM
+MYT,Mayotte,1991,UM
+ANT,Netherlands Antilles (former),1991,UM
+YUG,Serbia and Montenegro (former),1991,..
+SUN,USSR (former),1991,
+AFG,Afghanistan,1992,L
+ALB,Albania,1992,LM
+DZA,Algeria,1992,LM
+ASM,American Samoa,1992,UM
+AND,Andorra,1992,H
+AGO,Angola,1992,LM
+ATG,Antigua and Barbuda,1992,UM
+ARG,Argentina,1992,UM
+ARM,Armenia,1992,LM
+ABW,Aruba,1992,UM
+AUS,Australia,1992,H
+AUT,Austria,1992,H
+AZE,Azerbaijan,1992,LM
+BHS,"Bahamas, The",1992,H
+BHR,Bahrain,1992,UM
+BGD,Bangladesh,1992,L
+BRB,Barbados,1992,UM
+BLR,Belarus,1992,UM
+BEL,Belgium,1992,H
+BLZ,Belize,1992,LM
+BEN,Benin,1992,L
+BMU,Bermuda,1992,H
+BTN,Bhutan,1992,L
+BOL,Bolivia,1992,LM
+BIH,Bosnia and Herzegovina,1992,LM
+BWA,Botswana,1992,UM
+BRA,Brazil,1992,UM
+VGB,British Virgin Islands,1992,..
+BRN,Brunei Darussalam,1992,H
+BGR,Bulgaria,1992,LM
+BFA,Burkina Faso,1992,L
+BDI,Burundi,1992,L
+CPV,Cabo Verde,1992,LM
+KHM,Cambodia,1992,L
+CMR,Cameroon,1992,LM
+CAN,Canada,1992,H
+CYM,Cayman Islands,1992,..
+CAF,Central African Republic,1992,L
+TCD,Chad,1992,L
+CHI,Channel Islands,1992,H
+CHL,Chile,1992,LM
+CHN,China,1992,L
+COL,Colombia,1992,LM
+COM,Comoros,1992,L
+COD,"Congo, Dem. Rep.",1992,L
+COG,"Congo, Rep.",1992,LM
+CRI,Costa Rica,1992,LM
+CIV,Côte d'Ivoire,1992,LM
+HRV,Croatia,1992,LM
+CUB,Cuba,1992,LM
+CUW,Curaçao,1992,..
+CYP,Cyprus,1992,H
+CZE,Czechia,1992,LM
+DNK,Denmark,1992,H
+DJI,Djibouti,1992,LM
+DMA,Dominica,1992,LM
+DOM,Dominican Republic,1992,LM
+ECU,Ecuador,1992,LM
+EGY,"Egypt, Arab Rep.",1992,L
+SLV,El Salvador,1992,LM
+GNQ,Equatorial Guinea,1992,L
+ERI,Eritrea,1992,L
+EST,Estonia,1992,UM
+SWZ,Eswatini,1992,LM
+ETH,Ethiopia,1992,L
+FRO,Faeroe Islands,1992,H
+FJI,Fiji,1992,LM
+FIN,Finland,1992,H
+FRA,France,1992,H
+PYF,French Polynesia,1992,H
+GAB,Gabon,1992,UM
+GMB,"Gambia, The",1992,L
+GEO,Georgia,1992,LM
+DEU,Germany,1992,H
+GHA,Ghana,1992,L
+GIB,Gibraltar,1992,UM
+GRC,Greece,1992,UM
+GRL,Greenland,1992,H
+GRD,Grenada,1992,LM
+GUM,Guam,1992,UM
+GTM,Guatemala,1992,LM
+GIN,Guinea,1992,L
+GNB,Guinea-Bissau,1992,L
+GUY,Guyana,1992,L
+HTI,Haiti,1992,L
+HND,Honduras,1992,L
+HKG,"Hong Kong SAR, China",1992,H
+HUN,Hungary,1992,UM
+ISL,Iceland,1992,H
+IND,India,1992,L
+IDN,Indonesia,1992,L
+IRN,"Iran, Islamic Rep.",1992,LM
+IRQ,Iraq,1992,LM
+IRL,Ireland,1992,H
+IMN,Isle of Man,1992,UM
+ISR,Israel,1992,H
+ITA,Italy,1992,H
+JAM,Jamaica,1992,LM
+JPN,Japan,1992,H
+JOR,Jordan,1992,LM
+KAZ,Kazakhstan,1992,LM
+KEN,Kenya,1992,L
+KIR,Kiribati,1992,LM
+PRK,"Korea, Dem. Rep.",1992,LM
+KOR,"Korea, Rep.",1992,UM
+XKX,Kosovo,1992,..
+KWT,Kuwait,1992,H
+KGZ,Kyrgyz Republic,1992,LM
+LAO,Lao PDR,1992,L
+LVA,Latvia,1992,LM
+LBN,Lebanon,1992,LM
+LSO,Lesotho,1992,L
+LBR,Liberia,1992,L
+LBY,Libya,1992,UM
+LIE,Liechtenstein,1992,..
+LTU,Lithuania,1992,LM
+LUX,Luxembourg,1992,H
+MAC,"Macao SAR, China",1992,UM
+MDG,Madagascar,1992,L
+MWI,Malawi,1992,L
+MYS,Malaysia,1992,UM
+MDV,Maldives,1992,L
+MLI,Mali,1992,L
+MLT,Malta,1992,UM
+MHL,Marshall Islands,1992,LM
+MRT,Mauritania,1992,L
+MUS,Mauritius,1992,UM
+MEX,Mexico,1992,UM
+FSM,"Micronesia, Fed. Sts.",1992,LM
+MDA,Moldova,1992,LM
+MCO,Monaco,1992,..
+MNG,Mongolia,1992,LM
+MNE,Montenegro,1992,..
+MAR,Morocco,1992,LM
+MOZ,Mozambique,1992,L
+MMR,Myanmar,1992,L
+NAM,Namibia,1992,LM
+NRU,Nauru,1992,..
+NPL,Nepal,1992,L
+NLD,Netherlands,1992,H
+NCL,New Caledonia,1992,UM
+NZL,New Zealand,1992,H
+NIC,Nicaragua,1992,L
+NER,Niger,1992,L
+NGA,Nigeria,1992,L
+MKD,North Macedonia,1992,LM
+MNP,Northern Mariana Islands,1992,LM
+NOR,Norway,1992,H
+OMN,Oman,1992,UM
+PAK,Pakistan,1992,L
+PLW,Palau,1992,..
+PAN,Panama,1992,LM
+PNG,Papua New Guinea,1992,LM
+PRY,Paraguay,1992,LM
+PER,Peru,1992,LM
+PHL,Philippines,1992,LM
+POL,Poland,1992,LM
+PRT,Portugal,1992,UM
+PRI,Puerto Rico,1992,UM
+QAT,Qatar,1992,H
+ROU,Romania,1992,LM
+RUS,Russian Federation,1992,LM
+RWA,Rwanda,1992,L
+WSM,Samoa,1992,LM
+SMR,San Marino,1992,H
+STP,São Tomé and Príncipe,1992,L
+SAU,Saudi Arabia,1992,UM
+SEN,Senegal,1992,LM
+SRB,Serbia,1992,..
+SYC,Seychelles,1992,UM
+SLE,Sierra Leone,1992,L
+SGP,Singapore,1992,H
+SXM,Sint Maarten (Dutch part),1992,..
+SVK,Slovak Republic,1992,LM
+SVN,Slovenia,1992,UM
+SLB,Solomon Islands,1992,LM
+SOM,Somalia,1992,L
+ZAF,South Africa,1992,UM
+SSD,South Sudan,1992,..
+ESP,Spain,1992,H
+LKA,Sri Lanka,1992,L
+KNA,St. Kitts and Nevis,1992,UM
+LCA,St. Lucia,1992,UM
+MAF,St. Martin (French part),1992,..
+VCT,St. Vincent and the Grenadines,1992,LM
+SDN,Sudan,1992,L
+SUR,Suriname,1992,UM
+SWE,Sweden,1992,H
+CHE,Switzerland,1992,H
+SYR,Syrian Arab Republic,1992,LM
+TWN,"Taiwan, China",1992,H
+TJK,Tajikistan,1992,L
+TZA,Tanzania,1992,L
+THA,Thailand,1992,LM
+TLS,Timor-Leste,1992,..
+TGO,Togo,1992,L
+TON,Tonga,1992,LM
+TTO,Trinidad and Tobago,1992,UM
+TUN,Tunisia,1992,LM
+TUR,Türkiye,1992,LM
+TKM,Turkmenistan,1992,LM
+TCA,Turks and Caicos Islands,1992,..
+TUV,Tuvalu,1992,..
+UGA,Uganda,1992,L
+UKR,Ukraine,1992,LM
+ARE,United Arab Emirates,1992,H
+GBR,United Kingdom,1992,H
+USA,United States,1992,H
+URY,Uruguay,1992,UM
+UZB,Uzbekistan,1992,LM
+VUT,Vanuatu,1992,LM
+VEN,"Venezuela, RB",1992,UM
+VNM,Viet Nam,1992,L
+VIR,Virgin Islands (U.S.),1992,H
+PSE,West Bank and Gaza,1992,..
+YEM,"Yemen, Rep.",1992,L
+ZMB,Zambia,1992,L
+ZWE,Zimbabwe,1992,L
+CSK,Czechoslovakia (former),1992,
+MYT,Mayotte,1992,UM
+ANT,Netherlands Antilles (former),1992,UM
+YUG,Serbia and Montenegro (former),1992,LM
+SUN,USSR (former),1992,
+AFG,Afghanistan,1993,L
+ALB,Albania,1993,L
+DZA,Algeria,1993,LM
+ASM,American Samoa,1993,UM
+AND,Andorra,1993,H
+AGO,Angola,1993,LM
+ATG,Antigua and Barbuda,1993,UM
+ARG,Argentina,1993,UM
+ARM,Armenia,1993,L
+ABW,Aruba,1993,UM
+AUS,Australia,1993,H
+AUT,Austria,1993,H
+AZE,Azerbaijan,1993,LM
+BHS,"Bahamas, The",1993,H
+BHR,Bahrain,1993,UM
+BGD,Bangladesh,1993,L
+BRB,Barbados,1993,UM
+BLR,Belarus,1993,UM
+BEL,Belgium,1993,H
+BLZ,Belize,1993,LM
+BEN,Benin,1993,L
+BMU,Bermuda,1993,H
+BTN,Bhutan,1993,L
+BOL,Bolivia,1993,LM
+BIH,Bosnia and Herzegovina,1993,L
+BWA,Botswana,1993,LM
+BRA,Brazil,1993,UM
+VGB,British Virgin Islands,1993,..
+BRN,Brunei Darussalam,1993,H
+BGR,Bulgaria,1993,LM
+BFA,Burkina Faso,1993,L
+BDI,Burundi,1993,L
+CPV,Cabo Verde,1993,LM
+KHM,Cambodia,1993,L
+CMR,Cameroon,1993,LM
+CAN,Canada,1993,H
+CYM,Cayman Islands,1993,H
+CAF,Central African Republic,1993,L
+TCD,Chad,1993,L
+CHI,Channel Islands,1993,H
+CHL,Chile,1993,UM
+CHN,China,1993,L
+COL,Colombia,1993,LM
+COM,Comoros,1993,L
+COD,"Congo, Dem. Rep.",1993,L
+COG,"Congo, Rep.",1993,LM
+CRI,Costa Rica,1993,LM
+CIV,Côte d'Ivoire,1993,L
+HRV,Croatia,1993,LM
+CUB,Cuba,1993,LM
+CUW,Curaçao,1993,..
+CYP,Cyprus,1993,H
+CZE,Czechia,1993,LM
+DNK,Denmark,1993,H
+DJI,Djibouti,1993,LM
+DMA,Dominica,1993,LM
+DOM,Dominican Republic,1993,LM
+ECU,Ecuador,1993,LM
+EGY,"Egypt, Arab Rep.",1993,L
+SLV,El Salvador,1993,LM
+GNQ,Equatorial Guinea,1993,L
+ERI,Eritrea,1993,L
+EST,Estonia,1993,UM
+SWZ,Eswatini,1993,LM
+ETH,Ethiopia,1993,L
+FRO,Faeroe Islands,1993,H
+FJI,Fiji,1993,LM
+FIN,Finland,1993,H
+FRA,France,1993,H
+PYF,French Polynesia,1993,H
+GAB,Gabon,1993,UM
+GMB,"Gambia, The",1993,L
+GEO,Georgia,1993,L
+DEU,Germany,1993,H
+GHA,Ghana,1993,L
+GIB,Gibraltar,1993,UM
+GRC,Greece,1993,UM
+GRL,Greenland,1993,H
+GRD,Grenada,1993,LM
+GUM,Guam,1993,UM
+GTM,Guatemala,1993,LM
+GIN,Guinea,1993,L
+GNB,Guinea-Bissau,1993,L
+GUY,Guyana,1993,L
+HTI,Haiti,1993,L
+HND,Honduras,1993,L
+HKG,"Hong Kong SAR, China",1993,H
+HUN,Hungary,1993,UM
+ISL,Iceland,1993,H
+IND,India,1993,L
+IDN,Indonesia,1993,LM
+IRN,"Iran, Islamic Rep.",1993,LM
+IRQ,Iraq,1993,LM
+IRL,Ireland,1993,H
+IMN,Isle of Man,1993,UM
+ISR,Israel,1993,H
+ITA,Italy,1993,H
+JAM,Jamaica,1993,LM
+JPN,Japan,1993,H
+JOR,Jordan,1993,LM
+KAZ,Kazakhstan,1993,LM
+KEN,Kenya,1993,L
+KIR,Kiribati,1993,LM
+PRK,"Korea, Dem. Rep.",1993,LM
+KOR,"Korea, Rep.",1993,UM
+XKX,Kosovo,1993,..
+KWT,Kuwait,1993,H
+KGZ,Kyrgyz Republic,1993,LM
+LAO,Lao PDR,1993,L
+LVA,Latvia,1993,LM
+LBN,Lebanon,1993,LM
+LSO,Lesotho,1993,L
+LBR,Liberia,1993,L
+LBY,Libya,1993,UM
+LIE,Liechtenstein,1993,..
+LTU,Lithuania,1993,LM
+LUX,Luxembourg,1993,H
+MAC,"Macao SAR, China",1993,UM
+MDG,Madagascar,1993,L
+MWI,Malawi,1993,L
+MYS,Malaysia,1993,UM
+MDV,Maldives,1993,LM
+MLI,Mali,1993,L
+MLT,Malta,1993,UM
+MHL,Marshall Islands,1993,LM
+MRT,Mauritania,1993,L
+MUS,Mauritius,1993,UM
+MEX,Mexico,1993,UM
+FSM,"Micronesia, Fed. Sts.",1993,LM
+MDA,Moldova,1993,LM
+MCO,Monaco,1993,..
+MNG,Mongolia,1993,L
+MNE,Montenegro,1993,..
+MAR,Morocco,1993,LM
+MOZ,Mozambique,1993,L
+MMR,Myanmar,1993,L
+NAM,Namibia,1993,LM
+NRU,Nauru,1993,..
+NPL,Nepal,1993,L
+NLD,Netherlands,1993,H
+NCL,New Caledonia,1993,UM
+NZL,New Zealand,1993,H
+NIC,Nicaragua,1993,L
+NER,Niger,1993,L
+NGA,Nigeria,1993,L
+MKD,North Macedonia,1993,LM
+MNP,Northern Mariana Islands,1993,LM
+NOR,Norway,1993,H
+OMN,Oman,1993,UM
+PAK,Pakistan,1993,L
+PLW,Palau,1993,..
+PAN,Panama,1993,LM
+PNG,Papua New Guinea,1993,LM
+PRY,Paraguay,1993,LM
+PER,Peru,1993,LM
+PHL,Philippines,1993,LM
+POL,Poland,1993,LM
+PRT,Portugal,1993,UM
+PRI,Puerto Rico,1993,UM
+QAT,Qatar,1993,H
+ROU,Romania,1993,LM
+RUS,Russian Federation,1993,LM
+RWA,Rwanda,1993,L
+WSM,Samoa,1993,LM
+SMR,San Marino,1993,H
+STP,São Tomé and Príncipe,1993,L
+SAU,Saudi Arabia,1993,UM
+SEN,Senegal,1993,LM
+SRB,Serbia,1993,..
+SYC,Seychelles,1993,UM
+SLE,Sierra Leone,1993,L
+SGP,Singapore,1993,H
+SXM,Sint Maarten (Dutch part),1993,..
+SVK,Slovak Republic,1993,LM
+SVN,Slovenia,1993,UM
+SLB,Solomon Islands,1993,LM
+SOM,Somalia,1993,L
+ZAF,South Africa,1993,UM
+SSD,South Sudan,1993,..
+ESP,Spain,1993,H
+LKA,Sri Lanka,1993,L
+KNA,St. Kitts and Nevis,1993,UM
+LCA,St. Lucia,1993,UM
+MAF,St. Martin (French part),1993,..
+VCT,St. Vincent and the Grenadines,1993,LM
+SDN,Sudan,1993,L
+SUR,Suriname,1993,LM
+SWE,Sweden,1993,H
+CHE,Switzerland,1993,H
+SYR,Syrian Arab Republic,1993,LM
+TWN,"Taiwan, China",1993,H
+TJK,Tajikistan,1993,L
+TZA,Tanzania,1993,L
+THA,Thailand,1993,LM
+TLS,Timor-Leste,1993,..
+TGO,Togo,1993,L
+TON,Tonga,1993,LM
+TTO,Trinidad and Tobago,1993,UM
+TUN,Tunisia,1993,LM
+TUR,Türkiye,1993,LM
+TKM,Turkmenistan,1993,LM
+TCA,Turks and Caicos Islands,1993,..
+TUV,Tuvalu,1993,..
+UGA,Uganda,1993,L
+UKR,Ukraine,1993,LM
+ARE,United Arab Emirates,1993,H
+GBR,United Kingdom,1993,H
+USA,United States,1993,H
+URY,Uruguay,1993,UM
+UZB,Uzbekistan,1993,LM
+VUT,Vanuatu,1993,LM
+VEN,"Venezuela, RB",1993,UM
+VNM,Viet Nam,1993,L
+VIR,Virgin Islands (U.S.),1993,H
+PSE,West Bank and Gaza,1993,..
+YEM,"Yemen, Rep.",1993,L
+ZMB,Zambia,1993,L
+ZWE,Zimbabwe,1993,L
+CSK,Czechoslovakia (former),1993,
+MYT,Mayotte,1993,UM
+ANT,Netherlands Antilles (former),1993,UM
+YUG,Serbia and Montenegro (former),1993,LM
+SUN,USSR (former),1993,
+AFG,Afghanistan,1994,L
+ALB,Albania,1994,L
+DZA,Algeria,1994,LM
+ASM,American Samoa,1994,UM
+AND,Andorra,1994,H
+AGO,Angola,1994,LM
+ATG,Antigua and Barbuda,1994,UM
+ARG,Argentina,1994,UM
+ARM,Armenia,1994,L
+ABW,Aruba,1994,H
+AUS,Australia,1994,H
+AUT,Austria,1994,H
+AZE,Azerbaijan,1994,L
+BHS,"Bahamas, The",1994,H
+BHR,Bahrain,1994,UM
+BGD,Bangladesh,1994,L
+BRB,Barbados,1994,UM
+BLR,Belarus,1994,LM
+BEL,Belgium,1994,H
+BLZ,Belize,1994,LM
+BEN,Benin,1994,L
+BMU,Bermuda,1994,H
+BTN,Bhutan,1994,L
+BOL,Bolivia,1994,LM
+BIH,Bosnia and Herzegovina,1994,L
+BWA,Botswana,1994,LM
+BRA,Brazil,1994,UM
+VGB,British Virgin Islands,1994,..
+BRN,Brunei Darussalam,1994,H
+BGR,Bulgaria,1994,LM
+BFA,Burkina Faso,1994,L
+BDI,Burundi,1994,L
+CPV,Cabo Verde,1994,LM
+KHM,Cambodia,1994,L
+CMR,Cameroon,1994,L
+CAN,Canada,1994,H
+CYM,Cayman Islands,1994,H
+CAF,Central African Republic,1994,L
+TCD,Chad,1994,L
+CHI,Channel Islands,1994,H
+CHL,Chile,1994,UM
+CHN,China,1994,L
+COL,Colombia,1994,LM
+COM,Comoros,1994,L
+COD,"Congo, Dem. Rep.",1994,L
+COG,"Congo, Rep.",1994,L
+CRI,Costa Rica,1994,LM
+CIV,Côte d'Ivoire,1994,L
+HRV,Croatia,1994,LM
+CUB,Cuba,1994,LM
+CUW,Curaçao,1994,..
+CYP,Cyprus,1994,H
+CZE,Czechia,1994,UM
+DNK,Denmark,1994,H
+DJI,Djibouti,1994,LM
+DMA,Dominica,1994,LM
+DOM,Dominican Republic,1994,LM
+ECU,Ecuador,1994,LM
+EGY,"Egypt, Arab Rep.",1994,L
+SLV,El Salvador,1994,LM
+GNQ,Equatorial Guinea,1994,L
+ERI,Eritrea,1994,L
+EST,Estonia,1994,LM
+SWZ,Eswatini,1994,LM
+ETH,Ethiopia,1994,L
+FRO,Faeroe Islands,1994,H
+FJI,Fiji,1994,LM
+FIN,Finland,1994,H
+FRA,France,1994,H
+PYF,French Polynesia,1994,H
+GAB,Gabon,1994,UM
+GMB,"Gambia, The",1994,L
+GEO,Georgia,1994,L
+DEU,Germany,1994,H
+GHA,Ghana,1994,L
+GIB,Gibraltar,1994,..
+GRC,Greece,1994,UM
+GRL,Greenland,1994,H
+GRD,Grenada,1994,LM
+GUM,Guam,1994,UM
+GTM,Guatemala,1994,LM
+GIN,Guinea,1994,L
+GNB,Guinea-Bissau,1994,L
+GUY,Guyana,1994,L
+HTI,Haiti,1994,L
+HND,Honduras,1994,L
+HKG,"Hong Kong SAR, China",1994,H
+HUN,Hungary,1994,UM
+ISL,Iceland,1994,H
+IND,India,1994,L
+IDN,Indonesia,1994,LM
+IRN,"Iran, Islamic Rep.",1994,LM
+IRQ,Iraq,1994,LM
+IRL,Ireland,1994,H
+IMN,Isle of Man,1994,UM
+ISR,Israel,1994,H
+ITA,Italy,1994,H
+JAM,Jamaica,1994,LM
+JPN,Japan,1994,H
+JOR,Jordan,1994,LM
+KAZ,Kazakhstan,1994,LM
+KEN,Kenya,1994,L
+KIR,Kiribati,1994,LM
+PRK,"Korea, Dem. Rep.",1994,LM
+KOR,"Korea, Rep.",1994,UM
+XKX,Kosovo,1994,..
+KWT,Kuwait,1994,H
+KGZ,Kyrgyz Republic,1994,L
+LAO,Lao PDR,1994,L
+LVA,Latvia,1994,LM
+LBN,Lebanon,1994,LM
+LSO,Lesotho,1994,L
+LBR,Liberia,1994,L
+LBY,Libya,1994,UM
+LIE,Liechtenstein,1994,H
+LTU,Lithuania,1994,LM
+LUX,Luxembourg,1994,H
+MAC,"Macao SAR, China",1994,H
+MDG,Madagascar,1994,L
+MWI,Malawi,1994,L
+MYS,Malaysia,1994,UM
+MDV,Maldives,1994,LM
+MLI,Mali,1994,L
+MLT,Malta,1994,UM
+MHL,Marshall Islands,1994,LM
+MRT,Mauritania,1994,L
+MUS,Mauritius,1994,UM
+MEX,Mexico,1994,UM
+FSM,"Micronesia, Fed. Sts.",1994,LM
+MDA,Moldova,1994,LM
+MCO,Monaco,1994,H
+MNG,Mongolia,1994,L
+MNE,Montenegro,1994,..
+MAR,Morocco,1994,LM
+MOZ,Mozambique,1994,L
+MMR,Myanmar,1994,L
+NAM,Namibia,1994,LM
+NRU,Nauru,1994,..
+NPL,Nepal,1994,L
+NLD,Netherlands,1994,H
+NCL,New Caledonia,1994,UM
+NZL,New Zealand,1994,H
+NIC,Nicaragua,1994,L
+NER,Niger,1994,L
+NGA,Nigeria,1994,L
+MKD,North Macedonia,1994,LM
+MNP,Northern Mariana Islands,1994,LM
+NOR,Norway,1994,H
+OMN,Oman,1994,UM
+PAK,Pakistan,1994,L
+PLW,Palau,1994,..
+PAN,Panama,1994,LM
+PNG,Papua New Guinea,1994,LM
+PRY,Paraguay,1994,LM
+PER,Peru,1994,LM
+PHL,Philippines,1994,LM
+POL,Poland,1994,LM
+PRT,Portugal,1994,H
+PRI,Puerto Rico,1994,UM
+QAT,Qatar,1994,H
+ROU,Romania,1994,LM
+RUS,Russian Federation,1994,LM
+RWA,Rwanda,1994,L
+WSM,Samoa,1994,LM
+SMR,San Marino,1994,..
+STP,São Tomé and Príncipe,1994,L
+SAU,Saudi Arabia,1994,UM
+SEN,Senegal,1994,L
+SRB,Serbia,1994,..
+SYC,Seychelles,1994,UM
+SLE,Sierra Leone,1994,L
+SGP,Singapore,1994,H
+SXM,Sint Maarten (Dutch part),1994,..
+SVK,Slovak Republic,1994,LM
+SVN,Slovenia,1994,UM
+SLB,Solomon Islands,1994,LM
+SOM,Somalia,1994,L
+ZAF,South Africa,1994,UM
+SSD,South Sudan,1994,..
+ESP,Spain,1994,H
+LKA,Sri Lanka,1994,L
+KNA,St. Kitts and Nevis,1994,UM
+LCA,St. Lucia,1994,UM
+MAF,St. Martin (French part),1994,..
+VCT,St. Vincent and the Grenadines,1994,LM
+SDN,Sudan,1994,L
+SUR,Suriname,1994,LM
+SWE,Sweden,1994,H
+CHE,Switzerland,1994,H
+SYR,Syrian Arab Republic,1994,LM
+TWN,"Taiwan, China",1994,H
+TJK,Tajikistan,1994,L
+TZA,Tanzania,1994,L
+THA,Thailand,1994,LM
+TLS,Timor-Leste,1994,..
+TGO,Togo,1994,L
+TON,Tonga,1994,LM
+TTO,Trinidad and Tobago,1994,UM
+TUN,Tunisia,1994,LM
+TUR,Türkiye,1994,LM
+TKM,Turkmenistan,1994,LM
+TCA,Turks and Caicos Islands,1994,..
+TUV,Tuvalu,1994,..
+UGA,Uganda,1994,L
+UKR,Ukraine,1994,LM
+ARE,United Arab Emirates,1994,H
+GBR,United Kingdom,1994,H
+USA,United States,1994,H
+URY,Uruguay,1994,UM
+UZB,Uzbekistan,1994,LM
+VUT,Vanuatu,1994,LM
+VEN,"Venezuela, RB",1994,LM
+VNM,Viet Nam,1994,L
+VIR,Virgin Islands (U.S.),1994,H
+PSE,West Bank and Gaza,1994,LM
+YEM,"Yemen, Rep.",1994,L
+ZMB,Zambia,1994,L
+ZWE,Zimbabwe,1994,L
+CSK,Czechoslovakia (former),1994,
+MYT,Mayotte,1994,UM
+ANT,Netherlands Antilles (former),1994,H
+YUG,Serbia and Montenegro (former),1994,LM
+SUN,USSR (former),1994,
+AFG,Afghanistan,1995,L
+ALB,Albania,1995,L
+DZA,Algeria,1995,LM
+ASM,American Samoa,1995,UM
+AND,Andorra,1995,H
+AGO,Angola,1995,L
+ATG,Antigua and Barbuda,1995,UM
+ARG,Argentina,1995,UM
+ARM,Armenia,1995,L
+ABW,Aruba,1995,H
+AUS,Australia,1995,H
+AUT,Austria,1995,H
+AZE,Azerbaijan,1995,L
+BHS,"Bahamas, The",1995,H
+BHR,Bahrain,1995,UM
+BGD,Bangladesh,1995,L
+BRB,Barbados,1995,UM
+BLR,Belarus,1995,LM
+BEL,Belgium,1995,H
+BLZ,Belize,1995,LM
+BEN,Benin,1995,L
+BMU,Bermuda,1995,H
+BTN,Bhutan,1995,L
+BOL,Bolivia,1995,LM
+BIH,Bosnia and Herzegovina,1995,L
+BWA,Botswana,1995,LM
+BRA,Brazil,1995,UM
+VGB,British Virgin Islands,1995,..
+BRN,Brunei Darussalam,1995,H
+BGR,Bulgaria,1995,LM
+BFA,Burkina Faso,1995,L
+BDI,Burundi,1995,L
+CPV,Cabo Verde,1995,LM
+KHM,Cambodia,1995,L
+CMR,Cameroon,1995,L
+CAN,Canada,1995,H
+CYM,Cayman Islands,1995,H
+CAF,Central African Republic,1995,L
+TCD,Chad,1995,L
+CHI,Channel Islands,1995,H
+CHL,Chile,1995,UM
+CHN,China,1995,L
+COL,Colombia,1995,LM
+COM,Comoros,1995,L
+COD,"Congo, Dem. Rep.",1995,L
+COG,"Congo, Rep.",1995,L
+CRI,Costa Rica,1995,LM
+CIV,Côte d'Ivoire,1995,L
+HRV,Croatia,1995,UM
+CUB,Cuba,1995,LM
+CUW,Curaçao,1995,..
+CYP,Cyprus,1995,H
+CZE,Czechia,1995,UM
+DNK,Denmark,1995,H
+DJI,Djibouti,1995,LM
+DMA,Dominica,1995,LM
+DOM,Dominican Republic,1995,LM
+ECU,Ecuador,1995,LM
+EGY,"Egypt, Arab Rep.",1995,LM
+SLV,El Salvador,1995,LM
+GNQ,Equatorial Guinea,1995,L
+ERI,Eritrea,1995,L
+EST,Estonia,1995,LM
+SWZ,Eswatini,1995,LM
+ETH,Ethiopia,1995,L
+FRO,Faeroe Islands,1995,H
+FJI,Fiji,1995,LM
+FIN,Finland,1995,H
+FRA,France,1995,H
+PYF,French Polynesia,1995,H
+GAB,Gabon,1995,UM
+GMB,"Gambia, The",1995,L
+GEO,Georgia,1995,L
+DEU,Germany,1995,H
+GHA,Ghana,1995,L
+GIB,Gibraltar,1995,..
+GRC,Greece,1995,UM
+GRL,Greenland,1995,H
+GRD,Grenada,1995,LM
+GUM,Guam,1995,H
+GTM,Guatemala,1995,LM
+GIN,Guinea,1995,L
+GNB,Guinea-Bissau,1995,L
+GUY,Guyana,1995,L
+HTI,Haiti,1995,L
+HND,Honduras,1995,L
+HKG,"Hong Kong SAR, China",1995,H
+HUN,Hungary,1995,UM
+ISL,Iceland,1995,H
+IND,India,1995,L
+IDN,Indonesia,1995,LM
+IRN,"Iran, Islamic Rep.",1995,LM
+IRQ,Iraq,1995,LM
+IRL,Ireland,1995,H
+IMN,Isle of Man,1995,UM
+ISR,Israel,1995,H
+ITA,Italy,1995,H
+JAM,Jamaica,1995,LM
+JPN,Japan,1995,H
+JOR,Jordan,1995,LM
+KAZ,Kazakhstan,1995,LM
+KEN,Kenya,1995,L
+KIR,Kiribati,1995,LM
+PRK,"Korea, Dem. Rep.",1995,LM
+KOR,"Korea, Rep.",1995,H
+XKX,Kosovo,1995,..
+KWT,Kuwait,1995,H
+KGZ,Kyrgyz Republic,1995,L
+LAO,Lao PDR,1995,L
+LVA,Latvia,1995,LM
+LBN,Lebanon,1995,LM
+LSO,Lesotho,1995,LM
+LBR,Liberia,1995,L
+LBY,Libya,1995,UM
+LIE,Liechtenstein,1995,H
+LTU,Lithuania,1995,LM
+LUX,Luxembourg,1995,H
+MAC,"Macao SAR, China",1995,H
+MDG,Madagascar,1995,L
+MWI,Malawi,1995,L
+MYS,Malaysia,1995,UM
+MDV,Maldives,1995,LM
+MLI,Mali,1995,L
+MLT,Malta,1995,UM
+MHL,Marshall Islands,1995,LM
+MRT,Mauritania,1995,L
+MUS,Mauritius,1995,UM
+MEX,Mexico,1995,UM
+FSM,"Micronesia, Fed. Sts.",1995,LM
+MDA,Moldova,1995,LM
+MCO,Monaco,1995,H
+MNG,Mongolia,1995,L
+MNE,Montenegro,1995,..
+MAR,Morocco,1995,LM
+MOZ,Mozambique,1995,L
+MMR,Myanmar,1995,L
+NAM,Namibia,1995,LM
+NRU,Nauru,1995,..
+NPL,Nepal,1995,L
+NLD,Netherlands,1995,H
+NCL,New Caledonia,1995,H
+NZL,New Zealand,1995,H
+NIC,Nicaragua,1995,L
+NER,Niger,1995,L
+NGA,Nigeria,1995,L
+MKD,North Macedonia,1995,LM
+MNP,Northern Mariana Islands,1995,H
+NOR,Norway,1995,H
+OMN,Oman,1995,UM
+PAK,Pakistan,1995,L
+PLW,Palau,1995,..
+PAN,Panama,1995,LM
+PNG,Papua New Guinea,1995,LM
+PRY,Paraguay,1995,LM
+PER,Peru,1995,LM
+PHL,Philippines,1995,LM
+POL,Poland,1995,LM
+PRT,Portugal,1995,H
+PRI,Puerto Rico,1995,UM
+QAT,Qatar,1995,H
+ROU,Romania,1995,LM
+RUS,Russian Federation,1995,LM
+RWA,Rwanda,1995,L
+WSM,Samoa,1995,LM
+SMR,San Marino,1995,..
+STP,São Tomé and Príncipe,1995,L
+SAU,Saudi Arabia,1995,UM
+SEN,Senegal,1995,L
+SRB,Serbia,1995,..
+SYC,Seychelles,1995,UM
+SLE,Sierra Leone,1995,L
+SGP,Singapore,1995,H
+SXM,Sint Maarten (Dutch part),1995,..
+SVK,Slovak Republic,1995,LM
+SVN,Slovenia,1995,UM
+SLB,Solomon Islands,1995,LM
+SOM,Somalia,1995,L
+ZAF,South Africa,1995,UM
+SSD,South Sudan,1995,..
+ESP,Spain,1995,H
+LKA,Sri Lanka,1995,L
+KNA,St. Kitts and Nevis,1995,UM
+LCA,St. Lucia,1995,UM
+MAF,St. Martin (French part),1995,..
+VCT,St. Vincent and the Grenadines,1995,LM
+SDN,Sudan,1995,L
+SUR,Suriname,1995,LM
+SWE,Sweden,1995,H
+CHE,Switzerland,1995,H
+SYR,Syrian Arab Republic,1995,LM
+TWN,"Taiwan, China",1995,H
+TJK,Tajikistan,1995,L
+TZA,Tanzania,1995,L
+THA,Thailand,1995,LM
+TLS,Timor-Leste,1995,..
+TGO,Togo,1995,L
+TON,Tonga,1995,LM
+TTO,Trinidad and Tobago,1995,UM
+TUN,Tunisia,1995,LM
+TUR,Türkiye,1995,LM
+TKM,Turkmenistan,1995,LM
+TCA,Turks and Caicos Islands,1995,..
+TUV,Tuvalu,1995,..
+UGA,Uganda,1995,L
+UKR,Ukraine,1995,LM
+ARE,United Arab Emirates,1995,H
+GBR,United Kingdom,1995,H
+USA,United States,1995,H
+URY,Uruguay,1995,UM
+UZB,Uzbekistan,1995,LM
+VUT,Vanuatu,1995,LM
+VEN,"Venezuela, RB",1995,LM
+VNM,Viet Nam,1995,L
+VIR,Virgin Islands (U.S.),1995,H
+PSE,West Bank and Gaza,1995,LM
+YEM,"Yemen, Rep.",1995,L
+ZMB,Zambia,1995,L
+ZWE,Zimbabwe,1995,L
+CSK,Czechoslovakia (former),1995,
+MYT,Mayotte,1995,UM
+ANT,Netherlands Antilles (former),1995,H
+YUG,Serbia and Montenegro (former),1995,LM
+SUN,USSR (former),1995,
+AFG,Afghanistan,1996,L
+ALB,Albania,1996,LM
+DZA,Algeria,1996,LM
+ASM,American Samoa,1996,UM
+AND,Andorra,1996,H
+AGO,Angola,1996,L
+ATG,Antigua and Barbuda,1996,UM
+ARG,Argentina,1996,UM
+ARM,Armenia,1996,L
+ABW,Aruba,1996,H
+AUS,Australia,1996,H
+AUT,Austria,1996,H
+AZE,Azerbaijan,1996,L
+BHS,"Bahamas, The",1996,H
+BHR,Bahrain,1996,UM
+BGD,Bangladesh,1996,L
+BRB,Barbados,1996,UM
+BLR,Belarus,1996,LM
+BEL,Belgium,1996,H
+BLZ,Belize,1996,LM
+BEN,Benin,1996,L
+BMU,Bermuda,1996,H
+BTN,Bhutan,1996,L
+BOL,Bolivia,1996,LM
+BIH,Bosnia and Herzegovina,1996,L
+BWA,Botswana,1996,LM
+BRA,Brazil,1996,UM
+VGB,British Virgin Islands,1996,..
+BRN,Brunei Darussalam,1996,H
+BGR,Bulgaria,1996,LM
+BFA,Burkina Faso,1996,L
+BDI,Burundi,1996,L
+CPV,Cabo Verde,1996,LM
+KHM,Cambodia,1996,L
+CMR,Cameroon,1996,L
+CAN,Canada,1996,H
+CYM,Cayman Islands,1996,H
+CAF,Central African Republic,1996,L
+TCD,Chad,1996,L
+CHI,Channel Islands,1996,H
+CHL,Chile,1996,UM
+CHN,China,1996,L
+COL,Colombia,1996,LM
+COM,Comoros,1996,L
+COD,"Congo, Dem. Rep.",1996,L
+COG,"Congo, Rep.",1996,L
+CRI,Costa Rica,1996,LM
+CIV,Côte d'Ivoire,1996,L
+HRV,Croatia,1996,UM
+CUB,Cuba,1996,LM
+CUW,Curaçao,1996,..
+CYP,Cyprus,1996,H
+CZE,Czechia,1996,UM
+DNK,Denmark,1996,H
+DJI,Djibouti,1996,LM
+DMA,Dominica,1996,LM
+DOM,Dominican Republic,1996,LM
+ECU,Ecuador,1996,LM
+EGY,"Egypt, Arab Rep.",1996,LM
+SLV,El Salvador,1996,LM
+GNQ,Equatorial Guinea,1996,L
+ERI,Eritrea,1996,L
+EST,Estonia,1996,LM
+SWZ,Eswatini,1996,LM
+ETH,Ethiopia,1996,L
+FRO,Faeroe Islands,1996,H
+FJI,Fiji,1996,LM
+FIN,Finland,1996,H
+FRA,France,1996,H
+PYF,French Polynesia,1996,H
+GAB,Gabon,1996,UM
+GMB,"Gambia, The",1996,L
+GEO,Georgia,1996,LM
+DEU,Germany,1996,H
+GHA,Ghana,1996,L
+GIB,Gibraltar,1996,..
+GRC,Greece,1996,H
+GRL,Greenland,1996,H
+GRD,Grenada,1996,LM
+GUM,Guam,1996,H
+GTM,Guatemala,1996,LM
+GIN,Guinea,1996,L
+GNB,Guinea-Bissau,1996,L
+GUY,Guyana,1996,L
+HTI,Haiti,1996,L
+HND,Honduras,1996,L
+HKG,"Hong Kong SAR, China",1996,H
+HUN,Hungary,1996,UM
+ISL,Iceland,1996,H
+IND,India,1996,L
+IDN,Indonesia,1996,LM
+IRN,"Iran, Islamic Rep.",1996,LM
+IRQ,Iraq,1996,LM
+IRL,Ireland,1996,H
+IMN,Isle of Man,1996,UM
+ISR,Israel,1996,H
+ITA,Italy,1996,H
+JAM,Jamaica,1996,LM
+JPN,Japan,1996,H
+JOR,Jordan,1996,LM
+KAZ,Kazakhstan,1996,LM
+KEN,Kenya,1996,L
+KIR,Kiribati,1996,LM
+PRK,"Korea, Dem. Rep.",1996,LM
+KOR,"Korea, Rep.",1996,H
+XKX,Kosovo,1996,..
+KWT,Kuwait,1996,H
+KGZ,Kyrgyz Republic,1996,L
+LAO,Lao PDR,1996,L
+LVA,Latvia,1996,LM
+LBN,Lebanon,1996,LM
+LSO,Lesotho,1996,L
+LBR,Liberia,1996,L
+LBY,Libya,1996,UM
+LIE,Liechtenstein,1996,H
+LTU,Lithuania,1996,LM
+LUX,Luxembourg,1996,H
+MAC,"Macao SAR, China",1996,H
+MDG,Madagascar,1996,L
+MWI,Malawi,1996,L
+MYS,Malaysia,1996,UM
+MDV,Maldives,1996,LM
+MLI,Mali,1996,L
+MLT,Malta,1996,UM
+MHL,Marshall Islands,1996,LM
+MRT,Mauritania,1996,L
+MUS,Mauritius,1996,UM
+MEX,Mexico,1996,UM
+FSM,"Micronesia, Fed. Sts.",1996,LM
+MDA,Moldova,1996,L
+MCO,Monaco,1996,H
+MNG,Mongolia,1996,L
+MNE,Montenegro,1996,..
+MAR,Morocco,1996,LM
+MOZ,Mozambique,1996,L
+MMR,Myanmar,1996,L
+NAM,Namibia,1996,LM
+NRU,Nauru,1996,..
+NPL,Nepal,1996,L
+NLD,Netherlands,1996,H
+NCL,New Caledonia,1996,H
+NZL,New Zealand,1996,H
+NIC,Nicaragua,1996,L
+NER,Niger,1996,L
+NGA,Nigeria,1996,L
+MKD,North Macedonia,1996,LM
+MNP,Northern Mariana Islands,1996,H
+NOR,Norway,1996,H
+OMN,Oman,1996,UM
+PAK,Pakistan,1996,L
+PLW,Palau,1996,UM
+PAN,Panama,1996,LM
+PNG,Papua New Guinea,1996,LM
+PRY,Paraguay,1996,LM
+PER,Peru,1996,LM
+PHL,Philippines,1996,LM
+POL,Poland,1996,UM
+PRT,Portugal,1996,H
+PRI,Puerto Rico,1996,UM
+QAT,Qatar,1996,H
+ROU,Romania,1996,LM
+RUS,Russian Federation,1996,LM
+RWA,Rwanda,1996,L
+WSM,Samoa,1996,LM
+SMR,San Marino,1996,..
+STP,São Tomé and Príncipe,1996,L
+SAU,Saudi Arabia,1996,UM
+SEN,Senegal,1996,L
+SRB,Serbia,1996,..
+SYC,Seychelles,1996,UM
+SLE,Sierra Leone,1996,L
+SGP,Singapore,1996,H
+SXM,Sint Maarten (Dutch part),1996,..
+SVK,Slovak Republic,1996,UM
+SVN,Slovenia,1996,UM
+SLB,Solomon Islands,1996,LM
+SOM,Somalia,1996,L
+ZAF,South Africa,1996,UM
+SSD,South Sudan,1996,..
+ESP,Spain,1996,H
+LKA,Sri Lanka,1996,L
+KNA,St. Kitts and Nevis,1996,UM
+LCA,St. Lucia,1996,UM
+MAF,St. Martin (French part),1996,..
+VCT,St. Vincent and the Grenadines,1996,LM
+SDN,Sudan,1996,L
+SUR,Suriname,1996,LM
+SWE,Sweden,1996,H
+CHE,Switzerland,1996,H
+SYR,Syrian Arab Republic,1996,LM
+TWN,"Taiwan, China",1996,H
+TJK,Tajikistan,1996,L
+TZA,Tanzania,1996,L
+THA,Thailand,1996,LM
+TLS,Timor-Leste,1996,..
+TGO,Togo,1996,L
+TON,Tonga,1996,LM
+TTO,Trinidad and Tobago,1996,UM
+TUN,Tunisia,1996,LM
+TUR,Türkiye,1996,LM
+TKM,Turkmenistan,1996,LM
+TCA,Turks and Caicos Islands,1996,..
+TUV,Tuvalu,1996,..
+UGA,Uganda,1996,L
+UKR,Ukraine,1996,LM
+ARE,United Arab Emirates,1996,H
+GBR,United Kingdom,1996,H
+USA,United States,1996,H
+URY,Uruguay,1996,UM
+UZB,Uzbekistan,1996,LM
+VUT,Vanuatu,1996,LM
+VEN,"Venezuela, RB",1996,LM
+VNM,Viet Nam,1996,L
+VIR,Virgin Islands (U.S.),1996,H
+PSE,West Bank and Gaza,1996,LM
+YEM,"Yemen, Rep.",1996,L
+ZMB,Zambia,1996,L
+ZWE,Zimbabwe,1996,L
+CSK,Czechoslovakia (former),1996,
+MYT,Mayotte,1996,UM
+ANT,Netherlands Antilles (former),1996,H
+YUG,Serbia and Montenegro (former),1996,LM
+SUN,USSR (former),1996,
+AFG,Afghanistan,1997,L
+ALB,Albania,1997,L
+DZA,Algeria,1997,LM
+ASM,American Samoa,1997,UM
+AND,Andorra,1997,H
+AGO,Angola,1997,L
+ATG,Antigua and Barbuda,1997,UM
+ARG,Argentina,1997,UM
+ARM,Armenia,1997,L
+ABW,Aruba,1997,H
+AUS,Australia,1997,H
+AUT,Austria,1997,H
+AZE,Azerbaijan,1997,L
+BHS,"Bahamas, The",1997,H
+BHR,Bahrain,1997,UM
+BGD,Bangladesh,1997,L
+BRB,Barbados,1997,UM
+BLR,Belarus,1997,LM
+BEL,Belgium,1997,H
+BLZ,Belize,1997,LM
+BEN,Benin,1997,L
+BMU,Bermuda,1997,H
+BTN,Bhutan,1997,L
+BOL,Bolivia,1997,LM
+BIH,Bosnia and Herzegovina,1997,L
+BWA,Botswana,1997,UM
+BRA,Brazil,1997,UM
+VGB,British Virgin Islands,1997,..
+BRN,Brunei Darussalam,1997,H
+BGR,Bulgaria,1997,LM
+BFA,Burkina Faso,1997,L
+BDI,Burundi,1997,L
+CPV,Cabo Verde,1997,LM
+KHM,Cambodia,1997,L
+CMR,Cameroon,1997,L
+CAN,Canada,1997,H
+CYM,Cayman Islands,1997,H
+CAF,Central African Republic,1997,L
+TCD,Chad,1997,L
+CHI,Channel Islands,1997,H
+CHL,Chile,1997,UM
+CHN,China,1997,LM
+COL,Colombia,1997,LM
+COM,Comoros,1997,L
+COD,"Congo, Dem. Rep.",1997,L
+COG,"Congo, Rep.",1997,L
+CRI,Costa Rica,1997,LM
+CIV,Côte d'Ivoire,1997,L
+HRV,Croatia,1997,UM
+CUB,Cuba,1997,LM
+CUW,Curaçao,1997,..
+CYP,Cyprus,1997,H
+CZE,Czechia,1997,UM
+DNK,Denmark,1997,H
+DJI,Djibouti,1997,LM
+DMA,Dominica,1997,LM
+DOM,Dominican Republic,1997,LM
+ECU,Ecuador,1997,LM
+EGY,"Egypt, Arab Rep.",1997,LM
+SLV,El Salvador,1997,LM
+GNQ,Equatorial Guinea,1997,LM
+ERI,Eritrea,1997,L
+EST,Estonia,1997,UM
+SWZ,Eswatini,1997,LM
+ETH,Ethiopia,1997,L
+FRO,Faeroe Islands,1997,H
+FJI,Fiji,1997,LM
+FIN,Finland,1997,H
+FRA,France,1997,H
+PYF,French Polynesia,1997,H
+GAB,Gabon,1997,UM
+GMB,"Gambia, The",1997,L
+GEO,Georgia,1997,LM
+DEU,Germany,1997,H
+GHA,Ghana,1997,L
+GIB,Gibraltar,1997,..
+GRC,Greece,1997,H
+GRL,Greenland,1997,H
+GRD,Grenada,1997,UM
+GUM,Guam,1997,H
+GTM,Guatemala,1997,LM
+GIN,Guinea,1997,L
+GNB,Guinea-Bissau,1997,L
+GUY,Guyana,1997,LM
+HTI,Haiti,1997,L
+HND,Honduras,1997,L
+HKG,"Hong Kong SAR, China",1997,H
+HUN,Hungary,1997,UM
+ISL,Iceland,1997,H
+IND,India,1997,L
+IDN,Indonesia,1997,LM
+IRN,"Iran, Islamic Rep.",1997,LM
+IRQ,Iraq,1997,LM
+IRL,Ireland,1997,H
+IMN,Isle of Man,1997,UM
+ISR,Israel,1997,H
+ITA,Italy,1997,H
+JAM,Jamaica,1997,LM
+JPN,Japan,1997,H
+JOR,Jordan,1997,LM
+KAZ,Kazakhstan,1997,LM
+KEN,Kenya,1997,L
+KIR,Kiribati,1997,LM
+PRK,"Korea, Dem. Rep.",1997,LM
+KOR,"Korea, Rep.",1997,H
+XKX,Kosovo,1997,..
+KWT,Kuwait,1997,H
+KGZ,Kyrgyz Republic,1997,L
+LAO,Lao PDR,1997,L
+LVA,Latvia,1997,LM
+LBN,Lebanon,1997,UM
+LSO,Lesotho,1997,L
+LBR,Liberia,1997,L
+LBY,Libya,1997,UM
+LIE,Liechtenstein,1997,H
+LTU,Lithuania,1997,LM
+LUX,Luxembourg,1997,H
+MAC,"Macao SAR, China",1997,H
+MDG,Madagascar,1997,L
+MWI,Malawi,1997,L
+MYS,Malaysia,1997,UM
+MDV,Maldives,1997,LM
+MLI,Mali,1997,L
+MLT,Malta,1997,UM
+MHL,Marshall Islands,1997,LM
+MRT,Mauritania,1997,L
+MUS,Mauritius,1997,UM
+MEX,Mexico,1997,UM
+FSM,"Micronesia, Fed. Sts.",1997,LM
+MDA,Moldova,1997,L
+MCO,Monaco,1997,H
+MNG,Mongolia,1997,L
+MNE,Montenegro,1997,..
+MAR,Morocco,1997,LM
+MOZ,Mozambique,1997,L
+MMR,Myanmar,1997,L
+NAM,Namibia,1997,LM
+NRU,Nauru,1997,..
+NPL,Nepal,1997,L
+NLD,Netherlands,1997,H
+NCL,New Caledonia,1997,H
+NZL,New Zealand,1997,H
+NIC,Nicaragua,1997,L
+NER,Niger,1997,L
+NGA,Nigeria,1997,L
+MKD,North Macedonia,1997,LM
+MNP,Northern Mariana Islands,1997,H
+NOR,Norway,1997,H
+OMN,Oman,1997,UM
+PAK,Pakistan,1997,L
+PLW,Palau,1997,UM
+PAN,Panama,1997,LM
+PNG,Papua New Guinea,1997,LM
+PRY,Paraguay,1997,LM
+PER,Peru,1997,LM
+PHL,Philippines,1997,LM
+POL,Poland,1997,UM
+PRT,Portugal,1997,H
+PRI,Puerto Rico,1997,UM
+QAT,Qatar,1997,H
+ROU,Romania,1997,LM
+RUS,Russian Federation,1997,LM
+RWA,Rwanda,1997,L
+WSM,Samoa,1997,LM
+SMR,San Marino,1997,..
+STP,São Tomé and Príncipe,1997,L
+SAU,Saudi Arabia,1997,UM
+SEN,Senegal,1997,L
+SRB,Serbia,1997,..
+SYC,Seychelles,1997,UM
+SLE,Sierra Leone,1997,L
+SGP,Singapore,1997,H
+SXM,Sint Maarten (Dutch part),1997,..
+SVK,Slovak Republic,1997,UM
+SVN,Slovenia,1997,H
+SLB,Solomon Islands,1997,LM
+SOM,Somalia,1997,L
+ZAF,South Africa,1997,UM
+SSD,South Sudan,1997,..
+ESP,Spain,1997,H
+LKA,Sri Lanka,1997,LM
+KNA,St. Kitts and Nevis,1997,UM
+LCA,St. Lucia,1997,UM
+MAF,St. Martin (French part),1997,..
+VCT,St. Vincent and the Grenadines,1997,LM
+SDN,Sudan,1997,L
+SUR,Suriname,1997,LM
+SWE,Sweden,1997,H
+CHE,Switzerland,1997,H
+SYR,Syrian Arab Republic,1997,LM
+TWN,"Taiwan, China",1997,H
+TJK,Tajikistan,1997,L
+TZA,Tanzania,1997,L
+THA,Thailand,1997,LM
+TLS,Timor-Leste,1997,..
+TGO,Togo,1997,L
+TON,Tonga,1997,LM
+TTO,Trinidad and Tobago,1997,UM
+TUN,Tunisia,1997,LM
+TUR,Türkiye,1997,UM
+TKM,Turkmenistan,1997,L
+TCA,Turks and Caicos Islands,1997,..
+TUV,Tuvalu,1997,..
+UGA,Uganda,1997,L
+UKR,Ukraine,1997,LM
+ARE,United Arab Emirates,1997,H
+GBR,United Kingdom,1997,H
+USA,United States,1997,H
+URY,Uruguay,1997,UM
+UZB,Uzbekistan,1997,LM
+VUT,Vanuatu,1997,LM
+VEN,"Venezuela, RB",1997,UM
+VNM,Viet Nam,1997,L
+VIR,Virgin Islands (U.S.),1997,H
+PSE,West Bank and Gaza,1997,LM
+YEM,"Yemen, Rep.",1997,L
+ZMB,Zambia,1997,L
+ZWE,Zimbabwe,1997,L
+CSK,Czechoslovakia (former),1997,
+MYT,Mayotte,1997,UM
+ANT,Netherlands Antilles (former),1997,H
+YUG,Serbia and Montenegro (former),1997,LM
+SUN,USSR (former),1997,
+AFG,Afghanistan,1998,L
+ALB,Albania,1998,LM
+DZA,Algeria,1998,LM
+ASM,American Samoa,1998,UM
+AND,Andorra,1998,H
+AGO,Angola,1998,L
+ATG,Antigua and Barbuda,1998,UM
+ARG,Argentina,1998,UM
+ARM,Armenia,1998,L
+ABW,Aruba,1998,H
+AUS,Australia,1998,H
+AUT,Austria,1998,H
+AZE,Azerbaijan,1998,L
+BHS,"Bahamas, The",1998,H
+BHR,Bahrain,1998,UM
+BGD,Bangladesh,1998,L
+BRB,Barbados,1998,UM
+BLR,Belarus,1998,LM
+BEL,Belgium,1998,H
+BLZ,Belize,1998,LM
+BEN,Benin,1998,L
+BMU,Bermuda,1998,H
+BTN,Bhutan,1998,L
+BOL,Bolivia,1998,LM
+BIH,Bosnia and Herzegovina,1998,LM
+BWA,Botswana,1998,UM
+BRA,Brazil,1998,UM
+VGB,British Virgin Islands,1998,..
+BRN,Brunei Darussalam,1998,H
+BGR,Bulgaria,1998,LM
+BFA,Burkina Faso,1998,L
+BDI,Burundi,1998,L
+CPV,Cabo Verde,1998,LM
+KHM,Cambodia,1998,L
+CMR,Cameroon,1998,L
+CAN,Canada,1998,H
+CYM,Cayman Islands,1998,H
+CAF,Central African Republic,1998,L
+TCD,Chad,1998,L
+CHI,Channel Islands,1998,H
+CHL,Chile,1998,UM
+CHN,China,1998,L
+COL,Colombia,1998,LM
+COM,Comoros,1998,L
+COD,"Congo, Dem. Rep.",1998,L
+COG,"Congo, Rep.",1998,L
+CRI,Costa Rica,1998,LM
+CIV,Côte d'Ivoire,1998,L
+HRV,Croatia,1998,UM
+CUB,Cuba,1998,LM
+CUW,Curaçao,1998,..
+CYP,Cyprus,1998,H
+CZE,Czechia,1998,UM
+DNK,Denmark,1998,H
+DJI,Djibouti,1998,LM
+DMA,Dominica,1998,LM
+DOM,Dominican Republic,1998,LM
+ECU,Ecuador,1998,LM
+EGY,"Egypt, Arab Rep.",1998,LM
+SLV,El Salvador,1998,LM
+GNQ,Equatorial Guinea,1998,LM
+ERI,Eritrea,1998,L
+EST,Estonia,1998,UM
+SWZ,Eswatini,1998,LM
+ETH,Ethiopia,1998,L
+FRO,Faeroe Islands,1998,H
+FJI,Fiji,1998,LM
+FIN,Finland,1998,H
+FRA,France,1998,H
+PYF,French Polynesia,1998,H
+GAB,Gabon,1998,UM
+GMB,"Gambia, The",1998,L
+GEO,Georgia,1998,LM
+DEU,Germany,1998,H
+GHA,Ghana,1998,L
+GIB,Gibraltar,1998,..
+GRC,Greece,1998,H
+GRL,Greenland,1998,H
+GRD,Grenada,1998,UM
+GUM,Guam,1998,H
+GTM,Guatemala,1998,LM
+GIN,Guinea,1998,L
+GNB,Guinea-Bissau,1998,L
+GUY,Guyana,1998,LM
+HTI,Haiti,1998,L
+HND,Honduras,1998,L
+HKG,"Hong Kong SAR, China",1998,H
+HUN,Hungary,1998,UM
+ISL,Iceland,1998,H
+IND,India,1998,L
+IDN,Indonesia,1998,L
+IRN,"Iran, Islamic Rep.",1998,LM
+IRQ,Iraq,1998,LM
+IRL,Ireland,1998,H
+IMN,Isle of Man,1998,UM
+ISR,Israel,1998,H
+ITA,Italy,1998,H
+JAM,Jamaica,1998,LM
+JPN,Japan,1998,H
+JOR,Jordan,1998,LM
+KAZ,Kazakhstan,1998,LM
+KEN,Kenya,1998,L
+KIR,Kiribati,1998,LM
+PRK,"Korea, Dem. Rep.",1998,L
+KOR,"Korea, Rep.",1998,UM
+XKX,Kosovo,1998,..
+KWT,Kuwait,1998,H
+KGZ,Kyrgyz Republic,1998,L
+LAO,Lao PDR,1998,L
+LVA,Latvia,1998,LM
+LBN,Lebanon,1998,UM
+LSO,Lesotho,1998,L
+LBR,Liberia,1998,L
+LBY,Libya,1998,UM
+LIE,Liechtenstein,1998,H
+LTU,Lithuania,1998,LM
+LUX,Luxembourg,1998,H
+MAC,"Macao SAR, China",1998,H
+MDG,Madagascar,1998,L
+MWI,Malawi,1998,L
+MYS,Malaysia,1998,UM
+MDV,Maldives,1998,LM
+MLI,Mali,1998,L
+MLT,Malta,1998,H
+MHL,Marshall Islands,1998,LM
+MRT,Mauritania,1998,L
+MUS,Mauritius,1998,UM
+MEX,Mexico,1998,UM
+FSM,"Micronesia, Fed. Sts.",1998,LM
+MDA,Moldova,1998,L
+MCO,Monaco,1998,H
+MNG,Mongolia,1998,L
+MNE,Montenegro,1998,..
+MAR,Morocco,1998,LM
+MOZ,Mozambique,1998,L
+MMR,Myanmar,1998,L
+NAM,Namibia,1998,LM
+NRU,Nauru,1998,..
+NPL,Nepal,1998,L
+NLD,Netherlands,1998,H
+NCL,New Caledonia,1998,H
+NZL,New Zealand,1998,H
+NIC,Nicaragua,1998,L
+NER,Niger,1998,L
+NGA,Nigeria,1998,L
+MKD,North Macedonia,1998,LM
+MNP,Northern Mariana Islands,1998,H
+NOR,Norway,1998,H
+OMN,Oman,1998,UM
+PAK,Pakistan,1998,L
+PLW,Palau,1998,UM
+PAN,Panama,1998,UM
+PNG,Papua New Guinea,1998,LM
+PRY,Paraguay,1998,LM
+PER,Peru,1998,LM
+PHL,Philippines,1998,LM
+POL,Poland,1998,UM
+PRT,Portugal,1998,H
+PRI,Puerto Rico,1998,UM
+QAT,Qatar,1998,H
+ROU,Romania,1998,LM
+RUS,Russian Federation,1998,LM
+RWA,Rwanda,1998,L
+WSM,Samoa,1998,LM
+SMR,San Marino,1998,..
+STP,São Tomé and Príncipe,1998,L
+SAU,Saudi Arabia,1998,UM
+SEN,Senegal,1998,L
+SRB,Serbia,1998,..
+SYC,Seychelles,1998,UM
+SLE,Sierra Leone,1998,L
+SGP,Singapore,1998,H
+SXM,Sint Maarten (Dutch part),1998,..
+SVK,Slovak Republic,1998,UM
+SVN,Slovenia,1998,H
+SLB,Solomon Islands,1998,L
+SOM,Somalia,1998,L
+ZAF,South Africa,1998,LM
+SSD,South Sudan,1998,..
+ESP,Spain,1998,H
+LKA,Sri Lanka,1998,LM
+KNA,St. Kitts and Nevis,1998,UM
+LCA,St. Lucia,1998,UM
+MAF,St. Martin (French part),1998,..
+VCT,St. Vincent and the Grenadines,1998,LM
+SDN,Sudan,1998,L
+SUR,Suriname,1998,LM
+SWE,Sweden,1998,H
+CHE,Switzerland,1998,H
+SYR,Syrian Arab Republic,1998,LM
+TWN,"Taiwan, China",1998,H
+TJK,Tajikistan,1998,L
+TZA,Tanzania,1998,L
+THA,Thailand,1998,LM
+TLS,Timor-Leste,1998,..
+TGO,Togo,1998,L
+TON,Tonga,1998,LM
+TTO,Trinidad and Tobago,1998,UM
+TUN,Tunisia,1998,LM
+TUR,Türkiye,1998,UM
+TKM,Turkmenistan,1998,L
+TCA,Turks and Caicos Islands,1998,..
+TUV,Tuvalu,1998,..
+UGA,Uganda,1998,L
+UKR,Ukraine,1998,LM
+ARE,United Arab Emirates,1998,H
+GBR,United Kingdom,1998,H
+USA,United States,1998,H
+URY,Uruguay,1998,UM
+UZB,Uzbekistan,1998,LM
+VUT,Vanuatu,1998,LM
+VEN,"Venezuela, RB",1998,UM
+VNM,Viet Nam,1998,L
+VIR,Virgin Islands (U.S.),1998,H
+PSE,West Bank and Gaza,1998,LM
+YEM,"Yemen, Rep.",1998,L
+ZMB,Zambia,1998,L
+ZWE,Zimbabwe,1998,L
+CSK,Czechoslovakia (former),1998,
+MYT,Mayotte,1998,UM
+ANT,Netherlands Antilles (former),1998,H
+YUG,Serbia and Montenegro (former),1998,LM
+SUN,USSR (former),1998,
+AFG,Afghanistan,1999,L
+ALB,Albania,1999,LM
+DZA,Algeria,1999,LM
+ASM,American Samoa,1999,UM
+AND,Andorra,1999,H
+AGO,Angola,1999,L
+ATG,Antigua and Barbuda,1999,UM
+ARG,Argentina,1999,UM
+ARM,Armenia,1999,L
+ABW,Aruba,1999,H
+AUS,Australia,1999,H
+AUT,Austria,1999,H
+AZE,Azerbaijan,1999,L
+BHS,"Bahamas, The",1999,H
+BHR,Bahrain,1999,UM
+BGD,Bangladesh,1999,L
+BRB,Barbados,1999,UM
+BLR,Belarus,1999,LM
+BEL,Belgium,1999,H
+BLZ,Belize,1999,LM
+BEN,Benin,1999,L
+BMU,Bermuda,1999,H
+BTN,Bhutan,1999,L
+BOL,Bolivia,1999,LM
+BIH,Bosnia and Herzegovina,1999,LM
+BWA,Botswana,1999,UM
+BRA,Brazil,1999,UM
+VGB,British Virgin Islands,1999,..
+BRN,Brunei Darussalam,1999,H
+BGR,Bulgaria,1999,LM
+BFA,Burkina Faso,1999,L
+BDI,Burundi,1999,L
+CPV,Cabo Verde,1999,LM
+KHM,Cambodia,1999,L
+CMR,Cameroon,1999,L
+CAN,Canada,1999,H
+CYM,Cayman Islands,1999,H
+CAF,Central African Republic,1999,L
+TCD,Chad,1999,L
+CHI,Channel Islands,1999,H
+CHL,Chile,1999,UM
+CHN,China,1999,LM
+COL,Colombia,1999,LM
+COM,Comoros,1999,L
+COD,"Congo, Dem. Rep.",1999,L
+COG,"Congo, Rep.",1999,L
+CRI,Costa Rica,1999,LM
+CIV,Côte d'Ivoire,1999,L
+HRV,Croatia,1999,UM
+CUB,Cuba,1999,LM
+CUW,Curaçao,1999,..
+CYP,Cyprus,1999,H
+CZE,Czechia,1999,UM
+DNK,Denmark,1999,H
+DJI,Djibouti,1999,LM
+DMA,Dominica,1999,UM
+DOM,Dominican Republic,1999,LM
+ECU,Ecuador,1999,LM
+EGY,"Egypt, Arab Rep.",1999,LM
+SLV,El Salvador,1999,LM
+GNQ,Equatorial Guinea,1999,LM
+ERI,Eritrea,1999,L
+EST,Estonia,1999,UM
+SWZ,Eswatini,1999,LM
+ETH,Ethiopia,1999,L
+FRO,Faeroe Islands,1999,H
+FJI,Fiji,1999,LM
+FIN,Finland,1999,H
+FRA,France,1999,H
+PYF,French Polynesia,1999,H
+GAB,Gabon,1999,UM
+GMB,"Gambia, The",1999,L
+GEO,Georgia,1999,L
+DEU,Germany,1999,H
+GHA,Ghana,1999,L
+GIB,Gibraltar,1999,..
+GRC,Greece,1999,H
+GRL,Greenland,1999,H
+GRD,Grenada,1999,UM
+GUM,Guam,1999,H
+GTM,Guatemala,1999,LM
+GIN,Guinea,1999,L
+GNB,Guinea-Bissau,1999,L
+GUY,Guyana,1999,LM
+HTI,Haiti,1999,L
+HND,Honduras,1999,LM
+HKG,"Hong Kong SAR, China",1999,H
+HUN,Hungary,1999,UM
+ISL,Iceland,1999,H
+IND,India,1999,L
+IDN,Indonesia,1999,L
+IRN,"Iran, Islamic Rep.",1999,LM
+IRQ,Iraq,1999,LM
+IRL,Ireland,1999,H
+IMN,Isle of Man,1999,UM
+ISR,Israel,1999,H
+ITA,Italy,1999,H
+JAM,Jamaica,1999,LM
+JPN,Japan,1999,H
+JOR,Jordan,1999,LM
+KAZ,Kazakhstan,1999,LM
+KEN,Kenya,1999,L
+KIR,Kiribati,1999,LM
+PRK,"Korea, Dem. Rep.",1999,L
+KOR,"Korea, Rep.",1999,UM
+XKX,Kosovo,1999,..
+KWT,Kuwait,1999,H
+KGZ,Kyrgyz Republic,1999,L
+LAO,Lao PDR,1999,L
+LVA,Latvia,1999,LM
+LBN,Lebanon,1999,UM
+LSO,Lesotho,1999,L
+LBR,Liberia,1999,L
+LBY,Libya,1999,UM
+LIE,Liechtenstein,1999,H
+LTU,Lithuania,1999,LM
+LUX,Luxembourg,1999,H
+MAC,"Macao SAR, China",1999,H
+MDG,Madagascar,1999,L
+MWI,Malawi,1999,L
+MYS,Malaysia,1999,UM
+MDV,Maldives,1999,LM
+MLI,Mali,1999,L
+MLT,Malta,1999,UM
+MHL,Marshall Islands,1999,LM
+MRT,Mauritania,1999,L
+MUS,Mauritius,1999,UM
+MEX,Mexico,1999,UM
+FSM,"Micronesia, Fed. Sts.",1999,LM
+MDA,Moldova,1999,L
+MCO,Monaco,1999,H
+MNG,Mongolia,1999,L
+MNE,Montenegro,1999,..
+MAR,Morocco,1999,LM
+MOZ,Mozambique,1999,L
+MMR,Myanmar,1999,L
+NAM,Namibia,1999,LM
+NRU,Nauru,1999,..
+NPL,Nepal,1999,L
+NLD,Netherlands,1999,H
+NCL,New Caledonia,1999,H
+NZL,New Zealand,1999,H
+NIC,Nicaragua,1999,L
+NER,Niger,1999,L
+NGA,Nigeria,1999,L
+MKD,North Macedonia,1999,LM
+MNP,Northern Mariana Islands,1999,H
+NOR,Norway,1999,H
+OMN,Oman,1999,UM
+PAK,Pakistan,1999,L
+PLW,Palau,1999,UM
+PAN,Panama,1999,UM
+PNG,Papua New Guinea,1999,LM
+PRY,Paraguay,1999,LM
+PER,Peru,1999,LM
+PHL,Philippines,1999,LM
+POL,Poland,1999,UM
+PRT,Portugal,1999,H
+PRI,Puerto Rico,1999,UM
+QAT,Qatar,1999,H
+ROU,Romania,1999,LM
+RUS,Russian Federation,1999,LM
+RWA,Rwanda,1999,L
+WSM,Samoa,1999,LM
+SMR,San Marino,1999,..
+STP,São Tomé and Príncipe,1999,L
+SAU,Saudi Arabia,1999,UM
+SEN,Senegal,1999,L
+SRB,Serbia,1999,..
+SYC,Seychelles,1999,UM
+SLE,Sierra Leone,1999,L
+SGP,Singapore,1999,H
+SXM,Sint Maarten (Dutch part),1999,..
+SVK,Slovak Republic,1999,UM
+SVN,Slovenia,1999,H
+SLB,Solomon Islands,1999,L
+SOM,Somalia,1999,L
+ZAF,South Africa,1999,UM
+SSD,South Sudan,1999,..
+ESP,Spain,1999,H
+LKA,Sri Lanka,1999,LM
+KNA,St. Kitts and Nevis,1999,UM
+LCA,St. Lucia,1999,UM
+MAF,St. Martin (French part),1999,..
+VCT,St. Vincent and the Grenadines,1999,LM
+SDN,Sudan,1999,L
+SUR,Suriname,1999,LM
+SWE,Sweden,1999,H
+CHE,Switzerland,1999,H
+SYR,Syrian Arab Republic,1999,LM
+TWN,"Taiwan, China",1999,H
+TJK,Tajikistan,1999,L
+TZA,Tanzania,1999,L
+THA,Thailand,1999,LM
+TLS,Timor-Leste,1999,..
+TGO,Togo,1999,L
+TON,Tonga,1999,LM
+TTO,Trinidad and Tobago,1999,UM
+TUN,Tunisia,1999,LM
+TUR,Türkiye,1999,LM
+TKM,Turkmenistan,1999,L
+TCA,Turks and Caicos Islands,1999,..
+TUV,Tuvalu,1999,..
+UGA,Uganda,1999,L
+UKR,Ukraine,1999,L
+ARE,United Arab Emirates,1999,H
+GBR,United Kingdom,1999,H
+USA,United States,1999,H
+URY,Uruguay,1999,UM
+UZB,Uzbekistan,1999,L
+VUT,Vanuatu,1999,LM
+VEN,"Venezuela, RB",1999,UM
+VNM,Viet Nam,1999,L
+VIR,Virgin Islands (U.S.),1999,H
+PSE,West Bank and Gaza,1999,LM
+YEM,"Yemen, Rep.",1999,L
+ZMB,Zambia,1999,L
+ZWE,Zimbabwe,1999,L
+CSK,Czechoslovakia (former),1999,
+MYT,Mayotte,1999,UM
+ANT,Netherlands Antilles (former),1999,H
+YUG,Serbia and Montenegro (former),1999,LM
+SUN,USSR (former),1999,
+AFG,Afghanistan,2000,L
+ALB,Albania,2000,LM
+DZA,Algeria,2000,LM
+ASM,American Samoa,2000,UM
+AND,Andorra,2000,H
+AGO,Angola,2000,L
+ATG,Antigua and Barbuda,2000,UM
+ARG,Argentina,2000,UM
+ARM,Armenia,2000,L
+ABW,Aruba,2000,H
+AUS,Australia,2000,H
+AUT,Austria,2000,H
+AZE,Azerbaijan,2000,L
+BHS,"Bahamas, The",2000,H
+BHR,Bahrain,2000,UM
+BGD,Bangladesh,2000,L
+BRB,Barbados,2000,H
+BLR,Belarus,2000,LM
+BEL,Belgium,2000,H
+BLZ,Belize,2000,LM
+BEN,Benin,2000,L
+BMU,Bermuda,2000,H
+BTN,Bhutan,2000,L
+BOL,Bolivia,2000,LM
+BIH,Bosnia and Herzegovina,2000,LM
+BWA,Botswana,2000,UM
+BRA,Brazil,2000,UM
+VGB,British Virgin Islands,2000,..
+BRN,Brunei Darussalam,2000,H
+BGR,Bulgaria,2000,LM
+BFA,Burkina Faso,2000,L
+BDI,Burundi,2000,L
+CPV,Cabo Verde,2000,LM
+KHM,Cambodia,2000,L
+CMR,Cameroon,2000,L
+CAN,Canada,2000,H
+CYM,Cayman Islands,2000,H
+CAF,Central African Republic,2000,L
+TCD,Chad,2000,L
+CHI,Channel Islands,2000,H
+CHL,Chile,2000,UM
+CHN,China,2000,LM
+COL,Colombia,2000,LM
+COM,Comoros,2000,L
+COD,"Congo, Dem. Rep.",2000,L
+COG,"Congo, Rep.",2000,L
+CRI,Costa Rica,2000,UM
+CIV,Côte d'Ivoire,2000,L
+HRV,Croatia,2000,UM
+CUB,Cuba,2000,LM
+CUW,Curaçao,2000,..
+CYP,Cyprus,2000,H
+CZE,Czechia,2000,UM
+DNK,Denmark,2000,H
+DJI,Djibouti,2000,LM
+DMA,Dominica,2000,UM
+DOM,Dominican Republic,2000,LM
+ECU,Ecuador,2000,LM
+EGY,"Egypt, Arab Rep.",2000,LM
+SLV,El Salvador,2000,LM
+GNQ,Equatorial Guinea,2000,LM
+ERI,Eritrea,2000,L
+EST,Estonia,2000,UM
+SWZ,Eswatini,2000,LM
+ETH,Ethiopia,2000,L
+FRO,Faeroe Islands,2000,H
+FJI,Fiji,2000,LM
+FIN,Finland,2000,H
+FRA,France,2000,H
+PYF,French Polynesia,2000,H
+GAB,Gabon,2000,UM
+GMB,"Gambia, The",2000,L
+GEO,Georgia,2000,L
+DEU,Germany,2000,H
+GHA,Ghana,2000,L
+GIB,Gibraltar,2000,..
+GRC,Greece,2000,H
+GRL,Greenland,2000,H
+GRD,Grenada,2000,UM
+GUM,Guam,2000,H
+GTM,Guatemala,2000,LM
+GIN,Guinea,2000,L
+GNB,Guinea-Bissau,2000,L
+GUY,Guyana,2000,LM
+HTI,Haiti,2000,L
+HND,Honduras,2000,LM
+HKG,"Hong Kong SAR, China",2000,H
+HUN,Hungary,2000,UM
+ISL,Iceland,2000,H
+IND,India,2000,L
+IDN,Indonesia,2000,L
+IRN,"Iran, Islamic Rep.",2000,LM
+IRQ,Iraq,2000,LM
+IRL,Ireland,2000,H
+IMN,Isle of Man,2000,UM
+ISR,Israel,2000,H
+ITA,Italy,2000,H
+JAM,Jamaica,2000,LM
+JPN,Japan,2000,H
+JOR,Jordan,2000,LM
+KAZ,Kazakhstan,2000,LM
+KEN,Kenya,2000,L
+KIR,Kiribati,2000,LM
+PRK,"Korea, Dem. Rep.",2000,L
+KOR,"Korea, Rep.",2000,UM
+XKX,Kosovo,2000,..
+KWT,Kuwait,2000,H
+KGZ,Kyrgyz Republic,2000,L
+LAO,Lao PDR,2000,L
+LVA,Latvia,2000,LM
+LBN,Lebanon,2000,UM
+LSO,Lesotho,2000,L
+LBR,Liberia,2000,L
+LBY,Libya,2000,UM
+LIE,Liechtenstein,2000,H
+LTU,Lithuania,2000,LM
+LUX,Luxembourg,2000,H
+MAC,"Macao SAR, China",2000,H
+MDG,Madagascar,2000,L
+MWI,Malawi,2000,L
+MYS,Malaysia,2000,UM
+MDV,Maldives,2000,LM
+MLI,Mali,2000,L
+MLT,Malta,2000,H
+MHL,Marshall Islands,2000,LM
+MRT,Mauritania,2000,L
+MUS,Mauritius,2000,UM
+MEX,Mexico,2000,UM
+FSM,"Micronesia, Fed. Sts.",2000,LM
+MDA,Moldova,2000,L
+MCO,Monaco,2000,H
+MNG,Mongolia,2000,L
+MNE,Montenegro,2000,..
+MAR,Morocco,2000,LM
+MOZ,Mozambique,2000,L
+MMR,Myanmar,2000,L
+NAM,Namibia,2000,LM
+NRU,Nauru,2000,..
+NPL,Nepal,2000,L
+NLD,Netherlands,2000,H
+NCL,New Caledonia,2000,H
+NZL,New Zealand,2000,H
+NIC,Nicaragua,2000,L
+NER,Niger,2000,L
+NGA,Nigeria,2000,L
+MKD,North Macedonia,2000,LM
+MNP,Northern Mariana Islands,2000,H
+NOR,Norway,2000,H
+OMN,Oman,2000,UM
+PAK,Pakistan,2000,L
+PLW,Palau,2000,UM
+PAN,Panama,2000,UM
+PNG,Papua New Guinea,2000,LM
+PRY,Paraguay,2000,LM
+PER,Peru,2000,LM
+PHL,Philippines,2000,LM
+POL,Poland,2000,UM
+PRT,Portugal,2000,H
+PRI,Puerto Rico,2000,UM
+QAT,Qatar,2000,H
+ROU,Romania,2000,LM
+RUS,Russian Federation,2000,LM
+RWA,Rwanda,2000,L
+WSM,Samoa,2000,LM
+SMR,San Marino,2000,H
+STP,São Tomé and Príncipe,2000,L
+SAU,Saudi Arabia,2000,UM
+SEN,Senegal,2000,L
+SRB,Serbia,2000,..
+SYC,Seychelles,2000,UM
+SLE,Sierra Leone,2000,L
+SGP,Singapore,2000,H
+SXM,Sint Maarten (Dutch part),2000,..
+SVK,Slovak Republic,2000,UM
+SVN,Slovenia,2000,H
+SLB,Solomon Islands,2000,L
+SOM,Somalia,2000,L
+ZAF,South Africa,2000,UM
+SSD,South Sudan,2000,..
+ESP,Spain,2000,H
+LKA,Sri Lanka,2000,LM
+KNA,St. Kitts and Nevis,2000,UM
+LCA,St. Lucia,2000,UM
+MAF,St. Martin (French part),2000,..
+VCT,St. Vincent and the Grenadines,2000,LM
+SDN,Sudan,2000,L
+SUR,Suriname,2000,LM
+SWE,Sweden,2000,H
+CHE,Switzerland,2000,H
+SYR,Syrian Arab Republic,2000,LM
+TWN,"Taiwan, China",2000,H
+TJK,Tajikistan,2000,L
+TZA,Tanzania,2000,L
+THA,Thailand,2000,LM
+TLS,Timor-Leste,2000,..
+TGO,Togo,2000,L
+TON,Tonga,2000,LM
+TTO,Trinidad and Tobago,2000,UM
+TUN,Tunisia,2000,LM
+TUR,Türkiye,2000,UM
+TKM,Turkmenistan,2000,LM
+TCA,Turks and Caicos Islands,2000,..
+TUV,Tuvalu,2000,..
+UGA,Uganda,2000,L
+UKR,Ukraine,2000,L
+ARE,United Arab Emirates,2000,H
+GBR,United Kingdom,2000,H
+USA,United States,2000,H
+URY,Uruguay,2000,UM
+UZB,Uzbekistan,2000,L
+VUT,Vanuatu,2000,LM
+VEN,"Venezuela, RB",2000,UM
+VNM,Viet Nam,2000,L
+VIR,Virgin Islands (U.S.),2000,H
+PSE,West Bank and Gaza,2000,LM
+YEM,"Yemen, Rep.",2000,L
+ZMB,Zambia,2000,L
+ZWE,Zimbabwe,2000,L
+CSK,Czechoslovakia (former),2000,
+MYT,Mayotte,2000,UM
+ANT,Netherlands Antilles (former),2000,H
+YUG,Serbia and Montenegro (former),2000,LM
+SUN,USSR (former),2000,
+AFG,Afghanistan,2001,L
+ALB,Albania,2001,LM
+DZA,Algeria,2001,LM
+ASM,American Samoa,2001,UM
+AND,Andorra,2001,H
+AGO,Angola,2001,L
+ATG,Antigua and Barbuda,2001,UM
+ARG,Argentina,2001,UM
+ARM,Armenia,2001,L
+ABW,Aruba,2001,H
+AUS,Australia,2001,H
+AUT,Austria,2001,H
+AZE,Azerbaijan,2001,L
+BHS,"Bahamas, The",2001,H
+BHR,Bahrain,2001,H
+BGD,Bangladesh,2001,L
+BRB,Barbados,2001,UM
+BLR,Belarus,2001,LM
+BEL,Belgium,2001,H
+BLZ,Belize,2001,LM
+BEN,Benin,2001,L
+BMU,Bermuda,2001,H
+BTN,Bhutan,2001,L
+BOL,Bolivia,2001,LM
+BIH,Bosnia and Herzegovina,2001,LM
+BWA,Botswana,2001,UM
+BRA,Brazil,2001,UM
+VGB,British Virgin Islands,2001,..
+BRN,Brunei Darussalam,2001,H
+BGR,Bulgaria,2001,LM
+BFA,Burkina Faso,2001,L
+BDI,Burundi,2001,L
+CPV,Cabo Verde,2001,LM
+KHM,Cambodia,2001,L
+CMR,Cameroon,2001,L
+CAN,Canada,2001,H
+CYM,Cayman Islands,2001,H
+CAF,Central African Republic,2001,L
+TCD,Chad,2001,L
+CHI,Channel Islands,2001,H
+CHL,Chile,2001,UM
+CHN,China,2001,LM
+COL,Colombia,2001,LM
+COM,Comoros,2001,L
+COD,"Congo, Dem. Rep.",2001,L
+COG,"Congo, Rep.",2001,L
+CRI,Costa Rica,2001,UM
+CIV,Côte d'Ivoire,2001,L
+HRV,Croatia,2001,UM
+CUB,Cuba,2001,LM
+CUW,Curaçao,2001,..
+CYP,Cyprus,2001,H
+CZE,Czechia,2001,UM
+DNK,Denmark,2001,H
+DJI,Djibouti,2001,LM
+DMA,Dominica,2001,UM
+DOM,Dominican Republic,2001,LM
+ECU,Ecuador,2001,LM
+EGY,"Egypt, Arab Rep.",2001,LM
+SLV,El Salvador,2001,LM
+GNQ,Equatorial Guinea,2001,L
+ERI,Eritrea,2001,L
+EST,Estonia,2001,UM
+SWZ,Eswatini,2001,LM
+ETH,Ethiopia,2001,L
+FRO,Faeroe Islands,2001,H
+FJI,Fiji,2001,LM
+FIN,Finland,2001,H
+FRA,France,2001,H
+PYF,French Polynesia,2001,H
+GAB,Gabon,2001,UM
+GMB,"Gambia, The",2001,L
+GEO,Georgia,2001,L
+DEU,Germany,2001,H
+GHA,Ghana,2001,L
+GIB,Gibraltar,2001,..
+GRC,Greece,2001,H
+GRL,Greenland,2001,H
+GRD,Grenada,2001,UM
+GUM,Guam,2001,H
+GTM,Guatemala,2001,LM
+GIN,Guinea,2001,L
+GNB,Guinea-Bissau,2001,L
+GUY,Guyana,2001,LM
+HTI,Haiti,2001,L
+HND,Honduras,2001,LM
+HKG,"Hong Kong SAR, China",2001,H
+HUN,Hungary,2001,UM
+ISL,Iceland,2001,H
+IND,India,2001,L
+IDN,Indonesia,2001,L
+IRN,"Iran, Islamic Rep.",2001,LM
+IRQ,Iraq,2001,LM
+IRL,Ireland,2001,H
+IMN,Isle of Man,2001,UM
+ISR,Israel,2001,H
+ITA,Italy,2001,H
+JAM,Jamaica,2001,LM
+JPN,Japan,2001,H
+JOR,Jordan,2001,LM
+KAZ,Kazakhstan,2001,LM
+KEN,Kenya,2001,L
+KIR,Kiribati,2001,LM
+PRK,"Korea, Dem. Rep.",2001,L
+KOR,"Korea, Rep.",2001,H
+XKX,Kosovo,2001,..
+KWT,Kuwait,2001,H
+KGZ,Kyrgyz Republic,2001,L
+LAO,Lao PDR,2001,L
+LVA,Latvia,2001,UM
+LBN,Lebanon,2001,UM
+LSO,Lesotho,2001,L
+LBR,Liberia,2001,L
+LBY,Libya,2001,UM
+LIE,Liechtenstein,2001,H
+LTU,Lithuania,2001,UM
+LUX,Luxembourg,2001,H
+MAC,"Macao SAR, China",2001,H
+MDG,Madagascar,2001,L
+MWI,Malawi,2001,L
+MYS,Malaysia,2001,UM
+MDV,Maldives,2001,LM
+MLI,Mali,2001,L
+MLT,Malta,2001,UM
+MHL,Marshall Islands,2001,LM
+MRT,Mauritania,2001,L
+MUS,Mauritius,2001,UM
+MEX,Mexico,2001,UM
+FSM,"Micronesia, Fed. Sts.",2001,LM
+MDA,Moldova,2001,L
+MCO,Monaco,2001,H
+MNG,Mongolia,2001,L
+MNE,Montenegro,2001,..
+MAR,Morocco,2001,LM
+MOZ,Mozambique,2001,L
+MMR,Myanmar,2001,L
+NAM,Namibia,2001,LM
+NRU,Nauru,2001,..
+NPL,Nepal,2001,L
+NLD,Netherlands,2001,H
+NCL,New Caledonia,2001,H
+NZL,New Zealand,2001,H
+NIC,Nicaragua,2001,L
+NER,Niger,2001,L
+NGA,Nigeria,2001,L
+MKD,North Macedonia,2001,LM
+MNP,Northern Mariana Islands,2001,H
+NOR,Norway,2001,H
+OMN,Oman,2001,UM
+PAK,Pakistan,2001,L
+PLW,Palau,2001,UM
+PAN,Panama,2001,UM
+PNG,Papua New Guinea,2001,L
+PRY,Paraguay,2001,LM
+PER,Peru,2001,LM
+PHL,Philippines,2001,LM
+POL,Poland,2001,UM
+PRT,Portugal,2001,H
+PRI,Puerto Rico,2001,UM
+QAT,Qatar,2001,H
+ROU,Romania,2001,LM
+RUS,Russian Federation,2001,LM
+RWA,Rwanda,2001,L
+WSM,Samoa,2001,LM
+SMR,San Marino,2001,H
+STP,São Tomé and Príncipe,2001,L
+SAU,Saudi Arabia,2001,UM
+SEN,Senegal,2001,L
+SRB,Serbia,2001,..
+SYC,Seychelles,2001,UM
+SLE,Sierra Leone,2001,L
+SGP,Singapore,2001,H
+SXM,Sint Maarten (Dutch part),2001,..
+SVK,Slovak Republic,2001,UM
+SVN,Slovenia,2001,H
+SLB,Solomon Islands,2001,L
+SOM,Somalia,2001,L
+ZAF,South Africa,2001,LM
+SSD,South Sudan,2001,..
+ESP,Spain,2001,H
+LKA,Sri Lanka,2001,LM
+KNA,St. Kitts and Nevis,2001,UM
+LCA,St. Lucia,2001,UM
+MAF,St. Martin (French part),2001,..
+VCT,St. Vincent and the Grenadines,2001,LM
+SDN,Sudan,2001,L
+SUR,Suriname,2001,LM
+SWE,Sweden,2001,H
+CHE,Switzerland,2001,H
+SYR,Syrian Arab Republic,2001,LM
+TWN,"Taiwan, China",2001,H
+TJK,Tajikistan,2001,L
+TZA,Tanzania,2001,L
+THA,Thailand,2001,LM
+TLS,Timor-Leste,2001,L
+TGO,Togo,2001,L
+TON,Tonga,2001,LM
+TTO,Trinidad and Tobago,2001,UM
+TUN,Tunisia,2001,LM
+TUR,Türkiye,2001,LM
+TKM,Turkmenistan,2001,LM
+TCA,Turks and Caicos Islands,2001,..
+TUV,Tuvalu,2001,..
+UGA,Uganda,2001,L
+UKR,Ukraine,2001,L
+ARE,United Arab Emirates,2001,H
+GBR,United Kingdom,2001,H
+USA,United States,2001,H
+URY,Uruguay,2001,UM
+UZB,Uzbekistan,2001,L
+VUT,Vanuatu,2001,LM
+VEN,"Venezuela, RB",2001,UM
+VNM,Viet Nam,2001,L
+VIR,Virgin Islands (U.S.),2001,H
+PSE,West Bank and Gaza,2001,LM
+YEM,"Yemen, Rep.",2001,L
+ZMB,Zambia,2001,L
+ZWE,Zimbabwe,2001,L
+CSK,Czechoslovakia (former),2001,
+MYT,Mayotte,2001,UM
+ANT,Netherlands Antilles (former),2001,H
+YUG,Serbia and Montenegro (former),2001,LM
+SUN,USSR (former),2001,
+AFG,Afghanistan,2002,L
+ALB,Albania,2002,LM
+DZA,Algeria,2002,LM
+ASM,American Samoa,2002,UM
+AND,Andorra,2002,H
+AGO,Angola,2002,L
+ATG,Antigua and Barbuda,2002,H
+ARG,Argentina,2002,UM
+ARM,Armenia,2002,LM
+ABW,Aruba,2002,H
+AUS,Australia,2002,H
+AUT,Austria,2002,H
+AZE,Azerbaijan,2002,L
+BHS,"Bahamas, The",2002,H
+BHR,Bahrain,2002,H
+BGD,Bangladesh,2002,L
+BRB,Barbados,2002,H
+BLR,Belarus,2002,LM
+BEL,Belgium,2002,H
+BLZ,Belize,2002,UM
+BEN,Benin,2002,L
+BMU,Bermuda,2002,H
+BTN,Bhutan,2002,L
+BOL,Bolivia,2002,LM
+BIH,Bosnia and Herzegovina,2002,LM
+BWA,Botswana,2002,UM
+BRA,Brazil,2002,LM
+VGB,British Virgin Islands,2002,..
+BRN,Brunei Darussalam,2002,H
+BGR,Bulgaria,2002,LM
+BFA,Burkina Faso,2002,L
+BDI,Burundi,2002,L
+CPV,Cabo Verde,2002,LM
+KHM,Cambodia,2002,L
+CMR,Cameroon,2002,L
+CAN,Canada,2002,H
+CYM,Cayman Islands,2002,H
+CAF,Central African Republic,2002,L
+TCD,Chad,2002,L
+CHI,Channel Islands,2002,H
+CHL,Chile,2002,UM
+CHN,China,2002,LM
+COL,Colombia,2002,LM
+COM,Comoros,2002,L
+COD,"Congo, Dem. Rep.",2002,L
+COG,"Congo, Rep.",2002,L
+CRI,Costa Rica,2002,UM
+CIV,Côte d'Ivoire,2002,L
+HRV,Croatia,2002,UM
+CUB,Cuba,2002,LM
+CUW,Curaçao,2002,..
+CYP,Cyprus,2002,H
+CZE,Czechia,2002,UM
+DNK,Denmark,2002,H
+DJI,Djibouti,2002,LM
+DMA,Dominica,2002,UM
+DOM,Dominican Republic,2002,LM
+ECU,Ecuador,2002,LM
+EGY,"Egypt, Arab Rep.",2002,LM
+SLV,El Salvador,2002,LM
+GNQ,Equatorial Guinea,2002,L
+ERI,Eritrea,2002,L
+EST,Estonia,2002,UM
+SWZ,Eswatini,2002,LM
+ETH,Ethiopia,2002,L
+FRO,Faeroe Islands,2002,H
+FJI,Fiji,2002,LM
+FIN,Finland,2002,H
+FRA,France,2002,H
+PYF,French Polynesia,2002,H
+GAB,Gabon,2002,UM
+GMB,"Gambia, The",2002,L
+GEO,Georgia,2002,L
+DEU,Germany,2002,H
+GHA,Ghana,2002,L
+GIB,Gibraltar,2002,..
+GRC,Greece,2002,H
+GRL,Greenland,2002,H
+GRD,Grenada,2002,UM
+GUM,Guam,2002,H
+GTM,Guatemala,2002,LM
+GIN,Guinea,2002,L
+GNB,Guinea-Bissau,2002,L
+GUY,Guyana,2002,LM
+HTI,Haiti,2002,L
+HND,Honduras,2002,LM
+HKG,"Hong Kong SAR, China",2002,H
+HUN,Hungary,2002,UM
+ISL,Iceland,2002,H
+IND,India,2002,L
+IDN,Indonesia,2002,L
+IRN,"Iran, Islamic Rep.",2002,LM
+IRQ,Iraq,2002,LM
+IRL,Ireland,2002,H
+IMN,Isle of Man,2002,H
+ISR,Israel,2002,H
+ITA,Italy,2002,H
+JAM,Jamaica,2002,LM
+JPN,Japan,2002,H
+JOR,Jordan,2002,LM
+KAZ,Kazakhstan,2002,LM
+KEN,Kenya,2002,L
+KIR,Kiribati,2002,LM
+PRK,"Korea, Dem. Rep.",2002,L
+KOR,"Korea, Rep.",2002,H
+XKX,Kosovo,2002,..
+KWT,Kuwait,2002,H
+KGZ,Kyrgyz Republic,2002,L
+LAO,Lao PDR,2002,L
+LVA,Latvia,2002,UM
+LBN,Lebanon,2002,UM
+LSO,Lesotho,2002,L
+LBR,Liberia,2002,L
+LBY,Libya,2002,UM
+LIE,Liechtenstein,2002,H
+LTU,Lithuania,2002,UM
+LUX,Luxembourg,2002,H
+MAC,"Macao SAR, China",2002,H
+MDG,Madagascar,2002,L
+MWI,Malawi,2002,L
+MYS,Malaysia,2002,UM
+MDV,Maldives,2002,LM
+MLI,Mali,2002,L
+MLT,Malta,2002,H
+MHL,Marshall Islands,2002,LM
+MRT,Mauritania,2002,L
+MUS,Mauritius,2002,UM
+MEX,Mexico,2002,UM
+FSM,"Micronesia, Fed. Sts.",2002,LM
+MDA,Moldova,2002,L
+MCO,Monaco,2002,H
+MNG,Mongolia,2002,L
+MNE,Montenegro,2002,..
+MAR,Morocco,2002,LM
+MOZ,Mozambique,2002,L
+MMR,Myanmar,2002,L
+NAM,Namibia,2002,LM
+NRU,Nauru,2002,..
+NPL,Nepal,2002,L
+NLD,Netherlands,2002,H
+NCL,New Caledonia,2002,H
+NZL,New Zealand,2002,H
+NIC,Nicaragua,2002,L
+NER,Niger,2002,L
+NGA,Nigeria,2002,L
+MKD,North Macedonia,2002,LM
+MNP,Northern Mariana Islands,2002,UM
+NOR,Norway,2002,H
+OMN,Oman,2002,UM
+PAK,Pakistan,2002,L
+PLW,Palau,2002,UM
+PAN,Panama,2002,UM
+PNG,Papua New Guinea,2002,L
+PRY,Paraguay,2002,LM
+PER,Peru,2002,LM
+PHL,Philippines,2002,LM
+POL,Poland,2002,UM
+PRT,Portugal,2002,H
+PRI,Puerto Rico,2002,H
+QAT,Qatar,2002,H
+ROU,Romania,2002,LM
+RUS,Russian Federation,2002,LM
+RWA,Rwanda,2002,L
+WSM,Samoa,2002,LM
+SMR,San Marino,2002,H
+STP,São Tomé and Príncipe,2002,L
+SAU,Saudi Arabia,2002,UM
+SEN,Senegal,2002,L
+SRB,Serbia,2002,..
+SYC,Seychelles,2002,UM
+SLE,Sierra Leone,2002,L
+SGP,Singapore,2002,H
+SXM,Sint Maarten (Dutch part),2002,..
+SVK,Slovak Republic,2002,UM
+SVN,Slovenia,2002,H
+SLB,Solomon Islands,2002,L
+SOM,Somalia,2002,L
+ZAF,South Africa,2002,LM
+SSD,South Sudan,2002,..
+ESP,Spain,2002,H
+LKA,Sri Lanka,2002,LM
+KNA,St. Kitts and Nevis,2002,UM
+LCA,St. Lucia,2002,UM
+MAF,St. Martin (French part),2002,..
+VCT,St. Vincent and the Grenadines,2002,LM
+SDN,Sudan,2002,L
+SUR,Suriname,2002,LM
+SWE,Sweden,2002,H
+CHE,Switzerland,2002,H
+SYR,Syrian Arab Republic,2002,LM
+TWN,"Taiwan, China",2002,H
+TJK,Tajikistan,2002,L
+TZA,Tanzania,2002,L
+THA,Thailand,2002,LM
+TLS,Timor-Leste,2002,L
+TGO,Togo,2002,L
+TON,Tonga,2002,LM
+TTO,Trinidad and Tobago,2002,UM
+TUN,Tunisia,2002,LM
+TUR,Türkiye,2002,LM
+TKM,Turkmenistan,2002,LM
+TCA,Turks and Caicos Islands,2002,..
+TUV,Tuvalu,2002,..
+UGA,Uganda,2002,L
+UKR,Ukraine,2002,LM
+ARE,United Arab Emirates,2002,H
+GBR,United Kingdom,2002,H
+USA,United States,2002,H
+URY,Uruguay,2002,UM
+UZB,Uzbekistan,2002,L
+VUT,Vanuatu,2002,LM
+VEN,"Venezuela, RB",2002,UM
+VNM,Viet Nam,2002,L
+VIR,Virgin Islands (U.S.),2002,H
+PSE,West Bank and Gaza,2002,LM
+YEM,"Yemen, Rep.",2002,L
+ZMB,Zambia,2002,L
+ZWE,Zimbabwe,2002,L
+CSK,Czechoslovakia (former),2002,
+MYT,Mayotte,2002,UM
+ANT,Netherlands Antilles (former),2002,H
+YUG,Serbia and Montenegro (former),2002,LM
+SUN,USSR (former),2002,
+AFG,Afghanistan,2003,L
+ALB,Albania,2003,LM
+DZA,Algeria,2003,LM
+ASM,American Samoa,2003,UM
+AND,Andorra,2003,H
+AGO,Angola,2003,L
+ATG,Antigua and Barbuda,2003,UM
+ARG,Argentina,2003,UM
+ARM,Armenia,2003,LM
+ABW,Aruba,2003,H
+AUS,Australia,2003,H
+AUT,Austria,2003,H
+AZE,Azerbaijan,2003,LM
+BHS,"Bahamas, The",2003,H
+BHR,Bahrain,2003,H
+BGD,Bangladesh,2003,L
+BRB,Barbados,2003,UM
+BLR,Belarus,2003,LM
+BEL,Belgium,2003,H
+BLZ,Belize,2003,UM
+BEN,Benin,2003,L
+BMU,Bermuda,2003,H
+BTN,Bhutan,2003,L
+BOL,Bolivia,2003,LM
+BIH,Bosnia and Herzegovina,2003,LM
+BWA,Botswana,2003,UM
+BRA,Brazil,2003,LM
+VGB,British Virgin Islands,2003,..
+BRN,Brunei Darussalam,2003,H
+BGR,Bulgaria,2003,LM
+BFA,Burkina Faso,2003,L
+BDI,Burundi,2003,L
+CPV,Cabo Verde,2003,LM
+KHM,Cambodia,2003,L
+CMR,Cameroon,2003,L
+CAN,Canada,2003,H
+CYM,Cayman Islands,2003,H
+CAF,Central African Republic,2003,L
+TCD,Chad,2003,L
+CHI,Channel Islands,2003,H
+CHL,Chile,2003,UM
+CHN,China,2003,LM
+COL,Colombia,2003,LM
+COM,Comoros,2003,L
+COD,"Congo, Dem. Rep.",2003,L
+COG,"Congo, Rep.",2003,L
+CRI,Costa Rica,2003,UM
+CIV,Côte d'Ivoire,2003,L
+HRV,Croatia,2003,UM
+CUB,Cuba,2003,LM
+CUW,Curaçao,2003,..
+CYP,Cyprus,2003,H
+CZE,Czechia,2003,UM
+DNK,Denmark,2003,H
+DJI,Djibouti,2003,LM
+DMA,Dominica,2003,UM
+DOM,Dominican Republic,2003,LM
+ECU,Ecuador,2003,LM
+EGY,"Egypt, Arab Rep.",2003,LM
+SLV,El Salvador,2003,LM
+GNQ,Equatorial Guinea,2003,L
+ERI,Eritrea,2003,L
+EST,Estonia,2003,UM
+SWZ,Eswatini,2003,LM
+ETH,Ethiopia,2003,L
+FRO,Faeroe Islands,2003,H
+FJI,Fiji,2003,LM
+FIN,Finland,2003,H
+FRA,France,2003,H
+PYF,French Polynesia,2003,H
+GAB,Gabon,2003,UM
+GMB,"Gambia, The",2003,L
+GEO,Georgia,2003,LM
+DEU,Germany,2003,H
+GHA,Ghana,2003,L
+GIB,Gibraltar,2003,..
+GRC,Greece,2003,H
+GRL,Greenland,2003,H
+GRD,Grenada,2003,UM
+GUM,Guam,2003,H
+GTM,Guatemala,2003,LM
+GIN,Guinea,2003,L
+GNB,Guinea-Bissau,2003,L
+GUY,Guyana,2003,LM
+HTI,Haiti,2003,L
+HND,Honduras,2003,LM
+HKG,"Hong Kong SAR, China",2003,H
+HUN,Hungary,2003,UM
+ISL,Iceland,2003,H
+IND,India,2003,L
+IDN,Indonesia,2003,LM
+IRN,"Iran, Islamic Rep.",2003,LM
+IRQ,Iraq,2003,LM
+IRL,Ireland,2003,H
+IMN,Isle of Man,2003,H
+ISR,Israel,2003,H
+ITA,Italy,2003,H
+JAM,Jamaica,2003,LM
+JPN,Japan,2003,H
+JOR,Jordan,2003,LM
+KAZ,Kazakhstan,2003,LM
+KEN,Kenya,2003,L
+KIR,Kiribati,2003,LM
+PRK,"Korea, Dem. Rep.",2003,L
+KOR,"Korea, Rep.",2003,H
+XKX,Kosovo,2003,..
+KWT,Kuwait,2003,H
+KGZ,Kyrgyz Republic,2003,L
+LAO,Lao PDR,2003,L
+LVA,Latvia,2003,UM
+LBN,Lebanon,2003,UM
+LSO,Lesotho,2003,L
+LBR,Liberia,2003,L
+LBY,Libya,2003,UM
+LIE,Liechtenstein,2003,H
+LTU,Lithuania,2003,UM
+LUX,Luxembourg,2003,H
+MAC,"Macao SAR, China",2003,H
+MDG,Madagascar,2003,L
+MWI,Malawi,2003,L
+MYS,Malaysia,2003,UM
+MDV,Maldives,2003,LM
+MLI,Mali,2003,L
+MLT,Malta,2003,H
+MHL,Marshall Islands,2003,LM
+MRT,Mauritania,2003,L
+MUS,Mauritius,2003,UM
+MEX,Mexico,2003,UM
+FSM,"Micronesia, Fed. Sts.",2003,LM
+MDA,Moldova,2003,L
+MCO,Monaco,2003,H
+MNG,Mongolia,2003,L
+MNE,Montenegro,2003,..
+MAR,Morocco,2003,LM
+MOZ,Mozambique,2003,L
+MMR,Myanmar,2003,L
+NAM,Namibia,2003,LM
+NRU,Nauru,2003,..
+NPL,Nepal,2003,L
+NLD,Netherlands,2003,H
+NCL,New Caledonia,2003,H
+NZL,New Zealand,2003,H
+NIC,Nicaragua,2003,L
+NER,Niger,2003,L
+NGA,Nigeria,2003,L
+MKD,North Macedonia,2003,LM
+MNP,Northern Mariana Islands,2003,UM
+NOR,Norway,2003,H
+OMN,Oman,2003,UM
+PAK,Pakistan,2003,L
+PLW,Palau,2003,UM
+PAN,Panama,2003,UM
+PNG,Papua New Guinea,2003,L
+PRY,Paraguay,2003,LM
+PER,Peru,2003,LM
+PHL,Philippines,2003,LM
+POL,Poland,2003,UM
+PRT,Portugal,2003,H
+PRI,Puerto Rico,2003,H
+QAT,Qatar,2003,H
+ROU,Romania,2003,LM
+RUS,Russian Federation,2003,LM
+RWA,Rwanda,2003,L
+WSM,Samoa,2003,LM
+SMR,San Marino,2003,H
+STP,São Tomé and Príncipe,2003,L
+SAU,Saudi Arabia,2003,UM
+SEN,Senegal,2003,L
+SRB,Serbia,2003,..
+SYC,Seychelles,2003,UM
+SLE,Sierra Leone,2003,L
+SGP,Singapore,2003,H
+SXM,Sint Maarten (Dutch part),2003,..
+SVK,Slovak Republic,2003,UM
+SVN,Slovenia,2003,H
+SLB,Solomon Islands,2003,L
+SOM,Somalia,2003,L
+ZAF,South Africa,2003,LM
+SSD,South Sudan,2003,..
+ESP,Spain,2003,H
+LKA,Sri Lanka,2003,LM
+KNA,St. Kitts and Nevis,2003,UM
+LCA,St. Lucia,2003,UM
+MAF,St. Martin (French part),2003,..
+VCT,St. Vincent and the Grenadines,2003,UM
+SDN,Sudan,2003,L
+SUR,Suriname,2003,LM
+SWE,Sweden,2003,H
+CHE,Switzerland,2003,H
+SYR,Syrian Arab Republic,2003,LM
+TWN,"Taiwan, China",2003,H
+TJK,Tajikistan,2003,L
+TZA,Tanzania,2003,L
+THA,Thailand,2003,LM
+TLS,Timor-Leste,2003,L
+TGO,Togo,2003,L
+TON,Tonga,2003,LM
+TTO,Trinidad and Tobago,2003,UM
+TUN,Tunisia,2003,LM
+TUR,Türkiye,2003,LM
+TKM,Turkmenistan,2003,LM
+TCA,Turks and Caicos Islands,2003,..
+TUV,Tuvalu,2003,..
+UGA,Uganda,2003,L
+UKR,Ukraine,2003,LM
+ARE,United Arab Emirates,2003,H
+GBR,United Kingdom,2003,H
+USA,United States,2003,H
+URY,Uruguay,2003,UM
+UZB,Uzbekistan,2003,L
+VUT,Vanuatu,2003,LM
+VEN,"Venezuela, RB",2003,UM
+VNM,Viet Nam,2003,L
+VIR,Virgin Islands (U.S.),2003,H
+PSE,West Bank and Gaza,2003,LM
+YEM,"Yemen, Rep.",2003,L
+ZMB,Zambia,2003,L
+ZWE,Zimbabwe,2003,L
+CSK,Czechoslovakia (former),2003,
+MYT,Mayotte,2003,UM
+ANT,Netherlands Antilles (former),2003,H
+YUG,Serbia and Montenegro (former),2003,LM
+SUN,USSR (former),2003,
+AFG,Afghanistan,2004,L
+ALB,Albania,2004,LM
+DZA,Algeria,2004,LM
+ASM,American Samoa,2004,UM
+AND,Andorra,2004,H
+AGO,Angola,2004,LM
+ATG,Antigua and Barbuda,2004,UM
+ARG,Argentina,2004,UM
+ARM,Armenia,2004,LM
+ABW,Aruba,2004,H
+AUS,Australia,2004,H
+AUT,Austria,2004,H
+AZE,Azerbaijan,2004,LM
+BHS,"Bahamas, The",2004,H
+BHR,Bahrain,2004,H
+BGD,Bangladesh,2004,L
+BRB,Barbados,2004,UM
+BLR,Belarus,2004,LM
+BEL,Belgium,2004,H
+BLZ,Belize,2004,UM
+BEN,Benin,2004,L
+BMU,Bermuda,2004,H
+BTN,Bhutan,2004,L
+BOL,Bolivia,2004,LM
+BIH,Bosnia and Herzegovina,2004,LM
+BWA,Botswana,2004,UM
+BRA,Brazil,2004,LM
+VGB,British Virgin Islands,2004,..
+BRN,Brunei Darussalam,2004,H
+BGR,Bulgaria,2004,LM
+BFA,Burkina Faso,2004,L
+BDI,Burundi,2004,L
+CPV,Cabo Verde,2004,LM
+KHM,Cambodia,2004,L
+CMR,Cameroon,2004,L
+CAN,Canada,2004,H
+CYM,Cayman Islands,2004,H
+CAF,Central African Republic,2004,L
+TCD,Chad,2004,L
+CHI,Channel Islands,2004,H
+CHL,Chile,2004,UM
+CHN,China,2004,LM
+COL,Colombia,2004,LM
+COM,Comoros,2004,L
+COD,"Congo, Dem. Rep.",2004,L
+COG,"Congo, Rep.",2004,L
+CRI,Costa Rica,2004,UM
+CIV,Côte d'Ivoire,2004,L
+HRV,Croatia,2004,UM
+CUB,Cuba,2004,LM
+CUW,Curaçao,2004,..
+CYP,Cyprus,2004,H
+CZE,Czechia,2004,UM
+DNK,Denmark,2004,H
+DJI,Djibouti,2004,LM
+DMA,Dominica,2004,UM
+DOM,Dominican Republic,2004,LM
+ECU,Ecuador,2004,LM
+EGY,"Egypt, Arab Rep.",2004,LM
+SLV,El Salvador,2004,LM
+GNQ,Equatorial Guinea,2004,UM
+ERI,Eritrea,2004,L
+EST,Estonia,2004,UM
+SWZ,Eswatini,2004,LM
+ETH,Ethiopia,2004,L
+FRO,Faeroe Islands,2004,H
+FJI,Fiji,2004,LM
+FIN,Finland,2004,H
+FRA,France,2004,H
+PYF,French Polynesia,2004,H
+GAB,Gabon,2004,UM
+GMB,"Gambia, The",2004,L
+GEO,Georgia,2004,LM
+DEU,Germany,2004,H
+GHA,Ghana,2004,L
+GIB,Gibraltar,2004,..
+GRC,Greece,2004,H
+GRL,Greenland,2004,H
+GRD,Grenada,2004,UM
+GUM,Guam,2004,H
+GTM,Guatemala,2004,LM
+GIN,Guinea,2004,L
+GNB,Guinea-Bissau,2004,L
+GUY,Guyana,2004,LM
+HTI,Haiti,2004,L
+HND,Honduras,2004,LM
+HKG,"Hong Kong SAR, China",2004,H
+HUN,Hungary,2004,UM
+ISL,Iceland,2004,H
+IND,India,2004,L
+IDN,Indonesia,2004,LM
+IRN,"Iran, Islamic Rep.",2004,LM
+IRQ,Iraq,2004,LM
+IRL,Ireland,2004,H
+IMN,Isle of Man,2004,H
+ISR,Israel,2004,H
+ITA,Italy,2004,H
+JAM,Jamaica,2004,LM
+JPN,Japan,2004,H
+JOR,Jordan,2004,LM
+KAZ,Kazakhstan,2004,LM
+KEN,Kenya,2004,L
+KIR,Kiribati,2004,LM
+PRK,"Korea, Dem. Rep.",2004,L
+KOR,"Korea, Rep.",2004,H
+XKX,Kosovo,2004,..
+KWT,Kuwait,2004,H
+KGZ,Kyrgyz Republic,2004,L
+LAO,Lao PDR,2004,L
+LVA,Latvia,2004,UM
+LBN,Lebanon,2004,UM
+LSO,Lesotho,2004,L
+LBR,Liberia,2004,L
+LBY,Libya,2004,UM
+LIE,Liechtenstein,2004,H
+LTU,Lithuania,2004,UM
+LUX,Luxembourg,2004,H
+MAC,"Macao SAR, China",2004,H
+MDG,Madagascar,2004,L
+MWI,Malawi,2004,L
+MYS,Malaysia,2004,UM
+MDV,Maldives,2004,LM
+MLI,Mali,2004,L
+MLT,Malta,2004,H
+MHL,Marshall Islands,2004,LM
+MRT,Mauritania,2004,L
+MUS,Mauritius,2004,UM
+MEX,Mexico,2004,UM
+FSM,"Micronesia, Fed. Sts.",2004,LM
+MDA,Moldova,2004,L
+MCO,Monaco,2004,H
+MNG,Mongolia,2004,L
+MNE,Montenegro,2004,..
+MAR,Morocco,2004,LM
+MOZ,Mozambique,2004,L
+MMR,Myanmar,2004,L
+NAM,Namibia,2004,LM
+NRU,Nauru,2004,..
+NPL,Nepal,2004,L
+NLD,Netherlands,2004,H
+NCL,New Caledonia,2004,H
+NZL,New Zealand,2004,H
+NIC,Nicaragua,2004,L
+NER,Niger,2004,L
+NGA,Nigeria,2004,L
+MKD,North Macedonia,2004,LM
+MNP,Northern Mariana Islands,2004,UM
+NOR,Norway,2004,H
+OMN,Oman,2004,UM
+PAK,Pakistan,2004,L
+PLW,Palau,2004,UM
+PAN,Panama,2004,UM
+PNG,Papua New Guinea,2004,L
+PRY,Paraguay,2004,LM
+PER,Peru,2004,LM
+PHL,Philippines,2004,LM
+POL,Poland,2004,UM
+PRT,Portugal,2004,H
+PRI,Puerto Rico,2004,H
+QAT,Qatar,2004,H
+ROU,Romania,2004,LM
+RUS,Russian Federation,2004,UM
+RWA,Rwanda,2004,L
+WSM,Samoa,2004,LM
+SMR,San Marino,2004,H
+STP,São Tomé and Príncipe,2004,L
+SAU,Saudi Arabia,2004,H
+SEN,Senegal,2004,L
+SRB,Serbia,2004,..
+SYC,Seychelles,2004,UM
+SLE,Sierra Leone,2004,L
+SGP,Singapore,2004,H
+SXM,Sint Maarten (Dutch part),2004,..
+SVK,Slovak Republic,2004,UM
+SVN,Slovenia,2004,H
+SLB,Solomon Islands,2004,L
+SOM,Somalia,2004,L
+ZAF,South Africa,2004,UM
+SSD,South Sudan,2004,..
+ESP,Spain,2004,H
+LKA,Sri Lanka,2004,LM
+KNA,St. Kitts and Nevis,2004,UM
+LCA,St. Lucia,2004,UM
+MAF,St. Martin (French part),2004,..
+VCT,St. Vincent and the Grenadines,2004,UM
+SDN,Sudan,2004,L
+SUR,Suriname,2004,LM
+SWE,Sweden,2004,H
+CHE,Switzerland,2004,H
+SYR,Syrian Arab Republic,2004,LM
+TWN,"Taiwan, China",2004,H
+TJK,Tajikistan,2004,L
+TZA,Tanzania,2004,L
+THA,Thailand,2004,LM
+TLS,Timor-Leste,2004,L
+TGO,Togo,2004,L
+TON,Tonga,2004,LM
+TTO,Trinidad and Tobago,2004,UM
+TUN,Tunisia,2004,LM
+TUR,Türkiye,2004,UM
+TKM,Turkmenistan,2004,LM
+TCA,Turks and Caicos Islands,2004,..
+TUV,Tuvalu,2004,..
+UGA,Uganda,2004,L
+UKR,Ukraine,2004,LM
+ARE,United Arab Emirates,2004,H
+GBR,United Kingdom,2004,H
+USA,United States,2004,H
+URY,Uruguay,2004,UM
+UZB,Uzbekistan,2004,L
+VUT,Vanuatu,2004,LM
+VEN,"Venezuela, RB",2004,UM
+VNM,Viet Nam,2004,L
+VIR,Virgin Islands (U.S.),2004,H
+PSE,West Bank and Gaza,2004,LM
+YEM,"Yemen, Rep.",2004,L
+ZMB,Zambia,2004,L
+ZWE,Zimbabwe,2004,L
+CSK,Czechoslovakia (former),2004,
+MYT,Mayotte,2004,UM
+ANT,Netherlands Antilles (former),2004,H
+YUG,Serbia and Montenegro (former),2004,LM
+SUN,USSR (former),2004,
+AFG,Afghanistan,2005,L
+ALB,Albania,2005,LM
+DZA,Algeria,2005,LM
+ASM,American Samoa,2005,UM
+AND,Andorra,2005,H
+AGO,Angola,2005,LM
+ATG,Antigua and Barbuda,2005,H
+ARG,Argentina,2005,UM
+ARM,Armenia,2005,LM
+ABW,Aruba,2005,H
+AUS,Australia,2005,H
+AUT,Austria,2005,H
+AZE,Azerbaijan,2005,LM
+BHS,"Bahamas, The",2005,H
+BHR,Bahrain,2005,H
+BGD,Bangladesh,2005,L
+BRB,Barbados,2005,UM
+BLR,Belarus,2005,LM
+BEL,Belgium,2005,H
+BLZ,Belize,2005,UM
+BEN,Benin,2005,L
+BMU,Bermuda,2005,H
+BTN,Bhutan,2005,L
+BOL,Bolivia,2005,LM
+BIH,Bosnia and Herzegovina,2005,LM
+BWA,Botswana,2005,UM
+BRA,Brazil,2005,LM
+VGB,British Virgin Islands,2005,..
+BRN,Brunei Darussalam,2005,H
+BGR,Bulgaria,2005,LM
+BFA,Burkina Faso,2005,L
+BDI,Burundi,2005,L
+CPV,Cabo Verde,2005,LM
+KHM,Cambodia,2005,L
+CMR,Cameroon,2005,LM
+CAN,Canada,2005,H
+CYM,Cayman Islands,2005,H
+CAF,Central African Republic,2005,L
+TCD,Chad,2005,L
+CHI,Channel Islands,2005,H
+CHL,Chile,2005,UM
+CHN,China,2005,LM
+COL,Colombia,2005,LM
+COM,Comoros,2005,L
+COD,"Congo, Dem. Rep.",2005,L
+COG,"Congo, Rep.",2005,LM
+CRI,Costa Rica,2005,UM
+CIV,Côte d'Ivoire,2005,L
+HRV,Croatia,2005,UM
+CUB,Cuba,2005,LM
+CUW,Curaçao,2005,..
+CYP,Cyprus,2005,H
+CZE,Czechia,2005,UM
+DNK,Denmark,2005,H
+DJI,Djibouti,2005,LM
+DMA,Dominica,2005,UM
+DOM,Dominican Republic,2005,LM
+ECU,Ecuador,2005,LM
+EGY,"Egypt, Arab Rep.",2005,LM
+SLV,El Salvador,2005,LM
+GNQ,Equatorial Guinea,2005,UM
+ERI,Eritrea,2005,L
+EST,Estonia,2005,UM
+SWZ,Eswatini,2005,LM
+ETH,Ethiopia,2005,L
+FRO,Faeroe Islands,2005,H
+FJI,Fiji,2005,LM
+FIN,Finland,2005,H
+FRA,France,2005,H
+PYF,French Polynesia,2005,H
+GAB,Gabon,2005,UM
+GMB,"Gambia, The",2005,L
+GEO,Georgia,2005,LM
+DEU,Germany,2005,H
+GHA,Ghana,2005,L
+GIB,Gibraltar,2005,..
+GRC,Greece,2005,H
+GRL,Greenland,2005,H
+GRD,Grenada,2005,UM
+GUM,Guam,2005,H
+GTM,Guatemala,2005,LM
+GIN,Guinea,2005,L
+GNB,Guinea-Bissau,2005,L
+GUY,Guyana,2005,LM
+HTI,Haiti,2005,L
+HND,Honduras,2005,LM
+HKG,"Hong Kong SAR, China",2005,H
+HUN,Hungary,2005,UM
+ISL,Iceland,2005,H
+IND,India,2005,L
+IDN,Indonesia,2005,LM
+IRN,"Iran, Islamic Rep.",2005,LM
+IRQ,Iraq,2005,LM
+IRL,Ireland,2005,H
+IMN,Isle of Man,2005,H
+ISR,Israel,2005,H
+ITA,Italy,2005,H
+JAM,Jamaica,2005,LM
+JPN,Japan,2005,H
+JOR,Jordan,2005,LM
+KAZ,Kazakhstan,2005,LM
+KEN,Kenya,2005,L
+KIR,Kiribati,2005,LM
+PRK,"Korea, Dem. Rep.",2005,L
+KOR,"Korea, Rep.",2005,H
+XKX,Kosovo,2005,..
+KWT,Kuwait,2005,H
+KGZ,Kyrgyz Republic,2005,L
+LAO,Lao PDR,2005,L
+LVA,Latvia,2005,UM
+LBN,Lebanon,2005,UM
+LSO,Lesotho,2005,LM
+LBR,Liberia,2005,L
+LBY,Libya,2005,UM
+LIE,Liechtenstein,2005,H
+LTU,Lithuania,2005,UM
+LUX,Luxembourg,2005,H
+MAC,"Macao SAR, China",2005,H
+MDG,Madagascar,2005,L
+MWI,Malawi,2005,L
+MYS,Malaysia,2005,UM
+MDV,Maldives,2005,LM
+MLI,Mali,2005,L
+MLT,Malta,2005,H
+MHL,Marshall Islands,2005,LM
+MRT,Mauritania,2005,L
+MUS,Mauritius,2005,UM
+MEX,Mexico,2005,UM
+FSM,"Micronesia, Fed. Sts.",2005,LM
+MDA,Moldova,2005,LM
+MCO,Monaco,2005,H
+MNG,Mongolia,2005,L
+MNE,Montenegro,2005,..
+MAR,Morocco,2005,LM
+MOZ,Mozambique,2005,L
+MMR,Myanmar,2005,L
+NAM,Namibia,2005,LM
+NRU,Nauru,2005,..
+NPL,Nepal,2005,L
+NLD,Netherlands,2005,H
+NCL,New Caledonia,2005,H
+NZL,New Zealand,2005,H
+NIC,Nicaragua,2005,LM
+NER,Niger,2005,L
+NGA,Nigeria,2005,L
+MKD,North Macedonia,2005,LM
+MNP,Northern Mariana Islands,2005,UM
+NOR,Norway,2005,H
+OMN,Oman,2005,UM
+PAK,Pakistan,2005,L
+PLW,Palau,2005,UM
+PAN,Panama,2005,UM
+PNG,Papua New Guinea,2005,L
+PRY,Paraguay,2005,LM
+PER,Peru,2005,LM
+PHL,Philippines,2005,LM
+POL,Poland,2005,UM
+PRT,Portugal,2005,H
+PRI,Puerto Rico,2005,H
+QAT,Qatar,2005,H
+ROU,Romania,2005,UM
+RUS,Russian Federation,2005,UM
+RWA,Rwanda,2005,L
+WSM,Samoa,2005,LM
+SMR,San Marino,2005,H
+STP,São Tomé and Príncipe,2005,L
+SAU,Saudi Arabia,2005,H
+SEN,Senegal,2005,L
+SRB,Serbia,2005,..
+SYC,Seychelles,2005,UM
+SLE,Sierra Leone,2005,L
+SGP,Singapore,2005,H
+SXM,Sint Maarten (Dutch part),2005,..
+SVK,Slovak Republic,2005,UM
+SVN,Slovenia,2005,H
+SLB,Solomon Islands,2005,L
+SOM,Somalia,2005,L
+ZAF,South Africa,2005,UM
+SSD,South Sudan,2005,..
+ESP,Spain,2005,H
+LKA,Sri Lanka,2005,LM
+KNA,St. Kitts and Nevis,2005,UM
+LCA,St. Lucia,2005,UM
+MAF,St. Martin (French part),2005,..
+VCT,St. Vincent and the Grenadines,2005,UM
+SDN,Sudan,2005,L
+SUR,Suriname,2005,LM
+SWE,Sweden,2005,H
+CHE,Switzerland,2005,H
+SYR,Syrian Arab Republic,2005,LM
+TWN,"Taiwan, China",2005,H
+TJK,Tajikistan,2005,L
+TZA,Tanzania,2005,L
+THA,Thailand,2005,LM
+TLS,Timor-Leste,2005,L
+TGO,Togo,2005,L
+TON,Tonga,2005,LM
+TTO,Trinidad and Tobago,2005,UM
+TUN,Tunisia,2005,LM
+TUR,Türkiye,2005,UM
+TKM,Turkmenistan,2005,LM
+TCA,Turks and Caicos Islands,2005,..
+TUV,Tuvalu,2005,..
+UGA,Uganda,2005,L
+UKR,Ukraine,2005,LM
+ARE,United Arab Emirates,2005,H
+GBR,United Kingdom,2005,H
+USA,United States,2005,H
+URY,Uruguay,2005,UM
+UZB,Uzbekistan,2005,L
+VUT,Vanuatu,2005,LM
+VEN,"Venezuela, RB",2005,UM
+VNM,Viet Nam,2005,L
+VIR,Virgin Islands (U.S.),2005,H
+PSE,West Bank and Gaza,2005,LM
+YEM,"Yemen, Rep.",2005,L
+ZMB,Zambia,2005,L
+ZWE,Zimbabwe,2005,L
+CSK,Czechoslovakia (former),2005,
+MYT,Mayotte,2005,UM
+ANT,Netherlands Antilles (former),2005,H
+YUG,Serbia and Montenegro (former),2005,LM
+SUN,USSR (former),2005,
+AFG,Afghanistan,2006,L
+ALB,Albania,2006,LM
+DZA,Algeria,2006,LM
+ASM,American Samoa,2006,UM
+AND,Andorra,2006,H
+AGO,Angola,2006,LM
+ATG,Antigua and Barbuda,2006,H
+ARG,Argentina,2006,UM
+ARM,Armenia,2006,LM
+ABW,Aruba,2006,H
+AUS,Australia,2006,H
+AUT,Austria,2006,H
+AZE,Azerbaijan,2006,LM
+BHS,"Bahamas, The",2006,H
+BHR,Bahrain,2006,H
+BGD,Bangladesh,2006,L
+BRB,Barbados,2006,H
+BLR,Belarus,2006,LM
+BEL,Belgium,2006,H
+BLZ,Belize,2006,UM
+BEN,Benin,2006,L
+BMU,Bermuda,2006,H
+BTN,Bhutan,2006,LM
+BOL,Bolivia,2006,LM
+BIH,Bosnia and Herzegovina,2006,LM
+BWA,Botswana,2006,UM
+BRA,Brazil,2006,UM
+VGB,British Virgin Islands,2006,..
+BRN,Brunei Darussalam,2006,H
+BGR,Bulgaria,2006,UM
+BFA,Burkina Faso,2006,L
+BDI,Burundi,2006,L
+CPV,Cabo Verde,2006,LM
+KHM,Cambodia,2006,L
+CMR,Cameroon,2006,LM
+CAN,Canada,2006,H
+CYM,Cayman Islands,2006,H
+CAF,Central African Republic,2006,L
+TCD,Chad,2006,L
+CHI,Channel Islands,2006,H
+CHL,Chile,2006,UM
+CHN,China,2006,LM
+COL,Colombia,2006,LM
+COM,Comoros,2006,L
+COD,"Congo, Dem. Rep.",2006,L
+COG,"Congo, Rep.",2006,LM
+CRI,Costa Rica,2006,UM
+CIV,Côte d'Ivoire,2006,L
+HRV,Croatia,2006,UM
+CUB,Cuba,2006,LM
+CUW,Curaçao,2006,..
+CYP,Cyprus,2006,H
+CZE,Czechia,2006,H
+DNK,Denmark,2006,H
+DJI,Djibouti,2006,LM
+DMA,Dominica,2006,UM
+DOM,Dominican Republic,2006,LM
+ECU,Ecuador,2006,LM
+EGY,"Egypt, Arab Rep.",2006,LM
+SLV,El Salvador,2006,LM
+GNQ,Equatorial Guinea,2006,UM
+ERI,Eritrea,2006,L
+EST,Estonia,2006,H
+SWZ,Eswatini,2006,LM
+ETH,Ethiopia,2006,L
+FRO,Faeroe Islands,2006,H
+FJI,Fiji,2006,LM
+FIN,Finland,2006,H
+FRA,France,2006,H
+PYF,French Polynesia,2006,H
+GAB,Gabon,2006,UM
+GMB,"Gambia, The",2006,L
+GEO,Georgia,2006,LM
+DEU,Germany,2006,H
+GHA,Ghana,2006,L
+GIB,Gibraltar,2006,..
+GRC,Greece,2006,H
+GRL,Greenland,2006,H
+GRD,Grenada,2006,UM
+GUM,Guam,2006,H
+GTM,Guatemala,2006,LM
+GIN,Guinea,2006,L
+GNB,Guinea-Bissau,2006,L
+GUY,Guyana,2006,LM
+HTI,Haiti,2006,L
+HND,Honduras,2006,LM
+HKG,"Hong Kong SAR, China",2006,H
+HUN,Hungary,2006,UM
+ISL,Iceland,2006,H
+IND,India,2006,L
+IDN,Indonesia,2006,LM
+IRN,"Iran, Islamic Rep.",2006,LM
+IRQ,Iraq,2006,LM
+IRL,Ireland,2006,H
+IMN,Isle of Man,2006,H
+ISR,Israel,2006,H
+ITA,Italy,2006,H
+JAM,Jamaica,2006,LM
+JPN,Japan,2006,H
+JOR,Jordan,2006,LM
+KAZ,Kazakhstan,2006,UM
+KEN,Kenya,2006,L
+KIR,Kiribati,2006,LM
+PRK,"Korea, Dem. Rep.",2006,L
+KOR,"Korea, Rep.",2006,H
+XKX,Kosovo,2006,..
+KWT,Kuwait,2006,H
+KGZ,Kyrgyz Republic,2006,L
+LAO,Lao PDR,2006,L
+LVA,Latvia,2006,UM
+LBN,Lebanon,2006,UM
+LSO,Lesotho,2006,LM
+LBR,Liberia,2006,L
+LBY,Libya,2006,UM
+LIE,Liechtenstein,2006,H
+LTU,Lithuania,2006,UM
+LUX,Luxembourg,2006,H
+MAC,"Macao SAR, China",2006,H
+MDG,Madagascar,2006,L
+MWI,Malawi,2006,L
+MYS,Malaysia,2006,UM
+MDV,Maldives,2006,LM
+MLI,Mali,2006,L
+MLT,Malta,2006,H
+MHL,Marshall Islands,2006,LM
+MRT,Mauritania,2006,L
+MUS,Mauritius,2006,UM
+MEX,Mexico,2006,UM
+FSM,"Micronesia, Fed. Sts.",2006,LM
+MDA,Moldova,2006,LM
+MCO,Monaco,2006,H
+MNG,Mongolia,2006,L
+MNE,Montenegro,2006,UM
+MAR,Morocco,2006,LM
+MOZ,Mozambique,2006,L
+MMR,Myanmar,2006,L
+NAM,Namibia,2006,LM
+NRU,Nauru,2006,..
+NPL,Nepal,2006,L
+NLD,Netherlands,2006,H
+NCL,New Caledonia,2006,H
+NZL,New Zealand,2006,H
+NIC,Nicaragua,2006,LM
+NER,Niger,2006,L
+NGA,Nigeria,2006,L
+MKD,North Macedonia,2006,LM
+MNP,Northern Mariana Islands,2006,UM
+NOR,Norway,2006,H
+OMN,Oman,2006,UM
+PAK,Pakistan,2006,L
+PLW,Palau,2006,UM
+PAN,Panama,2006,UM
+PNG,Papua New Guinea,2006,L
+PRY,Paraguay,2006,LM
+PER,Peru,2006,LM
+PHL,Philippines,2006,LM
+POL,Poland,2006,UM
+PRT,Portugal,2006,H
+PRI,Puerto Rico,2006,H
+QAT,Qatar,2006,H
+ROU,Romania,2006,UM
+RUS,Russian Federation,2006,UM
+RWA,Rwanda,2006,L
+WSM,Samoa,2006,LM
+SMR,San Marino,2006,H
+STP,São Tomé and Príncipe,2006,L
+SAU,Saudi Arabia,2006,H
+SEN,Senegal,2006,L
+SRB,Serbia,2006,UM
+SYC,Seychelles,2006,UM
+SLE,Sierra Leone,2006,L
+SGP,Singapore,2006,H
+SXM,Sint Maarten (Dutch part),2006,..
+SVK,Slovak Republic,2006,UM
+SVN,Slovenia,2006,H
+SLB,Solomon Islands,2006,L
+SOM,Somalia,2006,L
+ZAF,South Africa,2006,UM
+SSD,South Sudan,2006,..
+ESP,Spain,2006,H
+LKA,Sri Lanka,2006,LM
+KNA,St. Kitts and Nevis,2006,UM
+LCA,St. Lucia,2006,UM
+MAF,St. Martin (French part),2006,..
+VCT,St. Vincent and the Grenadines,2006,UM
+SDN,Sudan,2006,L
+SUR,Suriname,2006,LM
+SWE,Sweden,2006,H
+CHE,Switzerland,2006,H
+SYR,Syrian Arab Republic,2006,LM
+TWN,"Taiwan, China",2006,H
+TJK,Tajikistan,2006,L
+TZA,Tanzania,2006,L
+THA,Thailand,2006,LM
+TLS,Timor-Leste,2006,L
+TGO,Togo,2006,L
+TON,Tonga,2006,LM
+TTO,Trinidad and Tobago,2006,H
+TUN,Tunisia,2006,LM
+TUR,Türkiye,2006,UM
+TKM,Turkmenistan,2006,LM
+TCA,Turks and Caicos Islands,2006,..
+TUV,Tuvalu,2006,..
+UGA,Uganda,2006,L
+UKR,Ukraine,2006,LM
+ARE,United Arab Emirates,2006,H
+GBR,United Kingdom,2006,H
+USA,United States,2006,H
+URY,Uruguay,2006,UM
+UZB,Uzbekistan,2006,L
+VUT,Vanuatu,2006,LM
+VEN,"Venezuela, RB",2006,UM
+VNM,Viet Nam,2006,L
+VIR,Virgin Islands (U.S.),2006,H
+PSE,West Bank and Gaza,2006,LM
+YEM,"Yemen, Rep.",2006,L
+ZMB,Zambia,2006,L
+ZWE,Zimbabwe,2006,L
+CSK,Czechoslovakia (former),2006,
+MYT,Mayotte,2006,UM
+ANT,Netherlands Antilles (former),2006,H
+YUG,Serbia and Montenegro (former),2006,
+SUN,USSR (former),2006,
+AFG,Afghanistan,2007,L
+ALB,Albania,2007,LM
+DZA,Algeria,2007,LM
+ASM,American Samoa,2007,UM
+AND,Andorra,2007,H
+AGO,Angola,2007,LM
+ATG,Antigua and Barbuda,2007,H
+ARG,Argentina,2007,UM
+ARM,Armenia,2007,LM
+ABW,Aruba,2007,H
+AUS,Australia,2007,H
+AUT,Austria,2007,H
+AZE,Azerbaijan,2007,LM
+BHS,"Bahamas, The",2007,H
+BHR,Bahrain,2007,H
+BGD,Bangladesh,2007,L
+BRB,Barbados,2007,H
+BLR,Belarus,2007,UM
+BEL,Belgium,2007,H
+BLZ,Belize,2007,UM
+BEN,Benin,2007,L
+BMU,Bermuda,2007,H
+BTN,Bhutan,2007,LM
+BOL,Bolivia,2007,LM
+BIH,Bosnia and Herzegovina,2007,LM
+BWA,Botswana,2007,UM
+BRA,Brazil,2007,UM
+VGB,British Virgin Islands,2007,..
+BRN,Brunei Darussalam,2007,H
+BGR,Bulgaria,2007,UM
+BFA,Burkina Faso,2007,L
+BDI,Burundi,2007,L
+CPV,Cabo Verde,2007,LM
+KHM,Cambodia,2007,L
+CMR,Cameroon,2007,LM
+CAN,Canada,2007,H
+CYM,Cayman Islands,2007,H
+CAF,Central African Republic,2007,L
+TCD,Chad,2007,L
+CHI,Channel Islands,2007,H
+CHL,Chile,2007,UM
+CHN,China,2007,LM
+COL,Colombia,2007,LM
+COM,Comoros,2007,L
+COD,"Congo, Dem. Rep.",2007,L
+COG,"Congo, Rep.",2007,LM
+CRI,Costa Rica,2007,UM
+CIV,Côte d'Ivoire,2007,L
+HRV,Croatia,2007,UM
+CUB,Cuba,2007,UM
+CUW,Curaçao,2007,..
+CYP,Cyprus,2007,H
+CZE,Czechia,2007,H
+DNK,Denmark,2007,H
+DJI,Djibouti,2007,LM
+DMA,Dominica,2007,UM
+DOM,Dominican Republic,2007,LM
+ECU,Ecuador,2007,LM
+EGY,"Egypt, Arab Rep.",2007,LM
+SLV,El Salvador,2007,LM
+GNQ,Equatorial Guinea,2007,H
+ERI,Eritrea,2007,L
+EST,Estonia,2007,H
+SWZ,Eswatini,2007,LM
+ETH,Ethiopia,2007,L
+FRO,Faeroe Islands,2007,H
+FJI,Fiji,2007,UM
+FIN,Finland,2007,H
+FRA,France,2007,H
+PYF,French Polynesia,2007,H
+GAB,Gabon,2007,UM
+GMB,"Gambia, The",2007,L
+GEO,Georgia,2007,LM
+DEU,Germany,2007,H
+GHA,Ghana,2007,L
+GIB,Gibraltar,2007,..
+GRC,Greece,2007,H
+GRL,Greenland,2007,H
+GRD,Grenada,2007,UM
+GUM,Guam,2007,H
+GTM,Guatemala,2007,LM
+GIN,Guinea,2007,L
+GNB,Guinea-Bissau,2007,L
+GUY,Guyana,2007,LM
+HTI,Haiti,2007,L
+HND,Honduras,2007,LM
+HKG,"Hong Kong SAR, China",2007,H
+HUN,Hungary,2007,H
+ISL,Iceland,2007,H
+IND,India,2007,LM
+IDN,Indonesia,2007,LM
+IRN,"Iran, Islamic Rep.",2007,LM
+IRQ,Iraq,2007,LM
+IRL,Ireland,2007,H
+IMN,Isle of Man,2007,H
+ISR,Israel,2007,H
+ITA,Italy,2007,H
+JAM,Jamaica,2007,UM
+JPN,Japan,2007,H
+JOR,Jordan,2007,LM
+KAZ,Kazakhstan,2007,UM
+KEN,Kenya,2007,L
+KIR,Kiribati,2007,LM
+PRK,"Korea, Dem. Rep.",2007,L
+KOR,"Korea, Rep.",2007,H
+XKX,Kosovo,2007,..
+KWT,Kuwait,2007,H
+KGZ,Kyrgyz Republic,2007,L
+LAO,Lao PDR,2007,L
+LVA,Latvia,2007,UM
+LBN,Lebanon,2007,UM
+LSO,Lesotho,2007,LM
+LBR,Liberia,2007,L
+LBY,Libya,2007,UM
+LIE,Liechtenstein,2007,H
+LTU,Lithuania,2007,UM
+LUX,Luxembourg,2007,H
+MAC,"Macao SAR, China",2007,H
+MDG,Madagascar,2007,L
+MWI,Malawi,2007,L
+MYS,Malaysia,2007,UM
+MDV,Maldives,2007,LM
+MLI,Mali,2007,L
+MLT,Malta,2007,H
+MHL,Marshall Islands,2007,LM
+MRT,Mauritania,2007,L
+MUS,Mauritius,2007,UM
+MEX,Mexico,2007,UM
+FSM,"Micronesia, Fed. Sts.",2007,LM
+MDA,Moldova,2007,LM
+MCO,Monaco,2007,H
+MNG,Mongolia,2007,LM
+MNE,Montenegro,2007,UM
+MAR,Morocco,2007,LM
+MOZ,Mozambique,2007,L
+MMR,Myanmar,2007,L
+NAM,Namibia,2007,LM
+NRU,Nauru,2007,..
+NPL,Nepal,2007,L
+NLD,Netherlands,2007,H
+NCL,New Caledonia,2007,H
+NZL,New Zealand,2007,H
+NIC,Nicaragua,2007,LM
+NER,Niger,2007,L
+NGA,Nigeria,2007,L
+MKD,North Macedonia,2007,LM
+MNP,Northern Mariana Islands,2007,H
+NOR,Norway,2007,H
+OMN,Oman,2007,H
+PAK,Pakistan,2007,L
+PLW,Palau,2007,UM
+PAN,Panama,2007,UM
+PNG,Papua New Guinea,2007,L
+PRY,Paraguay,2007,LM
+PER,Peru,2007,LM
+PHL,Philippines,2007,LM
+POL,Poland,2007,UM
+PRT,Portugal,2007,H
+PRI,Puerto Rico,2007,H
+QAT,Qatar,2007,H
+ROU,Romania,2007,UM
+RUS,Russian Federation,2007,UM
+RWA,Rwanda,2007,L
+WSM,Samoa,2007,LM
+SMR,San Marino,2007,H
+STP,São Tomé and Príncipe,2007,L
+SAU,Saudi Arabia,2007,H
+SEN,Senegal,2007,L
+SRB,Serbia,2007,UM
+SYC,Seychelles,2007,UM
+SLE,Sierra Leone,2007,L
+SGP,Singapore,2007,H
+SXM,Sint Maarten (Dutch part),2007,..
+SVK,Slovak Republic,2007,H
+SVN,Slovenia,2007,H
+SLB,Solomon Islands,2007,L
+SOM,Somalia,2007,L
+ZAF,South Africa,2007,UM
+SSD,South Sudan,2007,..
+ESP,Spain,2007,H
+LKA,Sri Lanka,2007,LM
+KNA,St. Kitts and Nevis,2007,UM
+LCA,St. Lucia,2007,UM
+MAF,St. Martin (French part),2007,..
+VCT,St. Vincent and the Grenadines,2007,UM
+SDN,Sudan,2007,LM
+SUR,Suriname,2007,UM
+SWE,Sweden,2007,H
+CHE,Switzerland,2007,H
+SYR,Syrian Arab Republic,2007,LM
+TWN,"Taiwan, China",2007,H
+TJK,Tajikistan,2007,L
+TZA,Tanzania,2007,L
+THA,Thailand,2007,LM
+TLS,Timor-Leste,2007,LM
+TGO,Togo,2007,L
+TON,Tonga,2007,LM
+TTO,Trinidad and Tobago,2007,H
+TUN,Tunisia,2007,LM
+TUR,Türkiye,2007,UM
+TKM,Turkmenistan,2007,LM
+TCA,Turks and Caicos Islands,2007,..
+TUV,Tuvalu,2007,..
+UGA,Uganda,2007,L
+UKR,Ukraine,2007,LM
+ARE,United Arab Emirates,2007,H
+GBR,United Kingdom,2007,H
+USA,United States,2007,H
+URY,Uruguay,2007,UM
+UZB,Uzbekistan,2007,L
+VUT,Vanuatu,2007,LM
+VEN,"Venezuela, RB",2007,UM
+VNM,Viet Nam,2007,L
+VIR,Virgin Islands (U.S.),2007,H
+PSE,West Bank and Gaza,2007,LM
+YEM,"Yemen, Rep.",2007,L
+ZMB,Zambia,2007,L
+ZWE,Zimbabwe,2007,L
+CSK,Czechoslovakia (former),2007,
+MYT,Mayotte,2007,UM
+ANT,Netherlands Antilles (former),2007,H
+YUG,Serbia and Montenegro (former),2007,
+SUN,USSR (former),2007,
+AFG,Afghanistan,2008,L
+ALB,Albania,2008,LM
+DZA,Algeria,2008,UM
+ASM,American Samoa,2008,UM
+AND,Andorra,2008,H
+AGO,Angola,2008,LM
+ATG,Antigua and Barbuda,2008,H
+ARG,Argentina,2008,UM
+ARM,Armenia,2008,LM
+ABW,Aruba,2008,H
+AUS,Australia,2008,H
+AUT,Austria,2008,H
+AZE,Azerbaijan,2008,LM
+BHS,"Bahamas, The",2008,H
+BHR,Bahrain,2008,H
+BGD,Bangladesh,2008,L
+BRB,Barbados,2008,H
+BLR,Belarus,2008,UM
+BEL,Belgium,2008,H
+BLZ,Belize,2008,LM
+BEN,Benin,2008,L
+BMU,Bermuda,2008,H
+BTN,Bhutan,2008,LM
+BOL,Bolivia,2008,LM
+BIH,Bosnia and Herzegovina,2008,UM
+BWA,Botswana,2008,UM
+BRA,Brazil,2008,UM
+VGB,British Virgin Islands,2008,..
+BRN,Brunei Darussalam,2008,H
+BGR,Bulgaria,2008,UM
+BFA,Burkina Faso,2008,L
+BDI,Burundi,2008,L
+CPV,Cabo Verde,2008,LM
+KHM,Cambodia,2008,L
+CMR,Cameroon,2008,LM
+CAN,Canada,2008,H
+CYM,Cayman Islands,2008,H
+CAF,Central African Republic,2008,L
+TCD,Chad,2008,L
+CHI,Channel Islands,2008,H
+CHL,Chile,2008,UM
+CHN,China,2008,LM
+COL,Colombia,2008,UM
+COM,Comoros,2008,L
+COD,"Congo, Dem. Rep.",2008,L
+COG,"Congo, Rep.",2008,LM
+CRI,Costa Rica,2008,UM
+CIV,Côte d'Ivoire,2008,LM
+HRV,Croatia,2008,H
+CUB,Cuba,2008,UM
+CUW,Curaçao,2008,..
+CYP,Cyprus,2008,H
+CZE,Czechia,2008,H
+DNK,Denmark,2008,H
+DJI,Djibouti,2008,LM
+DMA,Dominica,2008,UM
+DOM,Dominican Republic,2008,UM
+ECU,Ecuador,2008,LM
+EGY,"Egypt, Arab Rep.",2008,LM
+SLV,El Salvador,2008,LM
+GNQ,Equatorial Guinea,2008,H
+ERI,Eritrea,2008,L
+EST,Estonia,2008,H
+SWZ,Eswatini,2008,LM
+ETH,Ethiopia,2008,L
+FRO,Faeroe Islands,2008,H
+FJI,Fiji,2008,UM
+FIN,Finland,2008,H
+FRA,France,2008,H
+PYF,French Polynesia,2008,H
+GAB,Gabon,2008,UM
+GMB,"Gambia, The",2008,L
+GEO,Georgia,2008,LM
+DEU,Germany,2008,H
+GHA,Ghana,2008,L
+GIB,Gibraltar,2008,..
+GRC,Greece,2008,H
+GRL,Greenland,2008,H
+GRD,Grenada,2008,UM
+GUM,Guam,2008,H
+GTM,Guatemala,2008,LM
+GIN,Guinea,2008,L
+GNB,Guinea-Bissau,2008,L
+GUY,Guyana,2008,LM
+HTI,Haiti,2008,L
+HND,Honduras,2008,LM
+HKG,"Hong Kong SAR, China",2008,H
+HUN,Hungary,2008,H
+ISL,Iceland,2008,H
+IND,India,2008,LM
+IDN,Indonesia,2008,LM
+IRN,"Iran, Islamic Rep.",2008,LM
+IRQ,Iraq,2008,LM
+IRL,Ireland,2008,H
+IMN,Isle of Man,2008,H
+ISR,Israel,2008,H
+ITA,Italy,2008,H
+JAM,Jamaica,2008,UM
+JPN,Japan,2008,H
+JOR,Jordan,2008,LM
+KAZ,Kazakhstan,2008,UM
+KEN,Kenya,2008,L
+KIR,Kiribati,2008,LM
+PRK,"Korea, Dem. Rep.",2008,L
+KOR,"Korea, Rep.",2008,H
+XKX,Kosovo,2008,LM
+KWT,Kuwait,2008,H
+KGZ,Kyrgyz Republic,2008,L
+LAO,Lao PDR,2008,L
+LVA,Latvia,2008,UM
+LBN,Lebanon,2008,UM
+LSO,Lesotho,2008,LM
+LBR,Liberia,2008,L
+LBY,Libya,2008,UM
+LIE,Liechtenstein,2008,H
+LTU,Lithuania,2008,UM
+LUX,Luxembourg,2008,H
+MAC,"Macao SAR, China",2008,H
+MDG,Madagascar,2008,L
+MWI,Malawi,2008,L
+MYS,Malaysia,2008,UM
+MDV,Maldives,2008,LM
+MLI,Mali,2008,L
+MLT,Malta,2008,H
+MHL,Marshall Islands,2008,LM
+MRT,Mauritania,2008,L
+MUS,Mauritius,2008,UM
+MEX,Mexico,2008,UM
+FSM,"Micronesia, Fed. Sts.",2008,LM
+MDA,Moldova,2008,LM
+MCO,Monaco,2008,H
+MNG,Mongolia,2008,LM
+MNE,Montenegro,2008,UM
+MAR,Morocco,2008,LM
+MOZ,Mozambique,2008,L
+MMR,Myanmar,2008,L
+NAM,Namibia,2008,UM
+NRU,Nauru,2008,..
+NPL,Nepal,2008,L
+NLD,Netherlands,2008,H
+NCL,New Caledonia,2008,H
+NZL,New Zealand,2008,H
+NIC,Nicaragua,2008,LM
+NER,Niger,2008,L
+NGA,Nigeria,2008,LM
+MKD,North Macedonia,2008,UM
+MNP,Northern Mariana Islands,2008,H
+NOR,Norway,2008,H
+OMN,Oman,2008,H
+PAK,Pakistan,2008,LM
+PLW,Palau,2008,UM
+PAN,Panama,2008,UM
+PNG,Papua New Guinea,2008,LM
+PRY,Paraguay,2008,LM
+PER,Peru,2008,UM
+PHL,Philippines,2008,LM
+POL,Poland,2008,UM
+PRT,Portugal,2008,H
+PRI,Puerto Rico,2008,H
+QAT,Qatar,2008,H
+ROU,Romania,2008,UM
+RUS,Russian Federation,2008,UM
+RWA,Rwanda,2008,L
+WSM,Samoa,2008,LM
+SMR,San Marino,2008,H
+STP,São Tomé and Príncipe,2008,LM
+SAU,Saudi Arabia,2008,H
+SEN,Senegal,2008,L
+SRB,Serbia,2008,UM
+SYC,Seychelles,2008,UM
+SLE,Sierra Leone,2008,L
+SGP,Singapore,2008,H
+SXM,Sint Maarten (Dutch part),2008,..
+SVK,Slovak Republic,2008,H
+SVN,Slovenia,2008,H
+SLB,Solomon Islands,2008,LM
+SOM,Somalia,2008,L
+ZAF,South Africa,2008,UM
+SSD,South Sudan,2008,..
+ESP,Spain,2008,H
+LKA,Sri Lanka,2008,LM
+KNA,St. Kitts and Nevis,2008,UM
+LCA,St. Lucia,2008,UM
+MAF,St. Martin (French part),2008,..
+VCT,St. Vincent and the Grenadines,2008,UM
+SDN,Sudan,2008,LM
+SUR,Suriname,2008,UM
+SWE,Sweden,2008,H
+CHE,Switzerland,2008,H
+SYR,Syrian Arab Republic,2008,LM
+TWN,"Taiwan, China",2008,H
+TJK,Tajikistan,2008,L
+TZA,Tanzania,2008,L
+THA,Thailand,2008,LM
+TLS,Timor-Leste,2008,LM
+TGO,Togo,2008,L
+TON,Tonga,2008,LM
+TTO,Trinidad and Tobago,2008,H
+TUN,Tunisia,2008,LM
+TUR,Türkiye,2008,UM
+TKM,Turkmenistan,2008,LM
+TCA,Turks and Caicos Islands,2008,..
+TUV,Tuvalu,2008,..
+UGA,Uganda,2008,L
+UKR,Ukraine,2008,LM
+ARE,United Arab Emirates,2008,H
+GBR,United Kingdom,2008,H
+USA,United States,2008,H
+URY,Uruguay,2008,UM
+UZB,Uzbekistan,2008,L
+VUT,Vanuatu,2008,LM
+VEN,"Venezuela, RB",2008,UM
+VNM,Viet Nam,2008,L
+VIR,Virgin Islands (U.S.),2008,H
+PSE,West Bank and Gaza,2008,LM
+YEM,"Yemen, Rep.",2008,L
+ZMB,Zambia,2008,L
+ZWE,Zimbabwe,2008,L
+CSK,Czechoslovakia (former),2008,
+MYT,Mayotte,2008,UM
+ANT,Netherlands Antilles (former),2008,H
+YUG,Serbia and Montenegro (former),2008,
+SUN,USSR (former),2008,
+AFG,Afghanistan,2009,L
+ALB,Albania,2009,UM
+DZA,Algeria,2009,UM
+ASM,American Samoa,2009,UM
+AND,Andorra,2009,H
+AGO,Angola,2009,LM
+ATG,Antigua and Barbuda,2009,UM
+ARG,Argentina,2009,UM
+ARM,Armenia,2009,LM
+ABW,Aruba,2009,H
+AUS,Australia,2009,H
+AUT,Austria,2009,H
+AZE,Azerbaijan,2009,UM
+BHS,"Bahamas, The",2009,H
+BHR,Bahrain,2009,H
+BGD,Bangladesh,2009,L
+BRB,Barbados,2009,H
+BLR,Belarus,2009,UM
+BEL,Belgium,2009,H
+BLZ,Belize,2009,LM
+BEN,Benin,2009,L
+BMU,Bermuda,2009,H
+BTN,Bhutan,2009,LM
+BOL,Bolivia,2009,LM
+BIH,Bosnia and Herzegovina,2009,UM
+BWA,Botswana,2009,UM
+BRA,Brazil,2009,UM
+VGB,British Virgin Islands,2009,..
+BRN,Brunei Darussalam,2009,H
+BGR,Bulgaria,2009,UM
+BFA,Burkina Faso,2009,L
+BDI,Burundi,2009,L
+CPV,Cabo Verde,2009,LM
+KHM,Cambodia,2009,L
+CMR,Cameroon,2009,LM
+CAN,Canada,2009,H
+CYM,Cayman Islands,2009,H
+CAF,Central African Republic,2009,L
+TCD,Chad,2009,L
+CHI,Channel Islands,2009,H
+CHL,Chile,2009,UM
+CHN,China,2009,LM
+COL,Colombia,2009,UM
+COM,Comoros,2009,L
+COD,"Congo, Dem. Rep.",2009,L
+COG,"Congo, Rep.",2009,LM
+CRI,Costa Rica,2009,UM
+CIV,Côte d'Ivoire,2009,LM
+HRV,Croatia,2009,H
+CUB,Cuba,2009,UM
+CUW,Curaçao,2009,..
+CYP,Cyprus,2009,H
+CZE,Czechia,2009,H
+DNK,Denmark,2009,H
+DJI,Djibouti,2009,LM
+DMA,Dominica,2009,UM
+DOM,Dominican Republic,2009,UM
+ECU,Ecuador,2009,LM
+EGY,"Egypt, Arab Rep.",2009,LM
+SLV,El Salvador,2009,LM
+GNQ,Equatorial Guinea,2009,H
+ERI,Eritrea,2009,L
+EST,Estonia,2009,H
+SWZ,Eswatini,2009,LM
+ETH,Ethiopia,2009,L
+FRO,Faeroe Islands,2009,H
+FJI,Fiji,2009,UM
+FIN,Finland,2009,H
+FRA,France,2009,H
+PYF,French Polynesia,2009,H
+GAB,Gabon,2009,UM
+GMB,"Gambia, The",2009,L
+GEO,Georgia,2009,LM
+DEU,Germany,2009,H
+GHA,Ghana,2009,L
+GIB,Gibraltar,2009,H
+GRC,Greece,2009,H
+GRL,Greenland,2009,H
+GRD,Grenada,2009,UM
+GUM,Guam,2009,H
+GTM,Guatemala,2009,LM
+GIN,Guinea,2009,L
+GNB,Guinea-Bissau,2009,L
+GUY,Guyana,2009,LM
+HTI,Haiti,2009,L
+HND,Honduras,2009,LM
+HKG,"Hong Kong SAR, China",2009,H
+HUN,Hungary,2009,H
+ISL,Iceland,2009,H
+IND,India,2009,LM
+IDN,Indonesia,2009,LM
+IRN,"Iran, Islamic Rep.",2009,UM
+IRQ,Iraq,2009,LM
+IRL,Ireland,2009,H
+IMN,Isle of Man,2009,H
+ISR,Israel,2009,H
+ITA,Italy,2009,H
+JAM,Jamaica,2009,UM
+JPN,Japan,2009,H
+JOR,Jordan,2009,LM
+KAZ,Kazakhstan,2009,UM
+KEN,Kenya,2009,L
+KIR,Kiribati,2009,LM
+PRK,"Korea, Dem. Rep.",2009,L
+KOR,"Korea, Rep.",2009,H
+XKX,Kosovo,2009,LM
+KWT,Kuwait,2009,H
+KGZ,Kyrgyz Republic,2009,L
+LAO,Lao PDR,2009,L
+LVA,Latvia,2009,H
+LBN,Lebanon,2009,UM
+LSO,Lesotho,2009,LM
+LBR,Liberia,2009,L
+LBY,Libya,2009,UM
+LIE,Liechtenstein,2009,H
+LTU,Lithuania,2009,UM
+LUX,Luxembourg,2009,H
+MAC,"Macao SAR, China",2009,H
+MDG,Madagascar,2009,L
+MWI,Malawi,2009,L
+MYS,Malaysia,2009,UM
+MDV,Maldives,2009,LM
+MLI,Mali,2009,L
+MLT,Malta,2009,H
+MHL,Marshall Islands,2009,LM
+MRT,Mauritania,2009,L
+MUS,Mauritius,2009,UM
+MEX,Mexico,2009,UM
+FSM,"Micronesia, Fed. Sts.",2009,LM
+MDA,Moldova,2009,LM
+MCO,Monaco,2009,H
+MNG,Mongolia,2009,LM
+MNE,Montenegro,2009,UM
+MAR,Morocco,2009,LM
+MOZ,Mozambique,2009,L
+MMR,Myanmar,2009,L
+NAM,Namibia,2009,UM
+NRU,Nauru,2009,..
+NPL,Nepal,2009,L
+NLD,Netherlands,2009,H
+NCL,New Caledonia,2009,H
+NZL,New Zealand,2009,H
+NIC,Nicaragua,2009,LM
+NER,Niger,2009,L
+NGA,Nigeria,2009,LM
+MKD,North Macedonia,2009,UM
+MNP,Northern Mariana Islands,2009,H
+NOR,Norway,2009,H
+OMN,Oman,2009,H
+PAK,Pakistan,2009,LM
+PLW,Palau,2009,UM
+PAN,Panama,2009,UM
+PNG,Papua New Guinea,2009,LM
+PRY,Paraguay,2009,LM
+PER,Peru,2009,UM
+PHL,Philippines,2009,LM
+POL,Poland,2009,H
+PRT,Portugal,2009,H
+PRI,Puerto Rico,2009,H
+QAT,Qatar,2009,H
+ROU,Romania,2009,UM
+RUS,Russian Federation,2009,UM
+RWA,Rwanda,2009,L
+WSM,Samoa,2009,LM
+SMR,San Marino,2009,H
+STP,São Tomé and Príncipe,2009,LM
+SAU,Saudi Arabia,2009,H
+SEN,Senegal,2009,LM
+SRB,Serbia,2009,UM
+SYC,Seychelles,2009,UM
+SLE,Sierra Leone,2009,L
+SGP,Singapore,2009,H
+SXM,Sint Maarten (Dutch part),2009,..
+SVK,Slovak Republic,2009,H
+SVN,Slovenia,2009,H
+SLB,Solomon Islands,2009,L
+SOM,Somalia,2009,L
+ZAF,South Africa,2009,UM
+SSD,South Sudan,2009,..
+ESP,Spain,2009,H
+LKA,Sri Lanka,2009,LM
+KNA,St. Kitts and Nevis,2009,UM
+LCA,St. Lucia,2009,UM
+MAF,St. Martin (French part),2009,..
+VCT,St. Vincent and the Grenadines,2009,UM
+SDN,Sudan,2009,LM
+SUR,Suriname,2009,UM
+SWE,Sweden,2009,H
+CHE,Switzerland,2009,H
+SYR,Syrian Arab Republic,2009,LM
+TWN,"Taiwan, China",2009,H
+TJK,Tajikistan,2009,L
+TZA,Tanzania,2009,L
+THA,Thailand,2009,LM
+TLS,Timor-Leste,2009,LM
+TGO,Togo,2009,L
+TON,Tonga,2009,LM
+TTO,Trinidad and Tobago,2009,H
+TUN,Tunisia,2009,LM
+TUR,Türkiye,2009,UM
+TKM,Turkmenistan,2009,LM
+TCA,Turks and Caicos Islands,2009,H
+TUV,Tuvalu,2009,LM
+UGA,Uganda,2009,L
+UKR,Ukraine,2009,LM
+ARE,United Arab Emirates,2009,H
+GBR,United Kingdom,2009,H
+USA,United States,2009,H
+URY,Uruguay,2009,UM
+UZB,Uzbekistan,2009,LM
+VUT,Vanuatu,2009,LM
+VEN,"Venezuela, RB",2009,UM
+VNM,Viet Nam,2009,LM
+VIR,Virgin Islands (U.S.),2009,H
+PSE,West Bank and Gaza,2009,LM
+YEM,"Yemen, Rep.",2009,LM
+ZMB,Zambia,2009,L
+ZWE,Zimbabwe,2009,L
+CSK,Czechoslovakia (former),2009,
+MYT,Mayotte,2009,UM
+ANT,Netherlands Antilles (former),2009,H
+YUG,Serbia and Montenegro (former),2009,
+SUN,USSR (former),2009,
+AFG,Afghanistan,2010,L
+ALB,Albania,2010,UM
+DZA,Algeria,2010,UM
+ASM,American Samoa,2010,UM
+AND,Andorra,2010,H
+AGO,Angola,2010,LM
+ATG,Antigua and Barbuda,2010,UM
+ARG,Argentina,2010,UM
+ARM,Armenia,2010,LM
+ABW,Aruba,2010,H
+AUS,Australia,2010,H
+AUT,Austria,2010,H
+AZE,Azerbaijan,2010,UM
+BHS,"Bahamas, The",2010,H
+BHR,Bahrain,2010,H
+BGD,Bangladesh,2010,L
+BRB,Barbados,2010,H
+BLR,Belarus,2010,UM
+BEL,Belgium,2010,H
+BLZ,Belize,2010,LM
+BEN,Benin,2010,L
+BMU,Bermuda,2010,H
+BTN,Bhutan,2010,LM
+BOL,Bolivia,2010,LM
+BIH,Bosnia and Herzegovina,2010,UM
+BWA,Botswana,2010,UM
+BRA,Brazil,2010,UM
+VGB,British Virgin Islands,2010,..
+BRN,Brunei Darussalam,2010,H
+BGR,Bulgaria,2010,UM
+BFA,Burkina Faso,2010,L
+BDI,Burundi,2010,L
+CPV,Cabo Verde,2010,LM
+KHM,Cambodia,2010,L
+CMR,Cameroon,2010,LM
+CAN,Canada,2010,H
+CYM,Cayman Islands,2010,H
+CAF,Central African Republic,2010,L
+TCD,Chad,2010,L
+CHI,Channel Islands,2010,H
+CHL,Chile,2010,UM
+CHN,China,2010,UM
+COL,Colombia,2010,UM
+COM,Comoros,2010,L
+COD,"Congo, Dem. Rep.",2010,L
+COG,"Congo, Rep.",2010,LM
+CRI,Costa Rica,2010,UM
+CIV,Côte d'Ivoire,2010,LM
+HRV,Croatia,2010,H
+CUB,Cuba,2010,UM
+CUW,Curaçao,2010,H
+CYP,Cyprus,2010,H
+CZE,Czechia,2010,H
+DNK,Denmark,2010,H
+DJI,Djibouti,2010,LM
+DMA,Dominica,2010,UM
+DOM,Dominican Republic,2010,UM
+ECU,Ecuador,2010,UM
+EGY,"Egypt, Arab Rep.",2010,LM
+SLV,El Salvador,2010,LM
+GNQ,Equatorial Guinea,2010,H
+ERI,Eritrea,2010,L
+EST,Estonia,2010,H
+SWZ,Eswatini,2010,LM
+ETH,Ethiopia,2010,L
+FRO,Faeroe Islands,2010,H
+FJI,Fiji,2010,LM
+FIN,Finland,2010,H
+FRA,France,2010,H
+PYF,French Polynesia,2010,H
+GAB,Gabon,2010,UM
+GMB,"Gambia, The",2010,L
+GEO,Georgia,2010,LM
+DEU,Germany,2010,H
+GHA,Ghana,2010,LM
+GIB,Gibraltar,2010,H
+GRC,Greece,2010,H
+GRL,Greenland,2010,H
+GRD,Grenada,2010,UM
+GUM,Guam,2010,H
+GTM,Guatemala,2010,LM
+GIN,Guinea,2010,L
+GNB,Guinea-Bissau,2010,L
+GUY,Guyana,2010,LM
+HTI,Haiti,2010,L
+HND,Honduras,2010,LM
+HKG,"Hong Kong SAR, China",2010,H
+HUN,Hungary,2010,H
+ISL,Iceland,2010,H
+IND,India,2010,LM
+IDN,Indonesia,2010,LM
+IRN,"Iran, Islamic Rep.",2010,UM
+IRQ,Iraq,2010,LM
+IRL,Ireland,2010,H
+IMN,Isle of Man,2010,H
+ISR,Israel,2010,H
+ITA,Italy,2010,H
+JAM,Jamaica,2010,UM
+JPN,Japan,2010,H
+JOR,Jordan,2010,UM
+KAZ,Kazakhstan,2010,UM
+KEN,Kenya,2010,L
+KIR,Kiribati,2010,LM
+PRK,"Korea, Dem. Rep.",2010,L
+KOR,"Korea, Rep.",2010,H
+XKX,Kosovo,2010,LM
+KWT,Kuwait,2010,H
+KGZ,Kyrgyz Republic,2010,L
+LAO,Lao PDR,2010,LM
+LVA,Latvia,2010,UM
+LBN,Lebanon,2010,UM
+LSO,Lesotho,2010,LM
+LBR,Liberia,2010,L
+LBY,Libya,2010,UM
+LIE,Liechtenstein,2010,H
+LTU,Lithuania,2010,UM
+LUX,Luxembourg,2010,H
+MAC,"Macao SAR, China",2010,H
+MDG,Madagascar,2010,L
+MWI,Malawi,2010,L
+MYS,Malaysia,2010,UM
+MDV,Maldives,2010,UM
+MLI,Mali,2010,L
+MLT,Malta,2010,H
+MHL,Marshall Islands,2010,LM
+MRT,Mauritania,2010,LM
+MUS,Mauritius,2010,UM
+MEX,Mexico,2010,UM
+FSM,"Micronesia, Fed. Sts.",2010,LM
+MDA,Moldova,2010,LM
+MCO,Monaco,2010,H
+MNG,Mongolia,2010,LM
+MNE,Montenegro,2010,UM
+MAR,Morocco,2010,LM
+MOZ,Mozambique,2010,L
+MMR,Myanmar,2010,L
+NAM,Namibia,2010,UM
+NRU,Nauru,2010,..
+NPL,Nepal,2010,L
+NLD,Netherlands,2010,H
+NCL,New Caledonia,2010,H
+NZL,New Zealand,2010,H
+NIC,Nicaragua,2010,LM
+NER,Niger,2010,L
+NGA,Nigeria,2010,LM
+MKD,North Macedonia,2010,UM
+MNP,Northern Mariana Islands,2010,H
+NOR,Norway,2010,H
+OMN,Oman,2010,H
+PAK,Pakistan,2010,LM
+PLW,Palau,2010,UM
+PAN,Panama,2010,UM
+PNG,Papua New Guinea,2010,LM
+PRY,Paraguay,2010,LM
+PER,Peru,2010,UM
+PHL,Philippines,2010,LM
+POL,Poland,2010,H
+PRT,Portugal,2010,H
+PRI,Puerto Rico,2010,H
+QAT,Qatar,2010,H
+ROU,Romania,2010,UM
+RUS,Russian Federation,2010,UM
+RWA,Rwanda,2010,L
+WSM,Samoa,2010,LM
+SMR,San Marino,2010,H
+STP,São Tomé and Príncipe,2010,LM
+SAU,Saudi Arabia,2010,H
+SEN,Senegal,2010,LM
+SRB,Serbia,2010,UM
+SYC,Seychelles,2010,UM
+SLE,Sierra Leone,2010,L
+SGP,Singapore,2010,H
+SXM,Sint Maarten (Dutch part),2010,H
+SVK,Slovak Republic,2010,H
+SVN,Slovenia,2010,H
+SLB,Solomon Islands,2010,LM
+SOM,Somalia,2010,L
+ZAF,South Africa,2010,UM
+SSD,South Sudan,2010,..
+ESP,Spain,2010,H
+LKA,Sri Lanka,2010,LM
+KNA,St. Kitts and Nevis,2010,UM
+LCA,St. Lucia,2010,UM
+MAF,St. Martin (French part),2010,H
+VCT,St. Vincent and the Grenadines,2010,UM
+SDN,Sudan,2010,LM
+SUR,Suriname,2010,UM
+SWE,Sweden,2010,H
+CHE,Switzerland,2010,H
+SYR,Syrian Arab Republic,2010,LM
+TWN,"Taiwan, China",2010,H
+TJK,Tajikistan,2010,L
+TZA,Tanzania,2010,L
+THA,Thailand,2010,UM
+TLS,Timor-Leste,2010,LM
+TGO,Togo,2010,L
+TON,Tonga,2010,LM
+TTO,Trinidad and Tobago,2010,H
+TUN,Tunisia,2010,UM
+TUR,Türkiye,2010,UM
+TKM,Turkmenistan,2010,LM
+TCA,Turks and Caicos Islands,2010,H
+TUV,Tuvalu,2010,LM
+UGA,Uganda,2010,L
+UKR,Ukraine,2010,LM
+ARE,United Arab Emirates,2010,H
+GBR,United Kingdom,2010,H
+USA,United States,2010,H
+URY,Uruguay,2010,UM
+UZB,Uzbekistan,2010,LM
+VUT,Vanuatu,2010,LM
+VEN,"Venezuela, RB",2010,UM
+VNM,Viet Nam,2010,LM
+VIR,Virgin Islands (U.S.),2010,H
+PSE,West Bank and Gaza,2010,LM
+YEM,"Yemen, Rep.",2010,LM
+ZMB,Zambia,2010,LM
+ZWE,Zimbabwe,2010,L
+CSK,Czechoslovakia (former),2010,
+MYT,Mayotte,2010,UM
+ANT,Netherlands Antilles (former),2010,
+YUG,Serbia and Montenegro (former),2010,
+SUN,USSR (former),2010,
+AFG,Afghanistan,2011,L
+ALB,Albania,2011,LM
+DZA,Algeria,2011,UM
+ASM,American Samoa,2011,UM
+AND,Andorra,2011,H
+AGO,Angola,2011,UM
+ATG,Antigua and Barbuda,2011,UM
+ARG,Argentina,2011,UM
+ARM,Armenia,2011,LM
+ABW,Aruba,2011,H
+AUS,Australia,2011,H
+AUT,Austria,2011,H
+AZE,Azerbaijan,2011,UM
+BHS,"Bahamas, The",2011,H
+BHR,Bahrain,2011,H
+BGD,Bangladesh,2011,L
+BRB,Barbados,2011,H
+BLR,Belarus,2011,UM
+BEL,Belgium,2011,H
+BLZ,Belize,2011,LM
+BEN,Benin,2011,L
+BMU,Bermuda,2011,H
+BTN,Bhutan,2011,LM
+BOL,Bolivia,2011,LM
+BIH,Bosnia and Herzegovina,2011,UM
+BWA,Botswana,2011,UM
+BRA,Brazil,2011,UM
+VGB,British Virgin Islands,2011,..
+BRN,Brunei Darussalam,2011,H
+BGR,Bulgaria,2011,UM
+BFA,Burkina Faso,2011,L
+BDI,Burundi,2011,L
+CPV,Cabo Verde,2011,LM
+KHM,Cambodia,2011,L
+CMR,Cameroon,2011,LM
+CAN,Canada,2011,H
+CYM,Cayman Islands,2011,H
+CAF,Central African Republic,2011,L
+TCD,Chad,2011,L
+CHI,Channel Islands,2011,H
+CHL,Chile,2011,UM
+CHN,China,2011,UM
+COL,Colombia,2011,UM
+COM,Comoros,2011,L
+COD,"Congo, Dem. Rep.",2011,L
+COG,"Congo, Rep.",2011,LM
+CRI,Costa Rica,2011,UM
+CIV,Côte d'Ivoire,2011,LM
+HRV,Croatia,2011,H
+CUB,Cuba,2011,UM
+CUW,Curaçao,2011,H
+CYP,Cyprus,2011,H
+CZE,Czechia,2011,H
+DNK,Denmark,2011,H
+DJI,Djibouti,2011,LM
+DMA,Dominica,2011,UM
+DOM,Dominican Republic,2011,UM
+ECU,Ecuador,2011,UM
+EGY,"Egypt, Arab Rep.",2011,LM
+SLV,El Salvador,2011,LM
+GNQ,Equatorial Guinea,2011,H
+ERI,Eritrea,2011,L
+EST,Estonia,2011,H
+SWZ,Eswatini,2011,LM
+ETH,Ethiopia,2011,L
+FRO,Faeroe Islands,2011,H
+FJI,Fiji,2011,LM
+FIN,Finland,2011,H
+FRA,France,2011,H
+PYF,French Polynesia,2011,H
+GAB,Gabon,2011,UM
+GMB,"Gambia, The",2011,L
+GEO,Georgia,2011,LM
+DEU,Germany,2011,H
+GHA,Ghana,2011,LM
+GIB,Gibraltar,2011,..
+GRC,Greece,2011,H
+GRL,Greenland,2011,H
+GRD,Grenada,2011,UM
+GUM,Guam,2011,H
+GTM,Guatemala,2011,LM
+GIN,Guinea,2011,L
+GNB,Guinea-Bissau,2011,L
+GUY,Guyana,2011,LM
+HTI,Haiti,2011,L
+HND,Honduras,2011,LM
+HKG,"Hong Kong SAR, China",2011,H
+HUN,Hungary,2011,H
+ISL,Iceland,2011,H
+IND,India,2011,LM
+IDN,Indonesia,2011,LM
+IRN,"Iran, Islamic Rep.",2011,UM
+IRQ,Iraq,2011,LM
+IRL,Ireland,2011,H
+IMN,Isle of Man,2011,H
+ISR,Israel,2011,H
+ITA,Italy,2011,H
+JAM,Jamaica,2011,UM
+JPN,Japan,2011,H
+JOR,Jordan,2011,UM
+KAZ,Kazakhstan,2011,UM
+KEN,Kenya,2011,L
+KIR,Kiribati,2011,LM
+PRK,"Korea, Dem. Rep.",2011,L
+KOR,"Korea, Rep.",2011,H
+XKX,Kosovo,2011,LM
+KWT,Kuwait,2011,H
+KGZ,Kyrgyz Republic,2011,L
+LAO,Lao PDR,2011,LM
+LVA,Latvia,2011,UM
+LBN,Lebanon,2011,UM
+LSO,Lesotho,2011,LM
+LBR,Liberia,2011,L
+LBY,Libya,2011,UM
+LIE,Liechtenstein,2011,H
+LTU,Lithuania,2011,UM
+LUX,Luxembourg,2011,H
+MAC,"Macao SAR, China",2011,H
+MDG,Madagascar,2011,L
+MWI,Malawi,2011,L
+MYS,Malaysia,2011,UM
+MDV,Maldives,2011,UM
+MLI,Mali,2011,L
+MLT,Malta,2011,H
+MHL,Marshall Islands,2011,LM
+MRT,Mauritania,2011,L
+MUS,Mauritius,2011,UM
+MEX,Mexico,2011,UM
+FSM,"Micronesia, Fed. Sts.",2011,LM
+MDA,Moldova,2011,LM
+MCO,Monaco,2011,H
+MNG,Mongolia,2011,LM
+MNE,Montenegro,2011,UM
+MAR,Morocco,2011,LM
+MOZ,Mozambique,2011,L
+MMR,Myanmar,2011,L
+NAM,Namibia,2011,UM
+NRU,Nauru,2011,..
+NPL,Nepal,2011,L
+NLD,Netherlands,2011,H
+NCL,New Caledonia,2011,H
+NZL,New Zealand,2011,H
+NIC,Nicaragua,2011,LM
+NER,Niger,2011,L
+NGA,Nigeria,2011,LM
+MKD,North Macedonia,2011,UM
+MNP,Northern Mariana Islands,2011,H
+NOR,Norway,2011,H
+OMN,Oman,2011,H
+PAK,Pakistan,2011,LM
+PLW,Palau,2011,UM
+PAN,Panama,2011,UM
+PNG,Papua New Guinea,2011,LM
+PRY,Paraguay,2011,LM
+PER,Peru,2011,UM
+PHL,Philippines,2011,LM
+POL,Poland,2011,H
+PRT,Portugal,2011,H
+PRI,Puerto Rico,2011,H
+QAT,Qatar,2011,H
+ROU,Romania,2011,UM
+RUS,Russian Federation,2011,UM
+RWA,Rwanda,2011,L
+WSM,Samoa,2011,LM
+SMR,San Marino,2011,H
+STP,São Tomé and Príncipe,2011,LM
+SAU,Saudi Arabia,2011,H
+SEN,Senegal,2011,LM
+SRB,Serbia,2011,UM
+SYC,Seychelles,2011,UM
+SLE,Sierra Leone,2011,L
+SGP,Singapore,2011,H
+SXM,Sint Maarten (Dutch part),2011,H
+SVK,Slovak Republic,2011,H
+SVN,Slovenia,2011,H
+SLB,Solomon Islands,2011,LM
+SOM,Somalia,2011,L
+ZAF,South Africa,2011,UM
+SSD,South Sudan,2011,LM
+ESP,Spain,2011,H
+LKA,Sri Lanka,2011,LM
+KNA,St. Kitts and Nevis,2011,H
+LCA,St. Lucia,2011,UM
+MAF,St. Martin (French part),2011,H
+VCT,St. Vincent and the Grenadines,2011,UM
+SDN,Sudan,2011,LM
+SUR,Suriname,2011,UM
+SWE,Sweden,2011,H
+CHE,Switzerland,2011,H
+SYR,Syrian Arab Republic,2011,LM
+TWN,"Taiwan, China",2011,H
+TJK,Tajikistan,2011,L
+TZA,Tanzania,2011,L
+THA,Thailand,2011,UM
+TLS,Timor-Leste,2011,LM
+TGO,Togo,2011,L
+TON,Tonga,2011,LM
+TTO,Trinidad and Tobago,2011,H
+TUN,Tunisia,2011,UM
+TUR,Türkiye,2011,UM
+TKM,Turkmenistan,2011,UM
+TCA,Turks and Caicos Islands,2011,H
+TUV,Tuvalu,2011,UM
+UGA,Uganda,2011,L
+UKR,Ukraine,2011,LM
+ARE,United Arab Emirates,2011,H
+GBR,United Kingdom,2011,H
+USA,United States,2011,H
+URY,Uruguay,2011,UM
+UZB,Uzbekistan,2011,LM
+VUT,Vanuatu,2011,LM
+VEN,"Venezuela, RB",2011,UM
+VNM,Viet Nam,2011,LM
+VIR,Virgin Islands (U.S.),2011,H
+PSE,West Bank and Gaza,2011,LM
+YEM,"Yemen, Rep.",2011,LM
+ZMB,Zambia,2011,LM
+ZWE,Zimbabwe,2011,L
+CSK,Czechoslovakia (former),2011,
+MYT,Mayotte,2011,
+ANT,Netherlands Antilles (former),2011,
+YUG,Serbia and Montenegro (former),2011,
+SUN,USSR (former),2011,
+AFG,Afghanistan,2012,L
+ALB,Albania,2012,UM
+DZA,Algeria,2012,UM
+ASM,American Samoa,2012,UM
+AND,Andorra,2012,H
+AGO,Angola,2012,UM
+ATG,Antigua and Barbuda,2012,H
+ARG,Argentina,2012,UM
+ARM,Armenia,2012,LM
+ABW,Aruba,2012,H
+AUS,Australia,2012,H
+AUT,Austria,2012,H
+AZE,Azerbaijan,2012,UM
+BHS,"Bahamas, The",2012,H
+BHR,Bahrain,2012,H
+BGD,Bangladesh,2012,L
+BRB,Barbados,2012,H
+BLR,Belarus,2012,UM
+BEL,Belgium,2012,H
+BLZ,Belize,2012,UM
+BEN,Benin,2012,L
+BMU,Bermuda,2012,H
+BTN,Bhutan,2012,LM
+BOL,Bolivia,2012,LM
+BIH,Bosnia and Herzegovina,2012,UM
+BWA,Botswana,2012,UM
+BRA,Brazil,2012,UM
+VGB,British Virgin Islands,2012,..
+BRN,Brunei Darussalam,2012,H
+BGR,Bulgaria,2012,UM
+BFA,Burkina Faso,2012,L
+BDI,Burundi,2012,L
+CPV,Cabo Verde,2012,LM
+KHM,Cambodia,2012,L
+CMR,Cameroon,2012,LM
+CAN,Canada,2012,H
+CYM,Cayman Islands,2012,H
+CAF,Central African Republic,2012,L
+TCD,Chad,2012,L
+CHI,Channel Islands,2012,H
+CHL,Chile,2012,H
+CHN,China,2012,UM
+COL,Colombia,2012,UM
+COM,Comoros,2012,L
+COD,"Congo, Dem. Rep.",2012,L
+COG,"Congo, Rep.",2012,LM
+CRI,Costa Rica,2012,UM
+CIV,Côte d'Ivoire,2012,LM
+HRV,Croatia,2012,H
+CUB,Cuba,2012,UM
+CUW,Curaçao,2012,H
+CYP,Cyprus,2012,H
+CZE,Czechia,2012,H
+DNK,Denmark,2012,H
+DJI,Djibouti,2012,LM
+DMA,Dominica,2012,UM
+DOM,Dominican Republic,2012,UM
+ECU,Ecuador,2012,UM
+EGY,"Egypt, Arab Rep.",2012,LM
+SLV,El Salvador,2012,LM
+GNQ,Equatorial Guinea,2012,H
+ERI,Eritrea,2012,L
+EST,Estonia,2012,H
+SWZ,Eswatini,2012,LM
+ETH,Ethiopia,2012,L
+FRO,Faeroe Islands,2012,H
+FJI,Fiji,2012,UM
+FIN,Finland,2012,H
+FRA,France,2012,H
+PYF,French Polynesia,2012,H
+GAB,Gabon,2012,UM
+GMB,"Gambia, The",2012,L
+GEO,Georgia,2012,LM
+DEU,Germany,2012,H
+GHA,Ghana,2012,LM
+GIB,Gibraltar,2012,..
+GRC,Greece,2012,H
+GRL,Greenland,2012,H
+GRD,Grenada,2012,UM
+GUM,Guam,2012,H
+GTM,Guatemala,2012,LM
+GIN,Guinea,2012,L
+GNB,Guinea-Bissau,2012,L
+GUY,Guyana,2012,LM
+HTI,Haiti,2012,L
+HND,Honduras,2012,LM
+HKG,"Hong Kong SAR, China",2012,H
+HUN,Hungary,2012,UM
+ISL,Iceland,2012,H
+IND,India,2012,LM
+IDN,Indonesia,2012,LM
+IRN,"Iran, Islamic Rep.",2012,UM
+IRQ,Iraq,2012,UM
+IRL,Ireland,2012,H
+IMN,Isle of Man,2012,H
+ISR,Israel,2012,H
+ITA,Italy,2012,H
+JAM,Jamaica,2012,UM
+JPN,Japan,2012,H
+JOR,Jordan,2012,UM
+KAZ,Kazakhstan,2012,UM
+KEN,Kenya,2012,L
+KIR,Kiribati,2012,LM
+PRK,"Korea, Dem. Rep.",2012,L
+KOR,"Korea, Rep.",2012,H
+XKX,Kosovo,2012,LM
+KWT,Kuwait,2012,H
+KGZ,Kyrgyz Republic,2012,L
+LAO,Lao PDR,2012,LM
+LVA,Latvia,2012,H
+LBN,Lebanon,2012,UM
+LSO,Lesotho,2012,LM
+LBR,Liberia,2012,L
+LBY,Libya,2012,UM
+LIE,Liechtenstein,2012,H
+LTU,Lithuania,2012,H
+LUX,Luxembourg,2012,H
+MAC,"Macao SAR, China",2012,H
+MDG,Madagascar,2012,L
+MWI,Malawi,2012,L
+MYS,Malaysia,2012,UM
+MDV,Maldives,2012,UM
+MLI,Mali,2012,L
+MLT,Malta,2012,H
+MHL,Marshall Islands,2012,UM
+MRT,Mauritania,2012,LM
+MUS,Mauritius,2012,UM
+MEX,Mexico,2012,UM
+FSM,"Micronesia, Fed. Sts.",2012,LM
+MDA,Moldova,2012,LM
+MCO,Monaco,2012,H
+MNG,Mongolia,2012,LM
+MNE,Montenegro,2012,UM
+MAR,Morocco,2012,LM
+MOZ,Mozambique,2012,L
+MMR,Myanmar,2012,L
+NAM,Namibia,2012,UM
+NRU,Nauru,2012,..
+NPL,Nepal,2012,L
+NLD,Netherlands,2012,H
+NCL,New Caledonia,2012,H
+NZL,New Zealand,2012,H
+NIC,Nicaragua,2012,LM
+NER,Niger,2012,L
+NGA,Nigeria,2012,LM
+MKD,North Macedonia,2012,UM
+MNP,Northern Mariana Islands,2012,H
+NOR,Norway,2012,H
+OMN,Oman,2012,H
+PAK,Pakistan,2012,LM
+PLW,Palau,2012,UM
+PAN,Panama,2012,UM
+PNG,Papua New Guinea,2012,LM
+PRY,Paraguay,2012,LM
+PER,Peru,2012,UM
+PHL,Philippines,2012,LM
+POL,Poland,2012,H
+PRT,Portugal,2012,H
+PRI,Puerto Rico,2012,H
+QAT,Qatar,2012,H
+ROU,Romania,2012,UM
+RUS,Russian Federation,2012,H
+RWA,Rwanda,2012,L
+WSM,Samoa,2012,LM
+SMR,San Marino,2012,H
+STP,São Tomé and Príncipe,2012,LM
+SAU,Saudi Arabia,2012,H
+SEN,Senegal,2012,LM
+SRB,Serbia,2012,UM
+SYC,Seychelles,2012,UM
+SLE,Sierra Leone,2012,L
+SGP,Singapore,2012,H
+SXM,Sint Maarten (Dutch part),2012,H
+SVK,Slovak Republic,2012,H
+SVN,Slovenia,2012,H
+SLB,Solomon Islands,2012,LM
+SOM,Somalia,2012,L
+ZAF,South Africa,2012,UM
+SSD,South Sudan,2012,L
+ESP,Spain,2012,H
+LKA,Sri Lanka,2012,LM
+KNA,St. Kitts and Nevis,2012,H
+LCA,St. Lucia,2012,UM
+MAF,St. Martin (French part),2012,H
+VCT,St. Vincent and the Grenadines,2012,UM
+SDN,Sudan,2012,LM
+SUR,Suriname,2012,UM
+SWE,Sweden,2012,H
+CHE,Switzerland,2012,H
+SYR,Syrian Arab Republic,2012,LM
+TWN,"Taiwan, China",2012,H
+TJK,Tajikistan,2012,L
+TZA,Tanzania,2012,L
+THA,Thailand,2012,UM
+TLS,Timor-Leste,2012,LM
+TGO,Togo,2012,L
+TON,Tonga,2012,UM
+TTO,Trinidad and Tobago,2012,H
+TUN,Tunisia,2012,UM
+TUR,Türkiye,2012,UM
+TKM,Turkmenistan,2012,UM
+TCA,Turks and Caicos Islands,2012,H
+TUV,Tuvalu,2012,UM
+UGA,Uganda,2012,L
+UKR,Ukraine,2012,LM
+ARE,United Arab Emirates,2012,H
+GBR,United Kingdom,2012,H
+USA,United States,2012,H
+URY,Uruguay,2012,H
+UZB,Uzbekistan,2012,LM
+VUT,Vanuatu,2012,LM
+VEN,"Venezuela, RB",2012,UM
+VNM,Viet Nam,2012,LM
+VIR,Virgin Islands (U.S.),2012,H
+PSE,West Bank and Gaza,2012,LM
+YEM,"Yemen, Rep.",2012,LM
+ZMB,Zambia,2012,LM
+ZWE,Zimbabwe,2012,L
+CSK,Czechoslovakia (former),2012,
+MYT,Mayotte,2012,
+ANT,Netherlands Antilles (former),2012,
+YUG,Serbia and Montenegro (former),2012,
+SUN,USSR (former),2012,
+AFG,Afghanistan,2013,L
+ALB,Albania,2013,UM
+DZA,Algeria,2013,UM
+ASM,American Samoa,2013,UM
+AND,Andorra,2013,H
+AGO,Angola,2013,UM
+ATG,Antigua and Barbuda,2013,H
+ARG,Argentina,2013,UM
+ARM,Armenia,2013,LM
+ABW,Aruba,2013,H
+AUS,Australia,2013,H
+AUT,Austria,2013,H
+AZE,Azerbaijan,2013,UM
+BHS,"Bahamas, The",2013,H
+BHR,Bahrain,2013,H
+BGD,Bangladesh,2013,L
+BRB,Barbados,2013,H
+BLR,Belarus,2013,UM
+BEL,Belgium,2013,H
+BLZ,Belize,2013,UM
+BEN,Benin,2013,L
+BMU,Bermuda,2013,H
+BTN,Bhutan,2013,LM
+BOL,Bolivia,2013,LM
+BIH,Bosnia and Herzegovina,2013,UM
+BWA,Botswana,2013,UM
+BRA,Brazil,2013,UM
+VGB,British Virgin Islands,2013,..
+BRN,Brunei Darussalam,2013,H
+BGR,Bulgaria,2013,UM
+BFA,Burkina Faso,2013,L
+BDI,Burundi,2013,L
+CPV,Cabo Verde,2013,LM
+KHM,Cambodia,2013,L
+CMR,Cameroon,2013,LM
+CAN,Canada,2013,H
+CYM,Cayman Islands,2013,H
+CAF,Central African Republic,2013,L
+TCD,Chad,2013,L
+CHI,Channel Islands,2013,H
+CHL,Chile,2013,H
+CHN,China,2013,UM
+COL,Colombia,2013,UM
+COM,Comoros,2013,L
+COD,"Congo, Dem. Rep.",2013,L
+COG,"Congo, Rep.",2013,LM
+CRI,Costa Rica,2013,UM
+CIV,Côte d'Ivoire,2013,LM
+HRV,Croatia,2013,H
+CUB,Cuba,2013,UM
+CUW,Curaçao,2013,H
+CYP,Cyprus,2013,H
+CZE,Czechia,2013,H
+DNK,Denmark,2013,H
+DJI,Djibouti,2013,LM
+DMA,Dominica,2013,UM
+DOM,Dominican Republic,2013,UM
+ECU,Ecuador,2013,UM
+EGY,"Egypt, Arab Rep.",2013,LM
+SLV,El Salvador,2013,LM
+GNQ,Equatorial Guinea,2013,H
+ERI,Eritrea,2013,L
+EST,Estonia,2013,H
+SWZ,Eswatini,2013,LM
+ETH,Ethiopia,2013,L
+FRO,Faeroe Islands,2013,H
+FJI,Fiji,2013,UM
+FIN,Finland,2013,H
+FRA,France,2013,H
+PYF,French Polynesia,2013,H
+GAB,Gabon,2013,UM
+GMB,"Gambia, The",2013,L
+GEO,Georgia,2013,LM
+DEU,Germany,2013,H
+GHA,Ghana,2013,LM
+GIB,Gibraltar,2013,..
+GRC,Greece,2013,H
+GRL,Greenland,2013,H
+GRD,Grenada,2013,UM
+GUM,Guam,2013,H
+GTM,Guatemala,2013,LM
+GIN,Guinea,2013,L
+GNB,Guinea-Bissau,2013,L
+GUY,Guyana,2013,LM
+HTI,Haiti,2013,L
+HND,Honduras,2013,LM
+HKG,"Hong Kong SAR, China",2013,H
+HUN,Hungary,2013,UM
+ISL,Iceland,2013,H
+IND,India,2013,LM
+IDN,Indonesia,2013,LM
+IRN,"Iran, Islamic Rep.",2013,UM
+IRQ,Iraq,2013,UM
+IRL,Ireland,2013,H
+IMN,Isle of Man,2013,H
+ISR,Israel,2013,H
+ITA,Italy,2013,H
+JAM,Jamaica,2013,UM
+JPN,Japan,2013,H
+JOR,Jordan,2013,UM
+KAZ,Kazakhstan,2013,UM
+KEN,Kenya,2013,L
+KIR,Kiribati,2013,LM
+PRK,"Korea, Dem. Rep.",2013,L
+KOR,"Korea, Rep.",2013,H
+XKX,Kosovo,2013,LM
+KWT,Kuwait,2013,H
+KGZ,Kyrgyz Republic,2013,LM
+LAO,Lao PDR,2013,LM
+LVA,Latvia,2013,H
+LBN,Lebanon,2013,UM
+LSO,Lesotho,2013,LM
+LBR,Liberia,2013,L
+LBY,Libya,2013,UM
+LIE,Liechtenstein,2013,H
+LTU,Lithuania,2013,H
+LUX,Luxembourg,2013,H
+MAC,"Macao SAR, China",2013,H
+MDG,Madagascar,2013,L
+MWI,Malawi,2013,L
+MYS,Malaysia,2013,UM
+MDV,Maldives,2013,UM
+MLI,Mali,2013,L
+MLT,Malta,2013,H
+MHL,Marshall Islands,2013,UM
+MRT,Mauritania,2013,LM
+MUS,Mauritius,2013,UM
+MEX,Mexico,2013,UM
+FSM,"Micronesia, Fed. Sts.",2013,LM
+MDA,Moldova,2013,LM
+MCO,Monaco,2013,H
+MNG,Mongolia,2013,LM
+MNE,Montenegro,2013,UM
+MAR,Morocco,2013,LM
+MOZ,Mozambique,2013,L
+MMR,Myanmar,2013,L
+NAM,Namibia,2013,UM
+NRU,Nauru,2013,..
+NPL,Nepal,2013,L
+NLD,Netherlands,2013,H
+NCL,New Caledonia,2013,H
+NZL,New Zealand,2013,H
+NIC,Nicaragua,2013,LM
+NER,Niger,2013,L
+NGA,Nigeria,2013,LM
+MKD,North Macedonia,2013,UM
+MNP,Northern Mariana Islands,2013,H
+NOR,Norway,2013,H
+OMN,Oman,2013,H
+PAK,Pakistan,2013,LM
+PLW,Palau,2013,UM
+PAN,Panama,2013,UM
+PNG,Papua New Guinea,2013,LM
+PRY,Paraguay,2013,LM
+PER,Peru,2013,UM
+PHL,Philippines,2013,LM
+POL,Poland,2013,H
+PRT,Portugal,2013,H
+PRI,Puerto Rico,2013,H
+QAT,Qatar,2013,H
+ROU,Romania,2013,UM
+RUS,Russian Federation,2013,H
+RWA,Rwanda,2013,L
+WSM,Samoa,2013,LM
+SMR,San Marino,2013,H
+STP,São Tomé and Príncipe,2013,LM
+SAU,Saudi Arabia,2013,H
+SEN,Senegal,2013,LM
+SRB,Serbia,2013,UM
+SYC,Seychelles,2013,UM
+SLE,Sierra Leone,2013,L
+SGP,Singapore,2013,H
+SXM,Sint Maarten (Dutch part),2013,H
+SVK,Slovak Republic,2013,H
+SVN,Slovenia,2013,H
+SLB,Solomon Islands,2013,LM
+SOM,Somalia,2013,L
+ZAF,South Africa,2013,UM
+SSD,South Sudan,2013,LM
+ESP,Spain,2013,H
+LKA,Sri Lanka,2013,LM
+KNA,St. Kitts and Nevis,2013,H
+LCA,St. Lucia,2013,UM
+MAF,St. Martin (French part),2013,H
+VCT,St. Vincent and the Grenadines,2013,UM
+SDN,Sudan,2013,LM
+SUR,Suriname,2013,UM
+SWE,Sweden,2013,H
+CHE,Switzerland,2013,H
+SYR,Syrian Arab Republic,2013,LM
+TWN,"Taiwan, China",2013,H
+TJK,Tajikistan,2013,L
+TZA,Tanzania,2013,L
+THA,Thailand,2013,UM
+TLS,Timor-Leste,2013,LM
+TGO,Togo,2013,L
+TON,Tonga,2013,UM
+TTO,Trinidad and Tobago,2013,H
+TUN,Tunisia,2013,UM
+TUR,Türkiye,2013,UM
+TKM,Turkmenistan,2013,UM
+TCA,Turks and Caicos Islands,2013,H
+TUV,Tuvalu,2013,UM
+UGA,Uganda,2013,L
+UKR,Ukraine,2013,LM
+ARE,United Arab Emirates,2013,H
+GBR,United Kingdom,2013,H
+USA,United States,2013,H
+URY,Uruguay,2013,H
+UZB,Uzbekistan,2013,LM
+VUT,Vanuatu,2013,LM
+VEN,"Venezuela, RB",2013,UM
+VNM,Viet Nam,2013,LM
+VIR,Virgin Islands (U.S.),2013,H
+PSE,West Bank and Gaza,2013,LM
+YEM,"Yemen, Rep.",2013,LM
+ZMB,Zambia,2013,LM
+ZWE,Zimbabwe,2013,L
+CSK,Czechoslovakia (former),2013,
+MYT,Mayotte,2013,
+ANT,Netherlands Antilles (former),2013,
+YUG,Serbia and Montenegro (former),2013,
+SUN,USSR (former),2013,
+AFG,Afghanistan,2014,L
+ALB,Albania,2014,UM
+DZA,Algeria,2014,UM
+ASM,American Samoa,2014,UM
+AND,Andorra,2014,H
+AGO,Angola,2014,UM
+ATG,Antigua and Barbuda,2014,H
+ARG,Argentina,2014,H
+ARM,Armenia,2014,LM
+ABW,Aruba,2014,H
+AUS,Australia,2014,H
+AUT,Austria,2014,H
+AZE,Azerbaijan,2014,UM
+BHS,"Bahamas, The",2014,H
+BHR,Bahrain,2014,H
+BGD,Bangladesh,2014,LM
+BRB,Barbados,2014,H
+BLR,Belarus,2014,UM
+BEL,Belgium,2014,H
+BLZ,Belize,2014,UM
+BEN,Benin,2014,L
+BMU,Bermuda,2014,H
+BTN,Bhutan,2014,LM
+BOL,Bolivia,2014,LM
+BIH,Bosnia and Herzegovina,2014,UM
+BWA,Botswana,2014,UM
+BRA,Brazil,2014,UM
+VGB,British Virgin Islands,2014,..
+BRN,Brunei Darussalam,2014,H
+BGR,Bulgaria,2014,UM
+BFA,Burkina Faso,2014,L
+BDI,Burundi,2014,L
+CPV,Cabo Verde,2014,LM
+KHM,Cambodia,2014,L
+CMR,Cameroon,2014,LM
+CAN,Canada,2014,H
+CYM,Cayman Islands,2014,H
+CAF,Central African Republic,2014,L
+TCD,Chad,2014,L
+CHI,Channel Islands,2014,H
+CHL,Chile,2014,H
+CHN,China,2014,UM
+COL,Colombia,2014,UM
+COM,Comoros,2014,L
+COD,"Congo, Dem. Rep.",2014,L
+COG,"Congo, Rep.",2014,LM
+CRI,Costa Rica,2014,UM
+CIV,Côte d'Ivoire,2014,LM
+HRV,Croatia,2014,H
+CUB,Cuba,2014,UM
+CUW,Curaçao,2014,H
+CYP,Cyprus,2014,H
+CZE,Czechia,2014,H
+DNK,Denmark,2014,H
+DJI,Djibouti,2014,LM
+DMA,Dominica,2014,UM
+DOM,Dominican Republic,2014,UM
+ECU,Ecuador,2014,UM
+EGY,"Egypt, Arab Rep.",2014,LM
+SLV,El Salvador,2014,LM
+GNQ,Equatorial Guinea,2014,H
+ERI,Eritrea,2014,L
+EST,Estonia,2014,H
+SWZ,Eswatini,2014,LM
+ETH,Ethiopia,2014,L
+FRO,Faeroe Islands,2014,H
+FJI,Fiji,2014,UM
+FIN,Finland,2014,H
+FRA,France,2014,H
+PYF,French Polynesia,2014,H
+GAB,Gabon,2014,UM
+GMB,"Gambia, The",2014,L
+GEO,Georgia,2014,LM
+DEU,Germany,2014,H
+GHA,Ghana,2014,LM
+GIB,Gibraltar,2014,..
+GRC,Greece,2014,H
+GRL,Greenland,2014,H
+GRD,Grenada,2014,UM
+GUM,Guam,2014,H
+GTM,Guatemala,2014,LM
+GIN,Guinea,2014,L
+GNB,Guinea-Bissau,2014,L
+GUY,Guyana,2014,LM
+HTI,Haiti,2014,L
+HND,Honduras,2014,LM
+HKG,"Hong Kong SAR, China",2014,H
+HUN,Hungary,2014,H
+ISL,Iceland,2014,H
+IND,India,2014,LM
+IDN,Indonesia,2014,LM
+IRN,"Iran, Islamic Rep.",2014,UM
+IRQ,Iraq,2014,UM
+IRL,Ireland,2014,H
+IMN,Isle of Man,2014,H
+ISR,Israel,2014,H
+ITA,Italy,2014,H
+JAM,Jamaica,2014,UM
+JPN,Japan,2014,H
+JOR,Jordan,2014,UM
+KAZ,Kazakhstan,2014,UM
+KEN,Kenya,2014,LM
+KIR,Kiribati,2014,LM
+PRK,"Korea, Dem. Rep.",2014,L
+KOR,"Korea, Rep.",2014,H
+XKX,Kosovo,2014,LM
+KWT,Kuwait,2014,H
+KGZ,Kyrgyz Republic,2014,LM
+LAO,Lao PDR,2014,LM
+LVA,Latvia,2014,H
+LBN,Lebanon,2014,UM
+LSO,Lesotho,2014,LM
+LBR,Liberia,2014,L
+LBY,Libya,2014,UM
+LIE,Liechtenstein,2014,H
+LTU,Lithuania,2014,H
+LUX,Luxembourg,2014,H
+MAC,"Macao SAR, China",2014,H
+MDG,Madagascar,2014,L
+MWI,Malawi,2014,L
+MYS,Malaysia,2014,UM
+MDV,Maldives,2014,UM
+MLI,Mali,2014,L
+MLT,Malta,2014,H
+MHL,Marshall Islands,2014,UM
+MRT,Mauritania,2014,LM
+MUS,Mauritius,2014,UM
+MEX,Mexico,2014,UM
+FSM,"Micronesia, Fed. Sts.",2014,LM
+MDA,Moldova,2014,LM
+MCO,Monaco,2014,H
+MNG,Mongolia,2014,UM
+MNE,Montenegro,2014,UM
+MAR,Morocco,2014,LM
+MOZ,Mozambique,2014,L
+MMR,Myanmar,2014,LM
+NAM,Namibia,2014,UM
+NRU,Nauru,2014,..
+NPL,Nepal,2014,L
+NLD,Netherlands,2014,H
+NCL,New Caledonia,2014,H
+NZL,New Zealand,2014,H
+NIC,Nicaragua,2014,LM
+NER,Niger,2014,L
+NGA,Nigeria,2014,LM
+MKD,North Macedonia,2014,UM
+MNP,Northern Mariana Islands,2014,H
+NOR,Norway,2014,H
+OMN,Oman,2014,H
+PAK,Pakistan,2014,LM
+PLW,Palau,2014,UM
+PAN,Panama,2014,UM
+PNG,Papua New Guinea,2014,LM
+PRY,Paraguay,2014,UM
+PER,Peru,2014,UM
+PHL,Philippines,2014,LM
+POL,Poland,2014,H
+PRT,Portugal,2014,H
+PRI,Puerto Rico,2014,H
+QAT,Qatar,2014,H
+ROU,Romania,2014,UM
+RUS,Russian Federation,2014,H
+RWA,Rwanda,2014,L
+WSM,Samoa,2014,LM
+SMR,San Marino,2014,H
+STP,São Tomé and Príncipe,2014,LM
+SAU,Saudi Arabia,2014,H
+SEN,Senegal,2014,LM
+SRB,Serbia,2014,UM
+SYC,Seychelles,2014,H
+SLE,Sierra Leone,2014,L
+SGP,Singapore,2014,H
+SXM,Sint Maarten (Dutch part),2014,H
+SVK,Slovak Republic,2014,H
+SVN,Slovenia,2014,H
+SLB,Solomon Islands,2014,LM
+SOM,Somalia,2014,L
+ZAF,South Africa,2014,UM
+SSD,South Sudan,2014,L
+ESP,Spain,2014,H
+LKA,Sri Lanka,2014,LM
+KNA,St. Kitts and Nevis,2014,H
+LCA,St. Lucia,2014,UM
+MAF,St. Martin (French part),2014,H
+VCT,St. Vincent and the Grenadines,2014,UM
+SDN,Sudan,2014,LM
+SUR,Suriname,2014,UM
+SWE,Sweden,2014,H
+CHE,Switzerland,2014,H
+SYR,Syrian Arab Republic,2014,LM
+TWN,"Taiwan, China",2014,H
+TJK,Tajikistan,2014,LM
+TZA,Tanzania,2014,L
+THA,Thailand,2014,UM
+TLS,Timor-Leste,2014,LM
+TGO,Togo,2014,L
+TON,Tonga,2014,UM
+TTO,Trinidad and Tobago,2014,H
+TUN,Tunisia,2014,UM
+TUR,Türkiye,2014,UM
+TKM,Turkmenistan,2014,UM
+TCA,Turks and Caicos Islands,2014,H
+TUV,Tuvalu,2014,UM
+UGA,Uganda,2014,L
+UKR,Ukraine,2014,LM
+ARE,United Arab Emirates,2014,H
+GBR,United Kingdom,2014,H
+USA,United States,2014,H
+URY,Uruguay,2014,H
+UZB,Uzbekistan,2014,LM
+VUT,Vanuatu,2014,LM
+VEN,"Venezuela, RB",2014,H
+VNM,Viet Nam,2014,LM
+VIR,Virgin Islands (U.S.),2014,H
+PSE,West Bank and Gaza,2014,LM
+YEM,"Yemen, Rep.",2014,LM
+ZMB,Zambia,2014,LM
+ZWE,Zimbabwe,2014,L
+CSK,Czechoslovakia (former),2014,
+MYT,Mayotte,2014,
+ANT,Netherlands Antilles (former),2014,
+YUG,Serbia and Montenegro (former),2014,
+SUN,USSR (former),2014,
+AFG,Afghanistan,2015,L
+ALB,Albania,2015,UM
+DZA,Algeria,2015,UM
+ASM,American Samoa,2015,UM
+AND,Andorra,2015,H
+AGO,Angola,2015,UM
+ATG,Antigua and Barbuda,2015,H
+ARG,Argentina,2015,UM
+ARM,Armenia,2015,LM
+ABW,Aruba,2015,H
+AUS,Australia,2015,H
+AUT,Austria,2015,H
+AZE,Azerbaijan,2015,UM
+BHS,"Bahamas, The",2015,H
+BHR,Bahrain,2015,H
+BGD,Bangladesh,2015,LM
+BRB,Barbados,2015,H
+BLR,Belarus,2015,UM
+BEL,Belgium,2015,H
+BLZ,Belize,2015,UM
+BEN,Benin,2015,L
+BMU,Bermuda,2015,H
+BTN,Bhutan,2015,LM
+BOL,Bolivia,2015,LM
+BIH,Bosnia and Herzegovina,2015,UM
+BWA,Botswana,2015,UM
+BRA,Brazil,2015,UM
+VGB,British Virgin Islands,2015,H
+BRN,Brunei Darussalam,2015,H
+BGR,Bulgaria,2015,UM
+BFA,Burkina Faso,2015,L
+BDI,Burundi,2015,L
+CPV,Cabo Verde,2015,LM
+KHM,Cambodia,2015,LM
+CMR,Cameroon,2015,LM
+CAN,Canada,2015,H
+CYM,Cayman Islands,2015,H
+CAF,Central African Republic,2015,L
+TCD,Chad,2015,L
+CHI,Channel Islands,2015,H
+CHL,Chile,2015,H
+CHN,China,2015,UM
+COL,Colombia,2015,UM
+COM,Comoros,2015,L
+COD,"Congo, Dem. Rep.",2015,L
+COG,"Congo, Rep.",2015,LM
+CRI,Costa Rica,2015,UM
+CIV,Côte d'Ivoire,2015,LM
+HRV,Croatia,2015,H
+CUB,Cuba,2015,UM
+CUW,Curaçao,2015,H
+CYP,Cyprus,2015,H
+CZE,Czechia,2015,H
+DNK,Denmark,2015,H
+DJI,Djibouti,2015,LM
+DMA,Dominica,2015,UM
+DOM,Dominican Republic,2015,UM
+ECU,Ecuador,2015,UM
+EGY,"Egypt, Arab Rep.",2015,LM
+SLV,El Salvador,2015,LM
+GNQ,Equatorial Guinea,2015,UM
+ERI,Eritrea,2015,L
+EST,Estonia,2015,H
+SWZ,Eswatini,2015,LM
+ETH,Ethiopia,2015,L
+FRO,Faeroe Islands,2015,H
+FJI,Fiji,2015,UM
+FIN,Finland,2015,H
+FRA,France,2015,H
+PYF,French Polynesia,2015,H
+GAB,Gabon,2015,UM
+GMB,"Gambia, The",2015,L
+GEO,Georgia,2015,UM
+DEU,Germany,2015,H
+GHA,Ghana,2015,LM
+GIB,Gibraltar,2015,H
+GRC,Greece,2015,H
+GRL,Greenland,2015,H
+GRD,Grenada,2015,UM
+GUM,Guam,2015,H
+GTM,Guatemala,2015,LM
+GIN,Guinea,2015,L
+GNB,Guinea-Bissau,2015,L
+GUY,Guyana,2015,UM
+HTI,Haiti,2015,L
+HND,Honduras,2015,LM
+HKG,"Hong Kong SAR, China",2015,H
+HUN,Hungary,2015,H
+ISL,Iceland,2015,H
+IND,India,2015,LM
+IDN,Indonesia,2015,LM
+IRN,"Iran, Islamic Rep.",2015,UM
+IRQ,Iraq,2015,UM
+IRL,Ireland,2015,H
+IMN,Isle of Man,2015,H
+ISR,Israel,2015,H
+ITA,Italy,2015,H
+JAM,Jamaica,2015,UM
+JPN,Japan,2015,H
+JOR,Jordan,2015,UM
+KAZ,Kazakhstan,2015,UM
+KEN,Kenya,2015,LM
+KIR,Kiribati,2015,LM
+PRK,"Korea, Dem. Rep.",2015,L
+KOR,"Korea, Rep.",2015,H
+XKX,Kosovo,2015,LM
+KWT,Kuwait,2015,H
+KGZ,Kyrgyz Republic,2015,LM
+LAO,Lao PDR,2015,LM
+LVA,Latvia,2015,H
+LBN,Lebanon,2015,UM
+LSO,Lesotho,2015,LM
+LBR,Liberia,2015,L
+LBY,Libya,2015,UM
+LIE,Liechtenstein,2015,H
+LTU,Lithuania,2015,H
+LUX,Luxembourg,2015,H
+MAC,"Macao SAR, China",2015,H
+MDG,Madagascar,2015,L
+MWI,Malawi,2015,L
+MYS,Malaysia,2015,UM
+MDV,Maldives,2015,UM
+MLI,Mali,2015,L
+MLT,Malta,2015,H
+MHL,Marshall Islands,2015,UM
+MRT,Mauritania,2015,LM
+MUS,Mauritius,2015,UM
+MEX,Mexico,2015,UM
+FSM,"Micronesia, Fed. Sts.",2015,LM
+MDA,Moldova,2015,LM
+MCO,Monaco,2015,H
+MNG,Mongolia,2015,LM
+MNE,Montenegro,2015,UM
+MAR,Morocco,2015,LM
+MOZ,Mozambique,2015,L
+MMR,Myanmar,2015,LM
+NAM,Namibia,2015,UM
+NRU,Nauru,2015,H
+NPL,Nepal,2015,L
+NLD,Netherlands,2015,H
+NCL,New Caledonia,2015,H
+NZL,New Zealand,2015,H
+NIC,Nicaragua,2015,LM
+NER,Niger,2015,L
+NGA,Nigeria,2015,LM
+MKD,North Macedonia,2015,UM
+MNP,Northern Mariana Islands,2015,H
+NOR,Norway,2015,H
+OMN,Oman,2015,H
+PAK,Pakistan,2015,LM
+PLW,Palau,2015,UM
+PAN,Panama,2015,UM
+PNG,Papua New Guinea,2015,LM
+PRY,Paraguay,2015,UM
+PER,Peru,2015,UM
+PHL,Philippines,2015,LM
+POL,Poland,2015,H
+PRT,Portugal,2015,H
+PRI,Puerto Rico,2015,H
+QAT,Qatar,2015,H
+ROU,Romania,2015,UM
+RUS,Russian Federation,2015,UM
+RWA,Rwanda,2015,L
+WSM,Samoa,2015,LM
+SMR,San Marino,2015,H
+STP,São Tomé and Príncipe,2015,LM
+SAU,Saudi Arabia,2015,H
+SEN,Senegal,2015,L
+SRB,Serbia,2015,UM
+SYC,Seychelles,2015,H
+SLE,Sierra Leone,2015,L
+SGP,Singapore,2015,H
+SXM,Sint Maarten (Dutch part),2015,H
+SVK,Slovak Republic,2015,H
+SVN,Slovenia,2015,H
+SLB,Solomon Islands,2015,LM
+SOM,Somalia,2015,L
+ZAF,South Africa,2015,UM
+SSD,South Sudan,2015,L
+ESP,Spain,2015,H
+LKA,Sri Lanka,2015,LM
+KNA,St. Kitts and Nevis,2015,H
+LCA,St. Lucia,2015,UM
+MAF,St. Martin (French part),2015,H
+VCT,St. Vincent and the Grenadines,2015,UM
+SDN,Sudan,2015,LM
+SUR,Suriname,2015,UM
+SWE,Sweden,2015,H
+CHE,Switzerland,2015,H
+SYR,Syrian Arab Republic,2015,LM
+TWN,"Taiwan, China",2015,H
+TJK,Tajikistan,2015,LM
+TZA,Tanzania,2015,L
+THA,Thailand,2015,UM
+TLS,Timor-Leste,2015,LM
+TGO,Togo,2015,L
+TON,Tonga,2015,LM
+TTO,Trinidad and Tobago,2015,H
+TUN,Tunisia,2015,LM
+TUR,Türkiye,2015,UM
+TKM,Turkmenistan,2015,UM
+TCA,Turks and Caicos Islands,2015,H
+TUV,Tuvalu,2015,UM
+UGA,Uganda,2015,L
+UKR,Ukraine,2015,LM
+ARE,United Arab Emirates,2015,H
+GBR,United Kingdom,2015,H
+USA,United States,2015,H
+URY,Uruguay,2015,H
+UZB,Uzbekistan,2015,LM
+VUT,Vanuatu,2015,LM
+VEN,"Venezuela, RB",2015,UM
+VNM,Viet Nam,2015,LM
+VIR,Virgin Islands (U.S.),2015,H
+PSE,West Bank and Gaza,2015,LM
+YEM,"Yemen, Rep.",2015,LM
+ZMB,Zambia,2015,LM
+ZWE,Zimbabwe,2015,L
+CSK,Czechoslovakia (former),2015,
+MYT,Mayotte,2015,
+ANT,Netherlands Antilles (former),2015,
+YUG,Serbia and Montenegro (former),2015,
+SUN,USSR (former),2015,
+AFG,Afghanistan,2016,L
+ALB,Albania,2016,UM
+DZA,Algeria,2016,UM
+ASM,American Samoa,2016,UM
+AND,Andorra,2016,H
+AGO,Angola,2016,LM
+ATG,Antigua and Barbuda,2016,H
+ARG,Argentina,2016,UM
+ARM,Armenia,2016,LM
+ABW,Aruba,2016,H
+AUS,Australia,2016,H
+AUT,Austria,2016,H
+AZE,Azerbaijan,2016,UM
+BHS,"Bahamas, The",2016,H
+BHR,Bahrain,2016,H
+BGD,Bangladesh,2016,LM
+BRB,Barbados,2016,H
+BLR,Belarus,2016,UM
+BEL,Belgium,2016,H
+BLZ,Belize,2016,UM
+BEN,Benin,2016,L
+BMU,Bermuda,2016,H
+BTN,Bhutan,2016,LM
+BOL,Bolivia,2016,LM
+BIH,Bosnia and Herzegovina,2016,UM
+BWA,Botswana,2016,UM
+BRA,Brazil,2016,UM
+VGB,British Virgin Islands,2016,H
+BRN,Brunei Darussalam,2016,H
+BGR,Bulgaria,2016,UM
+BFA,Burkina Faso,2016,L
+BDI,Burundi,2016,L
+CPV,Cabo Verde,2016,LM
+KHM,Cambodia,2016,LM
+CMR,Cameroon,2016,LM
+CAN,Canada,2016,H
+CYM,Cayman Islands,2016,H
+CAF,Central African Republic,2016,L
+TCD,Chad,2016,L
+CHI,Channel Islands,2016,H
+CHL,Chile,2016,H
+CHN,China,2016,UM
+COL,Colombia,2016,UM
+COM,Comoros,2016,L
+COD,"Congo, Dem. Rep.",2016,L
+COG,"Congo, Rep.",2016,LM
+CRI,Costa Rica,2016,UM
+CIV,Côte d'Ivoire,2016,LM
+HRV,Croatia,2016,UM
+CUB,Cuba,2016,UM
+CUW,Curaçao,2016,H
+CYP,Cyprus,2016,H
+CZE,Czechia,2016,H
+DNK,Denmark,2016,H
+DJI,Djibouti,2016,LM
+DMA,Dominica,2016,UM
+DOM,Dominican Republic,2016,UM
+ECU,Ecuador,2016,UM
+EGY,"Egypt, Arab Rep.",2016,LM
+SLV,El Salvador,2016,LM
+GNQ,Equatorial Guinea,2016,UM
+ERI,Eritrea,2016,L
+EST,Estonia,2016,H
+SWZ,Eswatini,2016,LM
+ETH,Ethiopia,2016,L
+FRO,Faeroe Islands,2016,H
+FJI,Fiji,2016,UM
+FIN,Finland,2016,H
+FRA,France,2016,H
+PYF,French Polynesia,2016,H
+GAB,Gabon,2016,UM
+GMB,"Gambia, The",2016,L
+GEO,Georgia,2016,LM
+DEU,Germany,2016,H
+GHA,Ghana,2016,LM
+GIB,Gibraltar,2016,H
+GRC,Greece,2016,H
+GRL,Greenland,2016,H
+GRD,Grenada,2016,UM
+GUM,Guam,2016,H
+GTM,Guatemala,2016,LM
+GIN,Guinea,2016,L
+GNB,Guinea-Bissau,2016,L
+GUY,Guyana,2016,UM
+HTI,Haiti,2016,L
+HND,Honduras,2016,LM
+HKG,"Hong Kong SAR, China",2016,H
+HUN,Hungary,2016,H
+ISL,Iceland,2016,H
+IND,India,2016,LM
+IDN,Indonesia,2016,LM
+IRN,"Iran, Islamic Rep.",2016,UM
+IRQ,Iraq,2016,UM
+IRL,Ireland,2016,H
+IMN,Isle of Man,2016,H
+ISR,Israel,2016,H
+ITA,Italy,2016,H
+JAM,Jamaica,2016,UM
+JPN,Japan,2016,H
+JOR,Jordan,2016,LM
+KAZ,Kazakhstan,2016,UM
+KEN,Kenya,2016,LM
+KIR,Kiribati,2016,LM
+PRK,"Korea, Dem. Rep.",2016,L
+KOR,"Korea, Rep.",2016,H
+XKX,Kosovo,2016,LM
+KWT,Kuwait,2016,H
+KGZ,Kyrgyz Republic,2016,LM
+LAO,Lao PDR,2016,LM
+LVA,Latvia,2016,H
+LBN,Lebanon,2016,UM
+LSO,Lesotho,2016,LM
+LBR,Liberia,2016,L
+LBY,Libya,2016,UM
+LIE,Liechtenstein,2016,H
+LTU,Lithuania,2016,H
+LUX,Luxembourg,2016,H
+MAC,"Macao SAR, China",2016,H
+MDG,Madagascar,2016,L
+MWI,Malawi,2016,L
+MYS,Malaysia,2016,UM
+MDV,Maldives,2016,UM
+MLI,Mali,2016,L
+MLT,Malta,2016,H
+MHL,Marshall Islands,2016,UM
+MRT,Mauritania,2016,LM
+MUS,Mauritius,2016,UM
+MEX,Mexico,2016,UM
+FSM,"Micronesia, Fed. Sts.",2016,LM
+MDA,Moldova,2016,LM
+MCO,Monaco,2016,H
+MNG,Mongolia,2016,LM
+MNE,Montenegro,2016,UM
+MAR,Morocco,2016,LM
+MOZ,Mozambique,2016,L
+MMR,Myanmar,2016,LM
+NAM,Namibia,2016,UM
+NRU,Nauru,2016,UM
+NPL,Nepal,2016,L
+NLD,Netherlands,2016,H
+NCL,New Caledonia,2016,H
+NZL,New Zealand,2016,H
+NIC,Nicaragua,2016,LM
+NER,Niger,2016,L
+NGA,Nigeria,2016,LM
+MKD,North Macedonia,2016,UM
+MNP,Northern Mariana Islands,2016,H
+NOR,Norway,2016,H
+OMN,Oman,2016,H
+PAK,Pakistan,2016,LM
+PLW,Palau,2016,H
+PAN,Panama,2016,UM
+PNG,Papua New Guinea,2016,LM
+PRY,Paraguay,2016,UM
+PER,Peru,2016,UM
+PHL,Philippines,2016,LM
+POL,Poland,2016,H
+PRT,Portugal,2016,H
+PRI,Puerto Rico,2016,H
+QAT,Qatar,2016,H
+ROU,Romania,2016,UM
+RUS,Russian Federation,2016,UM
+RWA,Rwanda,2016,L
+WSM,Samoa,2016,UM
+SMR,San Marino,2016,H
+STP,São Tomé and Príncipe,2016,LM
+SAU,Saudi Arabia,2016,H
+SEN,Senegal,2016,L
+SRB,Serbia,2016,UM
+SYC,Seychelles,2016,H
+SLE,Sierra Leone,2016,L
+SGP,Singapore,2016,H
+SXM,Sint Maarten (Dutch part),2016,H
+SVK,Slovak Republic,2016,H
+SVN,Slovenia,2016,H
+SLB,Solomon Islands,2016,LM
+SOM,Somalia,2016,L
+ZAF,South Africa,2016,UM
+SSD,South Sudan,2016,L
+ESP,Spain,2016,H
+LKA,Sri Lanka,2016,LM
+KNA,St. Kitts and Nevis,2016,H
+LCA,St. Lucia,2016,UM
+MAF,St. Martin (French part),2016,H
+VCT,St. Vincent and the Grenadines,2016,UM
+SDN,Sudan,2016,LM
+SUR,Suriname,2016,UM
+SWE,Sweden,2016,H
+CHE,Switzerland,2016,H
+SYR,Syrian Arab Republic,2016,LM
+TWN,"Taiwan, China",2016,H
+TJK,Tajikistan,2016,LM
+TZA,Tanzania,2016,L
+THA,Thailand,2016,UM
+TLS,Timor-Leste,2016,LM
+TGO,Togo,2016,L
+TON,Tonga,2016,UM
+TTO,Trinidad and Tobago,2016,H
+TUN,Tunisia,2016,LM
+TUR,Türkiye,2016,UM
+TKM,Turkmenistan,2016,UM
+TCA,Turks and Caicos Islands,2016,H
+TUV,Tuvalu,2016,UM
+UGA,Uganda,2016,L
+UKR,Ukraine,2016,LM
+ARE,United Arab Emirates,2016,H
+GBR,United Kingdom,2016,H
+USA,United States,2016,H
+URY,Uruguay,2016,H
+UZB,Uzbekistan,2016,LM
+VUT,Vanuatu,2016,LM
+VEN,"Venezuela, RB",2016,UM
+VNM,Viet Nam,2016,LM
+VIR,Virgin Islands (U.S.),2016,H
+PSE,West Bank and Gaza,2016,LM
+YEM,"Yemen, Rep.",2016,LM
+ZMB,Zambia,2016,LM
+ZWE,Zimbabwe,2016,L
+CSK,Czechoslovakia (former),2016,
+MYT,Mayotte,2016,
+ANT,Netherlands Antilles (former),2016,
+YUG,Serbia and Montenegro (former),2016,
+SUN,USSR (former),2016,
+AFG,Afghanistan,2017,L
+ALB,Albania,2017,UM
+DZA,Algeria,2017,UM
+ASM,American Samoa,2017,UM
+AND,Andorra,2017,H
+AGO,Angola,2017,LM
+ATG,Antigua and Barbuda,2017,H
+ARG,Argentina,2017,H
+ARM,Armenia,2017,UM
+ABW,Aruba,2017,H
+AUS,Australia,2017,H
+AUT,Austria,2017,H
+AZE,Azerbaijan,2017,UM
+BHS,"Bahamas, The",2017,H
+BHR,Bahrain,2017,H
+BGD,Bangladesh,2017,LM
+BRB,Barbados,2017,H
+BLR,Belarus,2017,UM
+BEL,Belgium,2017,H
+BLZ,Belize,2017,UM
+BEN,Benin,2017,L
+BMU,Bermuda,2017,H
+BTN,Bhutan,2017,LM
+BOL,Bolivia,2017,LM
+BIH,Bosnia and Herzegovina,2017,UM
+BWA,Botswana,2017,UM
+BRA,Brazil,2017,UM
+VGB,British Virgin Islands,2017,H
+BRN,Brunei Darussalam,2017,H
+BGR,Bulgaria,2017,UM
+BFA,Burkina Faso,2017,L
+BDI,Burundi,2017,L
+CPV,Cabo Verde,2017,LM
+KHM,Cambodia,2017,LM
+CMR,Cameroon,2017,LM
+CAN,Canada,2017,H
+CYM,Cayman Islands,2017,H
+CAF,Central African Republic,2017,L
+TCD,Chad,2017,L
+CHI,Channel Islands,2017,H
+CHL,Chile,2017,H
+CHN,China,2017,UM
+COL,Colombia,2017,UM
+COM,Comoros,2017,L
+COD,"Congo, Dem. Rep.",2017,L
+COG,"Congo, Rep.",2017,LM
+CRI,Costa Rica,2017,UM
+CIV,Côte d'Ivoire,2017,LM
+HRV,Croatia,2017,H
+CUB,Cuba,2017,UM
+CUW,Curaçao,2017,H
+CYP,Cyprus,2017,H
+CZE,Czechia,2017,H
+DNK,Denmark,2017,H
+DJI,Djibouti,2017,LM
+DMA,Dominica,2017,UM
+DOM,Dominican Republic,2017,UM
+ECU,Ecuador,2017,UM
+EGY,"Egypt, Arab Rep.",2017,LM
+SLV,El Salvador,2017,LM
+GNQ,Equatorial Guinea,2017,UM
+ERI,Eritrea,2017,L
+EST,Estonia,2017,H
+SWZ,Eswatini,2017,LM
+ETH,Ethiopia,2017,L
+FRO,Faeroe Islands,2017,H
+FJI,Fiji,2017,UM
+FIN,Finland,2017,H
+FRA,France,2017,H
+PYF,French Polynesia,2017,H
+GAB,Gabon,2017,UM
+GMB,"Gambia, The",2017,L
+GEO,Georgia,2017,LM
+DEU,Germany,2017,H
+GHA,Ghana,2017,LM
+GIB,Gibraltar,2017,H
+GRC,Greece,2017,H
+GRL,Greenland,2017,H
+GRD,Grenada,2017,UM
+GUM,Guam,2017,H
+GTM,Guatemala,2017,UM
+GIN,Guinea,2017,L
+GNB,Guinea-Bissau,2017,L
+GUY,Guyana,2017,UM
+HTI,Haiti,2017,L
+HND,Honduras,2017,LM
+HKG,"Hong Kong SAR, China",2017,H
+HUN,Hungary,2017,H
+ISL,Iceland,2017,H
+IND,India,2017,LM
+IDN,Indonesia,2017,LM
+IRN,"Iran, Islamic Rep.",2017,UM
+IRQ,Iraq,2017,UM
+IRL,Ireland,2017,H
+IMN,Isle of Man,2017,H
+ISR,Israel,2017,H
+ITA,Italy,2017,H
+JAM,Jamaica,2017,UM
+JPN,Japan,2017,H
+JOR,Jordan,2017,UM
+KAZ,Kazakhstan,2017,UM
+KEN,Kenya,2017,LM
+KIR,Kiribati,2017,LM
+PRK,"Korea, Dem. Rep.",2017,L
+KOR,"Korea, Rep.",2017,H
+XKX,Kosovo,2017,LM
+KWT,Kuwait,2017,H
+KGZ,Kyrgyz Republic,2017,LM
+LAO,Lao PDR,2017,LM
+LVA,Latvia,2017,H
+LBN,Lebanon,2017,UM
+LSO,Lesotho,2017,LM
+LBR,Liberia,2017,L
+LBY,Libya,2017,UM
+LIE,Liechtenstein,2017,H
+LTU,Lithuania,2017,H
+LUX,Luxembourg,2017,H
+MAC,"Macao SAR, China",2017,H
+MDG,Madagascar,2017,L
+MWI,Malawi,2017,L
+MYS,Malaysia,2017,UM
+MDV,Maldives,2017,UM
+MLI,Mali,2017,L
+MLT,Malta,2017,H
+MHL,Marshall Islands,2017,UM
+MRT,Mauritania,2017,LM
+MUS,Mauritius,2017,UM
+MEX,Mexico,2017,UM
+FSM,"Micronesia, Fed. Sts.",2017,LM
+MDA,Moldova,2017,LM
+MCO,Monaco,2017,H
+MNG,Mongolia,2017,LM
+MNE,Montenegro,2017,UM
+MAR,Morocco,2017,LM
+MOZ,Mozambique,2017,L
+MMR,Myanmar,2017,LM
+NAM,Namibia,2017,UM
+NRU,Nauru,2017,UM
+NPL,Nepal,2017,L
+NLD,Netherlands,2017,H
+NCL,New Caledonia,2017,H
+NZL,New Zealand,2017,H
+NIC,Nicaragua,2017,LM
+NER,Niger,2017,L
+NGA,Nigeria,2017,LM
+MKD,North Macedonia,2017,UM
+MNP,Northern Mariana Islands,2017,H
+NOR,Norway,2017,H
+OMN,Oman,2017,H
+PAK,Pakistan,2017,LM
+PLW,Palau,2017,H
+PAN,Panama,2017,H
+PNG,Papua New Guinea,2017,LM
+PRY,Paraguay,2017,UM
+PER,Peru,2017,UM
+PHL,Philippines,2017,LM
+POL,Poland,2017,H
+PRT,Portugal,2017,H
+PRI,Puerto Rico,2017,H
+QAT,Qatar,2017,H
+ROU,Romania,2017,UM
+RUS,Russian Federation,2017,UM
+RWA,Rwanda,2017,L
+WSM,Samoa,2017,UM
+SMR,San Marino,2017,H
+STP,São Tomé and Príncipe,2017,LM
+SAU,Saudi Arabia,2017,H
+SEN,Senegal,2017,L
+SRB,Serbia,2017,UM
+SYC,Seychelles,2017,H
+SLE,Sierra Leone,2017,L
+SGP,Singapore,2017,H
+SXM,Sint Maarten (Dutch part),2017,H
+SVK,Slovak Republic,2017,H
+SVN,Slovenia,2017,H
+SLB,Solomon Islands,2017,LM
+SOM,Somalia,2017,L
+ZAF,South Africa,2017,UM
+SSD,South Sudan,2017,L
+ESP,Spain,2017,H
+LKA,Sri Lanka,2017,LM
+KNA,St. Kitts and Nevis,2017,H
+LCA,St. Lucia,2017,UM
+MAF,St. Martin (French part),2017,H
+VCT,St. Vincent and the Grenadines,2017,UM
+SDN,Sudan,2017,LM
+SUR,Suriname,2017,UM
+SWE,Sweden,2017,H
+CHE,Switzerland,2017,H
+SYR,Syrian Arab Republic,2017,L
+TWN,"Taiwan, China",2017,H
+TJK,Tajikistan,2017,L
+TZA,Tanzania,2017,L
+THA,Thailand,2017,UM
+TLS,Timor-Leste,2017,LM
+TGO,Togo,2017,L
+TON,Tonga,2017,UM
+TTO,Trinidad and Tobago,2017,H
+TUN,Tunisia,2017,LM
+TUR,Türkiye,2017,UM
+TKM,Turkmenistan,2017,UM
+TCA,Turks and Caicos Islands,2017,H
+TUV,Tuvalu,2017,UM
+UGA,Uganda,2017,L
+UKR,Ukraine,2017,LM
+ARE,United Arab Emirates,2017,H
+GBR,United Kingdom,2017,H
+USA,United States,2017,H
+URY,Uruguay,2017,H
+UZB,Uzbekistan,2017,LM
+VUT,Vanuatu,2017,LM
+VEN,"Venezuela, RB",2017,UM
+VNM,Viet Nam,2017,LM
+VIR,Virgin Islands (U.S.),2017,H
+PSE,West Bank and Gaza,2017,LM
+YEM,"Yemen, Rep.",2017,L
+ZMB,Zambia,2017,LM
+ZWE,Zimbabwe,2017,L
+CSK,Czechoslovakia (former),2017,
+MYT,Mayotte,2017,
+ANT,Netherlands Antilles (former),2017,
+YUG,Serbia and Montenegro (former),2017,
+SUN,USSR (former),2017,
+AFG,Afghanistan,2018,L
+ALB,Albania,2018,UM
+DZA,Algeria,2018,UM
+ASM,American Samoa,2018,UM
+AND,Andorra,2018,H
+AGO,Angola,2018,LM
+ATG,Antigua and Barbuda,2018,H
+ARG,Argentina,2018,UM
+ARM,Armenia,2018,UM
+ABW,Aruba,2018,H
+AUS,Australia,2018,H
+AUT,Austria,2018,H
+AZE,Azerbaijan,2018,UM
+BHS,"Bahamas, The",2018,H
+BHR,Bahrain,2018,H
+BGD,Bangladesh,2018,LM
+BRB,Barbados,2018,H
+BLR,Belarus,2018,UM
+BEL,Belgium,2018,H
+BLZ,Belize,2018,UM
+BEN,Benin,2018,L
+BMU,Bermuda,2018,H
+BTN,Bhutan,2018,LM
+BOL,Bolivia,2018,LM
+BIH,Bosnia and Herzegovina,2018,UM
+BWA,Botswana,2018,UM
+BRA,Brazil,2018,UM
+VGB,British Virgin Islands,2018,H
+BRN,Brunei Darussalam,2018,H
+BGR,Bulgaria,2018,UM
+BFA,Burkina Faso,2018,L
+BDI,Burundi,2018,L
+CPV,Cabo Verde,2018,LM
+KHM,Cambodia,2018,LM
+CMR,Cameroon,2018,LM
+CAN,Canada,2018,H
+CYM,Cayman Islands,2018,H
+CAF,Central African Republic,2018,L
+TCD,Chad,2018,L
+CHI,Channel Islands,2018,H
+CHL,Chile,2018,H
+CHN,China,2018,UM
+COL,Colombia,2018,UM
+COM,Comoros,2018,LM
+COD,"Congo, Dem. Rep.",2018,L
+COG,"Congo, Rep.",2018,LM
+CRI,Costa Rica,2018,UM
+CIV,Côte d'Ivoire,2018,LM
+HRV,Croatia,2018,H
+CUB,Cuba,2018,UM
+CUW,Curaçao,2018,H
+CYP,Cyprus,2018,H
+CZE,Czechia,2018,H
+DNK,Denmark,2018,H
+DJI,Djibouti,2018,LM
+DMA,Dominica,2018,UM
+DOM,Dominican Republic,2018,UM
+ECU,Ecuador,2018,UM
+EGY,"Egypt, Arab Rep.",2018,LM
+SLV,El Salvador,2018,LM
+GNQ,Equatorial Guinea,2018,UM
+ERI,Eritrea,2018,L
+EST,Estonia,2018,H
+SWZ,Eswatini,2018,LM
+ETH,Ethiopia,2018,L
+FRO,Faeroe Islands,2018,H
+FJI,Fiji,2018,UM
+FIN,Finland,2018,H
+FRA,France,2018,H
+PYF,French Polynesia,2018,H
+GAB,Gabon,2018,UM
+GMB,"Gambia, The",2018,L
+GEO,Georgia,2018,UM
+DEU,Germany,2018,H
+GHA,Ghana,2018,LM
+GIB,Gibraltar,2018,H
+GRC,Greece,2018,H
+GRL,Greenland,2018,H
+GRD,Grenada,2018,UM
+GUM,Guam,2018,H
+GTM,Guatemala,2018,UM
+GIN,Guinea,2018,L
+GNB,Guinea-Bissau,2018,L
+GUY,Guyana,2018,UM
+HTI,Haiti,2018,L
+HND,Honduras,2018,LM
+HKG,"Hong Kong SAR, China",2018,H
+HUN,Hungary,2018,H
+ISL,Iceland,2018,H
+IND,India,2018,LM
+IDN,Indonesia,2018,LM
+IRN,"Iran, Islamic Rep.",2018,UM
+IRQ,Iraq,2018,UM
+IRL,Ireland,2018,H
+IMN,Isle of Man,2018,H
+ISR,Israel,2018,H
+ITA,Italy,2018,H
+JAM,Jamaica,2018,UM
+JPN,Japan,2018,H
+JOR,Jordan,2018,UM
+KAZ,Kazakhstan,2018,UM
+KEN,Kenya,2018,LM
+KIR,Kiribati,2018,LM
+PRK,"Korea, Dem. Rep.",2018,L
+KOR,"Korea, Rep.",2018,H
+XKX,Kosovo,2018,UM
+KWT,Kuwait,2018,H
+KGZ,Kyrgyz Republic,2018,LM
+LAO,Lao PDR,2018,LM
+LVA,Latvia,2018,H
+LBN,Lebanon,2018,UM
+LSO,Lesotho,2018,LM
+LBR,Liberia,2018,L
+LBY,Libya,2018,UM
+LIE,Liechtenstein,2018,H
+LTU,Lithuania,2018,H
+LUX,Luxembourg,2018,H
+MAC,"Macao SAR, China",2018,H
+MDG,Madagascar,2018,L
+MWI,Malawi,2018,L
+MYS,Malaysia,2018,UM
+MDV,Maldives,2018,UM
+MLI,Mali,2018,L
+MLT,Malta,2018,H
+MHL,Marshall Islands,2018,UM
+MRT,Mauritania,2018,LM
+MUS,Mauritius,2018,UM
+MEX,Mexico,2018,UM
+FSM,"Micronesia, Fed. Sts.",2018,LM
+MDA,Moldova,2018,LM
+MCO,Monaco,2018,H
+MNG,Mongolia,2018,LM
+MNE,Montenegro,2018,UM
+MAR,Morocco,2018,LM
+MOZ,Mozambique,2018,L
+MMR,Myanmar,2018,LM
+NAM,Namibia,2018,UM
+NRU,Nauru,2018,UM
+NPL,Nepal,2018,L
+NLD,Netherlands,2018,H
+NCL,New Caledonia,2018,H
+NZL,New Zealand,2018,H
+NIC,Nicaragua,2018,LM
+NER,Niger,2018,L
+NGA,Nigeria,2018,LM
+MKD,North Macedonia,2018,UM
+MNP,Northern Mariana Islands,2018,H
+NOR,Norway,2018,H
+OMN,Oman,2018,H
+PAK,Pakistan,2018,LM
+PLW,Palau,2018,H
+PAN,Panama,2018,H
+PNG,Papua New Guinea,2018,LM
+PRY,Paraguay,2018,UM
+PER,Peru,2018,UM
+PHL,Philippines,2018,LM
+POL,Poland,2018,H
+PRT,Portugal,2018,H
+PRI,Puerto Rico,2018,H
+QAT,Qatar,2018,H
+ROU,Romania,2018,UM
+RUS,Russian Federation,2018,UM
+RWA,Rwanda,2018,L
+WSM,Samoa,2018,UM
+SMR,San Marino,2018,H
+STP,São Tomé and Príncipe,2018,LM
+SAU,Saudi Arabia,2018,H
+SEN,Senegal,2018,LM
+SRB,Serbia,2018,UM
+SYC,Seychelles,2018,H
+SLE,Sierra Leone,2018,L
+SGP,Singapore,2018,H
+SXM,Sint Maarten (Dutch part),2018,H
+SVK,Slovak Republic,2018,H
+SVN,Slovenia,2018,H
+SLB,Solomon Islands,2018,LM
+SOM,Somalia,2018,L
+ZAF,South Africa,2018,UM
+SSD,South Sudan,2018,L
+ESP,Spain,2018,H
+LKA,Sri Lanka,2018,UM
+KNA,St. Kitts and Nevis,2018,H
+LCA,St. Lucia,2018,UM
+MAF,St. Martin (French part),2018,H
+VCT,St. Vincent and the Grenadines,2018,UM
+SDN,Sudan,2018,LM
+SUR,Suriname,2018,UM
+SWE,Sweden,2018,H
+CHE,Switzerland,2018,H
+SYR,Syrian Arab Republic,2018,L
+TWN,"Taiwan, China",2018,H
+TJK,Tajikistan,2018,L
+TZA,Tanzania,2018,L
+THA,Thailand,2018,UM
+TLS,Timor-Leste,2018,LM
+TGO,Togo,2018,L
+TON,Tonga,2018,UM
+TTO,Trinidad and Tobago,2018,H
+TUN,Tunisia,2018,LM
+TUR,Türkiye,2018,UM
+TKM,Turkmenistan,2018,UM
+TCA,Turks and Caicos Islands,2018,H
+TUV,Tuvalu,2018,UM
+UGA,Uganda,2018,L
+UKR,Ukraine,2018,LM
+ARE,United Arab Emirates,2018,H
+GBR,United Kingdom,2018,H
+USA,United States,2018,H
+URY,Uruguay,2018,H
+UZB,Uzbekistan,2018,LM
+VUT,Vanuatu,2018,LM
+VEN,"Venezuela, RB",2018,UM
+VNM,Viet Nam,2018,LM
+VIR,Virgin Islands (U.S.),2018,H
+PSE,West Bank and Gaza,2018,LM
+YEM,"Yemen, Rep.",2018,L
+ZMB,Zambia,2018,LM
+ZWE,Zimbabwe,2018,LM
+CSK,Czechoslovakia (former),2018,
+MYT,Mayotte,2018,
+ANT,Netherlands Antilles (former),2018,
+YUG,Serbia and Montenegro (former),2018,
+SUN,USSR (former),2018,
+AFG,Afghanistan,2019,L
+ALB,Albania,2019,UM
+DZA,Algeria,2019,LM
+ASM,American Samoa,2019,UM
+AND,Andorra,2019,H
+AGO,Angola,2019,LM
+ATG,Antigua and Barbuda,2019,H
+ARG,Argentina,2019,UM
+ARM,Armenia,2019,UM
+ABW,Aruba,2019,H
+AUS,Australia,2019,H
+AUT,Austria,2019,H
+AZE,Azerbaijan,2019,UM
+BHS,"Bahamas, The",2019,H
+BHR,Bahrain,2019,H
+BGD,Bangladesh,2019,LM
+BRB,Barbados,2019,H
+BLR,Belarus,2019,UM
+BEL,Belgium,2019,H
+BLZ,Belize,2019,UM
+BEN,Benin,2019,LM
+BMU,Bermuda,2019,H
+BTN,Bhutan,2019,LM
+BOL,Bolivia,2019,LM
+BIH,Bosnia and Herzegovina,2019,UM
+BWA,Botswana,2019,UM
+BRA,Brazil,2019,UM
+VGB,British Virgin Islands,2019,H
+BRN,Brunei Darussalam,2019,H
+BGR,Bulgaria,2019,UM
+BFA,Burkina Faso,2019,L
+BDI,Burundi,2019,L
+CPV,Cabo Verde,2019,LM
+KHM,Cambodia,2019,LM
+CMR,Cameroon,2019,LM
+CAN,Canada,2019,H
+CYM,Cayman Islands,2019,H
+CAF,Central African Republic,2019,L
+TCD,Chad,2019,L
+CHI,Channel Islands,2019,H
+CHL,Chile,2019,H
+CHN,China,2019,UM
+COL,Colombia,2019,UM
+COM,Comoros,2019,LM
+COD,"Congo, Dem. Rep.",2019,L
+COG,"Congo, Rep.",2019,LM
+CRI,Costa Rica,2019,UM
+CIV,Côte d'Ivoire,2019,LM
+HRV,Croatia,2019,H
+CUB,Cuba,2019,UM
+CUW,Curaçao,2019,H
+CYP,Cyprus,2019,H
+CZE,Czechia,2019,H
+DNK,Denmark,2019,H
+DJI,Djibouti,2019,LM
+DMA,Dominica,2019,UM
+DOM,Dominican Republic,2019,UM
+ECU,Ecuador,2019,UM
+EGY,"Egypt, Arab Rep.",2019,LM
+SLV,El Salvador,2019,LM
+GNQ,Equatorial Guinea,2019,UM
+ERI,Eritrea,2019,L
+EST,Estonia,2019,H
+SWZ,Eswatini,2019,LM
+ETH,Ethiopia,2019,L
+FRO,Faeroe Islands,2019,H
+FJI,Fiji,2019,UM
+FIN,Finland,2019,H
+FRA,France,2019,H
+PYF,French Polynesia,2019,H
+GAB,Gabon,2019,UM
+GMB,"Gambia, The",2019,L
+GEO,Georgia,2019,UM
+DEU,Germany,2019,H
+GHA,Ghana,2019,LM
+GIB,Gibraltar,2019,H
+GRC,Greece,2019,H
+GRL,Greenland,2019,H
+GRD,Grenada,2019,UM
+GUM,Guam,2019,H
+GTM,Guatemala,2019,UM
+GIN,Guinea,2019,L
+GNB,Guinea-Bissau,2019,L
+GUY,Guyana,2019,UM
+HTI,Haiti,2019,L
+HND,Honduras,2019,LM
+HKG,"Hong Kong SAR, China",2019,H
+HUN,Hungary,2019,H
+ISL,Iceland,2019,H
+IND,India,2019,LM
+IDN,Indonesia,2019,UM
+IRN,"Iran, Islamic Rep.",2019,UM
+IRQ,Iraq,2019,UM
+IRL,Ireland,2019,H
+IMN,Isle of Man,2019,H
+ISR,Israel,2019,H
+ITA,Italy,2019,H
+JAM,Jamaica,2019,UM
+JPN,Japan,2019,H
+JOR,Jordan,2019,UM
+KAZ,Kazakhstan,2019,UM
+KEN,Kenya,2019,LM
+KIR,Kiribati,2019,LM
+PRK,"Korea, Dem. Rep.",2019,L
+KOR,"Korea, Rep.",2019,H
+XKX,Kosovo,2019,UM
+KWT,Kuwait,2019,H
+KGZ,Kyrgyz Republic,2019,LM
+LAO,Lao PDR,2019,LM
+LVA,Latvia,2019,H
+LBN,Lebanon,2019,UM
+LSO,Lesotho,2019,LM
+LBR,Liberia,2019,L
+LBY,Libya,2019,UM
+LIE,Liechtenstein,2019,H
+LTU,Lithuania,2019,H
+LUX,Luxembourg,2019,H
+MAC,"Macao SAR, China",2019,H
+MDG,Madagascar,2019,L
+MWI,Malawi,2019,L
+MYS,Malaysia,2019,UM
+MDV,Maldives,2019,UM
+MLI,Mali,2019,L
+MLT,Malta,2019,H
+MHL,Marshall Islands,2019,UM
+MRT,Mauritania,2019,LM
+MUS,Mauritius,2019,H
+MEX,Mexico,2019,UM
+FSM,"Micronesia, Fed. Sts.",2019,LM
+MDA,Moldova,2019,LM
+MCO,Monaco,2019,H
+MNG,Mongolia,2019,LM
+MNE,Montenegro,2019,UM
+MAR,Morocco,2019,LM
+MOZ,Mozambique,2019,L
+MMR,Myanmar,2019,LM
+NAM,Namibia,2019,UM
+NRU,Nauru,2019,H
+NPL,Nepal,2019,LM
+NLD,Netherlands,2019,H
+NCL,New Caledonia,2019,H
+NZL,New Zealand,2019,H
+NIC,Nicaragua,2019,LM
+NER,Niger,2019,L
+NGA,Nigeria,2019,LM
+MKD,North Macedonia,2019,UM
+MNP,Northern Mariana Islands,2019,H
+NOR,Norway,2019,H
+OMN,Oman,2019,H
+PAK,Pakistan,2019,LM
+PLW,Palau,2019,H
+PAN,Panama,2019,H
+PNG,Papua New Guinea,2019,LM
+PRY,Paraguay,2019,UM
+PER,Peru,2019,UM
+PHL,Philippines,2019,LM
+POL,Poland,2019,H
+PRT,Portugal,2019,H
+PRI,Puerto Rico,2019,H
+QAT,Qatar,2019,H
+ROU,Romania,2019,H
+RUS,Russian Federation,2019,UM
+RWA,Rwanda,2019,L
+WSM,Samoa,2019,UM
+SMR,San Marino,2019,H
+STP,São Tomé and Príncipe,2019,LM
+SAU,Saudi Arabia,2019,H
+SEN,Senegal,2019,LM
+SRB,Serbia,2019,UM
+SYC,Seychelles,2019,H
+SLE,Sierra Leone,2019,L
+SGP,Singapore,2019,H
+SXM,Sint Maarten (Dutch part),2019,H
+SVK,Slovak Republic,2019,H
+SVN,Slovenia,2019,H
+SLB,Solomon Islands,2019,LM
+SOM,Somalia,2019,L
+ZAF,South Africa,2019,UM
+SSD,South Sudan,2019,L
+ESP,Spain,2019,H
+LKA,Sri Lanka,2019,LM
+KNA,St. Kitts and Nevis,2019,H
+LCA,St. Lucia,2019,UM
+MAF,St. Martin (French part),2019,H
+VCT,St. Vincent and the Grenadines,2019,UM
+SDN,Sudan,2019,L
+SUR,Suriname,2019,UM
+SWE,Sweden,2019,H
+CHE,Switzerland,2019,H
+SYR,Syrian Arab Republic,2019,L
+TWN,"Taiwan, China",2019,H
+TJK,Tajikistan,2019,L
+TZA,Tanzania,2019,LM
+THA,Thailand,2019,UM
+TLS,Timor-Leste,2019,LM
+TGO,Togo,2019,L
+TON,Tonga,2019,UM
+TTO,Trinidad and Tobago,2019,H
+TUN,Tunisia,2019,LM
+TUR,Türkiye,2019,UM
+TKM,Turkmenistan,2019,UM
+TCA,Turks and Caicos Islands,2019,H
+TUV,Tuvalu,2019,UM
+UGA,Uganda,2019,L
+UKR,Ukraine,2019,LM
+ARE,United Arab Emirates,2019,H
+GBR,United Kingdom,2019,H
+USA,United States,2019,H
+URY,Uruguay,2019,H
+UZB,Uzbekistan,2019,LM
+VUT,Vanuatu,2019,LM
+VEN,"Venezuela, RB",2019,UM
+VNM,Viet Nam,2019,LM
+VIR,Virgin Islands (U.S.),2019,H
+PSE,West Bank and Gaza,2019,LM
+YEM,"Yemen, Rep.",2019,L
+ZMB,Zambia,2019,LM
+ZWE,Zimbabwe,2019,LM
+CSK,Czechoslovakia (former),2019,
+MYT,Mayotte,2019,
+ANT,Netherlands Antilles (former),2019,
+YUG,Serbia and Montenegro (former),2019,
+SUN,USSR (former),2019,
+AFG,Afghanistan,2020,L
+ALB,Albania,2020,UM
+DZA,Algeria,2020,LM
+ASM,American Samoa,2020,UM
+AND,Andorra,2020,H
+AGO,Angola,2020,LM
+ATG,Antigua and Barbuda,2020,H
+ARG,Argentina,2020,UM
+ARM,Armenia,2020,UM
+ABW,Aruba,2020,H
+AUS,Australia,2020,H
+AUT,Austria,2020,H
+AZE,Azerbaijan,2020,UM
+BHS,"Bahamas, The",2020,H
+BHR,Bahrain,2020,H
+BGD,Bangladesh,2020,LM
+BRB,Barbados,2020,H
+BLR,Belarus,2020,UM
+BEL,Belgium,2020,H
+BLZ,Belize,2020,LM
+BEN,Benin,2020,LM
+BMU,Bermuda,2020,H
+BTN,Bhutan,2020,LM
+BOL,Bolivia,2020,LM
+BIH,Bosnia and Herzegovina,2020,UM
+BWA,Botswana,2020,UM
+BRA,Brazil,2020,UM
+VGB,British Virgin Islands,2020,H
+BRN,Brunei Darussalam,2020,H
+BGR,Bulgaria,2020,UM
+BFA,Burkina Faso,2020,L
+BDI,Burundi,2020,L
+CPV,Cabo Verde,2020,LM
+KHM,Cambodia,2020,LM
+CMR,Cameroon,2020,LM
+CAN,Canada,2020,H
+CYM,Cayman Islands,2020,H
+CAF,Central African Republic,2020,L
+TCD,Chad,2020,L
+CHI,Channel Islands,2020,H
+CHL,Chile,2020,H
+CHN,China,2020,UM
+COL,Colombia,2020,UM
+COM,Comoros,2020,LM
+COD,"Congo, Dem. Rep.",2020,L
+COG,"Congo, Rep.",2020,LM
+CRI,Costa Rica,2020,UM
+CIV,Côte d'Ivoire,2020,LM
+HRV,Croatia,2020,H
+CUB,Cuba,2020,UM
+CUW,Curaçao,2020,H
+CYP,Cyprus,2020,H
+CZE,Czechia,2020,H
+DNK,Denmark,2020,H
+DJI,Djibouti,2020,LM
+DMA,Dominica,2020,UM
+DOM,Dominican Republic,2020,UM
+ECU,Ecuador,2020,UM
+EGY,"Egypt, Arab Rep.",2020,LM
+SLV,El Salvador,2020,LM
+GNQ,Equatorial Guinea,2020,UM
+ERI,Eritrea,2020,L
+EST,Estonia,2020,H
+SWZ,Eswatini,2020,LM
+ETH,Ethiopia,2020,L
+FRO,Faeroe Islands,2020,H
+FJI,Fiji,2020,UM
+FIN,Finland,2020,H
+FRA,France,2020,H
+PYF,French Polynesia,2020,H
+GAB,Gabon,2020,UM
+GMB,"Gambia, The",2020,L
+GEO,Georgia,2020,UM
+DEU,Germany,2020,H
+GHA,Ghana,2020,LM
+GIB,Gibraltar,2020,H
+GRC,Greece,2020,H
+GRL,Greenland,2020,H
+GRD,Grenada,2020,UM
+GUM,Guam,2020,H
+GTM,Guatemala,2020,UM
+GIN,Guinea,2020,L
+GNB,Guinea-Bissau,2020,L
+GUY,Guyana,2020,UM
+HTI,Haiti,2020,LM
+HND,Honduras,2020,LM
+HKG,"Hong Kong SAR, China",2020,H
+HUN,Hungary,2020,H
+ISL,Iceland,2020,H
+IND,India,2020,LM
+IDN,Indonesia,2020,LM
+IRN,"Iran, Islamic Rep.",2020,LM
+IRQ,Iraq,2020,UM
+IRL,Ireland,2020,H
+IMN,Isle of Man,2020,H
+ISR,Israel,2020,H
+ITA,Italy,2020,H
+JAM,Jamaica,2020,UM
+JPN,Japan,2020,H
+JOR,Jordan,2020,UM
+KAZ,Kazakhstan,2020,UM
+KEN,Kenya,2020,LM
+KIR,Kiribati,2020,LM
+PRK,"Korea, Dem. Rep.",2020,L
+KOR,"Korea, Rep.",2020,H
+XKX,Kosovo,2020,UM
+KWT,Kuwait,2020,H
+KGZ,Kyrgyz Republic,2020,LM
+LAO,Lao PDR,2020,LM
+LVA,Latvia,2020,H
+LBN,Lebanon,2020,UM
+LSO,Lesotho,2020,LM
+LBR,Liberia,2020,L
+LBY,Libya,2020,UM
+LIE,Liechtenstein,2020,H
+LTU,Lithuania,2020,H
+LUX,Luxembourg,2020,H
+MAC,"Macao SAR, China",2020,H
+MDG,Madagascar,2020,L
+MWI,Malawi,2020,L
+MYS,Malaysia,2020,UM
+MDV,Maldives,2020,UM
+MLI,Mali,2020,L
+MLT,Malta,2020,H
+MHL,Marshall Islands,2020,UM
+MRT,Mauritania,2020,LM
+MUS,Mauritius,2020,UM
+MEX,Mexico,2020,UM
+FSM,"Micronesia, Fed. Sts.",2020,LM
+MDA,Moldova,2020,UM
+MCO,Monaco,2020,H
+MNG,Mongolia,2020,LM
+MNE,Montenegro,2020,UM
+MAR,Morocco,2020,LM
+MOZ,Mozambique,2020,L
+MMR,Myanmar,2020,LM
+NAM,Namibia,2020,UM
+NRU,Nauru,2020,H
+NPL,Nepal,2020,LM
+NLD,Netherlands,2020,H
+NCL,New Caledonia,2020,H
+NZL,New Zealand,2020,H
+NIC,Nicaragua,2020,LM
+NER,Niger,2020,L
+NGA,Nigeria,2020,LM
+MKD,North Macedonia,2020,UM
+MNP,Northern Mariana Islands,2020,H
+NOR,Norway,2020,H
+OMN,Oman,2020,H
+PAK,Pakistan,2020,LM
+PLW,Palau,2020,H
+PAN,Panama,2020,UM
+PNG,Papua New Guinea,2020,LM
+PRY,Paraguay,2020,UM
+PER,Peru,2020,UM
+PHL,Philippines,2020,LM
+POL,Poland,2020,H
+PRT,Portugal,2020,H
+PRI,Puerto Rico,2020,H
+QAT,Qatar,2020,H
+ROU,Romania,2020,UM
+RUS,Russian Federation,2020,UM
+RWA,Rwanda,2020,L
+WSM,Samoa,2020,LM
+SMR,San Marino,2020,H
+STP,São Tomé and Príncipe,2020,LM
+SAU,Saudi Arabia,2020,H
+SEN,Senegal,2020,LM
+SRB,Serbia,2020,UM
+SYC,Seychelles,2020,H
+SLE,Sierra Leone,2020,L
+SGP,Singapore,2020,H
+SXM,Sint Maarten (Dutch part),2020,H
+SVK,Slovak Republic,2020,H
+SVN,Slovenia,2020,H
+SLB,Solomon Islands,2020,LM
+SOM,Somalia,2020,L
+ZAF,South Africa,2020,UM
+SSD,South Sudan,2020,L
+ESP,Spain,2020,H
+LKA,Sri Lanka,2020,LM
+KNA,St. Kitts and Nevis,2020,H
+LCA,St. Lucia,2020,UM
+MAF,St. Martin (French part),2020,H
+VCT,St. Vincent and the Grenadines,2020,UM
+SDN,Sudan,2020,L
+SUR,Suriname,2020,UM
+SWE,Sweden,2020,H
+CHE,Switzerland,2020,H
+SYR,Syrian Arab Republic,2020,L
+TWN,"Taiwan, China",2020,H
+TJK,Tajikistan,2020,LM
+TZA,Tanzania,2020,LM
+THA,Thailand,2020,UM
+TLS,Timor-Leste,2020,LM
+TGO,Togo,2020,L
+TON,Tonga,2020,UM
+TTO,Trinidad and Tobago,2020,H
+TUN,Tunisia,2020,LM
+TUR,Türkiye,2020,UM
+TKM,Turkmenistan,2020,UM
+TCA,Turks and Caicos Islands,2020,H
+TUV,Tuvalu,2020,UM
+UGA,Uganda,2020,L
+UKR,Ukraine,2020,LM
+ARE,United Arab Emirates,2020,H
+GBR,United Kingdom,2020,H
+USA,United States,2020,H
+URY,Uruguay,2020,H
+UZB,Uzbekistan,2020,LM
+VUT,Vanuatu,2020,LM
+VEN,"Venezuela, RB",2020,
+VNM,Viet Nam,2020,LM
+VIR,Virgin Islands (U.S.),2020,H
+PSE,West Bank and Gaza,2020,LM
+YEM,"Yemen, Rep.",2020,L
+ZMB,Zambia,2020,LM
+ZWE,Zimbabwe,2020,LM
+CSK,Czechoslovakia (former),2020,
+MYT,Mayotte,2020,
+ANT,Netherlands Antilles (former),2020,
+YUG,Serbia and Montenegro (former),2020,
+SUN,USSR (former),2020,
+AFG,Afghanistan,2021,L
+ALB,Albania,2021,UM
+DZA,Algeria,2021,LM
+ASM,American Samoa,2021,UM
+AND,Andorra,2021,H
+AGO,Angola,2021,LM
+ATG,Antigua and Barbuda,2021,H
+ARG,Argentina,2021,UM
+ARM,Armenia,2021,UM
+ABW,Aruba,2021,H
+AUS,Australia,2021,H
+AUT,Austria,2021,H
+AZE,Azerbaijan,2021,UM
+BHS,"Bahamas, The",2021,H
+BHR,Bahrain,2021,H
+BGD,Bangladesh,2021,LM
+BRB,Barbados,2021,H
+BLR,Belarus,2021,UM
+BEL,Belgium,2021,H
+BLZ,Belize,2021,UM
+BEN,Benin,2021,LM
+BMU,Bermuda,2021,H
+BTN,Bhutan,2021,LM
+BOL,Bolivia,2021,LM
+BIH,Bosnia and Herzegovina,2021,UM
+BWA,Botswana,2021,UM
+BRA,Brazil,2021,UM
+VGB,British Virgin Islands,2021,H
+BRN,Brunei Darussalam,2021,H
+BGR,Bulgaria,2021,UM
+BFA,Burkina Faso,2021,L
+BDI,Burundi,2021,L
+CPV,Cabo Verde,2021,LM
+KHM,Cambodia,2021,LM
+CMR,Cameroon,2021,LM
+CAN,Canada,2021,H
+CYM,Cayman Islands,2021,H
+CAF,Central African Republic,2021,L
+TCD,Chad,2021,L
+CHI,Channel Islands,2021,H
+CHL,Chile,2021,H
+CHN,China,2021,UM
+COL,Colombia,2021,UM
+COM,Comoros,2021,LM
+COD,"Congo, Dem. Rep.",2021,L
+COG,"Congo, Rep.",2021,LM
+CRI,Costa Rica,2021,UM
+CIV,Côte d'Ivoire,2021,LM
+HRV,Croatia,2021,H
+CUB,Cuba,2021,UM
+CUW,Curaçao,2021,H
+CYP,Cyprus,2021,H
+CZE,Czechia,2021,H
+DNK,Denmark,2021,H
+DJI,Djibouti,2021,LM
+DMA,Dominica,2021,UM
+DOM,Dominican Republic,2021,UM
+ECU,Ecuador,2021,UM
+EGY,"Egypt, Arab Rep.",2021,LM
+SLV,El Salvador,2021,LM
+GNQ,Equatorial Guinea,2021,UM
+ERI,Eritrea,2021,L
+EST,Estonia,2021,H
+SWZ,Eswatini,2021,LM
+ETH,Ethiopia,2021,L
+FRO,Faeroe Islands,2021,H
+FJI,Fiji,2021,UM
+FIN,Finland,2021,H
+FRA,France,2021,H
+PYF,French Polynesia,2021,H
+GAB,Gabon,2021,UM
+GMB,"Gambia, The",2021,L
+GEO,Georgia,2021,UM
+DEU,Germany,2021,H
+GHA,Ghana,2021,LM
+GIB,Gibraltar,2021,H
+GRC,Greece,2021,H
+GRL,Greenland,2021,H
+GRD,Grenada,2021,UM
+GUM,Guam,2021,H
+GTM,Guatemala,2021,UM
+GIN,Guinea,2021,L
+GNB,Guinea-Bissau,2021,L
+GUY,Guyana,2021,UM
+HTI,Haiti,2021,LM
+HND,Honduras,2021,LM
+HKG,"Hong Kong SAR, China",2021,H
+HUN,Hungary,2021,H
+ISL,Iceland,2021,H
+IND,India,2021,LM
+IDN,Indonesia,2021,LM
+IRN,"Iran, Islamic Rep.",2021,LM
+IRQ,Iraq,2021,UM
+IRL,Ireland,2021,H
+IMN,Isle of Man,2021,H
+ISR,Israel,2021,H
+ITA,Italy,2021,H
+JAM,Jamaica,2021,UM
+JPN,Japan,2021,H
+JOR,Jordan,2021,UM
+KAZ,Kazakhstan,2021,UM
+KEN,Kenya,2021,LM
+KIR,Kiribati,2021,LM
+PRK,"Korea, Dem. Rep.",2021,L
+KOR,"Korea, Rep.",2021,H
+XKX,Kosovo,2021,UM
+KWT,Kuwait,2021,H
+KGZ,Kyrgyz Republic,2021,LM
+LAO,Lao PDR,2021,LM
+LVA,Latvia,2021,H
+LBN,Lebanon,2021,LM
+LSO,Lesotho,2021,LM
+LBR,Liberia,2021,L
+LBY,Libya,2021,UM
+LIE,Liechtenstein,2021,H
+LTU,Lithuania,2021,H
+LUX,Luxembourg,2021,H
+MAC,"Macao SAR, China",2021,H
+MDG,Madagascar,2021,L
+MWI,Malawi,2021,L
+MYS,Malaysia,2021,UM
+MDV,Maldives,2021,UM
+MLI,Mali,2021,L
+MLT,Malta,2021,H
+MHL,Marshall Islands,2021,UM
+MRT,Mauritania,2021,LM
+MUS,Mauritius,2021,UM
+MEX,Mexico,2021,UM
+FSM,"Micronesia, Fed. Sts.",2021,LM
+MDA,Moldova,2021,UM
+MCO,Monaco,2021,H
+MNG,Mongolia,2021,LM
+MNE,Montenegro,2021,UM
+MAR,Morocco,2021,LM
+MOZ,Mozambique,2021,L
+MMR,Myanmar,2021,LM
+NAM,Namibia,2021,UM
+NRU,Nauru,2021,H
+NPL,Nepal,2021,LM
+NLD,Netherlands,2021,H
+NCL,New Caledonia,2021,H
+NZL,New Zealand,2021,H
+NIC,Nicaragua,2021,LM
+NER,Niger,2021,L
+NGA,Nigeria,2021,LM
+MKD,North Macedonia,2021,UM
+MNP,Northern Mariana Islands,2021,H
+NOR,Norway,2021,H
+OMN,Oman,2021,H
+PAK,Pakistan,2021,LM
+PLW,Palau,2021,UM
+PAN,Panama,2021,H
+PNG,Papua New Guinea,2021,LM
+PRY,Paraguay,2021,UM
+PER,Peru,2021,UM
+PHL,Philippines,2021,LM
+POL,Poland,2021,H
+PRT,Portugal,2021,H
+PRI,Puerto Rico,2021,H
+QAT,Qatar,2021,H
+ROU,Romania,2021,H
+RUS,Russian Federation,2021,UM
+RWA,Rwanda,2021,L
+WSM,Samoa,2021,LM
+SMR,San Marino,2021,H
+STP,São Tomé and Príncipe,2021,LM
+SAU,Saudi Arabia,2021,H
+SEN,Senegal,2021,LM
+SRB,Serbia,2021,UM
+SYC,Seychelles,2021,H
+SLE,Sierra Leone,2021,L
+SGP,Singapore,2021,H
+SXM,Sint Maarten (Dutch part),2021,H
+SVK,Slovak Republic,2021,H
+SVN,Slovenia,2021,H
+SLB,Solomon Islands,2021,LM
+SOM,Somalia,2021,L
+ZAF,South Africa,2021,UM
+SSD,South Sudan,2021,L
+ESP,Spain,2021,H
+LKA,Sri Lanka,2021,LM
+KNA,St. Kitts and Nevis,2021,H
+LCA,St. Lucia,2021,UM
+MAF,St. Martin (French part),2021,H
+VCT,St. Vincent and the Grenadines,2021,UM
+SDN,Sudan,2021,L
+SUR,Suriname,2021,UM
+SWE,Sweden,2021,H
+CHE,Switzerland,2021,H
+SYR,Syrian Arab Republic,2021,L
+TWN,"Taiwan, China",2021,H
+TJK,Tajikistan,2021,LM
+TZA,Tanzania,2021,LM
+THA,Thailand,2021,UM
+TLS,Timor-Leste,2021,LM
+TGO,Togo,2021,L
+TON,Tonga,2021,UM
+TTO,Trinidad and Tobago,2021,H
+TUN,Tunisia,2021,LM
+TUR,Türkiye,2021,UM
+TKM,Turkmenistan,2021,UM
+TCA,Turks and Caicos Islands,2021,H
+TUV,Tuvalu,2021,UM
+UGA,Uganda,2021,L
+UKR,Ukraine,2021,LM
+ARE,United Arab Emirates,2021,H
+GBR,United Kingdom,2021,H
+USA,United States,2021,H
+URY,Uruguay,2021,H
+UZB,Uzbekistan,2021,LM
+VUT,Vanuatu,2021,LM
+VEN,"Venezuela, RB",2021,
+VNM,Viet Nam,2021,LM
+VIR,Virgin Islands (U.S.),2021,H
+PSE,West Bank and Gaza,2021,LM
+YEM,"Yemen, Rep.",2021,L
+ZMB,Zambia,2021,L
+ZWE,Zimbabwe,2021,LM
+CSK,Czechoslovakia (former),2021,
+MYT,Mayotte,2021,
+ANT,Netherlands Antilles (former),2021,
+YUG,Serbia and Montenegro (former),2021,
+SUN,USSR (former),2021,
+AFG,Afghanistan,2022,L
+ALB,Albania,2022,UM
+DZA,Algeria,2022,LM
+ASM,American Samoa,2022,H
+AND,Andorra,2022,H
+AGO,Angola,2022,LM
+ATG,Antigua and Barbuda,2022,H
+ARG,Argentina,2022,UM
+ARM,Armenia,2022,UM
+ABW,Aruba,2022,H
+AUS,Australia,2022,H
+AUT,Austria,2022,H
+AZE,Azerbaijan,2022,UM
+BHS,"Bahamas, The",2022,H
+BHR,Bahrain,2022,H
+BGD,Bangladesh,2022,LM
+BRB,Barbados,2022,H
+BLR,Belarus,2022,UM
+BEL,Belgium,2022,H
+BLZ,Belize,2022,UM
+BEN,Benin,2022,LM
+BMU,Bermuda,2022,H
+BTN,Bhutan,2022,LM
+BOL,Bolivia,2022,LM
+BIH,Bosnia and Herzegovina,2022,UM
+BWA,Botswana,2022,UM
+BRA,Brazil,2022,UM
+VGB,British Virgin Islands,2022,H
+BRN,Brunei Darussalam,2022,H
+BGR,Bulgaria,2022,UM
+BFA,Burkina Faso,2022,L
+BDI,Burundi,2022,L
+CPV,Cabo Verde,2022,LM
+KHM,Cambodia,2022,LM
+CMR,Cameroon,2022,LM
+CAN,Canada,2022,H
+CYM,Cayman Islands,2022,H
+CAF,Central African Republic,2022,L
+TCD,Chad,2022,L
+CHI,Channel Islands,2022,H
+CHL,Chile,2022,H
+CHN,China,2022,UM
+COL,Colombia,2022,UM
+COM,Comoros,2022,LM
+COD,"Congo, Dem. Rep.",2022,L
+COG,"Congo, Rep.",2022,LM
+CRI,Costa Rica,2022,UM
+CIV,Côte d'Ivoire,2022,LM
+HRV,Croatia,2022,H
+CUB,Cuba,2022,UM
+CUW,Curaçao,2022,H
+CYP,Cyprus,2022,H
+CZE,Czechia,2022,H
+DNK,Denmark,2022,H
+DJI,Djibouti,2022,LM
+DMA,Dominica,2022,UM
+DOM,Dominican Republic,2022,UM
+ECU,Ecuador,2022,UM
+EGY,"Egypt, Arab Rep.",2022,LM
+SLV,El Salvador,2022,UM
+GNQ,Equatorial Guinea,2022,UM
+ERI,Eritrea,2022,L
+EST,Estonia,2022,H
+SWZ,Eswatini,2022,LM
+ETH,Ethiopia,2022,L
+FRO,Faeroe Islands,2022,H
+FJI,Fiji,2022,UM
+FIN,Finland,2022,H
+FRA,France,2022,H
+PYF,French Polynesia,2022,H
+GAB,Gabon,2022,UM
+GMB,"Gambia, The",2022,L
+GEO,Georgia,2022,UM
+DEU,Germany,2022,H
+GHA,Ghana,2022,LM
+GIB,Gibraltar,2022,H
+GRC,Greece,2022,H
+GRL,Greenland,2022,H
+GRD,Grenada,2022,UM
+GUM,Guam,2022,H
+GTM,Guatemala,2022,UM
+GIN,Guinea,2022,LM
+GNB,Guinea-Bissau,2022,L
+GUY,Guyana,2022,H
+HTI,Haiti,2022,LM
+HND,Honduras,2022,LM
+HKG,"Hong Kong SAR, China",2022,H
+HUN,Hungary,2022,H
+ISL,Iceland,2022,H
+IND,India,2022,LM
+IDN,Indonesia,2022,UM
+IRN,"Iran, Islamic Rep.",2022,LM
+IRQ,Iraq,2022,UM
+IRL,Ireland,2022,H
+IMN,Isle of Man,2022,H
+ISR,Israel,2022,H
+ITA,Italy,2022,H
+JAM,Jamaica,2022,UM
+JPN,Japan,2022,H
+JOR,Jordan,2022,LM
+KAZ,Kazakhstan,2022,UM
+KEN,Kenya,2022,LM
+KIR,Kiribati,2022,LM
+PRK,"Korea, Dem. Rep.",2022,L
+KOR,"Korea, Rep.",2022,H
+XKX,Kosovo,2022,UM
+KWT,Kuwait,2022,H
+KGZ,Kyrgyz Republic,2022,LM
+LAO,Lao PDR,2022,LM
+LVA,Latvia,2022,H
+LBN,Lebanon,2022,LM
+LSO,Lesotho,2022,LM
+LBR,Liberia,2022,L
+LBY,Libya,2022,UM
+LIE,Liechtenstein,2022,H
+LTU,Lithuania,2022,H
+LUX,Luxembourg,2022,H
+MAC,"Macao SAR, China",2022,H
+MDG,Madagascar,2022,L
+MWI,Malawi,2022,L
+MYS,Malaysia,2022,UM
+MDV,Maldives,2022,UM
+MLI,Mali,2022,L
+MLT,Malta,2022,H
+MHL,Marshall Islands,2022,UM
+MRT,Mauritania,2022,LM
+MUS,Mauritius,2022,UM
+MEX,Mexico,2022,UM
+FSM,"Micronesia, Fed. Sts.",2022,LM
+MDA,Moldova,2022,UM
+MCO,Monaco,2022,H
+MNG,Mongolia,2022,LM
+MNE,Montenegro,2022,UM
+MAR,Morocco,2022,LM
+MOZ,Mozambique,2022,L
+MMR,Myanmar,2022,LM
+NAM,Namibia,2022,UM
+NRU,Nauru,2022,H
+NPL,Nepal,2022,LM
+NLD,Netherlands,2022,H
+NCL,New Caledonia,2022,H
+NZL,New Zealand,2022,H
+NIC,Nicaragua,2022,LM
+NER,Niger,2022,L
+NGA,Nigeria,2022,LM
+MKD,North Macedonia,2022,UM
+MNP,Northern Mariana Islands,2022,H
+NOR,Norway,2022,H
+OMN,Oman,2022,H
+PAK,Pakistan,2022,LM
+PLW,Palau,2022,UM
+PAN,Panama,2022,H
+PNG,Papua New Guinea,2022,LM
+PRY,Paraguay,2022,UM
+PER,Peru,2022,UM
+PHL,Philippines,2022,LM
+POL,Poland,2022,H
+PRT,Portugal,2022,H
+PRI,Puerto Rico,2022,H
+QAT,Qatar,2022,H
+ROU,Romania,2022,H
+RUS,Russian Federation,2022,UM
+RWA,Rwanda,2022,L
+WSM,Samoa,2022,LM
+SMR,San Marino,2022,H
+STP,São Tomé and Príncipe,2022,LM
+SAU,Saudi Arabia,2022,H
+SEN,Senegal,2022,LM
+SRB,Serbia,2022,UM
+SYC,Seychelles,2022,H
+SLE,Sierra Leone,2022,L
+SGP,Singapore,2022,H
+SXM,Sint Maarten (Dutch part),2022,H
+SVK,Slovak Republic,2022,H
+SVN,Slovenia,2022,H
+SLB,Solomon Islands,2022,LM
+SOM,Somalia,2022,L
+ZAF,South Africa,2022,UM
+SSD,South Sudan,2022,L
+ESP,Spain,2022,H
+LKA,Sri Lanka,2022,LM
+KNA,St. Kitts and Nevis,2022,H
+LCA,St. Lucia,2022,UM
+MAF,St. Martin (French part),2022,H
+VCT,St. Vincent and the Grenadines,2022,UM
+SDN,Sudan,2022,L
+SUR,Suriname,2022,UM
+SWE,Sweden,2022,H
+CHE,Switzerland,2022,H
+SYR,Syrian Arab Republic,2022,L
+TWN,"Taiwan, China",2022,H
+TJK,Tajikistan,2022,LM
+TZA,Tanzania,2022,LM
+THA,Thailand,2022,UM
+TLS,Timor-Leste,2022,LM
+TGO,Togo,2022,L
+TON,Tonga,2022,UM
+TTO,Trinidad and Tobago,2022,H
+TUN,Tunisia,2022,LM
+TUR,Türkiye,2022,UM
+TKM,Turkmenistan,2022,UM
+TCA,Turks and Caicos Islands,2022,H
+TUV,Tuvalu,2022,UM
+UGA,Uganda,2022,L
+UKR,Ukraine,2022,LM
+ARE,United Arab Emirates,2022,H
+GBR,United Kingdom,2022,H
+USA,United States,2022,H
+URY,Uruguay,2022,H
+UZB,Uzbekistan,2022,LM
+VUT,Vanuatu,2022,LM
+VEN,"Venezuela, RB",2022,
+VNM,Viet Nam,2022,LM
+VIR,Virgin Islands (U.S.),2022,H
+PSE,West Bank and Gaza,2022,UM
+YEM,"Yemen, Rep.",2022,L
+ZMB,Zambia,2022,LM
+ZWE,Zimbabwe,2022,LM
+CSK,Czechoslovakia (former),2022,
+MYT,Mayotte,2022,
+ANT,Netherlands Antilles (former),2022,
+YUG,Serbia and Montenegro (former),2022,
+SUN,USSR (former),2022,
+AFG,Afghanistan,2023,L
+ALB,Albania,2023,UM
+DZA,Algeria,2023,UM
+ASM,American Samoa,2023,H
+AND,Andorra,2023,H
+AGO,Angola,2023,LM
+ATG,Antigua and Barbuda,2023,H
+ARG,Argentina,2023,UM
+ARM,Armenia,2023,UM
+ABW,Aruba,2023,H
+AUS,Australia,2023,H
+AUT,Austria,2023,H
+AZE,Azerbaijan,2023,UM
+BHS,"Bahamas, The",2023,H
+BHR,Bahrain,2023,H
+BGD,Bangladesh,2023,LM
+BRB,Barbados,2023,H
+BLR,Belarus,2023,UM
+BEL,Belgium,2023,H
+BLZ,Belize,2023,UM
+BEN,Benin,2023,LM
+BMU,Bermuda,2023,H
+BTN,Bhutan,2023,LM
+BOL,Bolivia,2023,LM
+BIH,Bosnia and Herzegovina,2023,UM
+BWA,Botswana,2023,UM
+BRA,Brazil,2023,UM
+VGB,British Virgin Islands,2023,H
+BRN,Brunei Darussalam,2023,H
+BGR,Bulgaria,2023,H
+BFA,Burkina Faso,2023,L
+BDI,Burundi,2023,L
+CPV,Cabo Verde,2023,LM
+KHM,Cambodia,2023,LM
+CMR,Cameroon,2023,LM
+CAN,Canada,2023,H
+CYM,Cayman Islands,2023,H
+CAF,Central African Republic,2023,L
+TCD,Chad,2023,L
+CHI,Channel Islands,2023,H
+CHL,Chile,2023,H
+CHN,China,2023,UM
+COL,Colombia,2023,UM
+COM,Comoros,2023,LM
+COD,"Congo, Dem. Rep.",2023,L
+COG,"Congo, Rep.",2023,LM
+CRI,Costa Rica,2023,UM
+CIV,Côte d'Ivoire,2023,LM
+HRV,Croatia,2023,H
+CUB,Cuba,2023,UM
+CUW,Curaçao,2023,H
+CYP,Cyprus,2023,H
+CZE,Czechia,2023,H
+DNK,Denmark,2023,H
+DJI,Djibouti,2023,LM
+DMA,Dominica,2023,UM
+DOM,Dominican Republic,2023,UM
+ECU,Ecuador,2023,UM
+EGY,"Egypt, Arab Rep.",2023,LM
+SLV,El Salvador,2023,UM
+GNQ,Equatorial Guinea,2023,UM
+ERI,Eritrea,2023,L
+EST,Estonia,2023,H
+SWZ,Eswatini,2023,LM
+ETH,Ethiopia,2023,L
+FRO,Faeroe Islands,2023,H
+FJI,Fiji,2023,UM
+FIN,Finland,2023,H
+FRA,France,2023,H
+PYF,French Polynesia,2023,H
+GAB,Gabon,2023,UM
+GMB,"Gambia, The",2023,L
+GEO,Georgia,2023,UM
+DEU,Germany,2023,H
+GHA,Ghana,2023,LM
+GIB,Gibraltar,2023,H
+GRC,Greece,2023,H
+GRL,Greenland,2023,H
+GRD,Grenada,2023,UM
+GUM,Guam,2023,H
+GTM,Guatemala,2023,UM
+GIN,Guinea,2023,LM
+GNB,Guinea-Bissau,2023,L
+GUY,Guyana,2023,H
+HTI,Haiti,2023,LM
+HND,Honduras,2023,LM
+HKG,"Hong Kong SAR, China",2023,H
+HUN,Hungary,2023,H
+ISL,Iceland,2023,H
+IND,India,2023,LM
+IDN,Indonesia,2023,UM
+IRN,"Iran, Islamic Rep.",2023,UM
+IRQ,Iraq,2023,UM
+IRL,Ireland,2023,H
+IMN,Isle of Man,2023,H
+ISR,Israel,2023,H
+ITA,Italy,2023,H
+JAM,Jamaica,2023,UM
+JPN,Japan,2023,H
+JOR,Jordan,2023,LM
+KAZ,Kazakhstan,2023,UM
+KEN,Kenya,2023,LM
+KIR,Kiribati,2023,LM
+PRK,"Korea, Dem. Rep.",2023,L
+KOR,"Korea, Rep.",2023,H
+XKX,Kosovo,2023,UM
+KWT,Kuwait,2023,H
+KGZ,Kyrgyz Republic,2023,LM
+LAO,Lao PDR,2023,LM
+LVA,Latvia,2023,H
+LBN,Lebanon,2023,LM
+LSO,Lesotho,2023,LM
+LBR,Liberia,2023,L
+LBY,Libya,2023,UM
+LIE,Liechtenstein,2023,H
+LTU,Lithuania,2023,H
+LUX,Luxembourg,2023,H
+MAC,"Macao SAR, China",2023,H
+MDG,Madagascar,2023,L
+MWI,Malawi,2023,L
+MYS,Malaysia,2023,UM
+MDV,Maldives,2023,UM
+MLI,Mali,2023,L
+MLT,Malta,2023,H
+MHL,Marshall Islands,2023,UM
+MRT,Mauritania,2023,LM
+MUS,Mauritius,2023,UM
+MEX,Mexico,2023,UM
+FSM,"Micronesia, Fed. Sts.",2023,LM
+MDA,Moldova,2023,UM
+MCO,Monaco,2023,H
+MNG,Mongolia,2023,UM
+MNE,Montenegro,2023,UM
+MAR,Morocco,2023,LM
+MOZ,Mozambique,2023,L
+MMR,Myanmar,2023,LM
+NAM,Namibia,2023,UM
+NRU,Nauru,2023,H
+NPL,Nepal,2023,LM
+NLD,Netherlands,2023,H
+NCL,New Caledonia,2023,H
+NZL,New Zealand,2023,H
+NIC,Nicaragua,2023,LM
+NER,Niger,2023,L
+NGA,Nigeria,2023,LM
+MKD,North Macedonia,2023,UM
+MNP,Northern Mariana Islands,2023,H
+NOR,Norway,2023,H
+OMN,Oman,2023,H
+PAK,Pakistan,2023,LM
+PLW,Palau,2023,H
+PAN,Panama,2023,H
+PNG,Papua New Guinea,2023,LM
+PRY,Paraguay,2023,UM
+PER,Peru,2023,UM
+PHL,Philippines,2023,LM
+POL,Poland,2023,H
+PRT,Portugal,2023,H
+PRI,Puerto Rico,2023,H
+QAT,Qatar,2023,H
+ROU,Romania,2023,H
+RUS,Russian Federation,2023,H
+RWA,Rwanda,2023,L
+WSM,Samoa,2023,LM
+SMR,San Marino,2023,H
+STP,São Tomé and Príncipe,2023,LM
+SAU,Saudi Arabia,2023,H
+SEN,Senegal,2023,LM
+SRB,Serbia,2023,UM
+SYC,Seychelles,2023,H
+SLE,Sierra Leone,2023,L
+SGP,Singapore,2023,H
+SXM,Sint Maarten (Dutch part),2023,H
+SVK,Slovak Republic,2023,H
+SVN,Slovenia,2023,H
+SLB,Solomon Islands,2023,LM
+SOM,Somalia,2023,L
+ZAF,South Africa,2023,UM
+SSD,South Sudan,2023,L
+ESP,Spain,2023,H
+LKA,Sri Lanka,2023,LM
+KNA,St. Kitts and Nevis,2023,H
+LCA,St. Lucia,2023,UM
+MAF,St. Martin (French part),2023,H
+VCT,St. Vincent and the Grenadines,2023,UM
+SDN,Sudan,2023,L
+SUR,Suriname,2023,UM
+SWE,Sweden,2023,H
+CHE,Switzerland,2023,H
+SYR,Syrian Arab Republic,2023,L
+TWN,"Taiwan, China",2023,H
+TJK,Tajikistan,2023,LM
+TZA,Tanzania,2023,LM
+THA,Thailand,2023,UM
+TLS,Timor-Leste,2023,LM
+TGO,Togo,2023,L
+TON,Tonga,2023,UM
+TTO,Trinidad and Tobago,2023,H
+TUN,Tunisia,2023,LM
+TUR,Türkiye,2023,UM
+TKM,Turkmenistan,2023,UM
+TCA,Turks and Caicos Islands,2023,H
+TUV,Tuvalu,2023,UM
+UGA,Uganda,2023,L
+UKR,Ukraine,2023,UM
+ARE,United Arab Emirates,2023,H
+GBR,United Kingdom,2023,H
+USA,United States,2023,H
+URY,Uruguay,2023,H
+UZB,Uzbekistan,2023,LM
+VUT,Vanuatu,2023,LM
+VEN,"Venezuela, RB",2023,
+VNM,Viet Nam,2023,LM
+VIR,Virgin Islands (U.S.),2023,H
+PSE,West Bank and Gaza,2023,LM
+YEM,"Yemen, Rep.",2023,L
+ZMB,Zambia,2023,LM
+ZWE,Zimbabwe,2023,LM
+CSK,Czechoslovakia (former),2023,
+MYT,Mayotte,2023,
+ANT,Netherlands Antilles (former),2023,
+YUG,Serbia and Montenegro (former),2023,
+SUN,USSR (former),2023,

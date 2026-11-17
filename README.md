@@ -77,10 +77,10 @@ folder and you see how it is built, how it is tested, and what the tests found.
 
 | Folder | What | Run order |
 |---|---|---|
-| `01_data/raw/` | The UN SDG goal exports (310 MB, untracked; see Reproducing), `sdg_update_info.xlsx`, dated SPI and HRV snapshots for validation, and `analysis_data__2026-11-15.{csv,rds}`, a frozen copy of the Politics of NAs panel that `paper_numbers.R` and `build_docs_data.R` read for income groups, GDP and country names | |
-| `01_data/processed/` | Cleaned UN data, series list, variant map, stability, provenance. Data dictionary in its `README.md` | |
+| `01_data/raw/` | The UN SDG goal exports (310 MB, untracked; see Reproducing), `sdg_update_info.xlsx`, dated snapshots (SPI and HRV for validation; World Bank income groups and GDP per capita, pulled by `build_country_covariates.R`), with a `_manifest.csv` of pull dates | |
+| `01_data/processed/` | Cleaned UN data, series list, variant map, stability, provenance, and `country_covariates.csv` (names, income group, GDP per capita, SPI per country-year). Data dictionary in its `README.md` | |
 | `01_data/vsi_scores/` | Scores, fits and series parameters: `vsi/` (`vsi`), `vsi_goal/` (`vsi_goal`), `vsi_goal_relative/` (`vsi_goal_relative`, new in v1.4.0) | |
-| `02_processing/` | | 1 `extract_SDG_series_data_2015_2023.R` · 2 `build_variant_map.R` (**must run before any fit**) · 3 `build_series_provenance.R` · `build_series_stability.R`, `build_hrv_snapshot.R` as needed · checks: `check_series_coverage.R`, `collinear_series_report.R` |
+| `02_processing/` | | 1 `extract_SDG_series_data_2015_2023.R` · 2 `build_variant_map.R` (**must run before any fit**) · 3 `build_series_provenance.R` · `build_country_covariates.R` (income groups, GDP and SPI from their original sources; `REFRESH=1` re-pulls) · `build_series_stability.R`, `build_hrv_snapshot.R` as needed · checks: `check_series_coverage.R`, `collinear_series_report.R` |
 | `03_measures/vsi/` | The overall index | 4 `build_irt_vsi.R` · check: `validate_vsi_external.R` |
 | `03_measures/vsi_goal/` | One score per goal | 5 `build_irt_vsi_goal.R` · checks: `validate_vsi_goal_heldout.R` (~13 min), `validate_vsi_goal_bootstrap.R` (~98 min on 8 cores) |
 | `03_measures/vsi_goal_relative/` | A goal net of the country's own overall level | `build_irt_vsi_goal_relative.R` (long, checkpointed, resumes) · checks: `validate_vsi_goal_relative_heldout.R` (~2.5 h), `validate_vsi_goal_relative_bootstrap.R` (~4.7 h, checkpointed) |

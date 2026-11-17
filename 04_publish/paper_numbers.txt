@@ -11,16 +11,17 @@ steepest declines: Myanmar (-1.01), Micronesia (Federated States of) (-0.77), Ti
 largest increases: Andorra (+0.87), Somalia (+0.77), Seychelles (+0.70), Rwanda (+0.70), Eswatini (+0.68)
 
 === SECTION 7.1: convergent validity ===
-modified SPI (pillars 1,2,4,5)  spearman 0.88 | pearson 0.866 | n 1336
-unmodified SPI                  pearson  0.852 | n 1329
+modified SPI (pillars 1,2,4,5)  spearman 0.878 | pearson 0.865 | n 1432
+unmodified SPI                  pearson  0.851 | n 1425
 (the by-pillar table and HRV come from validate_vsi_external.R ->
  03_measures/vsi/checks/output/vsi_external_validity.csv)
 
 === SECTION 7.2: known-groups ===
-  L: -0.9 (n 263)
-  UM: 0.04 (n 414)
-  LM: -0.37 (n 438)
-  H: 1.22 (n 456)
+  Low income: -0.9 (n 263)
+  Upper-middle income: -0.1 (n 494)
+  Lower-middle income: -0.41 (n 463)
+  High income: 0.9 (n 549)
+  Unclassified: -1.36 (n 4)
 
 === SECTION 7.3: against the share-based measures ===
   pct_frontier: 0.614 (n 1773)
@@ -37,10 +38,10 @@ median SE             : 0.1138
 maximum SE            : 0.1643
 
 === SECTION 7.5: is it a capacity index? ===
-R2 of SPI(mod) + log GDP pc : 0.82 (n 1317)
-within-country corr with SPI(mod), demeaned : 0.169
+R2 of SPI(mod) + log GDP pc : 0.806 (n 1418)
+within-country corr with SPI(mod), demeaned : 0.146
 share of total variance that is within-country : 4.8%
-countries with no SPI at all : 27
+countries with no SPI at all : 9
 
 === SECTION 9: the sector layer ===
 goals scored            : 16 of 17 (goal 7 has 3 series, too few)

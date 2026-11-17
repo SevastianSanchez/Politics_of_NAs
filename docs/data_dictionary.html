@@ -192,7 +192,7 @@
       <div class="grp">
         <span class="lk">markers</span>
         <span class="badge key">KEY</span><span class="lk">grain</span>
-        <span class="badge merge">MERGE</span><span class="lk">to analysis_data</span>
+        <span class="badge merge">MERGE</span><span class="lk">join key</span>
       </div>
     </div>
 
@@ -250,7 +250,7 @@
         <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
         <tbody>
           <tr class="grp-row"><td colspan="3"><span class="gl">identity &amp; keys</span></td></tr>
-          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to analysis_data <span class="badge merge">MERGE</span> <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; join key <span class="badge merge">MERGE</span> <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015&ndash;2023 <span class="badge key">KEY</span></td></tr>
           <tr class="grp-row"><td colspan="3"><span class="gl">the measure</span></td></tr>
           <tr><td class="col"><span class="cn">vsi</span></td><td class="type"><span class="ty">dbl</span></td><td class="desc">Visible States Index: latent reporting transparency on a standard-normal scale. 0 is the average country-year; positive is more complete reporting. Internally <code>theta</code> in the fit objects.</td></tr>
@@ -278,7 +278,7 @@
         <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
         <tbody>
           <tr class="grp-row"><td colspan="3"><span class="gl">identity &amp; keys</span></td></tr>
-          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to analysis_data and to vsi_scores <span class="badge merge">MERGE</span> <span class="badge key">KEY</span></td></tr>
+          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to vsi_scores <span class="badge merge">MERGE</span> <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015&ndash;2023 <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">goal</span></td><td class="type"><span class="ty">int</span></td><td class="desc">SDG goal number. 1&ndash;6 and 8&ndash;17; goal 7 is absent by construction <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">goal_name</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">The goal's official short title, e.g. "Good health and well-being"</td></tr>
@@ -314,7 +314,7 @@
           <tr class="grp-row"><td colspan="3"><span class="gl">identity &amp; keys</span></td></tr>
           <tr><td class="col"><span class="cn">geo_area_code</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">UN M49 numeric code <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">geo_area_name</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">Country / territory name</td></tr>
-          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; joins to analysis_data <span class="badge merge">MERGE</span></td></tr>
+          <tr><td class="col"><span class="cn">iso3</span></td><td class="type"><span class="ty">chr</span></td><td class="desc">ISO-3166 alpha-3; join key <span class="badge merge">MERGE</span></td></tr>
           <tr><td class="col"><span class="cn">year</span></td><td class="type"><span class="ty">int</span></td><td class="desc">2015–2023 <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">scope</span></td><td class="type"><span class="ty">chr</span></td><td class="desc"><code>goal</code> = per country-year-goal · <code>overall</code> = per country-year, all goals aggregated <span class="badge key">KEY</span></td></tr>
           <tr><td class="col"><span class="cn">goal</span></td><td class="type"><span class="ty">int</span></td><td class="desc">SDG 1–17; <code>NA</code> on overall rows <span class="badge key">KEY</span></td></tr>

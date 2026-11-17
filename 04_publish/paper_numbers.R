@@ -16,15 +16,18 @@ say <- function(...) { cat(..., "\n", sep = ""); cat(..., "\n", sep = "", file =
 
 tw  <- fread(here("01_data/vsi_scores/vsi/irt_vsi_scores.csv"))
 lg  <- fread(here("01_data/vsi_scores/vsi/irt_vsi_run_log.csv"))
-ad  <- fread(here("01_data/raw/analysis_data__2026-11-15.csv"))  # frozen copy of the Politics of NAs panel (now in politics-of-nas-paper)
-ov  <- unique(ad[scope == "overall", .(iso3, year, income_level, gdp_pc, spi_overall,
-                                       spi_overall_mod, prop_sdg_missing_sdr,
+# Covariates from their original sources (02_processing/build_country_covariates.R),
+# and the count-based measures from the repo's own cleaned SDG data.
+cv  <- fread(here("01_data/processed/country_covariates.csv"))[, .(iso3, year, income_level, gdp_pc,
+                                                                     spi_overall, spi_overall_mod)]
+cnt <- unique(fread(here("01_data/processed/goal_lvl_dv_data.csv"))[scope == "overall", .(iso3, year,
                                        dv_n_observations_pct_baseline,
                                        dv_n_observations_stable_pct_baseline,
                                        dv_n_observations_pct_goalbase,
                                        dv_n_observations_stable_pct_goalbase,
                                        dv_n_observations_pct_frontier,
                                        n_observations)])
+ov  <- merge(cv, cnt, by = c("iso3", "year"), all.x = TRUE)
 d <- merge(tw, ov, by = c("iso3", "year"), all.x = TRUE)
 nm <- unique(fread(here("docs/vsi_scores.csv"))[, .(iso3, country_name)])
 d  <- merge(d, nm, by = "iso3", all.x = TRUE)

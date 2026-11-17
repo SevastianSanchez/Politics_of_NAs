@@ -21,7 +21,7 @@
 # INPUT   01_data/vsi_scores/vsi/irt_vsi_scores.rds   (the VSI scores)
 #         01_data/vsi_scores/vsi_goal/irt_vsi_goal_scores.rds  (the sector layer)
 #         01_data/vsi_scores/vsi_goal/irt_vsi_goal_health.csv  (per-goal diagnostics)
-#         01_data/raw/analysis_data__2026-11-15.rds  (country names, income groups; frozen copy)
+#         01_data/processed/country_covariates.csv  (country names, income groups)
 # OUTPUT  docs/vsi_scores.json, docs/vsi_scores.csv
 #         docs/goal_scores.json, docs/goal_scores.csv
 # ==============================================================================
@@ -29,12 +29,13 @@
 suppressPackageStartupMessages({library(data.table); library(here); library(jsonlite)})
 
 s <- as.data.table(readRDS(here("01_data/vsi_scores/vsi/irt_vsi_scores.rds")))
-a <- as.data.table(readRDS(here("01_data/raw/analysis_data__2026-11-15.rds")))  # frozen copy of the Politics of NAs panel
+# Country names and income groups: built from their original sources by
+# 02_processing/build_country_covariates.R. Income group is that year's World
+# Bank classification, so each country-year row carries its own.
+cv   <- fread(here("01_data/processed/country_covariates.csv"))
+meta <- cv[, .(iso3, year, country_name, income_level)]
 
-meta <- unique(a[, .(iso3, country_name, income_level)])
-meta <- meta[!is.na(iso3)][, .SD[1], by = iso3]
-
-s <- merge(s, meta, by = "iso3", all.x = TRUE)
+s <- merge(s, meta, by = c("iso3", "year"), all.x = TRUE)
 s[is.na(country_name), country_name := iso3]
 s[is.na(income_level) | income_level == "", income_level := "Unclassified"]
 
@@ -120,7 +121,7 @@ if (file.exists(gp) && file.exists(hp)) {
   if (!exists("item_goal")) source(here("functions/irt_prep.R"))
   N_SERIES_BY_GOAL <- table(item_goal)
 
-  g <- merge(g, meta, by = "iso3", all.x = TRUE)
+  g <- merge(g, meta, by = c("iso3", "year"), all.x = TRUE)
   g[is.na(country_name), country_name := iso3]
   g[is.na(income_level) | income_level == "", income_level := "Unclassified"]
   g[income_level %in% names(inc_lab), income_level := inc_lab[income_level]]
