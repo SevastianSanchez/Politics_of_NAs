@@ -1,7 +1,7 @@
 # ==============================================================================
 # build_irt_vsi_goal.R
 #
-# Fit 2 of 2: the SECTOR layer. One reporting score per country-year PER GOAL.
+# Fit 2 of 3: the goal-level scores (vsi_goal). One reporting score per country-year PER GOAL.
 # Independent of build_irt_vsi.R -- neither can delay or break the other.
 #
 # WHAT THIS IS

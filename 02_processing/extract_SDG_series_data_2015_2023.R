@@ -7,10 +7,8 @@
 # a 2015-2023 country panel, and writes the cleaned data the Visible States
 # Index is built from.
 #
-# HISTORY: this script was written when the index and the Politics of NAs
-# paper shared one repo. Comments that mention MAIN_panel_data, the treatment
-# or V-Dem/ERT explain choices made for that paper's design (e.g. sovereign
-# states only). The paper now lives in its own repo, politics-of-nas-paper.
+# It also writes two count-based tables (goal_lvl_dv_data, agg_series_counts_rc)
+# kept for comparison; the index does not use them.
 #
 # WHY 2015-2023 (not 2025): the exports run to 2025, but 2024-2025 are still
 # being filled in by the UN (2025 has ~20% of a normal year). Keeping them would
@@ -31,8 +29,8 @@
 #     iso3           country key (added in C4)
 #
 # goal_lvl_dv_data.csv (+ .rds twin with column labels) — COUNT-BASED MEASURES,
-#   the Politics of NAs paper's outcome; not used by the index.
-#   One row per country x year x goal. Outcome columns, side by side:
+#   kept for comparison; not used by the index.
+#   One row per country x year x goal. Count columns, side by side:
 #     n_observations           count of reported observations
 #     n_observations_country   of those, produced by the country (nature C/CA)
 #     n_observations_agency    of those, produced by an agency (nature E/M/G)
@@ -55,7 +53,7 @@
 #   dropped (A3) or rolled up into a parent state (A4). The `disposition` column
 #   says which. A report of what the config did, not a hand-kept list.
 #
-# agg_series_counts_rc.csv — ROBUSTNESS. Availability measured by counting
+# agg_series_counts_rc.csv — COMPARISON. Availability measured by counting
 #   SERIES CODES present (each counts once, regardless of disaggregation depth),
 #   not observations. Two scopes stacked: scope == "goal" (per country-year-goal)
 #   and scope == "overall" (per country-year, goal is NA).
@@ -103,7 +101,7 @@ start_year <- 2015L
 end_year   <- 2023L
 
 # Baseline window for the _pct_baseline / _pct_goalbase measures (Section E1):
-# the first three SDG years, before most autocratization episodes begin. To use
+# the first three SDG years. To use
 # a single year instead, e.g. baseline_years <- 2017L — nothing else changes.
 baseline_years <- 2015:2017
 
@@ -147,14 +145,12 @@ aggregate_geographies <- c(
 #
 # Excluded: places with no permanent population, "other areas" buckets, and
 # states that no longer exist — none has a government or statistics office, so a
-# reporting score for them says nothing about politics.
+# reporting score for them says nothing about a government.
 #
 # NOT excluded on purpose:
 #   - UK devolved jurisdictions (827/828/829): rolled up into the UK (A4).
-#   - Four non-members kept because they have real data and a democracy score
-#     exists (or may): 275 Palestine, 344 Hong Kong, 412 Kosovo, 446 Macao.
-#     None is in MAIN_panel_data yet, so each must be added there before it can
-#     enter a model.
+#   - Four non-members kept because they have their own statistics offices and
+#     real data: 275 Palestine, 344 Hong Kong, 412 Kosovo, 446 Macao.
 excluded_geographies <- list(
   "uninhabited or residual bucket" = c(
     "Antarctica"                                   =  10,
@@ -185,10 +181,9 @@ excluded_geographies <- list(
   ),
 
   # Sub-national reporting strata whose parent state is separately in the panel.
-  # THE RULE: the unit of analysis is the sovereign state, because the treatment
-  # (autocratization episodes from ERT / V-Dem) is coded only at that level.
-  # These units have no V-Dem or ERT score, so they can carry an outcome but can
-  # never be treated. Their parents are fully present — Tanzania (834) with 492
+  # THE RULE: the unit is the sovereign state, the government whose reporting
+  # is scored. These strata are parts of a state that is scored in its own
+  # right. Their parents are fully present — Tanzania (834) with 492
   # series, Iraq (368) with 437 — so nothing is lost from the panel.
   #
   # Corroborating, but NOT the criterion: both would also manufacture false data
@@ -203,11 +198,7 @@ excluded_geographies <- list(
   ),
 
   # Dependent territories and non-member entities. Same rule as the strata above:
-  # the unit of analysis is the sovereign state, because the treatment
-  # (autocratization episodes from ERT / V-Dem) is coded only at that level.
-  # Verified: NONE of these 40 appears in MAIN_panel_data, so every one would
-  # drop silently at the democracy-measure merge. Excluding them here makes that
-  # explicit and keeps the panel's N honest.
+  # the unit is the sovereign state, the government whose reporting is scored.
   #
   # NOT in this list, deliberately retained — see the note above the list:
   #   275 State of Palestine, 344 Hong Kong SAR, 446 Macao SAR, 412 Kosovo.
@@ -290,8 +281,8 @@ if (anyDuplicated(excluded_geo_codes) > 0) {
 # because the underlying institution is devolved. The UK is the case here: it
 # has three separate legal systems, so UNODC publishes crime statistics per
 # jurisdiction (England & Wales, Scotland, Northern Ireland) instead of one
-# UK-wide figure. Those jurisdictions are not sovereign states and carry no
-# V-Dem / ERT score, so they cannot be their own panel unit — but the data is
+# UK-wide figure. Those jurisdictions are not sovereign states, so they
+# cannot be their own panel unit — but the data is
 # real, country-produced reporting (nature "C") that the UK genuinely did, and
 # 12 of the 14 series appear under no other UK code. Excluding them (as with the
 # strata above) would understate UK Goal 16 reporting, so instead their rows are
@@ -338,9 +329,8 @@ rm(.rollup_excluded)
 # supplies ISO3 for the ones it cannot, and would also be the place to force a
 # different code if the analysis needed one.
 #
-# ISO3 is the merge key because MAIN_panel_data keys on it (`country_code`:
-# 172 values, no NAs, 1:1 with country name). Its `iso2c` column has 9 NAs and
-# `country_id` is a local 1-172 index, so neither travels.
+# ISO3 is the key every output uses, and the one the comparison data (World
+# Bank income and GDP, SPI, HRV) merge on.
 #
 # Entries are "M49 code" = "ISO3".
 iso3_overrides <- c(
@@ -731,7 +721,7 @@ print(geo_exclusions %>% select(geo_area_code, geo_area_name, disposition,
 # written. Everything downstream inherits it, and the mapping is validated in
 # the same place the geography decisions are reported.
 #
-# The SDG exports carry M49 numeric codes only; MAIN_panel_data keys on ISO3.
+# The SDG exports carry M49 numeric codes only; every output keys on ISO3.
 # countrycode(origin = "un") is a direct code-to-code lookup, so this avoids
 # name matching entirely — no "Türkiye" vs "Turkey" or "Viet Nam" vs "Vietnam".
 # Section A5 supplies ISO3 for codes the lookup cannot resolve.
@@ -744,7 +734,7 @@ raw_data <- raw_data %>%
 
 .geo_iso <- raw_data %>% distinct(geo_area_code, geo_area_name, iso3)
 
-# Any geography left without an ISO3 cannot be merged to the treatment data.
+# Any geography left without an ISO3 cannot be merged to other datasets.
 .iso_missing <- .geo_iso %>% filter(is.na(iso3))
 if (nrow(.iso_missing) > 0) {
   warning("No ISO3 for ", nrow(.iso_missing), " geography(ies): ",
@@ -775,14 +765,14 @@ write_csv(raw_data, file.path(output_folder, "raw_data.csv.gz"))
 # D. DERIVED REFERENCE TABLES ==================================================
 # =============================================================================
 # All of the following are computed once from raw_data and reused by the
-# outcome panels in Sections E and F.
+# tables in Sections E and F.
 
 # ---- D0. Series stability → series_stability --------------------------------
 # The SDG framework grew inside the study window (483 series with country data
 # in 2015 -> 565 in 2022), so a raw observation count drifts upward for reasons
 # that have nothing to do with country behaviour. The sourced script flags the
 # series present in every year of its core window; that stable core is used in
-# Section E to build a framework-invariant version of the outcome. See
+# Section E to build a framework-invariant version of the counts. See
 # build_series_stability.R for the full rationale.
 
 # Input = raw_data already in memory 
@@ -793,7 +783,7 @@ source(here("02_processing/build_series_stability.R"))
 
 # ---- D1. Country lookup → countries -----------------------------------------
 # Carries iso3 (Section C4), so every panel built from this scaffold ships with
-# the merge key to MAIN_panel_data already attached.
+# the merge key already attached.
 countries <- raw_data %>% distinct(geo_area_code, geo_area_name, iso3)
 
 
@@ -921,7 +911,7 @@ attr(baseline$baseline_mean_stable, "label") <-
 # WHY IT EXISTS: the country-own baseline in D6 is undefined (0) for ~90
 # country-goals that had not begun reporting a goal by 2017, forcing NA in
 # dv_n_observations_pct_baseline. This goal-level denominator is never 0 (some
-# country always reports), so it gives a cross-goal-comparable outcome defined
+# country always reports), so it gives a cross-goal-comparable measure defined
 # for every country-goal-year — see the *_pct_goalbase columns in E1.
 goal_baseline <- baseline %>%
   group_by(goal) %>%
@@ -942,11 +932,11 @@ frontier <- raw_data %>%
 
 
 # =============================================================================
-# E. PRIMARY OUTCOME PANEL (observation counts within goals) ==================
+# E. COUNT-BASED TABLE (observation counts within goals) ======================
 # =============================================================================
 # Each observation is one data point: a country reporting national + urban +
 # rural rows contributes 3 to that goal's count, not 1. Section F has the
-# coarser series-code views for robustness.
+# coarser series-code views.
 
 # ---- E1. Goal-level DV panel: goal_lvl_dv_data ------------------------------
 # Grain: one row per country x year x (goal or overall), set by `scope`:
@@ -966,8 +956,8 @@ frontier <- raw_data %>%
 #   n_observations_stable   of those, in the framework-stable core (D0)
 #   n_declared_missing      empty cells the UN opened here (split by reason)
 #
-# The country/agency split is the key test: if backsliding cuts a country's own
-# reporting while agencies backfill it, n_observations can stay flat while
+# The country/agency split shows who produced the reported numbers: if agencies
+# fill in for a country, n_observations can stay flat while
 # n_observations_country falls. (They need not sum to n_observations — 0.05% of
 # rows carry no nature code.)
 #
@@ -984,7 +974,7 @@ frontier <- raw_data %>%
     # The declared-missing total split by WHY (missing_reason, derived in C1).
     # These three sum to n_declared_missing. `structural` is the one to watch:
     # it is non-applicability, not data loss, so it arguably belongs out of the
-    # denominator. `suppressed` is the sharpest form of the outcome.
+    # denominator.
     n_missing_structural   = sum(is.na(value) & missing_reason == "structural"),
     n_missing_suppressed   = sum(is.na(value) & missing_reason == "suppressed"),
     n_missing_unknown      = sum(is.na(value) & missing_reason == "unknown"),
@@ -1007,7 +997,7 @@ frontier <- raw_data %>%
                                           n_observations / goal_baseline_all, NA_real_),
     dv_n_observations_stable_pct_goalbase = if_else(goal_baseline_stable > 0,
                                           n_observations_stable / goal_baseline_stable, NA_real_),
-    # "vs the top reporter that year": denominator moves yearly, weaker for causal.
+    # "vs the top reporter that year": the denominator moves yearly.
     dv_n_observations_pct_frontier = if_else(frontier_max > 0,
                                           n_observations / frontier_max, NA_real_)
   )
@@ -1069,7 +1059,7 @@ goal_lvl_dv_data <- bind_rows(.goal_panel, .overall_panel) %>%
   arrange(geo_area_name, year, scope, goal)
 
 # Variable labels (attr "label") documenting the series universe behind each
-# outcome column — in particular the series COUNT feeding the all-series vs
+# count column — in particular the series COUNT feeding the all-series vs
 # stable-core columns, computed live so they never go stale. readr::write_csv
 # drops attributes, so these survive only in the .rds twin written below (and
 # in-session, e.g. RStudio's viewer / Hmisc / labelled / gtsummary).
@@ -1111,17 +1101,17 @@ saveRDS(goal_lvl_dv_data, file.path(output_folder, "goal_lvl_dv_data.rds"))
 
 
 # =============================================================================
-# F. ROBUSTNESS PANELS (series-level) =========================================
+# F. SERIES-LEVEL TABLES =======================================================
 # =============================================================================
 # Series-based views that answer "was this series code reported at all?"
-# rather than "how many observations were reported?". Kept as robustness /
-# triangulation for the sector-level primary outcome in Section E.
+# rather than "how many observations were reported?". F1 (agg_series_depth) is
+# what the index's response matrix is built from; F2 is a count-based comparison.
 
 # ---- F1. Series-code presence and depth: agg_series_depth -------------------
 # One row per country x series-code x year with any published value. Two
 # summary columns preserve the disaggregation shape for later analysis:
 #   nature_codes   — "/"-joined sorted unique natures (e.g., "C/M"), so shifts
-#                    in provenance mix under backsliding remain observable.
+#                    in provenance mix stay visible.
 #   n_disagg_rows  — count of raw observations feeding this row, so drops in
 #                    disaggregation depth are visible even when presence is
 #                    unchanged.
@@ -1215,7 +1205,7 @@ saveRDS(agg_series_depth, file.path(output_folder, "agg_series_depth.rds"))
 # ---- F2. Series-code availability, both scopes: agg_series_counts_rc --------
 # Counts SERIES CODES present, not observations: a series code counts once for
 # a country-year no matter how many disaggregated observations sit under it.
-# This is the coarser, SDR-style measure — robustness check only.
+# This is the coarser, SDR-style measure, kept for comparison.
 #
 # Two scopes stacked in one table, distinguished by `scope`:
 #   scope == "goal"    — per country x year x goal; `goal` is filled, and the

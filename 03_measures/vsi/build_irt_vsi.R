@@ -1,13 +1,13 @@
 # ==============================================================================
 # build_irt_vsi.R
 #
-# Fit 1 of 2: the COMPOSITE index. One reporting-transparency score per
-# country-year. Runs in roughly half an hour and is independent of the
-# goal-level fit -- neither script can delay or break the other.
+# Fit 1 of 3: the overall index (vsi). One reporting-transparency score per
+# country-year. Runs in under a minute and is independent of the
+# goal-level fits -- neither script can delay or break the other.
 #
 # WHAT THIS IS
 #   The UN Global Database records, for every country-series-year, whether a
-#   value was reported. Treat each series as a test item and each country-year
+#   value was reported. Treat each series as a test question and each country-year
 #   as a test-taker: a country's latent "reporting transparency" is estimated
 #   jointly with each series' difficulty. This is the Hollyer, Rosendorff &
 #   Vreeland (2014) design applied to SDG data instead of the WDI.
@@ -28,7 +28,7 @@
 #   MCMC) is deliberately NOT done here -- deferred to a later release. Nine
 #   years is short for a random walk to earn its place.
 #
-# RUNTIME   ~25-30 min, converging in about 13,561 EM cycles on 607 items x
+# RUNTIME   about half a minute, converging in about 187 EM cycles on 524 series x
 #           1,773 country-years. An unconverged fit is not publishable, so the
 #           script says so loudly rather than writing quietly.
 #

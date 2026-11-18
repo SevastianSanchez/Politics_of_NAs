@@ -473,7 +473,7 @@ footer p{}
         <tbody></tbody>
       </table>
     </div>
-    <div class="dl">
+    <div class="dl" id="download">
       <div class="dlhead"><h3>Download VSI data</h3></div>
       <div class="dllist">
         <a class="dlrow" href="vsi_scores.csv" download><span class="dlname">Visible States Index<small>v1.4.0 &middot; overall reporting &middot; one row per country&ndash;year &middot; 1,773 rows</small></span><span class="dlact">CSV &darr;</span></a>
@@ -609,7 +609,7 @@ footer p{}
     <p><strong>Licence.</strong> Scores and derived data are released under
       <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>: reuse and
       adapt them freely, including commercially, with attribution. The code that builds
-      them is MIT. Source data from the UN, V-Dem and the World Bank remains under its
+      them is MIT. Source data from the UN and the World Bank remains under its
       own terms.</p>
 
     <p><strong>Status.</strong> This is a preliminary release of work in progress, and
@@ -669,7 +669,7 @@ function init(){
   draw();
 }
 
-/* ---- goal-level panel: the released sector layer (vsi_goal scores) ---- */
+/* ---- Goal-level VSI (vsi_goal scores) ---- */
 let G = null;
 
 function initGoals(){

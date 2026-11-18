@@ -13,8 +13,8 @@ abstract: >-
   behaviour across 524 statistical series and 197 countries, 2015-2023, with
   uncertainty quantified for every country-year. Visible States Index
   (VSI) gives each country-year a single score, estimated by item response
-  theory on the UN Global SDG Indicators Database. Sector-level scores and
-  per-series item parameters accompany it.
+  theory on the UN Global SDG Indicators Database. Goal-level and
+  goal-relative scores and per-series parameters accompany it.
 keywords:
   - transparency
   - missing data

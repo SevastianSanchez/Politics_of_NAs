@@ -19,19 +19,14 @@
 .claude/
 _private_archive/
 
-# Build artifacts: knitr caches and R workspace dumps. Regenerated on knit,
-# and every rerun writes a new multi-MB blob into history if tracked.
-**/*_cache/
-**/*_files/
+# R workspace dumps
 *.RData
-*.rdb
-*.rdx
 
 # Bifactor fit checkpoint: an intermediate the script writes every 50 cycles so
 # a long run survives a closed laptop. Rebuilt by build_irt_vsi_goal_relative.R.
 01_data/vsi_scores/vsi_goal_relative/irt_vsi_goal_relative_ckpt.rds
 
-# Per-replicate checkpoints of validate_vsi_goal_relative_bootstrap.R; regenerated on a run.
+# Per-replicate checkpoints of the two bootstrap checks; regenerated on a run.
 01_data/vsi_scores/vsi_goal_relative/boot_ck/
 01_data/vsi_scores/vsi_goal/boot_ck/
 
@@ -40,3 +35,6 @@ CLAUDE.md
 
 # Release upload folders, built by 04_publish/build_release_bundle.R; uploaded to Zenodo, never committed
 _release/
+
+# Local notes, kept on disk, never pushed
+misc/

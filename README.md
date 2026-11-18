@@ -51,13 +51,6 @@ Machine-readable metadata is in [CITATION.cff](CITATION.cff). Code is MIT-licens
 
 The cleaned tables, their grain, keys and every column are documented in the **[interactive data dictionary](https://sevastiansanchez.github.io/visible-states-project/data_dictionary.html)** (also available as [markdown](01_data/processed/README.md)).
 
-## The Politics of NAs paper
-
-The analysis that uses the index — whether autocratization episodes reduce SDG
-reporting, and which goals lose data first (TWFE and Callaway–Sant'Anna) — lives
-in its own repository, `politics-of-nas-paper`, which reads a pinned release of
-the VSI scores.
-
 ## Repository layout
 
 The top level reads in run order: data → processing → measures → publish.
@@ -119,6 +112,8 @@ into `01_data/raw/un_sdg_exports/`, then run
 download.
 
 ## Related work
+
+The Politics of NAs paper, which uses the index to ask whether autocratization episodes reduce SDG reporting, is in its own repository, `politics-of-nas-paper`.
 
 Di Gennaro Splendore, L., and Sanchez, S. (2025). *Untangling the relationship between democracy, data, and development: A dynamic two-stage analysis of the Sustainable Development Goals* (Preprint). SSRN. https://doi.org/10.2139/ssrn.6998939
 
