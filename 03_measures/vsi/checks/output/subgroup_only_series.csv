@@ -1,0 +1,93 @@
+series_code,cells_reported,cells_no_headline,never_has_headline,series_description
+SH_STA_MORT,1737,1737,TRUE,Maternal mortality ratio
+SH_STA_ANEM,1728,1728,TRUE,Proportion of women aged 15-49 years with anaemia (%)
+SH_STA_ANEM_NPRG,1728,1728,TRUE,"Proportion of women aged 15-49 years with anaemia, non-pregnant (%)"
+SH_STA_ANEM_PREG,1728,1728,TRUE,"Proportion of women aged 15-49 years with anaemia, pregnant (%)"
+SG_GEN_PARL,1713,1713,TRUE,Proportion of seats held by women in national parliaments (% of total number of seats)
+SG_GEN_PARLN,1713,1713,TRUE,Number of seats held by women in national parliaments (number)
+SP_DYN_ADKL,1003,1003,TRUE,"Adolescent birth rate (per 1,000 women aged 15-19 and 10-14 years)"
+IC_GEN_MGTL,937,937,TRUE,Proportion of women in managerial positions - 13th ICLS (%)
+SH_MED_HWRKDIS,914,914,TRUE,"Health worker distribution, by sex and type of occupation (%)"
+IC_GEN_MGTN,787,787,TRUE,Proportion of women in senior and middle management positions - 13th ICLS (%)
+EN_LND_SLUM,707,707,TRUE,Proportion of urban population living in slums (%)
+SG_DMK_PARLSP_LC,571,571,TRUE,"Number of speakers in parliament, by age and sex , Lower Chamber or Unicameral"
+IC_GEN_MGTL_19ICLS,566,566,TRUE,Proportion of women in managerial positions - 19th ICLS (%)
+SG_DMK_PARLCC_LC,532,532,TRUE,"Number of chairs of permanent committees, by age sex and focus of the committee, Lower Chamber or Unicameral"
+SG_DMK_PSRVC,620,470,FALSE,Proportions of positions in the public service compared to national distributions (ratio)
+IC_GEN_MGTN_19ICLS,443,443,TRUE,Proportion of women in senior and middle management positions - 19th ICLS (%)
+SI_COV_MATNL,376,376,TRUE,[ILO] Proportion of mothers with newborns receiving maternity cash benefit (%)
+SG_GEN_LOCGELS,339,339,TRUE,Proportion of elected seats held by women in deliberative bodies of local government (%)
+ER_H2O_PRDU,319,319,TRUE,"Countries with procedures in law or policy for participation by service users/communities in planning program in rural drinking-water supply, by level of definition in procedures (10 = Clearly defined; 5 = Not clearly defined ; 0 = NA)"
+ER_H2O_RURP,319,319,TRUE,"Countries with users/communities participating in planning programs in rural drinking-water supply, by level of participation (3 = High; 2 = Moderate; 1 = Low; 0 = NA)"
+SG_DMK_JDC,421,310,FALSE,Proportions of positions in the judiciary compared to national distributions (ratio)
+SG_DMK_JDC_CNS,356,281,FALSE,"Proportions of positions in the judiciary compared to national distributions, Constitutional Court (ratio)"
+SG_DMK_PARLSP_UC,240,240,TRUE,"Number of speakers in parliament, by age and sex, Upper Chamber"
+SG_DMK_JDC_HGR,299,220,FALSE,"Proportions of positions in the judiciary compared to national distributions, Higher Courts (ratio)"
+SG_DMK_PARLCC_UC,214,214,TRUE,"Number of chairs of permanent committees, by age sex and focus of the committee, Upper Chamber"
+SG_DMK_JDC_LWR,282,199,FALSE,"Proportions of positions in the judiciary compared to national distributions, Lower Courts (ratio)"
+SH_FPL_MTMM,183,183,TRUE,Proportion of women of reproductive age (aged 15-49 years) who have their need for family planning satisfied with modern methods (% of women aged 15-49 years)
+VC_HTF_DETVOG,831,161,FALSE,"Detected victims of human trafficking for removal of organ, by age and sex (number)"
+VC_HTF_DETVOGR,831,161,FALSE,"Detected victims of human trafficking for removal of organ, by age and sex (per 100,000 population)"
+VC_VAW_MARR,161,161,TRUE,"Proportion of ever-partnered women and girls subjected to physical and/or sexual violence by a current or former intimate partner in the previous 12 months, by age (%)"
+VC_HTF_DETVFL,965,126,FALSE,"Detected victims of human trafficking for forced labour, servitude and slavery, by age and sex (number)"
+VC_HTF_DETVFLR,965,126,FALSE,"Detected victims of human trafficking for forced labour, servitude and slavery, by age and sex (per 100,000 population)"
+VC_VAW_NONMARR,124,124,TRUE,Proportion of women and girls aged 15 years and older subjected to sexual violence by persons other than an intimate partner in the previous 12 months (%)
+SH_SAN_SAFE,1366,111,FALSE,"Proportion of population using safely managed sanitation services, by urban/rural (%)"
+SP_DYN_MRBF18,108,108,TRUE,Proportion of women aged 20-24 years who were married or in a union before age 18 (%)
+SP_DYN_MRBF15,105,105,TRUE,Proportion of women aged 20-24 years who were married or in a union before age 15 (%)
+VC_HTF_DETVSX,1130,80,FALSE,"Detected victims of human trafficking for sexual exploitation, by age and sex (number)"
+VC_HTF_DETVSXR,1130,80,FALSE,"Detected victims of human trafficking for sexual exploitation, by age and sex (per 100,000 population)"
+SH_FPL_INFM,77,77,TRUE,"Proportion of women who make their own informed decisions regarding sexual relations, contraceptive use and reproductive health care (% of women aged 15-49 years)"
+SH_FPL_INFMCU,77,77,TRUE,Proportion of women who make their own informed decisions regarding contraceptive use (% of women aged 15-49 years)
+SH_FPL_INFMRH,77,77,TRUE,Proportion of women who make their own informed decisions regarding reproductive health care (% of women aged 15-49 years)
+SH_FPL_INFMSR,77,77,TRUE,Proportion of women who make their own informed decisions regarding sexual relations (% of women aged 15-49 years)
+VC_HTF_DETVOP,1100,76,FALSE,"Detected victims of human trafficking for other purposes, by age and sex (number)"
+VC_HTF_DETVOPR,1100,76,FALSE,"Detected victims of human trafficking for other purposes, by age and sex (per 100,000 population)"
+SL_DOM_TSPD,75,75,TRUE,"Proportion of time spent on unpaid domestic chores and care work, by sex, age and location (%)"
+SL_DOM_TSPDCW,69,69,TRUE,"Proportion of time spent on unpaid care work, by sex, age and location (%)"
+SL_DOM_TSPDDC,69,69,TRUE,"Proportion of time spent on unpaid domestic chores, by sex, age and location (%)"
+SH_MDD_WMN_NPRG,62,62,TRUE,Prevalence of minimum dietary diversity among non-pregnant women aged 15-49 years (%)
+VC_VAW_SXVLN,57,57,TRUE,"Proportion of population aged 18-29 years who experienced sexual violence by age 18, by sex (% of population aged 18-29)"
+VC_VOV_PHYL,130,56,FALSE,"Proportion of population subjected to physical violence in the previous 12 months, by sex (%)"
+SH_H2O_SAFE,1306,54,FALSE,"Proportion of population using safely managed drinking water services, by urban/rural (%)"
+VC_VOV_ROBB,211,46,FALSE,"Proportion of population subjected to robbery in the previous 12 months, by sex (%)"
+VC_VOV_PHY_ASLT,228,44,FALSE,"Proportion of population subjected to physical assault in the previous 12 months, by sex (%)"
+VC_SNS_WALN_DRK,256,40,FALSE,Proportion of population that feel safe walking alone around the area they live after dark (%)
+VC_PRR_PHYV,169,39,FALSE,"Police reporting rate for physical assault in the previous 12 months, by sex (%)"
+VC_PRR_ROBB,161,38,FALSE,"Police reporting rate for robbery in the previous 12 months, by sex (%)"
+SH_SAN_DEFECT,1698,37,FALSE,"Proportion of population practicing open defecation, by urban/rural (%)"
+DC_TOF_URBINFRA,36,36,TRUE,Total official development assistance and other official flows in support of urban infrastructure or urban infrastructure projects (millions of constant 2023 United States dollars)
+SG_DMK_PARLCC_JC,35,35,TRUE,"Number of chairs of permanent committees, by age sex and focus of the committee, Joint Committees"
+SH_STA_FGMS,23,23,TRUE,"Proportion of girls and women aged 15-49 years who have undergone female genital mutilation, by age (%)"
+SP_ROD_R2KM,21,21,TRUE,Proportion of the rural population who live within 2 km of an all-season road
+EN_LND_INDQTHSNG,336,20,FALSE,Proportion of urban population living in inadequate housing (%)
+VC_VOV_SEXL,87,19,FALSE,"Proportion of population subjected to sexual violence in the previous 12 months, by sex (%)"
+AG_PRD_FIESSN,1093,17,FALSE,Population in severe food insecurity (thousands of people)
+SE_ADT_LITR,338,17,FALSE,Youth/adult literacy rate (%)
+VC_VOV_GDSD,208,15,FALSE,"Proportion of population reporting having felt discriminated against, by grounds of discrimination, sex and disability (%)"
+VC_HTF_DETV,1138,13,FALSE,"Detected victims of human trafficking, by age and sex (number)"
+VC_HTF_DETVR,1138,13,FALSE,"Detected victims of human trafficking, by age and sex (per 100,000 population)"
+SH_SAN_HNDWSH,948,12,FALSE,"Proportion of population with basic handwashing facilities on premises, by urban/rural (%)"
+SP_ACS_BSRVSAN,1712,12,FALSE,"Proportion of population using basic sanitation services, by location (%)"
+VC_IHR_PSRC,1100,12,FALSE,"Number of victims of intentional homicide per 100,000 population, by sex (victims per 100,000 population)"
+VC_IHR_PSRCN,1100,12,FALSE,"Number of victims of intentional homicide, by sex (number)"
+VC_PRS_UNSNT,1059,12,FALSE,Unsentenced detainees as a proportion of overall prison population (%)
+VC_VOV_PSYCHL,45,12,FALSE,"Proportion of population subjected to psychological violence in the previous 12 months, by sex (%)"
+VC_VOH_SXPH,36,11,FALSE,"Proportion of persons victim of non-sexual or sexual harassment, in the previous 12 months (%)"
+SE_TOT_CPLR,516,9,FALSE,"Completion rate, by sex, location, wealth quintile and education level (%)"
+SE_AGP_CPRA,523,8,FALSE,"Adjusted gender parity index for completion rate, by location, wealth quintile and education level"
+SE_AWP_CPRA,273,8,FALSE,"Adjusted wealth parity index for completion rate, by sex, location and education level"
+SI_POV_NAHC,516,8,FALSE,Proportion of population living below the national poverty line (%)
+SP_ACS_BSRVH2O,1716,7,FALSE,"Proportion of population using basic drinking water services, by location (%)"
+VC_VOV_SEX_ASLT,112,4,FALSE,"Proportion of population subjected to sexual assault in the previous 12 months, by sex (%)"
+VC_PRR_PHY_VIO,80,3,FALSE,"Police reporting rate for physical violence in the previous 12 months, by sex (%)"
+SD_MDP_MUHC,390,2,FALSE,Proportion of population living in multidimensional poverty (%)
+SH_SUD_TREAT,452,2,FALSE,"Coverage of treatment interventions (pharmacological, psychosocial and rehabilitation and aftercare services) for substance use disorders (%)"
+IU_COR_BRIB,222,1,FALSE,"Prevalence rate of bribery, by sex (%)"
+SD_MDP_ANDI,69,1,FALSE,Average proportion of deprivations for people multidimensionally poor (%)
+SE_ADT_ACTS,609,1,FALSE,"Proportion of youth and adults with information and communications technology (ICT) skills, by sex and type of skill (%)"
+SE_ADT_EDUCTRN,888,1,FALSE,"Participation rate in formal and non-formal education and training, by sex (%)"
+SI_COV_WKINJRY,331,1,FALSE,"[ILO] Proportion of employed population covered in the event of work injury, by sex (%)"
+SP_LGL_LNDDOC,83,1,FALSE,"Proportion of people with legally recognized documentation of their rights to land out of total adult population, by sex (%)"
+SP_LGL_LNDSTR,353,1,FALSE,"Proportion of people with secure tenure rights to land out of total adult population, by sex (%)"
+VC_PRR_SEX_VIO,52,1,FALSE,"Police reporting rate for sexual violence in the previous 12 months, by sex (%)"
